@@ -1,7 +1,10 @@
 import React from 'react'
+import PokeDecks from './Components/PokeDecks'
 
 const App: React.FC = () => {
-  return  <div>yo</div>;
+  return  <div>
+    <PokeDecks />
+  </div>;
 }
 
 
