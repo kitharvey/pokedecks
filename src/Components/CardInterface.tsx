@@ -1,5 +1,9 @@
-export interface GetPokemonArrayInterface {
-    abilities: []
+interface Abilities{
+    ability: {name: string, url: string}
+}
+
+export interface GetPokemonDataInterface {
+    abilities: Abilities[]
     base_experience: number
     forms: []
     game_indices: []
@@ -16,6 +20,10 @@ export interface GetPokemonArrayInterface {
     stats: []
     types: []
     weight: number
+}
+export interface GetPokemonArrayInterface {
+    name: string
+    url: string
 }
 
 // export interface GetPokemonArrayInterface {

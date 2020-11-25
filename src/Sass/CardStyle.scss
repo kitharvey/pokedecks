@@ -1,15 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;500;700;900&display=swap');
+
+
+
 .card{
     height: 300px;
     width: 250px;
+    border-radius: 12px;
+    border: 1px solid black;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    margin-top: 20px;
+
+    .sprite{
+        height: auto;
+        width: auto;
+    }
+
+    .pokemon-name{
+        font-family: 'Roboto', sans-serif;
+        font-weight: 700;
+    }
 }
 
 .grid-of-cards{
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-evenly;
     flex-wrap: wrap;
+
+    padding: 0 10%;
 }
