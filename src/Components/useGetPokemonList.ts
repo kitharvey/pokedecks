@@ -17,7 +17,7 @@ export const useGetPokemonList = () => {
         const interval = {
           offset: 0,
           // offset: Math.ceil(Math.random() * 809 - 11),
-          limit: 808,
+          limit: 806,
         }
         P.getPokemonsList(interval) // with Promise
             .then((response: any) => {

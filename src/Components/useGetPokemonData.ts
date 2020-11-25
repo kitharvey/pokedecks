@@ -11,22 +11,7 @@ const useGetPokemonData = (num: number) => {
 
 
 
-  useEffect(() => {
-    // var interval = {
-    //   limit: Math.random,
-    //   offset: 34
-    // }
-    // P.getPokemonSpeciesList() // with Promise
-    //     .then((response: any) => {
-    //       // setResult({ status: 'loaded', payload: response })
-    //       console.log(response)
-    //     })
-    //     .catch((error: any ) => {
-    //       // setResult({ status: 'error', error })
-    //       console.log(error)
-
-    //     });
-        
+  useEffect(() => {        
     P.getPokemonByName(num, function(response: any, error: any) { // with callback
       if(!error) {
         setResult({ status: 'loaded', payload: response })
