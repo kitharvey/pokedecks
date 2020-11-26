@@ -2,14 +2,16 @@ import React, { useState } from 'react'
 import  Card  from './Card';
 import { useGetPokemonList } from './useGetPokemonList';
 import { Waypoint } from 'react-waypoint';
-import { GetPokemonList } from './CardInterface';
+import { GetPokemonArrayInterface } from './CardInterface';
 
-
+interface GetPokemonList {
+        results: []
+    }
 
 const PokeDecks: React.FC= () => {
         // const [pageNumber, setPageNumber] = useState(1)
         const result = useGetPokemonList()
-        const [pokeArray, setPokeArray] = useState<GetPokemonList>()
+        const [pokeArray, setPokeArray] = useState<GetPokemonList>([])
         
         
 
@@ -26,7 +28,7 @@ const PokeDecks: React.FC= () => {
         const getRandom = (e: any) => {
                 const tempArr = []
                 if(result.status === 'loaded') tempArr.push(result.payload.results[Math.ceil(Math.random() * 809)])
-                setPokeArray([...pokeArray, tempArr])
+                setPokeArray([...pokeArray, result.payload.results[Math.ceil(Math.random() * 809)]])
                 console.log(tempArr, e)
         }
 
