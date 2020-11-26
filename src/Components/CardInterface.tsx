@@ -26,6 +26,10 @@ export interface GetPokemonArrayInterface {
     url: string
 }
 
+export interface GetPokemonList {
+    results: GetPokemonArrayInterface[]
+}
+
 // export interface GetPokemonArrayInterface {
 //     name: string;
 //     url: string;

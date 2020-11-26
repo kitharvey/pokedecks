@@ -1,37 +1,36 @@
 import { useEffect, useState } from 'react'
-import { GetPokemonArrayInterface } from './CardInterface';
+import { GetPokemonList } from './CardInterface';
 import { Service } from './Service';
-var Pokedex = require('pokedex-promise-v2');
-var P = new Pokedex();
+import axios from 'axios'
 
-interface GetPokemonList {
-  results: GetPokemonArrayInterface[]
-}
 
 export const useGetPokemonList = () => {
     const [result, setResult] = useState<Service<GetPokemonList>>({
         status: 'loading'
-      });
+      })
+    // const [hasMore, setHasMore] = useState(false)
+
+
+    // useEffect(() => {
+    //   setResult({status: 'loading'})
+    // }, [query])
+    
 
       useEffect(() => {
-        const interval = {
-          offset: 0,
-          // offset: Math.ceil(Math.random() * 809 - 11),
-          limit: 806,
-        }
-        P.getPokemonsList(interval) // with Promise
-            .then((response: any) => {
-              setResult({ status: 'loaded', payload: response })
-            })
-            .catch((error: any ) => {
-              setResult({ status: 'error', error })
-    
-            });
+        axios({
+          method: 'GET',
+          url: 'https://pokeapi.co/api/v2/pokemon/?limit=806&offset=0',
+        }).then(response => {
+          console.log(response.data.results.length)
+          setResult({ status: 'loaded', payload: response.data })
+        }).catch(error => {
+          if (axios.isCancel(error)) return
+          setResult({ status: 'error', error })
+        })
       }, [])
     
-      console.log(result)
+      // console.log(result)
     
-      return result;
+      return result
 }
-
 
