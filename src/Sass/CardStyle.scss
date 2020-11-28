@@ -6,7 +6,7 @@
     height: 300px;
     width: 250px;
     border-radius: 12px;
-    border: 1px solid black;
+    box-shadow: 5px 5px 5px 0px #00000050;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -30,5 +30,5 @@
     justify-content: space-around;
     flex-wrap: wrap;
 
-    padding: 0 10%;
+    padding: 0 20%;
 }

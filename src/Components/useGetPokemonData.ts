@@ -1,27 +1,26 @@
 import { useEffect, useState } from 'react';
-import { Service } from './Service';
+// import { Service } from './Service';
 import { GetPokemonDataInterface } from './CardInterface';
-var Pokedex = require('pokedex-promise-v2');
-var P = new Pokedex();
+import axios from 'axios'
 
-const useGetPokemonData = (num: number) => {
-  const [result, setResult] = useState<Service<GetPokemonDataInterface>>({
-    status: 'loading'
-  });
+
+const useGetPokemonData = (name: string) => {
+  const [result, setResult] = useState<GetPokemonDataInterface>()
 
 
 
-  useEffect(() => {        
-    P.getPokemonByName(num, function(response: any, error: any) { // with callback
-      if(!error) {
-        setResult({ status: 'loaded', payload: response })
-      } else {
-        setResult({ status: 'error', error })
-      }
-    });
-  }, [num])
+  const fetchAPI = async (num: string) => {
+    if(num !== undefined) {
+      const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`)
+      setResult( response.data )
+      console.log( response.data )
+    }
+  }
+  
 
-  console.log(result)
+    useEffect( () => {
+      fetchAPI(name)
+    }, [name])
 
   return result;
 };
