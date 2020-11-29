@@ -13,7 +13,7 @@ const useGetPokemonData = (name: string) => {
     if(num !== undefined) {
       const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`)
       setResult( response.data )
-      console.log( response.data )
+      // console.log( response.data )
     }
   }
   

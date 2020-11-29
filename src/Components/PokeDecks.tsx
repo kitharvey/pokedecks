@@ -9,8 +9,12 @@ interface GetPokemonArrayInterface {
         url: string
 }
 
+const NUMBERofCARDS = 6
+
+
+
 const PokeDecks: React.FC= () => {
-        const [cardNumber, setCardNumber] = useState<number>(12)
+        const [cardNumber, setCardNumber] = useState<number>(NUMBERofCARDS)
         const result = useGetPokemonList()
         const [pokeArray, setPokeArray] = useState<GetPokemonArrayInterface[]>()
 
@@ -24,8 +28,7 @@ const PokeDecks: React.FC= () => {
         }, [result, cardNumber])
 
         const getRandom = () => {
-                setCardNumber(cardNumber => cardNumber + 12)
-                console.log(cardNumber)
+                setCardNumber(cardNumber => cardNumber + 3)
         }
 
 
@@ -34,7 +37,7 @@ const PokeDecks: React.FC= () => {
                         {pokeArray !== undefined &&
                                 pokeArray.map( (pokemon, index) => (
                                         <div key={index}>
-                                                {index % 12 === 0 && <Waypoint onLeave={getRandom}/>}
+                                                {index % 3 === 0 && <Waypoint onEnter={getRandom}/>}
                                                 <Card  link={pokemon.url} name={pokemon.name} />
                                         </div>
                                 

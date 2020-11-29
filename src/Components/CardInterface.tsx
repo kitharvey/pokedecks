@@ -1,6 +1,9 @@
 interface Abilities{
     ability: {name: string, url: string}
 }
+interface Types{
+    type: {name: string, url: string}
+}
 
 export interface GetPokemonDataInterface {
     abilities: Abilities[]
@@ -18,7 +21,7 @@ export interface GetPokemonDataInterface {
     species: {name: string, url: string}
     sprites: {front_default: string | undefined, front_female: string | undefined}
     stats: []
-    types: []
+    types: Types[]
     weight: number
 }
 export interface GetPokemonArrayInterface {
