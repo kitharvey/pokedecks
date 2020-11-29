@@ -23,12 +23,13 @@ const PokeDecks: React.FC= () => {
                 let newData
                 if(result !== undefined) {
                         newData = result.results.slice(0, cardNumber)
+                        setPokeArray(newData)
                 } 
-                if(newData !== undefined) setPokeArray(newData)
+                // if(newData !== undefined) setPokeArray(newData)
         }, [result, cardNumber])
 
         const getRandom = () => {
-                setCardNumber(cardNumber => cardNumber + 3)
+                setCardNumber(cardNumber => cardNumber + 6)
         }
 
 
@@ -37,7 +38,7 @@ const PokeDecks: React.FC= () => {
                         {pokeArray !== undefined &&
                                 pokeArray.map( (pokemon, index) => (
                                         <div key={index}>
-                                                {index % 3 === 0 && <Waypoint onEnter={getRandom}/>}
+                                                {index % 6 === 0 && <Waypoint onEnter={getRandom}/>}
                                                 <Card  link={pokemon.url} name={pokemon.name} />
                                         </div>
                                 

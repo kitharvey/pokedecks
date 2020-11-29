@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import useGetPokemonData from './useGetPokemonData';
 import "../Sass/CardStyle.scss"
 import { GetPokemonDataInterface } from './CardInterface';
@@ -60,39 +60,33 @@ const capitalizeFirstLetter = (string: string) => {
 }
 
 
+
 const Card: React.FC<RandomShits>  = ({link, name}) => {
   const [pokemondata, setPokemondata] = useState<GetPokemonDataInterface>()
+  const [cardColor, setCardColor] = useState<[number, number, number]>([255,255,255])
   const pokemon = useGetPokemonData(name)
-  const imgRef = useRef(null)
-
 
   useEffect(() => {
     if(pokemon !== undefined) setPokemondata(pokemon)  
-    //  let imgSrc = new Image
-    // imgSrc.src = getImageSource(link)
-      
-      // console.log(domcol)
-      if(imgRef.current) {
-        const colorThief = new ColorThief();
-        const domcol = colorThief.getColor(imgRef.current.src)
-
-      }
-    // if(pokemondata !== undefined) {
-    //   const getColor = findColor(pokemondata.types[0].type.name)
-    //   console.log(getColor[1])
-    // }
    }, [pokemon])
 
-  // useEffect(() => {
-  //   if(pokemondata !== undefined) console.log(findColor(pokemondata.types[0].type.name))
-  //  [pokemondata])
+
+   const handleLoadImage = (e: any) => {
+     if(e.target) {
+      const colorThief = new ColorThief();
+      e.target.crossOrigin = "Anonymous"
+      const getDominantColor = colorThief.getColor(e.target)
+      getDominantColor && setCardColor(getDominantColor)
+     }
+   }
+
 
   return (
     <div className="card-wrapper" >
       {pokemondata &&
-          <div className="card" style={{backgroundColor: findColor(pokemondata.types[0].type.name)[1]}}>
+          <div className="card" style={{backgroundColor: `rgba(${cardColor[0]}, ${cardColor[1]}, ${cardColor[2]}, .25)`}}>
             <p className="pokemon-name" >{capitalizeFirstLetter(name)}</p>
-            <img src={getImageSource(link)} alt={name} className="sprite" ref={imgRef}  />
+            <img src={getImageSource(link)} alt={name} className="sprite" onLoad={handleLoadImage}  />
             <div className="pokemon-ability" >
                {pokemondata.abilities.map( (ability,index) => <p key={index} >{ability.ability.name}</p> )}
             </div>
