@@ -29,20 +29,20 @@ const PokeDecks: React.FC= () => {
         }, [result, cardNumber])
 
         const getRandom = () => {
-                setCardNumber(cardNumber => cardNumber + 6)
+                setCardNumber(cardNumber => cardNumber + NUMBERofCARDS)
         }
 
 
         return (
                 <div className="grid-of-cards" >
-                        {pokeArray !== undefined &&
-                                pokeArray.map( (pokemon, index) => (
+                        {pokeArray && pokeArray.map( (pokemon, index) => (
                                         <div key={index}>
-                                                {index % 6 === 0 && <Waypoint onEnter={getRandom}/>}
+                                                {index % NUMBERofCARDS === 0 && <Waypoint onEnter={getRandom}/>}
                                                 <Card  link={pokemon.url} name={pokemon.name} />
                                         </div>
                                 
                                 ))}
+                                
                 </div> 
         )
 }

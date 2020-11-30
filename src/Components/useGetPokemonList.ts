@@ -18,11 +18,11 @@ const shuffle = (array: []) => {
 export const useGetPokemonList = () => {
     const [result, setResult] = useState<GetPokemonList>()
     
-    
+    const numofPokemon = 807
 
       useEffect( () => {
         const fetchAPI = async () => {
-          const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/?limit=807&offset=0`)
+          const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/?limit=60&offset=0`)
           // console.log(response.data)
           shuffle(response.data.results)
           setResult( response.data )
