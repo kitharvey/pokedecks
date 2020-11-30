@@ -4,25 +4,42 @@ body{
     font-family: 'Roboto', sans-serif;
 }
 
-.card{
-    height: 200px;
-    width: 250px;
-    border-radius: 30px;
+.pokemon-card{
+    height: 300px;
+    width: 230px;
+    border-radius: 12px;
+    margin: 10px;
+    padding: 10px;
     // box-shadow: 5px 5px 5px 0px #00000050;
     display: flex;
     align-items: flex-start;
     justify-content: center;
     flex-direction: column;
-    margin: 20px 0;
-    padding: 20px;
     position: relative;
+    transition: all 100ms ease;
+    overflow: hidden;
+
+    &:hover{
+        z-index: 10;
+        transform: scale(1.025);
+        // box-shadow: 10px 10px 20px 5px #00000050;
+
+        .sprite{
+            transform: scale(.925);
+            filter: contrast(1.05) brightness(1.05);
+        }
+    }
 
     .sprite{
         height: 150px;
         width: auto;
-        position: absolute;
-        right: 20px;
-        bottom: 20px;
+        margin: auto;
+        position: relative;
+        z-index: 1;
+        transition: all 100ms ease;
+        // position: absolute;
+        // right: 20px;
+        // bottom: 20px;
     }
     .sprite-black{
         height: 150px;
@@ -38,30 +55,36 @@ body{
         height: 200px;
         width: auto;
         position: absolute;
-        right: -10px;
-        bottom: -10px;
-        // transform: translateX(10px) translateY(10px);
+        right: 50%;
+        bottom: 50%;
+        transform: translateX(50%) translateY(50%);
         opacity: .25;
+        z-index: 0;
     }
 
     .pokemon-name{
+        // position: absolute;
+        margin: 0;
+        // margin-top: 10px;
+        // top: 0;
         font-weight: 700;
+        font-size: 24px;
         color: aliceblue;
-        padding: 5px 10px;
     }
     
     .pokemon-ability, .pokemon-type{
+        position: absolute;
+        bottom: 0;
         color: aliceblue;
         display: flex;
-        // justify-content: space-evenly;
-        width: 50%;
 
         .type{
-            // margin-right: 10px;
             padding: 5px 10px;
+            margin-bottom: 10px;
+            margin-right: 10px;
             // border: 1px solid black;
             border-radius: 30px;
-            // background: inherit;
+            background: #FFFFFF40;
             // backdrop-filter: opacity(.5);
             // back
         }
@@ -73,6 +96,12 @@ body{
     align-items: center;
     justify-content: space-around;
     flex-wrap: wrap;
-
     padding: 0 5%;
+    margin: 20px;
+     .dummy{
+        height: auto;
+        width: auto;
+    }
+
+    
 }

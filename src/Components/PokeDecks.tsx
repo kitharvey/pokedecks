@@ -36,7 +36,7 @@ const PokeDecks: React.FC= () => {
         return (
                 <div className="grid-of-cards" >
                         {pokeArray && pokeArray.map( (pokemon, index) => (
-                                        <div key={index}>
+                                        <div className="dummy" key={index}>
                                                 {index % NUMBERofCARDS === 0 && <Waypoint onEnter={getRandom}/>}
                                                 <Card  link={pokemon.url} name={pokemon.name} />
                                         </div>

@@ -3,7 +3,6 @@ import useGetPokemonData from './useGetPokemonData';
 import "../Sass/CardStyle.scss"
 import { GetPokemonDataInterface } from './CardInterface';
 import logo from "../Assets/pokemon-logo.svg"
-const ColorThief = require('color-thief');
 interface RandomShits{
   link: string
   name: string
@@ -72,35 +71,27 @@ const Card: React.FC<RandomShits>  = ({link, name}) => {
    }, [pokemon])
 
 
-  //  const handleLoadImage = (e: any) => {
-  //    if(e.target) {
-  //     const colorThief = new ColorThief();
-  //     e.target.crossOrigin = "Anonymous"
-  //     // const getDominantColor = colorThief.getColor(e.target)
-  //     // getDominantColor && setCardColor(getDominantColor)
-  //    }
-  //  }
+
 
 
   return (
-    <div className="card-wrapper" >
+    <>
       {pokemondata &&
-          <div className="card" style={{backgroundColor: findColor(pokemondata.types[0].type.name)[1]}}>
+          <div className="pokemon-card" style={{backgroundColor: findColor(pokemondata.types[0].type.name)[1]}}>
             <h3 className="pokemon-name" >{capitalizeFirstLetter(name)}</h3>
             <img src={logo} className="poke-logo" alt="poke-logo" />
             {/* <img src={getImageSource(link)} alt={name} className="sprite-black"  /> */}
             <img src={getImageSource(link)} alt={name} className="sprite"  />
-            {/* <img src={getImageSource(link)} alt={name} className="sprite" onLoad={handleLoadImage}  /> */}
             {/* <div className="pokemon-ability" >
                {pokemondata.abilities.map( (ability,index) => <p key={index} >{ability.ability.name}</p> )}
             </div> */}
             <div className="pokemon-type" >
-              {pokemondata.types.map( (type,index) => <div className="type" key={index} style={{backgroundColor: findColor(pokemondata.types[0].type.name)[1] + '88'}} >{type.type.name}</div> )}
+              {pokemondata.types.map( (type,index) => <div className="type" key={index}>{type.type.name}</div> )}
               {/* {pokemondata.types.map( (type,index) => <p key={index} style={{color: findColor(type.type.name)[1]}}  >{type.type.name}</p> )} */}
             </div>
           </div>
 }
-    </div>
+    </>
   );
 }
 
