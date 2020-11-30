@@ -63,6 +63,7 @@ const capitalizeFirstLetter = (string: string) => {
 
 const Card: React.FC<RandomShits>  = ({link, name}) => {
   const [pokemondata, setPokemondata] = useState<GetPokemonDataInterface>()
+  const [isFlip, setIsFlip] = useState<boolean>(false)
   // const [cardColor, setCardColor] = useState<[number, number, number]>([255,255,255])
   const pokemon = useGetPokemonData(name)
 
@@ -71,13 +72,15 @@ const Card: React.FC<RandomShits>  = ({link, name}) => {
    }, [pokemon])
 
 
-
+const handleClick = () => {
+  setIsFlip(!isFlip)
+}
 
 
   return (
     <>
       {pokemondata &&
-          <div className="pokemon-card" style={{backgroundColor: findColor(pokemondata.types[0].type.name)[1]}}>
+          <div className={`pokemon-card ${isFlip ? "is-flipped" : ""}`} style={{backgroundColor: findColor(pokemondata.types[0].type.name)[1]}} onClick={handleClick}>
             <h3 className="pokemon-name" >{capitalizeFirstLetter(name)}</h3>
             <img src={logo} className="poke-logo" alt="poke-logo" />
             {/* <img src={getImageSource(link)} alt={name} className="sprite-black"  /> */}

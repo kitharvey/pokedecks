@@ -9,7 +9,7 @@ interface GetPokemonArrayInterface {
         url: string
 }
 
-const NUMBERofCARDS = 6
+const NUMBERofCARDS = 8
 
 
 
@@ -30,6 +30,7 @@ const PokeDecks: React.FC= () => {
 
         const getRandom = () => {
                 setCardNumber(cardNumber => cardNumber + NUMBERofCARDS)
+                console.log(cardNumber)
         }
 
 
@@ -37,7 +38,7 @@ const PokeDecks: React.FC= () => {
                 <div className="grid-of-cards" >
                         {pokeArray && pokeArray.map( (pokemon, index) => (
                                         <div className="dummy" key={index}>
-                                                {index % NUMBERofCARDS === 0 && <Waypoint onEnter={getRandom}/>}
+                                                {index  % NUMBERofCARDS === 0 && <Waypoint onEnter={getRandom}/>}
                                                 <Card  link={pokemon.url} name={pokemon.name} />
                                         </div>
                                 
