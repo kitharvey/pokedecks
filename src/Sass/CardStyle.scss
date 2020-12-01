@@ -6,9 +6,9 @@ body{
 
 .pokemon-card{
     height: 300px;
-    width: 230px;
+    width: 100%;
     border-radius: 12px;
-    margin: 10px;
+    // margin: 10px;
     padding: 10px;
     // box-shadow: 5px 5px 5px 0px #00000050;
     display: flex;
@@ -48,8 +48,8 @@ body{
     }
 
     .sprite{
-        height: 150px;
-        width: auto;
+        // height: 150px;
+        width: 150px;
         margin: auto;
         position: relative;
         z-index: 1;
