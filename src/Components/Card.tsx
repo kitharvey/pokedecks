@@ -78,8 +78,8 @@ const handleClick = () => {
 
 
   return (
-    <>
-      {pokemondata &&
+    <div className="w-full h-full" >
+      {pokemondata ?
           <div className={`pokemon-card ${isFlip ? "is-flipped" : ""}`}  style={{backgroundColor: findColor(pokemondata.types[0].type.name)[1]}} onClick={handleClick}>
             <h3 className="pokemon-name" >{capitalizeFirstLetter(name)}</h3>
             <img src={logo} className="poke-logo" alt="poke-logo" />
@@ -93,8 +93,10 @@ const handleClick = () => {
               {/* {pokemondata.types.map( (type,index) => <p key={index} style={{color: findColor(type.type.name)[1]}}  >{type.type.name}</p> )} */}
             </div>
           </div>
-}
-    </>
+
+          : <div className="w-full h-full bg-black" ></div>
+      }
+    </div>
   );
 }
 

@@ -9,7 +9,9 @@ interface GetPokemonArrayInterface {
         url: string
 }
 
-const NUMBERofCARDS = 8
+const NUMBERofCARDS = 32
+
+var timeOutID: ReturnType<typeof setTimeout> = setTimeout(() => '', 1000)
 
 
 
@@ -18,6 +20,7 @@ const PokeDecks: React.FC= () => {
         const result = useGetPokemonList()
         const [pokeArray, setPokeArray] = useState<GetPokemonArrayInterface[]>()
         const [searchInput, setSearchInput] = useState<string>('')
+        const [isVisible, setIsVisible] = useState<boolean>(false)
 
         useEffect(() => {
                 let newData
@@ -34,8 +37,17 @@ const PokeDecks: React.FC= () => {
         }
 
         const handleSearch = (e: any) => {
-                // let temp = searchInput
-                setSearchInput(searchInput => searchInput + (e.key+''))
+                window.clearTimeout(timeOutID)
+                setIsVisible(true)
+                timeOutID = setTimeout(() => {
+                        console.log("timeout")
+                        setIsVisible(false)
+                }, 3000)
+
+                const key = e.key+''
+                if(e.keyCode >= 65 && e.keyCode <= 90)setSearchInput(searchInput => searchInput + key.toLowerCase())
+                if (e.keyCode === 8) setSearchInput(searchInput => searchInput.slice(0, -1))
+                console.log(isVisible)
         }
 
         useEffect(() => {
@@ -43,19 +55,23 @@ const PokeDecks: React.FC= () => {
         }, [])
 
         useEffect(() => {
-                if(pokeArray) {
-                        setPokeArray(pokeArray.filter( pokemon => pokemon.name.includes(searchInput) ))
+                
+                if(result) {
+                        setPokeArray(result.results.filter( pokemon => pokemon.name.includes(searchInput) ))
                 } 
                 console.log(searchInput, pokeArray ? pokeArray.length : 0)
+
+                
         }, [searchInput])
 
 
 
         return (
                 <div className="grid grid-cols-4 gap-4 w-6/12 mx-auto my-4" >
+                        {isVisible && <p className="fixed top-1/2 right-1/2 z-50 transform translate-x-1/2 translate-y-1/2 text-9xl text-current text-shadow-md uppercase" >{searchInput}</p> }
                         {pokeArray && pokeArray.map( (pokemon, index) => (
                                         <div className="h-max w-full" key={index}>
-                                                {index  % NUMBERofCARDS === 0 && <Waypoint onEnter={handleOnEnter}/>}
+                                                {index  % NUMBERofCARDS === 0 && <Waypoint onEnter={handleOnEnter}/> }
                                                 <Card  link={pokemon.url} name={pokemon.name} />
                                         </div>
                                 
