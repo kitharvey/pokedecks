@@ -29,7 +29,10 @@ const PokeDecks: React.FC= () => {
                 if(result !== undefined) {
                         newData = result.results.slice(0, cardNumber)
                         setPokeArray(newData)
-                } 
+                }
+                return () => {
+                        setPokeArray(pokeArray)
+                }
                 // if(newData !== undefined) setPokeArray(newData)
         }, [result, cardNumber])
 
@@ -43,17 +46,10 @@ const PokeDecks: React.FC= () => {
         }
 
         const handleSearch = (e: any) => {
-                window.clearTimeout(timeOutID)
-                setIsVisible(true)
-                timeOutID = setTimeout(() => {
-                        console.log("timeout")
-                        setIsVisible(false)
-                }, 3000)
-
                 const key = e.key+''
                 if(e.keyCode >= 65 && e.keyCode <= 90)setSearchInput(searchInput => searchInput + key.toLowerCase())
                 if (e.keyCode === 8) setSearchInput(searchInput => searchInput.slice(0, -1))
-                console.log(isVisible)
+                console.log(searchInput)
         }
 
         useEffect(() => {
@@ -61,13 +57,22 @@ const PokeDecks: React.FC= () => {
         }, [])
 
         useEffect(() => {
+
+                clearTimeout(timeOutID)
+                setIsVisible(true)
+                timeOutID = setTimeout(() => {
+                        console.log("timeout")
+                        setIsVisible(false)
+                }, 1000)
                 
                 if(result) {
                         setPokeArray(result.results.filter( pokemon => pokemon.name.includes(searchInput) ))
                 } 
                 console.log(searchInput, pokeArray ? pokeArray.length : 0)
 
-                
+                return () => {
+                        setPokeArray(pokeArray)
+                }
         }, [searchInput])
 
 
@@ -75,7 +80,7 @@ const PokeDecks: React.FC= () => {
         return (
                 <div className="grid grid-cols-4 gap-4 auto-rows-max w-8/12 mx-auto my-4" >
                         {isVisible && <p className="fixed top-1/2 right-1/2 z-50 transform translate-x-1/2 -translate-y-1/2 text-9xl text-current text-shadow-md uppercase" >{searchInput}</p> }
-                        {pokeArray && pokeArray.map( (pokemon, index) => (
+                        {(pokeArray && !isVisible) && pokeArray.map( (pokemon, index) => (
                                         <div className="h-80 w-full" key={index}>
                                                 {index  % NUMBERofCARDS === 0 && <Waypoint onEnter={() => handleOnEnter(index)}/> }
                                                 <Card  link={pokemon.url} name={pokemon.name} />

@@ -33,6 +33,7 @@ body{
             .sprite{
                 transform: scale(.925);
                 filter: contrast(1.05) brightness(1.05);
+                animation: bounce 1s infinite;
             }
         }
     }
@@ -110,4 +111,20 @@ body{
     transform: translateX(50%) translateY(50%);
     opacity: .25;
     z-index: 0;
+}
+
+
+@keyframes shrink {
+    0%{
+        opacity: 0;
+        transform: scale(0);
+    }
+    100%{
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.shrinkUp{
+    animation: shrink .25s
 }

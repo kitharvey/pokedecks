@@ -68,18 +68,26 @@ const Card: React.FC<RandomShits>  = ({link, name}) => {
   const [isLoad, setIsLoad] = useState<boolean>(true)
   const [isLoadEgg, setIsLoadEgg] = useState<boolean>(true)
   const pokemon = useGetPokemonData(name)
-
+  var LoadtimeOutID: ReturnType<typeof setTimeout> = setTimeout(() => '', 1000), EggtimeOutID: ReturnType<typeof setTimeout> = setTimeout(() => '', 1000)
   useEffect(() => {
     if(pokemon !== undefined) setPokemondata(pokemon)  
    }, [pokemon])
    
   useEffect(() => {
+    clearTimeout(LoadtimeOutID)
+    clearTimeout(EggtimeOutID)
     setTimeout(() => {
       setIsLoad(false)
+      setTimeout(() => {
+        setIsLoadEgg(false)
+      }, 3000)
     }, 2000)
-    setTimeout(() => {
+
+    return () => {
+      setIsLoad(false)
       setIsLoadEgg(false)
-    }, 3000)
+    }
+   
    }, [link, name])
 
 
@@ -89,7 +97,7 @@ const handleClick = () => {
 
 
   return (
-    <div className="w-full h-full" >
+    <div className="w-full h-full shrinkUp" >
       {/* {(isLoad  || !pokemondata) && <div className="h-full w-full bg-gray-500 relative z-10" ></div> } */}
         {(pokemondata && !isLoad) ?
           <div className={`pokemon-card ${isFlip ? "is-flipped" : ""}`}  style={{backgroundColor: findColor(pokemondata.types[0].type.name)[1]}} onClick={handleClick}>
@@ -97,7 +105,7 @@ const handleClick = () => {
             <img src={logo} className="poke-logo" alt="poke-logo" />
             {/* <img src={getImageSource(link)} alt={name} className="sprite-black"  /> */}
             {/* {!isLoadEgg ? <img src={egg} className="m-auto w-2/5 animate-bounce" alt="pokemon egg" />:  <img src={egg} className="m-auto w-2/5 animate-bounce" alt="pokemon egg" />} */}
-            {!isLoadEgg ? <img src={getImageSource(link)} alt={name} className="sprite"  /> :  <img src={egg} className="m-auto w-2/5 animate-bounce" alt="pokemon egg" />}
+            {(!isLoadEgg && pokemondata) ? <img src={getImageSource(link)} alt={name} className="sprite"  /> :  <img src={egg} className="m-auto w-2/5 animate-bounce" alt="pokemon egg" />}
             {/* <div className="pokemon-ability" >
                {pokemondata.abilities.map( (ability,index) => <p key={index} >{ability.ability.name}</p> )}
             </div> */}
