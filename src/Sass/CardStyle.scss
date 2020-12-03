@@ -19,23 +19,25 @@ body{
     flex-direction: column;
     position: relative;
     transition: all 100ms ease;
+    visibility: visible;
     overflow: hidden;
-    transform-style: preserve-3d;
+    // transform-style: preserve-3d;
 
-    &.is-flipped {
-        transform: rotateY(180deg);
-
-        &:hover{
-            z-index: 10;
-            transform: rotateY(180deg) scale(1.025);
-            // box-shadow: 10px 10px 20px 5px #00000050;
+    &.isClicked {
+        transform: scale(0);
+        pointer-events: none;
+        // user-select: none;
+        // visibility: hidden;
+        // &:hover{
+        //     z-index: 10;
+        //     transform: rotateY(180deg) scale(1.025);
+        //     // box-shadow: 10px 10px 20px 5px #00000050;
     
-            .sprite{
-                transform: scale(.925);
-                filter: contrast(1.05) brightness(1.05);
-                animation: bounce 1s infinite;
-            }
-        }
+        //     .sprite{
+        //         transform: scale(.925);
+        //         filter: contrast(1.05) brightness(1.05);
+        //     }
+        // }
     }
     
 
@@ -57,6 +59,7 @@ body{
         position: relative;
         z-index: 1;
         transition: all 100ms ease;
+        // animation: shrink .25s
         // position: absolute;
         // right: 20px;
         // bottom: 20px;

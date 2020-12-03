@@ -64,7 +64,7 @@ const capitalizeFirstLetter = (string: string) => {
 
 const Card: React.FC<RandomShits>  = ({link, name}) => {
   const [pokemondata, setPokemondata] = useState<GetPokemonDataInterface>()
-  const [isFlip, setIsFlip] = useState<boolean>(false)
+  const [isClicked, setIsClicked] = useState<boolean>(false)
   const [isLoad, setIsLoad] = useState<boolean>(true)
   const [isLoadEgg, setIsLoadEgg] = useState<boolean>(true)
   const pokemon = useGetPokemonData(name)
@@ -92,7 +92,7 @@ const Card: React.FC<RandomShits>  = ({link, name}) => {
 
 
 const handleClick = () => {
-  setIsFlip(!isFlip)
+  setIsClicked(!isClicked)
 }
 
 
@@ -100,7 +100,7 @@ const handleClick = () => {
     <div className="w-full h-full shrinkUp" >
       {/* {(isLoad  || !pokemondata) && <div className="h-full w-full bg-gray-500 relative z-10" ></div> } */}
         {(pokemondata && !isLoad) ?
-          <div className={`pokemon-card ${isFlip ? "is-flipped" : ""}`}  style={{backgroundColor: findColor(pokemondata.types[0].type.name)[1]}} onClick={handleClick}>
+          <div className={`pokemon-card ${isClicked ? "isClicked" : ""}`}  style={{backgroundColor: findColor(pokemondata.types[0].type.name)[1]}} onClick={handleClick}>
             <h3 className="pokemon-name" >{capitalizeFirstLetter(name)}</h3>
             <img src={logo} className="poke-logo" alt="poke-logo" />
             {/* <img src={getImageSource(link)} alt={name} className="sprite-black"  /> */}
@@ -111,11 +111,10 @@ const handleClick = () => {
             </div> */}
             <div className="pokemon-type" >
               {pokemondata.types.map( (type,index) => <div className="type" key={index}>{type.type.name}</div> )}
-              {/* {pokemondata.types.map( (type,index) => <p key={index} style={{color: findColor(type.type.name)[1]}}  >{type.type.name}</p> )} */}
             </div>
           </div>
-          : <div className="h-full w-full bg-gray-400 rounded-xl p-2.5 relative z-10 flex flex-col justify-between" >
-              <div className="animate-pulse h-6 bg-gray-200 rounded w-3/4"></div>
+          : <div className="h-full w-full bg-gray-300 rounded-xl p-2.5 relative z-10 flex flex-col justify-between" >
+              <div className="animate-pulse h-6 bg-gray-200 rounded-2xl w-3/4"></div>
               <img src={logo} className="poke-logo animate-pulse" alt="poke-logo" />
               <div className="flex" >
                 <div className="animate-pulse h-6 bg-gray-200 rounded-2xl w-1/4 mr-2.5"></div>
