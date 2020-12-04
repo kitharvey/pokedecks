@@ -80,11 +80,16 @@ const PokeDecks: React.FC= () => {
         return (
                 <div className="grid grid-cols-4 gap-4 auto-rows-max w-8/12 mx-auto my-4" >
                         {isVisible && <p className="fixed top-1/2 right-1/2 z-50 transform translate-x-1/2 -translate-y-1/2 text-9xl text-white text-shadow-md uppercase" >{searchInput}</p> }
-                        {(pokeArray && !isVisible) && pokeArray.map( (pokemon, index) => (
+                        {(pokeArray && !isVisible) && pokeArray.map( (pokemon, index) =>
+                        
+                                ( setTimeout(() => {
+                                        return (
                                         <div className="h-80 w-full" key={index}>
                                                 {index  % NUMBERofCARDS === 0 && <Waypoint onEnter={() => handleOnEnter(index)}/> }
                                                 <Card  link={pokemon.url} name={pokemon.name} />
                                         </div>
+                                )}, index*500)
+                                        
                                 
                                 ))}
                                 

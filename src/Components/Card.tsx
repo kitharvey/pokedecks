@@ -4,7 +4,13 @@ import "../Sass/CardStyle.scss"
 import { GetPokemonDataInterface } from './CardInterface';
 import logo from "../Assets/pokemon-logo.svg"
 import egg from "../Assets/pokemon-egg.png"
-interface RandomShits{
+interface CardInterface{
+  link: string
+  name: string
+}
+interface ActualCardInterface{
+  pokemondata: GetPokemonDataInterface
+  isLoadEgg: boolean
   link: string
   name: string
 }
@@ -61,10 +67,28 @@ const capitalizeFirstLetter = (string: string) => {
 }
 
 
-
-const Card: React.FC<RandomShits>  = ({link, name}) => {
-  const [pokemondata, setPokemondata] = useState<GetPokemonDataInterface>()
+const ActualCard: React.FC<ActualCardInterface >  =  ({pokemondata, isLoadEgg, link, name}) => {
   const [isClicked, setIsClicked] = useState<boolean>(false)
+
+  const handleClick = () => {
+    setIsClicked(!isClicked)
+  }
+  return (
+    <div className={`pokemon-card ${isClicked ? "isClicked" : ""}`}  style={{backgroundColor: findColor(pokemondata.types[0].type.name)[1]}} onClick={handleClick}>
+      <h3 className="pokemon-name" >{capitalizeFirstLetter(name)}</h3>
+      <img src={logo} className="poke-logo" alt="poke-logo" />
+      {(!isLoadEgg && pokemondata) ? <img src={getImageSource(link)} alt={name} className="sprite"  /> :  <img src={egg} className="m-auto w-2/5 animate-bounce" alt="pokemon egg" />}
+      <div className="pokemon-type" >
+        {pokemondata.types.map( (type,index) => <div className="type" key={index}>{type.type.name}</div> )}
+      </div>
+  </div>
+  )
+}
+
+
+
+const Card: React.FC<CardInterface>  = ({link, name}) => {
+  const [pokemondata, setPokemondata] = useState<GetPokemonDataInterface>()
   const [isLoad, setIsLoad] = useState<boolean>(true)
   const [isLoadEgg, setIsLoadEgg] = useState<boolean>(true)
   const pokemon = useGetPokemonData(name)
@@ -91,28 +115,16 @@ const Card: React.FC<RandomShits>  = ({link, name}) => {
    }, [link, name])
 
 
-const handleClick = () => {
-  setIsClicked(!isClicked)
-}
+
+
+
 
 
   return (
     <div className="w-full h-full shrinkUp" >
       {/* {(isLoad  || !pokemondata) && <div className="h-full w-full bg-gray-500 relative z-10" ></div> } */}
         {(pokemondata && !isLoad) ?
-          <div className={`pokemon-card ${isClicked ? "isClicked" : ""}`}  style={{backgroundColor: findColor(pokemondata.types[0].type.name)[1]}} onClick={handleClick}>
-            <h3 className="pokemon-name" >{capitalizeFirstLetter(name)}</h3>
-            <img src={logo} className="poke-logo" alt="poke-logo" />
-            {/* <img src={getImageSource(link)} alt={name} className="sprite-black"  /> */}
-            {/* {!isLoadEgg ? <img src={egg} className="m-auto w-2/5 animate-bounce" alt="pokemon egg" />:  <img src={egg} className="m-auto w-2/5 animate-bounce" alt="pokemon egg" />} */}
-            {(!isLoadEgg && pokemondata) ? <img src={getImageSource(link)} alt={name} className="sprite"  /> :  <img src={egg} className="m-auto w-2/5 animate-bounce" alt="pokemon egg" />}
-            {/* <div className="pokemon-ability" >
-               {pokemondata.abilities.map( (ability,index) => <p key={index} >{ability.ability.name}</p> )}
-            </div> */}
-            <div className="pokemon-type" >
-              {pokemondata.types.map( (type,index) => <div className="type" key={index}>{type.type.name}</div> )}
-            </div>
-          </div>
+          <ActualCard pokemondata={pokemondata} link={link} isLoadEgg={isLoadEgg} name={name} />
           : <div className="h-full w-full bg-gray-300 rounded-xl p-2.5 relative z-10 flex flex-col justify-between" >
               <div className="animate-pulse h-6 bg-gray-200 rounded-2xl w-3/4"></div>
               <img src={logo} className="poke-logo animate-pulse" alt="poke-logo" />
