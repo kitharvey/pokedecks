@@ -7,6 +7,7 @@ import egg from "../Assets/pokemon-egg.png"
 interface CardInterface{
   link: string
   name: string
+  index: number
 }
 interface ActualCardInterface{
   pokemondata: GetPokemonDataInterface
@@ -87,32 +88,40 @@ const ActualCard: React.FC<ActualCardInterface >  =  ({pokemondata, isLoadEgg, l
 
 
 
-const Card: React.FC<CardInterface>  = ({link, name}) => {
+const Card: React.FC<CardInterface>  = ({link, name, index}) => {
   const [pokemondata, setPokemondata] = useState<GetPokemonDataInterface>()
   const [isLoad, setIsLoad] = useState<boolean>(true)
   const [isLoadEgg, setIsLoadEgg] = useState<boolean>(true)
+  const [isLoader, setIsLoader] = useState<boolean>(true)
   const pokemon = useGetPokemonData(name)
-  var LoadtimeOutID: ReturnType<typeof setTimeout> = setTimeout(() => '', 1000), EggtimeOutID: ReturnType<typeof setTimeout> = setTimeout(() => '', 1000)
+  var LoadtimeOutID: ReturnType<typeof setTimeout> = setTimeout(() => '', 1000), EggtimeOutID: ReturnType<typeof setTimeout> = setTimeout(() => '', 1000), LoadertimeoutID: ReturnType<typeof setTimeout> = setTimeout(() => '', 1000)
   useEffect(() => {
     if(pokemon !== undefined) setPokemondata(pokemon)  
    }, [pokemon])
    
   useEffect(() => {
+    clearTimeout(LoadertimeoutID)
     clearTimeout(LoadtimeOutID)
     clearTimeout(EggtimeOutID)
+
     setTimeout(() => {
-      setIsLoad(false)
+      setIsLoader(false)
       setTimeout(() => {
-        setIsLoadEgg(false)
-      }, 3000)
-    }, 2000)
+        setIsLoad(false)
+        setTimeout(() => {
+          setIsLoadEgg(false)
+        }, 2000)
+      }, 2000)
+    }, (index*250))
+
 
     return () => {
       setIsLoad(false)
       setIsLoadEgg(false)
+      setIsLoader(false)
     }
    
-   }, [link, name])
+   }, [link, name, index])
 
 
 
@@ -121,18 +130,21 @@ const Card: React.FC<CardInterface>  = ({link, name}) => {
 
 
   return (
-    <div className="w-full h-full shrinkUp" >
+    <div className="w-full h-full" >
       {/* {(isLoad  || !pokemondata) && <div className="h-full w-full bg-gray-500 relative z-10" ></div> } */}
-        {(pokemondata && !isLoad) ?
-          <ActualCard pokemondata={pokemondata} link={link} isLoadEgg={isLoadEgg} name={name} />
-          : <div className="h-full w-full bg-gray-300 rounded-xl p-2.5 relative z-10 flex flex-col justify-between" >
-              <div className="animate-pulse h-6 bg-gray-200 rounded-2xl w-3/4"></div>
-              <img src={logo} className="poke-logo animate-pulse" alt="poke-logo" />
-              <div className="flex" >
-                <div className="animate-pulse h-6 bg-gray-200 rounded-2xl w-1/4 mr-2.5"></div>
-                <div className="animate-pulse h-6 bg-gray-200 rounded-2xl w-1/4"></div>
-              </div>
-          </div>
+        {(pokemondata && !isLoader) && (
+          !isLoad ? <ActualCard pokemondata={pokemondata} link={link} isLoadEgg={isLoadEgg} name={name} />
+           : (<div className="h-full w-full bg-gray-300 rounded-xl p-2.5 relative z-10 flex flex-col justify-between shrinkUp" >
+             <div className="animate-pulse h-6 bg-gray-200 rounded-2xl w-3/4"></div>
+             <img src={logo} className="poke-logo animate-pulse" alt="poke-logo" />
+             <div className="flex" >
+               <div className="animate-pulse h-6 bg-gray-200 rounded-2xl w-1/4 mr-2.5"></div>
+               <div className="animate-pulse h-6 bg-gray-200 rounded-2xl w-1/4"></div>
+             </div>
+         </div>
+         )
+        )
+          
       }
     </div>
   );

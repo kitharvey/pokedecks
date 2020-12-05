@@ -22,7 +22,7 @@ export const useGetPokemonList = () => {
 
       useEffect( () => {
         const fetchAPI = async () => {
-          const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/?limit=${numofPokemon}&offset=0`)
+          const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/?limit=${32}&offset=0`)
           // console.log(response.data)
           shuffle(response.data.results)
           setResult( response.data )
