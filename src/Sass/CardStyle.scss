@@ -22,7 +22,7 @@ body{
     visibility: visible;
     overflow: hidden;
     transform-style: preserve-3d;
-    animation: fadeIn .5s ease;
+    // animation: fadeIn .5s ease;
 
     // &.isClicked {
         // transform: scale(0);
@@ -42,16 +42,16 @@ body{
     // }
     
 
-    &:hover{
-        z-index: 10;
-        transform: scale(1.025);
-        // box-shadow: 10px 10px 20px 5px #00000050;
+    // &:hover{
+    //     z-index: 10;
+    //     transform: scale(1.025);
+    //     // box-shadow: 10px 10px 20px 5px #00000050;
 
-        .sprite{
-            transform: scale(.925);
-            filter: contrast(1.05) brightness(1.05);
-        }
-    }
+    //     .sprite{
+    //         transform: scale(.925);
+    //         filter: contrast(1.05) brightness(1.05);
+    //     }
+    // }
 
     .sprite{
         // height: 150px;
@@ -145,3 +145,7 @@ body{
     transform-style: preserve-3d;
     animation: fadeIn .25s
 }
+
+
+
+

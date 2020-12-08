@@ -4,6 +4,7 @@ import "../Sass/CardStyle.scss"
 import { GetPokemonDataInterface } from './CardInterface';
 import logo from "../Assets/pokemon-logo.svg"
 import egg from "../Assets/pokemon-egg.png"
+import Trail from './Trail';
 interface CardInterface{
   link: string
   name: string
@@ -86,6 +87,18 @@ const ActualCard: React.FC<ActualCardInterface >  =  ({pokemondata, isLoadEgg, l
   )
 }
 
+const CardLoader = () => {
+  return (
+  <div className="h-full w-full bg-gray-300 rounded-xl p-2.5 relative z-10 flex flex-col justify-between" >
+    <div className="animate-pulse h-6 bg-gray-200 rounded-2xl w-3/4"></div>
+    <img src={logo} className="poke-logo animate-pulse" alt="poke-logo" />
+    <div className="flex" >
+      <div className="animate-pulse h-6 bg-gray-200 rounded-2xl w-1/4 mr-2.5"></div>
+      <div className="animate-pulse h-6 bg-gray-200 rounded-2xl w-1/4"></div>
+    </div>
+  </div>
+  )
+}
 
 
 const Card: React.FC<CardInterface>  = ({link, name, index}) => {
@@ -95,11 +108,12 @@ const Card: React.FC<CardInterface>  = ({link, name, index}) => {
   const [isLoader, setIsLoader] = useState<boolean>(true)
   const pokemon = useGetPokemonData(name)
   var LoadtimeOutID: ReturnType<typeof setTimeout> = setTimeout(() => '', 1000), EggtimeOutID: ReturnType<typeof setTimeout> = setTimeout(() => '', 1000), LoadertimeoutID: ReturnType<typeof setTimeout> = setTimeout(() => '', 1000)
+
   useEffect(() => {
     if(pokemon !== undefined) setPokemondata(pokemon)  
    }, [pokemon])
    
-  useEffect(() => {
+   useEffect(() => {
     clearTimeout(LoadertimeoutID)
     clearTimeout(LoadtimeOutID)
     clearTimeout(EggtimeOutID)
@@ -112,7 +126,7 @@ const Card: React.FC<CardInterface>  = ({link, name, index}) => {
           setIsLoadEgg(false)
         }, 2000)
       }, 2000)
-    }, (index*250))
+    }, 1000)
 
 
     return () => {
@@ -130,24 +144,18 @@ const Card: React.FC<CardInterface>  = ({link, name, index}) => {
 
 
   return (
-    <div className="w-full h-full" >
+    <Trail open={true}>
+    <div className="h-96 w-64" >
       {/* {(isLoad  || !pokemondata) && <div className="h-full w-full bg-gray-500 relative z-10" ></div> } */}
         {(pokemondata && !isLoader) && (
           !isLoad ? <ActualCard pokemondata={pokemondata} link={link} isLoadEgg={isLoadEgg} name={name} />
-           : (<div className="h-full w-full bg-gray-300 rounded-xl p-2.5 relative z-10 flex flex-col justify-between shrinkUp" >
-             <div className="animate-pulse h-6 bg-gray-200 rounded-2xl w-3/4"></div>
-             <img src={logo} className="poke-logo animate-pulse" alt="poke-logo" />
-             <div className="flex" >
-               <div className="animate-pulse h-6 bg-gray-200 rounded-2xl w-1/4 mr-2.5"></div>
-               <div className="animate-pulse h-6 bg-gray-200 rounded-2xl w-1/4"></div>
-             </div>
-         </div>
-         )
+           : <CardLoader/>
         )
           
       }
     </div>
-  );
+    </Trail>
+  )
 }
 
 

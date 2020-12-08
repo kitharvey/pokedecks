@@ -2,16 +2,24 @@ import React, { useEffect, useState } from 'react'
 import  Card  from './Card';
 import { useGetPokemonList } from './useGetPokemonList';
 import { Waypoint } from 'react-waypoint';
+// import InView, {  useInView  } from 'react-intersection-observer';
 // import { GetPokemonList } from './CardInterface';
 
 interface GetPokemonArrayInterface {
         name: string
         url: string
 }
+interface WaypointComponentInterface {
+        onEnter: () => void
+}
 
-const NUMBERofCARDS = 4
+const NUMBERofCARDS = 8
 
 var timeOutID: ReturnType<typeof setTimeout> = setTimeout(() => '', 1000)
+
+const WaypointComponent: React.FC<WaypointComponentInterface> = ({onEnter}) => {
+       return <Waypoint onEnter={onEnter}/>
+}
 
 
 
@@ -36,13 +44,16 @@ const PokeDecks: React.FC= () => {
                 // if(newData !== undefined) setPokeArray(newData)
         }, [result, cardNumber])
 
-        const handleOnEnter = (index: number) => {
-                if(!waypointArray.includes(index)){
-                        setWaypointArray([...waypointArray, index])
-                        setCardNumber(cardNumber => cardNumber + NUMBERofCARDS)
-                }
+        const handleOnEnter = () => {
+                // if(!waypointArray.includes(index)){
+                //         // setWaypointArray([...waypointArray, index])
+                //         setCardNumber(cardNumber => cardNumber + NUMBERofCARDS)
+                // }
+                setCardNumber(cardNumber => cardNumber + NUMBERofCARDS)
                 
                 console.log(cardNumber, waypointArray)
+
+                
         }
 
         const handleSearch = (e: any) => {
@@ -50,6 +61,7 @@ const PokeDecks: React.FC= () => {
                 if(e.keyCode >= 65 && e.keyCode <= 90)setSearchInput(searchInput => searchInput + key.toLowerCase())
                 if (e.keyCode === 8) setSearchInput(searchInput => searchInput.slice(0, -1))
                 console.log(searchInput)
+                
         }
 
         useEffect(() => {
@@ -77,12 +89,13 @@ const PokeDecks: React.FC= () => {
 
 
 
+
         return (
                 <div className="grid grid-cols-4 gap-4 auto-rows-max w-max mx-auto my-4" >
                         {isVisible && <p className="fixed top-1/2 right-1/2 z-50 transform translate-x-1/2 -translate-y-1/2 text-9xl text-white text-shadow-md uppercase" >{searchInput}</p> }
                         {(pokeArray && !isVisible) && pokeArray.map( (pokemon, index) => (
                                         <div className="h-96 w-64" key={index}>
-                                                {index  % NUMBERofCARDS === 0 && <Waypoint onEnter={() => handleOnEnter(index)}/> }
+                                                {index  % NUMBERofCARDS === 0 && <WaypointComponent onEnter={handleOnEnter}/> }
                                                 <Card  link={pokemon.url} name={pokemon.name} index={index} />
                                         </div>
                                         
