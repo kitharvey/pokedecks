@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { GetPokemonList } from './CardInterface';
+import { GetPokemonList, GetPokemonArrayInterface } from './CardInterface';
 import axios from 'axios'
 
 const shuffle = (array: []) => {
@@ -15,6 +15,12 @@ const shuffle = (array: []) => {
         return array;
       }
 
+const getID = (link: string) => {
+    const splitLink = link.split('/')
+    const IDString = parseInt(splitLink[splitLink.length-2])
+    return IDString
+}
+
 export const useGetPokemonList = () => {
     const [result, setResult] = useState<GetPokemonList>()
     
@@ -22,10 +28,14 @@ export const useGetPokemonList = () => {
 
       useEffect( () => {
         const fetchAPI = async () => {
-          const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/?limit=${6}&offset=0`)
+          const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/?limit=${numofPokemon}&offset=0`)
           // console.log(response.data)
-          shuffle(response.data.results)
-          setResult( response.data )
+          if(response) {
+            // response.data.results.filter( (data: GetPokemonArrayInterface) => getID(data.url) <= 4)
+            shuffle( response.data.results )
+            setResult( response.data )
+          }
+
         }
 
         fetchAPI()

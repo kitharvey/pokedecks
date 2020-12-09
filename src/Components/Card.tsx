@@ -70,7 +70,7 @@ const capitalizeFirstLetter = (string: string) => {
 
 const ActualCard: React.FC<ActualCardInterface >  =  ({pokemondata, link, name}) => {
   const [isClicked, setIsClicked] = useState<boolean>(false)
-
+  const sprite = getImageSource(link) 
   const handleClick = () => {
     setIsClicked(!isClicked)
   }
@@ -78,7 +78,9 @@ const ActualCard: React.FC<ActualCardInterface >  =  ({pokemondata, link, name})
     <div className={`pokemon-card ${isClicked ? "isClicked" : ""}`}  style={{backgroundColor: findColor(pokemondata.types[0].type.name)[1]}} onClick={handleClick}>
       <h3 className="pokemon-name" >{capitalizeFirstLetter(name)}</h3>
       <img src={logo} className="poke-logo" alt="poke-logo" draggable="false" onDragStart={ e => e.preventDefault()} />
-      {pokemondata ? <img src={getImageSource(link)} alt={name} draggable="false" onDragStart={ e => e.preventDefault()} className="sprite"  /> :  <img src={egg} draggable="false" onDragStart={ e => e.preventDefault()} className="m-auto w-2/5 animate-bounce" alt="pokemon egg" />}
+      {sprite
+        ? <img src={sprite} alt={name} draggable="false" onDragStart={ e => e.preventDefault()} className="sprite"  /> 
+        :  <img src={egg} draggable="false" onDragStart={ e => e.preventDefault()} className="m-auto w-1/6 animate-bounce" alt="pokemon egg" />}
       <div className="pokemon-type" >
         {pokemondata.types.map( (type,index) => <div className="type" key={index}>{type.type.name}</div> )}
       </div>

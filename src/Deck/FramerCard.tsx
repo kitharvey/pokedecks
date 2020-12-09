@@ -14,10 +14,12 @@ interface CardProps {
     animate?: AnimateProps
     transition?: TransitionProps
     exitX?: number
+    exitY?: number
     index: number
     drag?: boolean | "x" | "y"
     setExitX?: (x: number) => void
     setIndex?: (x: number) => void
+    setExitY?: (x: number) => void
     pokeArray: GetPokemonArrayInterface[] | undefined
   }
   
@@ -42,25 +44,20 @@ interface CardProps {
   }
   
   const FramerCard: React.FC<CardProps> = (props) => {
-    const [pokemonIndex, setPokemonIndex] = useState<number>(0)
     const [pokemonIndexMax, setPokemonIndexMax] = useState<number>(3)
 
     useEffect(() => {
-      // console.log(props.pokeArray)
 
       if(props.pokeArray) {
         setPokemonIndexMax(props.pokeArray.length)
-        console.log(props.pokeArray.length)
       } 
     }, [props.pokeArray])
 
 
     useEffect(() => {
       if((props.index === pokemonIndexMax) && props.setIndex) {
-        console.log("limit")
         props.setIndex(0)
       } 
-      console.log(props.index, pokemonIndexMax)
     }, [props.index, props.setIndex, pokemonIndexMax])
 
 
@@ -73,17 +70,26 @@ interface CardProps {
 
   
     function handleDragEnd(event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) {
-      
+        if (info.offset.x < -200) {
+          if(props.setExitX) props.setExitX(-800);
+          if(props.setExitY) props.setExitY(0);
+          if(props.setIndex) props.setIndex(props.index + 1);
+        }
+        if (info.offset.x > 200) {
+          if(props.setExitX) props.setExitX(800);
+          if(props.setExitY) props.setExitY(0);
+          if(props.setIndex) props.setIndex(props.index + 1);
+        }
+        if (info.offset.y > 300) {
+          if(props.setExitY) props.setExitY(800);
+          if(props.setExitX) props.setExitX(0);
+          if(props.setIndex) props.setIndex(props.index + 1);
+        }
+        if (info.offset.y < -300 && props.pokeArray) {
+          console.log(props.pokeArray[props.index])
+        }
 
-      if (info.offset.x < -200) {
-        if(props.setExitX) props.setExitX(-350);
-        if(props.setIndex) props.setIndex(props.index + 1);
-        
-      }
-      if (info.offset.x > 200) {
-        if(props.setExitX) props.setExitX(350);
-        if(props.setIndex) props.setIndex(props.index + 1);
-      }
+
        
 
     }
@@ -91,16 +97,22 @@ interface CardProps {
     return (
       <motion.div
         style={{
-          width: 250,
-          height: 300,
+          width: 256,
+          height: 384,
           position: "absolute",
           top: 0,
+          borderRadius: "10px",
           x: x,
           // rotate: rotate,
           cursor: "grab",
         }}
-        whileTap={{ cursor: "grabbing" }}
+        whileTap={{ 
+          cursor: "grabbing",
+          scale: 1.05,
+          boxShadow: "0 25px 50px 12px rgba(0,0,0,.25)"
+         }}
         drag={props.drag}
+        dragDirectionLock
         dragConstraints={{
           top: 0,
           right: 0,
@@ -113,6 +125,7 @@ interface CardProps {
         transition={props.transition}
         exit={{
           x: props.exitX,
+          y: props.exitY,
           // opacity: 0,
           // scale: 0.5,
           // translateX:  ,
