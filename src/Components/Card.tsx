@@ -12,7 +12,6 @@ interface CardInterface{
 }
 interface ActualCardInterface{
   pokemondata: GetPokemonDataInterface
-  isLoadEgg: boolean
   link: string
   name: string
 }
@@ -69,7 +68,7 @@ const capitalizeFirstLetter = (string: string) => {
 }
 
 
-const ActualCard: React.FC<ActualCardInterface >  =  ({pokemondata, isLoadEgg, link, name}) => {
+const ActualCard: React.FC<ActualCardInterface >  =  ({pokemondata, link, name}) => {
   const [isClicked, setIsClicked] = useState<boolean>(false)
 
   const handleClick = () => {
@@ -78,8 +77,8 @@ const ActualCard: React.FC<ActualCardInterface >  =  ({pokemondata, isLoadEgg, l
   return (
     <div className={`pokemon-card ${isClicked ? "isClicked" : ""}`}  style={{backgroundColor: findColor(pokemondata.types[0].type.name)[1]}} onClick={handleClick}>
       <h3 className="pokemon-name" >{capitalizeFirstLetter(name)}</h3>
-      <img src={logo} className="poke-logo" alt="poke-logo" />
-      {(!isLoadEgg && pokemondata) ? <img src={getImageSource(link)} alt={name} className="sprite"  /> :  <img src={egg} className="m-auto w-2/5 animate-bounce" alt="pokemon egg" />}
+      <img src={logo} className="poke-logo" alt="poke-logo" draggable="false" onDragStart={ e => e.preventDefault()} />
+      {pokemondata ? <img src={getImageSource(link)} alt={name} draggable="false" onDragStart={ e => e.preventDefault()} className="sprite"  /> :  <img src={egg} draggable="false" onDragStart={ e => e.preventDefault()} className="m-auto w-2/5 animate-bounce" alt="pokemon egg" />}
       <div className="pokemon-type" >
         {pokemondata.types.map( (type,index) => <div className="type" key={index}>{type.type.name}</div> )}
       </div>
@@ -87,7 +86,7 @@ const ActualCard: React.FC<ActualCardInterface >  =  ({pokemondata, isLoadEgg, l
   )
 }
 
-const CardLoader = () => {
+const CardLoader: React.FC = () => {
   return (
   <div className="h-full w-full bg-gray-300 rounded-xl p-2.5 relative z-10 flex flex-col justify-between" >
     <div className="animate-pulse h-6 bg-gray-200 rounded-2xl w-3/4"></div>
@@ -104,7 +103,6 @@ const CardLoader = () => {
 const Card: React.FC<CardInterface>  = ({link, name, index}) => {
   const [pokemondata, setPokemondata] = useState<GetPokemonDataInterface>()
   const [isLoad, setIsLoad] = useState<boolean>(true)
-  const [isLoadEgg, setIsLoadEgg] = useState<boolean>(true)
   const [isLoader, setIsLoader] = useState<boolean>(true)
   const pokemon = useGetPokemonData(name)
   var LoadtimeOutID: ReturnType<typeof setTimeout> = setTimeout(() => '', 1000), EggtimeOutID: ReturnType<typeof setTimeout> = setTimeout(() => '', 1000), LoadertimeoutID: ReturnType<typeof setTimeout> = setTimeout(() => '', 1000)
@@ -121,21 +119,17 @@ const Card: React.FC<CardInterface>  = ({link, name, index}) => {
     setTimeout(() => {
       setIsLoader(false)
       setTimeout(() => {
-        setIsLoad(false)
-        setTimeout(() => {
-          setIsLoadEgg(false)
-        }, 2000)
+        // setIsLoad(false)
       }, 2000)
     }, 1000)
 
 
     return () => {
       setIsLoad(false)
-      setIsLoadEgg(false)
       setIsLoader(false)
     }
    
-   }, [link, name, index])
+   }, [index])
 
 
 
@@ -147,12 +141,10 @@ const Card: React.FC<CardInterface>  = ({link, name, index}) => {
     <Trail open={true}>
     <div className="h-96 w-64" >
       {/* {(isLoad  || !pokemondata) && <div className="h-full w-full bg-gray-500 relative z-10" ></div> } */}
-        {(pokemondata && !isLoader) && (
-          !isLoad ? <ActualCard pokemondata={pokemondata} link={link} isLoadEgg={isLoadEgg} name={name} />
-           : <CardLoader/>
-        )
-          
-      }
+        {(pokemondata && !isLoader)
+            ? <ActualCard pokemondata={pokemondata} link={link} name={name} />
+            : <CardLoader/>
+        }
     </div>
     </Trail>
   )

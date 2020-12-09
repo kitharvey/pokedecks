@@ -5,10 +5,8 @@ import {
   useTransform,
   PanInfo
 } from "framer-motion";
-import pikachu from "./pikachucard.jpg"
-import { useGetPokemonList } from "../Components/useGetPokemonList";
-import { GetPokemonArrayInterface } from "../Components/CardInterface";
 import Card from "../Components/Card";
+import { GetPokemonArrayInterface } from "../Components/CardInterface";
 
 interface CardProps {
     key?: number
@@ -20,6 +18,7 @@ interface CardProps {
     drag?: boolean | "x" | "y"
     setExitX?: (x: number) => void
     setIndex?: (x: number) => void
+    pokeArray: GetPokemonArrayInterface[] | undefined
   }
   
   interface TransitionProps {
@@ -43,47 +42,48 @@ interface CardProps {
   }
   
   const FramerCard: React.FC<CardProps> = (props) => {
-    const [pokeArray, setPokeArray] = useState<GetPokemonArrayInterface[]>()
     const [pokemonIndex, setPokemonIndex] = useState<number>(0)
-    const [pokemonIndexMax, setPokemonIndexMax] = useState<number>(2)
-    const result = useGetPokemonList()
-    useEffect(() => {
-      let newData
-      if(result !== undefined) {
-              newData = result.results.slice(0, result.results.length)
-              setPokeArray(newData)
-              setPokemonIndexMax(result.results.length)
-      }
-      return () => {
-              setPokeArray(pokeArray)
-      }
-  }, [result])
+    const [pokemonIndexMax, setPokemonIndexMax] = useState<number>(3)
 
-  useEffect(() => {
-    if(pokemonIndex > pokemonIndexMax + 1) setPokemonIndex(0)
-    if(pokemonIndex < pokemonIndexMax)setPokemonIndex(pokemonIndex => pokemonIndex + 1)
-    console.log(pokemonIndex)
-  }, [props.index])
+    useEffect(() => {
+      // console.log(props.pokeArray)
+
+      if(props.pokeArray) {
+        setPokemonIndexMax(props.pokeArray.length)
+        console.log(props.pokeArray.length)
+      } 
+    }, [props.pokeArray])
+
+
+    useEffect(() => {
+      if((props.index === pokemonIndexMax) && props.setIndex) {
+        console.log("limit")
+        props.setIndex(0)
+      } 
+      console.log(props.index, pokemonIndexMax)
+    }, [props.index, props.setIndex, pokemonIndexMax])
 
 
 
     const x = useMotionValue(0);
     const scale = useTransform(x, [-150, 0, 150], [0.9, 1, 0.9]);
-    const rotate = useTransform(x, [-150, 0, 150], [-15, 0, 15], {
-      clamp: false
-    });
+    // const rotate = useTransform(x, [-150, 0, 150], [-15, 0, 15], {
+    //   clamp: false
+    // });
 
   
     function handleDragEnd(event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) {
-              if (info.offset.x < -200) {
-                if(props.setExitX) props.setExitX(-350);
-                if(props.setIndex) props.setIndex(props.index + 1);
-               
-              }
-              if (info.offset.x > 200) {
-                if(props.setExitX) props.setExitX(350);
-                if(props.setIndex) props.setIndex(props.index + 1);
-              }
+      
+
+      if (info.offset.x < -200) {
+        if(props.setExitX) props.setExitX(-350);
+        if(props.setIndex) props.setIndex(props.index + 1);
+        
+      }
+      if (info.offset.x > 200) {
+        if(props.setExitX) props.setExitX(350);
+        if(props.setIndex) props.setIndex(props.index + 1);
+      }
        
 
     }
@@ -96,7 +96,7 @@ interface CardProps {
           position: "absolute",
           top: 0,
           x: x,
-          rotate: rotate,
+          // rotate: rotate,
           cursor: "grab",
         }}
         whileTap={{ cursor: "grabbing" }}
@@ -113,13 +113,13 @@ interface CardProps {
         transition={props.transition}
         exit={{
           x: props.exitX,
-          opacity: 0,
-          scale: 0.5,
+          // opacity: 0,
+          // scale: 0.5,
+          // translateX:  ,
           transition: { duration: 0.2 }
         }}
       >
-        <p>{props.index}</p>
-          {(pokeArray) && <Card  link={pokeArray[pokemonIndex].url} name={pokeArray[pokemonIndex].name} index={pokemonIndex} />}
+          {(props.pokeArray && props.index < pokemonIndexMax) && <Card  link={props.pokeArray[props.index].url} name={props.pokeArray[props.index].name} index={props.index} />}
       </motion.div>
     );
   }

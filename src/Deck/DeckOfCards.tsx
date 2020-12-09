@@ -4,13 +4,26 @@ import {
   AnimatePresence,
 } from "framer-motion";
 import FramerCard from "./FramerCard";
+import { GetPokemonArrayInterface } from "../Components/CardInterface";
+import { useGetPokemonList } from "../Components/useGetPokemonList";
 
 
 const DeckOfCards:React.FC = () => {
   const [index, setIndex] = useState<number>(0);
   const [exitX, setExitX] = useState<number>(250);
+  const [pokeArray, setPokeArray] = useState<GetPokemonArrayInterface[]>()
+  const result = useGetPokemonList()
+  useEffect(() => {
+    let newData
+    if(result !== undefined) {
+            newData = result.results.slice(0, result.results.length)
+            setPokeArray(newData)
+    }
 
-
+    return () => {
+            setPokeArray(pokeArray)
+    }
+}, [result])
 
   return (
     <motion.div
@@ -22,8 +35,9 @@ const DeckOfCards:React.FC = () => {
     >
       <AnimatePresence initial={false}>
         <FramerCard
+          pokeArray={pokeArray}
           key={index + 1}
-          index={index}
+          index={index + 1}
           initial={{
             scale: 0,
             y: 105,
@@ -40,6 +54,7 @@ const DeckOfCards:React.FC = () => {
           }}
         />
         <FramerCard
+          pokeArray={pokeArray}
           index={index}
           key={index}
           animate={{
