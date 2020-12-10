@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
 
 body{
     font-family: 'Roboto', sans-serif;
@@ -9,13 +9,12 @@ body{
 .pokemon-card{
     height: 100%;
     width: 100%;
-    border-radius: 0.75rem;
     // margin: 10px;
     padding: 10px;
     // box-shadow: 5px 5px 5px 0px #00000050;
     display: flex;
-    align-items: flex-start;
-    justify-content: center;
+    align-items: center;
+    justify-content: space-between;
     flex-direction: column;
     position: relative;
     transition: all 250ms ease;
@@ -92,17 +91,19 @@ body{
         color: aliceblue;
         display: flex;
 
-        .type{
-            padding: 5px 10px;
-            margin-bottom: 10px;
-            margin-right: 10px;
-            // border: 1px solid black;
-            border-radius: 30px;
-            background: #FFFFFF40;
-            // backdrop-filter: opacity(.5);
-            // back
-        }
     }
+}
+
+
+.type{
+    padding: 5px 10px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    // border: 1px solid black;
+    border-radius: 30px;
+    background: #FFFFFF40;
+    // backdrop-filter: opacity(.5);
+    // back
 }
 
 
