@@ -14,12 +14,10 @@ interface CardProps {
     animate?: AnimateProps
     transition?: TransitionProps
     exitX?: number
-    exitY?: number
     index: number
     drag?: boolean | "x" | "y"
     setExitX?: (x: number) => void
     setIndex?: (x: number) => void
-    setExitY?: (x: number) => void
     pokeArray: GetPokemonArrayInterface[] | undefined
     length: number
   }
@@ -50,7 +48,6 @@ interface CardProps {
       if((props.index === props.length + 1) && props.setIndex) {
         props.setIndex(0)
       } 
-      console.log(props.length)
     }, [props.index, props.setIndex, props.length])
 
 
@@ -61,21 +58,13 @@ interface CardProps {
     function handleDragEnd(event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) {
         if (info.offset.x < -200) {
           if(props.setExitX) props.setExitX(-1000);
-          if(props.setExitY) props.setExitY(0);
           if(props.setIndex) props.setIndex(props.index + 1);
         }
         if (info.offset.x > 200) {
           if(props.setExitX) props.setExitX(1000);
-          if(props.setExitY) props.setExitY(0);
-          if(props.setIndex) props.setIndex(props.index + 1);
-        }
-        if (info.offset.y > 300) {
-          if(props.setExitY) props.setExitY(800);
-          if(props.setExitX) props.setExitX(0);
           if(props.setIndex) props.setIndex(props.index + 1);
         }
         if (info.offset.y < -300 && props.pokeArray) {
-          console.log(props.pokeArray[props.index])
         }
     }
 
@@ -125,7 +114,6 @@ interface CardProps {
         transition={props.transition}
         exit={{
           x: props.exitX,
-          y: props.exitY,
           transition: { duration: 0.2 }
         }}
       >

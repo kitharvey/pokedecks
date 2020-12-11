@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react'
 import useGetPokemonData from './useGetPokemonData';
 import "../Sass/CardStyle.scss"
 import { GetPokemonDataInterface } from './CardInterface';
-import logo from "../Assets/pokemon-logo.svg"
-import Trail from './Trail';
-import getTypeIcon from './getTypeIcon';
+import {getTypeIcon, findColor} from './getTypeIcon';
+import ProgressiveImage from 'react-progressive-image-loading';
+import egg from "../Assets/pokemon-egg.png"
 interface CardInterface{
   link: string
   name: string
@@ -16,32 +16,7 @@ interface ActualCardInterface{
   name: string
 }
 
-const findColor = (color: string) => {
-    const colors = {
-      normal: "#C4C4A4",
-      fire: "#F08030",
-      fighting: "#C03028",
-      water: "#6890F0",
-      flying: "#A890F0",
-      grass: "#78C850",
-      poison: "#A040A0",
-      electric: "#F8D030",
-      ground: "#E0C068",
-      psychic: "#F85888",
-      rock: "#B8A038",
-      ice: "#98D8D8",
-      bug: "#A8B820",
-      dragon: "#7038F8",
-      ghost: "#705898",
-      dark: "#705848",
-      steel: "#B8B8D0",
-      fairy: "#EE99AC",
-    };
-    const getColor = Object.entries(colors).filter(
-      ([key, _]) => key === color
-    )
-  return getColor[0]
-}
+
 
 
 const getImageSource = (link: string) => {
@@ -83,15 +58,21 @@ const ActualCard: React.FC<ActualCardInterface >  =  ({pokemondata, link, name})
         className="w-full h-52 rounded-lg p-3 shadow-inner relative " 
         style={{backgroundColor: findColor(pokemondata.types[0].type.name)[1]}} 
         >
-        {sprite && 
-        <img 
-          src={sprite} 
-          alt={name} 
-          draggable="false" 
-          onDragStart={ e => e.preventDefault()} 
-          className="w-44 h-auto absolute left-1/2 bottom-2.5 transform -translate-x-1/2 translate-y-1/4 z-10"  
-        />}
-        <p className=" w-full absolute top-2.5 left-1/2 transform -translate-x-1/2 text-white text-center text-opacity-80 font-bold text-2xl" >{capitalizeFirstLetter(name)}</p>
+        <ProgressiveImage
+              preview={egg}
+              src={sprite}
+              render={src => (
+                <img 
+                  src={src} 
+                  alt={name} 
+                  className="w-44 h-auto absolute left-1/2 bottom-2.5 transform -translate-x-1/2 translate-y-1/4 z-10" 
+                  draggable="false" 
+                  onDragStart={ e => e.preventDefault()} 
+                />
+              )}
+            />
+
+        <p className=" w-4/5 absolute top-2.5 left-1/2 transform -translate-x-1/2 text-white text-center text-opacity-80 font-bold text-2xl" >{capitalizeFirstLetter(name)}</p>
       </div>
 
       <div className="w-full flex flex-col justify-between h-32" >
@@ -99,30 +80,30 @@ const ActualCard: React.FC<ActualCardInterface >  =  ({pokemondata, link, name})
           <div className="flex" >
             {pokemondata.types.map( (type,index) => <img src={getTypeIcon(type.type.name)[1]} className="mr-1 w-8" key={index} alt={getTypeIcon(type.type.name)[0]}/>)}
           </div>
-          <p className="text-black font-medium" >#{getID(link)}</p>
+          <p className="text-black font-bold text-lg" >#{getID(link)}</p>
         </div>
         <div className="w-full flex justify-evenly" >
           <div className="flex flex-col items-center" >
             <p className="text-black text-xs font-normal" >attack</p>
-            <p className="text-black font-medium" >{pokemondata.stats[1].base_stat}</p>
+            <p className="text-black font-bold" >{pokemondata.stats[1].base_stat}</p>
           </div>
           <div className="flex flex-col items-center" >
             <p className="text-black text-xs font-normal" >hp</p>
-            <p className="text-black font-medium" >{pokemondata.stats[0].base_stat}/{pokemondata.stats[0].base_stat}</p>
+            <p className="text-black font-bold" >{pokemondata.stats[0].base_stat}/{pokemondata.stats[0].base_stat}</p>
           </div>
           <div className="flex flex-col items-center" >
             <p className="text-black text-xs font-normal" >defense</p>
-            <p className="text-black font-medium" >{pokemondata.stats[2].base_stat}</p>
+            <p className="text-black font-bold" >{pokemondata.stats[2].base_stat}</p>
           </div>
         </div>
         <div className="flex flex-row justify-evenly" >
           <div className="flex flex-col items-center" >
-            <p className="text-black font-medium" >{pokemondata.height/10}m</p>
             <p className="text-black text-xs font-medium" >height</p>
+            <p className="text-black font-bold" >{pokemondata.height/10}m</p>
           </div>
           <div className="flex flex-col items-center" >
-            <p className="text-black font-medium" >{pokemondata.weight/10}kg</p>
             <p className="text-black text-xs font-normal" >weight</p>
+            <p className="text-black font-bold" >{pokemondata.weight/10}kg</p>
           </div>
         </div>
       </div>
@@ -140,14 +121,47 @@ const ActualCard: React.FC<ActualCardInterface >  =  ({pokemondata, link, name})
 
 const CardLoader: React.FC = () => {
   return (
-  <div className="h-full w-full bg-gray-300 rounded-xl p-2.5 relative z-10 flex flex-col justify-between" >
-    <div className="animate-pulse h-6 bg-gray-200 rounded-2xl w-3/4"></div>
-    <img src={logo} draggable="false" onDragStart={ e => e.preventDefault()} className="poke-logo animate-pulse" alt="poke-logo" />
-    <div className="flex" >
-      <div className="animate-pulse h-6 bg-gray-200 rounded-2xl w-1/4 mr-2.5"></div>
-      <div className="animate-pulse h-6 bg-gray-200 rounded-2xl w-1/4"></div>
+    <div className="rounded-lg h-full w-full p-2.5 flex flex-col justify-between  bg-white">
+    <div className="w-full h-52 rounded-lg bg-gray-400 p-3 shadow-inner relative animate-pulse " >
+      <div className=" w-4/5 h-10 absolute top-2.5 left-1/2 transform -translate-x-1/2 rounded-lg bg-gray-200 animate-pulse" ></div>
     </div>
-  </div>
+
+    <div className="w-full flex flex-col justify-between h-32" >
+      <div className="flex justify-between" >
+        <div className="flex" >
+          <div className="mr-1 w-8 h-8 rounded-full bg-gray-300 animate-pulse" />
+          <div className="mr-1 w-8 h-8 rounded-full bg-gray-300 animate-pulse" />
+        </div>
+        <div className="w-12 h-6 m-0.5 rounded-lg bg-gray-300 animate-pulse" ></div>
+      </div>
+      <div className="w-full flex justify-evenly" >
+        <div className="flex flex-col items-center" >
+          <div className="w-10 h-3 m-0.5 rounded-lg bg-gray-300 animate-pulse" ></div>
+          <div className="w-6 h-4 m-0.5 rounded-lg bg-gray-300 animate-pulse" ></div>
+        </div>
+        <div className="flex flex-col items-center" >
+          <div className="w-8 h-3 m-0.5 rounded-lg bg-gray-300 animate-pulse" ></div>
+          <div className="w-12 h-4 m-0.5 rounded-lg bg-gray-300 animate-pulse" ></div>
+        </div>
+        <div className="flex flex-col items-center" >
+          <div className="w-10 h-3 m-0.5 rounded-lg bg-gray-300 animate-pulse" ></div>
+          <div className="w-6 h-4 m-0.5 rounded-lg bg-gray-300 animate-pulse" ></div>
+        </div>
+      </div>
+      <div className="flex flex-row justify-evenly" >
+      <div className="flex flex-col items-center" >
+          <div className="w-8 h-3 m-0.5 rounded-lg bg-gray-300 animate-pulse" ></div>
+          <div className="w-14 h-4 m-0.5 rounded-lg bg-gray-300 animate-pulse" ></div>
+        </div>
+        <div className="flex flex-col items-center" >
+          <div className="w-8 h-3 m-0.5 rounded-lg bg-gray-300 animate-pulse" ></div>
+          <div className="w-14 h-4 m-0.5 rounded-lg bg-gray-300 animate-pulse" ></div>
+        </div>
+      </div>
+    </div>
+   
+
+</div>
   )
 }
 
@@ -185,14 +199,12 @@ const Card: React.FC<CardInterface>  = ({link, name, index}) => {
 
 
   return (
-    <Trail open={true}>
     <div className="h-96 w-64" >
         {(pokemondata && !isLoader)
             ? <ActualCard pokemondata={pokemondata} link={link} name={name} />
             : <CardLoader/>
         }
     </div>
-    </Trail>
   )
 }
 

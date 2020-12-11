@@ -13,7 +13,6 @@ var timeOutID: ReturnType<typeof setTimeout> = setTimeout(() => '', 1000)
 const DeckOfCards:React.FC = () => {
   const [index, setIndex] = useState<number>(0);
   const [exitX, setExitX] = useState<number>(0);
-  const [exitY, setExitY] = useState<number>(0);
   const [length, setLength] = useState<number>(0);
   const [pokeArray, setPokeArray] = useState<GetPokemonArrayInterface[]>()
   const result = useGetPokemonList()
@@ -36,8 +35,6 @@ const DeckOfCards:React.FC = () => {
     const key = e.key+''
     if(e.keyCode >= 65 && e.keyCode <= 90)setSearchInput(searchInput => searchInput + key.toLowerCase())
     if (e.keyCode === 8) setSearchInput(searchInput => searchInput.slice(0, -1))
-    console.log(searchInput)
-    
   }
 
   useEffect(() => {
@@ -45,11 +42,10 @@ const DeckOfCards:React.FC = () => {
   }, [])
 
   useEffect(() => {
-
+    setIndex(0)
     clearTimeout(timeOutID)
     setIsVisible(true)
     timeOutID = setTimeout(() => {
-            console.log("timeout")
             setIsVisible(false)
     }, 1000)
     
@@ -58,7 +54,6 @@ const DeckOfCards:React.FC = () => {
             setPokeArray(filteredResult)
             setLength(filteredResult.length)
     } 
-    console.log(searchInput, pokeArray ? pokeArray.length : 0)
 
     return () => {
             setPokeArray(pokeArray)
@@ -139,8 +134,6 @@ const DeckOfCards:React.FC = () => {
             }}
             exitX={exitX}
             setExitX={setExitX}
-            exitY={exitY}
-            setExitY={setExitY}
             setIndex={setIndex}
             drag
           />}
