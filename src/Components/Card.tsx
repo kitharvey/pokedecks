@@ -4,6 +4,7 @@ import "../Sass/CardStyle.scss"
 import { GetPokemonDataInterface } from './CardInterface';
 import logo from "../Assets/pokemon-logo.svg"
 import Trail from './Trail';
+import getTypeIcon from './getTypeIcon';
 interface CardInterface{
   link: string
   name: string
@@ -15,7 +16,7 @@ interface ActualCardInterface{
   name: string
 }
 
-const findColor = (color: any) => {
+const findColor = (color: string) => {
     const colors = {
       normal: "#C4C4A4",
       fire: "#F08030",
@@ -39,11 +40,9 @@ const findColor = (color: any) => {
     const getColor = Object.entries(colors).filter(
       ([key, _]) => key === color
     )
-  // const main_types = Object.keys(colors);
-  // const type = main_types.find(key => key === color)
-  // if (type) getColor = colors[type]
   return getColor[0]
 }
+
 
 const getImageSource = (link: string) => {
   const id = getID(link)
@@ -73,16 +72,22 @@ const ActualCard: React.FC<ActualCardInterface >  =  ({pokemondata, link, name})
   const handleClick = () => {
     setIsClicked(!isClicked)
   }
+
+  useEffect(() => {
+    console.log(getTypeIcon(pokemondata.types[0].type.name)[1])
+  }, [pokemondata])
+
   return (
     <div className={`rounded-lg pokemon-card ${isClicked ? "isClicked" : ""}`}  
       style={{backgroundColor: findColor(pokemondata.types[0].type.name)[1]}} 
       onClick={handleClick}>
-      <div className="bg-black bg-opacity-5 w-full h-auto rounded-lg p-3 shadow-inner relative " >
-        {sprite && <img src={sprite} alt={name} draggable="false" onDragStart={ e => e.preventDefault()} className="sprite"  /> }
-      <p className="absolute top-2.5 right-2.5 text-black text-opacity-50 font-black" >#{pokemondata.id}</p>
-      <div className="flex absolute bottom-2.5 left-2.5" >
-        {pokemondata.types.map( (type,index) => <div className="text-black text-opacity-50 font-black mr-1" key={index}>{type.type.name}</div> )}
-      </div>
+      <div className="bg-black bg-opacity-10 w-full h-auto rounded-lg p-3 shadow-inner relative " >
+        {sprite && <img src={sprite} alt={name} draggable="false" onDragStart={ e => e.preventDefault()} className="sprite my-4 mx-auto"  /> }
+        <p className="absolute top-2.5 right-2.5 text-black text-opacity-50 font-black" >#{getID(link)}</p>
+        <div className="flex absolute bottom-0 left-2.5 transform translate-y-1/2" >
+          {/* {pokemondata.types.map( (type,index) => <div className="text-black text-opacity-50 font-black mr-1" key={index}>{type.type.name}</div> )} */}
+          {pokemondata.types.map( (type,index) => <img src={getTypeIcon(type.type.name)[1]} className="mr-2 w-8" key={index} alt={getTypeIcon(type.type.name)[0]}/>)}
+        </div>
       </div>
       <h3 className="pokemon-name" >{capitalizeFirstLetter(name)}</h3>
       <div className="flex flex-wrap" >

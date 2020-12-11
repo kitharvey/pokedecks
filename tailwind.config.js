@@ -10,15 +10,10 @@ module.exports = {
       xl: '0 0 3px rgba(0, 0, 0, .8), 0 0 5px rgba(0, 0, 0, .9)',
       none: 'none',
     },
-    // keyframes: {
-    //   wiggle: {
-    //     '0%, 100%': { transform: 'rotate(-3deg)' },
-    //     '50%': { transform: 'rotate(3deg)' },
-    //   }
-    //  },
-    //  animation: {
-    //   wiggle: 'wiggle .5s ease-in-out infinite',
-    //  }
+    boxShadow: {
+      inner: 'inset 0 2px 4px 0px rgba(0, 0, 0, 0.06)',
+      none: 'none',
+    }
   },
   variants: {
     extend: {},
