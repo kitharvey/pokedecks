@@ -62,7 +62,8 @@ const getID = (link: string) => {
 
 
 const capitalizeFirstLetter = (string: string) => {
-  return string.charAt(0).toUpperCase() + string.slice(1);
+  const newName = string.split("-").join(" ")
+  return newName.charAt(0).toUpperCase() + newName.slice(1);
 }
 
 
@@ -73,27 +74,59 @@ const ActualCard: React.FC<ActualCardInterface >  =  ({pokemondata, link, name})
     setIsClicked(!isClicked)
   }
 
-  useEffect(() => {
-    console.log(getTypeIcon(pokemondata.types[0].type.name)[1])
-  }, [pokemondata])
 
   return (
-    <div className={`rounded-lg pokemon-card ${isClicked ? "isClicked" : ""}`}  
-      style={{backgroundColor: findColor(pokemondata.types[0].type.name)[1]}} 
+    <div 
+      className="rounded-lg bg-white h-full w-full p-2.5 flex flex-col justify-between"
       onClick={handleClick}>
-      <div className="bg-black bg-opacity-10 w-full h-auto rounded-lg p-3 shadow-inner relative " >
-        {sprite && <img src={sprite} alt={name} draggable="false" onDragStart={ e => e.preventDefault()} className="sprite my-4 mx-auto"  /> }
-        <p className="absolute top-2.5 right-2.5 text-black text-opacity-50 font-black" >#{getID(link)}</p>
-        <div className="flex absolute bottom-0 left-2.5 transform translate-y-1/2" >
-          {/* {pokemondata.types.map( (type,index) => <div className="text-black text-opacity-50 font-black mr-1" key={index}>{type.type.name}</div> )} */}
-          {pokemondata.types.map( (type,index) => <img src={getTypeIcon(type.type.name)[1]} className="mr-2 w-8" key={index} alt={getTypeIcon(type.type.name)[0]}/>)}
+      <div 
+        className="w-full h-52 rounded-lg p-3 shadow-inner relative " 
+        style={{backgroundColor: findColor(pokemondata.types[0].type.name)[1]}} 
+        >
+        {sprite && 
+        <img 
+          src={sprite} 
+          alt={name} 
+          draggable="false" 
+          onDragStart={ e => e.preventDefault()} 
+          className="w-44 h-auto absolute left-1/2 bottom-2.5 transform -translate-x-1/2 translate-y-1/4 z-10"  
+        />}
+        <p className=" w-full absolute top-2.5 left-1/2 transform -translate-x-1/2 text-white text-center text-opacity-80 font-bold text-2xl" >{capitalizeFirstLetter(name)}</p>
+      </div>
+
+      <div className="w-full flex flex-col justify-between h-32" >
+        <div className="flex justify-between" >
+          <div className="flex" >
+            {pokemondata.types.map( (type,index) => <img src={getTypeIcon(type.type.name)[1]} className="mr-1 w-8" key={index} alt={getTypeIcon(type.type.name)[0]}/>)}
+          </div>
+          <p className="text-black font-medium" >#{getID(link)}</p>
+        </div>
+        <div className="w-full flex justify-evenly" >
+          <div className="flex flex-col items-center" >
+            <p className="text-black text-xs font-normal" >attack</p>
+            <p className="text-black font-medium" >{pokemondata.stats[1].base_stat}</p>
+          </div>
+          <div className="flex flex-col items-center" >
+            <p className="text-black text-xs font-normal" >hp</p>
+            <p className="text-black font-medium" >{pokemondata.stats[0].base_stat}/{pokemondata.stats[0].base_stat}</p>
+          </div>
+          <div className="flex flex-col items-center" >
+            <p className="text-black text-xs font-normal" >defense</p>
+            <p className="text-black font-medium" >{pokemondata.stats[2].base_stat}</p>
+          </div>
+        </div>
+        <div className="flex flex-row justify-evenly" >
+          <div className="flex flex-col items-center" >
+            <p className="text-black font-medium" >{pokemondata.height/10}m</p>
+            <p className="text-black text-xs font-medium" >height</p>
+          </div>
+          <div className="flex flex-col items-center" >
+            <p className="text-black font-medium" >{pokemondata.weight/10}kg</p>
+            <p className="text-black text-xs font-normal" >weight</p>
+          </div>
         </div>
       </div>
-      <h3 className="pokemon-name" >{capitalizeFirstLetter(name)}</h3>
-      <div className="flex flex-wrap" >
-        {pokemondata.abilities.map( (ability,index) => <div className="type" key={index}>{ability.ability.name}</div> )}
-        {/* {pokemondata.stats.map( (stat,index) => <div className="type" key={index}>{stat.base_stat}</div> )} */}
-      </div>
+     
 
   </div>
   )
@@ -127,7 +160,6 @@ const Card: React.FC<CardInterface>  = ({link, name, index}) => {
 
   useEffect(() => {
     if(pokemon !== undefined) setPokemondata(pokemon)  
-    console.log(pokemon)
    }, [pokemon])
    
    useEffect(() => {
