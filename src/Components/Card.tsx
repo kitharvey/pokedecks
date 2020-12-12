@@ -65,14 +65,14 @@ const ActualCard: React.FC<ActualCardInterface >  =  ({pokemondata, link, name})
                 <img 
                   src={src} 
                   alt={name} 
-                  className="w-44 h-auto absolute left-1/2 bottom-2.5 transform -translate-x-1/2 translate-y-1/4 z-10" 
+                  className="w-44 h-auto absolute left-1/2 bottom-2.5 transform -translate-x-1/2 translate-y-1/4" 
                   draggable="false" 
                   onDragStart={ e => e.preventDefault()} 
                 />
               )}
             />
 
-        <p className=" w-4/5 absolute top-2.5 left-1/2 transform -translate-x-1/2 text-white text-center text-opacity-80 font-bold text-2xl" >{capitalizeFirstLetter(name)}</p>
+        <p className=" w-4/5 absolute top-2.5 left-1/2 transform -translate-x-1/2 text-white text-center font-bold text-2xl" >{capitalizeFirstLetter(name)}</p>
       </div>
 
       <div className="w-full flex flex-col justify-between h-32" >
@@ -124,38 +124,48 @@ const CardLoader: React.FC = () => {
     <div className="rounded-lg h-full w-full p-2.5 flex flex-col justify-between  bg-white">
     <div className="w-full h-52 rounded-lg bg-gray-400 p-3 shadow-inner relative animate-pulse " >
       <div className=" w-4/5 h-10 absolute top-2.5 left-1/2 transform -translate-x-1/2 rounded-lg bg-gray-200 animate-pulse" ></div>
+      <img 
+        src={egg} 
+        alt="egg loaded"
+        className="w-44 h-auto absolute left-1/2 bottom-2.5 transform -translate-x-1/2 translate-y-1/4 z-10 animate-pulse" 
+        style={{
+          filter: "grayscale(1)"
+        }}
+        draggable="false" 
+        onDragStart={ e => e.preventDefault()} 
+      />
     </div>
 
     <div className="w-full flex flex-col justify-between h-32" >
       <div className="flex justify-between" >
         <div className="flex" >
-          <div className="mr-1 w-8 h-8 rounded-full bg-gray-300 animate-pulse" />
-          <div className="mr-1 w-8 h-8 rounded-full bg-gray-300 animate-pulse" />
+          <div className="mr-1 w-8 h-8 rounded-full bg-gray-400 animate-pulse" />
+          <div className="mr-1 w-8 h-8 rounded-full bg-gray-400 animate-pulse" />
         </div>
-        <div className="w-12 h-6 m-0.5 rounded-lg bg-gray-300 animate-pulse" ></div>
+        <div className="w-12 h-6 m-0.5 rounded-lg bg-gray-400 animate-pulse" ></div>
       </div>
       <div className="w-full flex justify-evenly" >
         <div className="flex flex-col items-center" >
-          <div className="w-10 h-3 m-0.5 rounded-lg bg-gray-300 animate-pulse" ></div>
-          <div className="w-6 h-4 m-0.5 rounded-lg bg-gray-300 animate-pulse" ></div>
+          <div className="w-10 h-3 m-0.5 rounded-lg bg-gray-400 animate-pulse" ></div>
+          <div className="w-6 h-4 m-0.5 rounded-lg bg-gray-400 animate-pulse" ></div>
         </div>
         <div className="flex flex-col items-center" >
-          <div className="w-8 h-3 m-0.5 rounded-lg bg-gray-300 animate-pulse" ></div>
-          <div className="w-12 h-4 m-0.5 rounded-lg bg-gray-300 animate-pulse" ></div>
+          <div className="w-8 h-3 m-0.5 rounded-lg bg-gray-400 animate-pulse" ></div>
+          <div className="w-12 h-4 m-0.5 rounded-lg bg-gray-400 animate-pulse" ></div>
         </div>
         <div className="flex flex-col items-center" >
-          <div className="w-10 h-3 m-0.5 rounded-lg bg-gray-300 animate-pulse" ></div>
-          <div className="w-6 h-4 m-0.5 rounded-lg bg-gray-300 animate-pulse" ></div>
+          <div className="w-10 h-3 m-0.5 rounded-lg bg-gray-400 animate-pulse" ></div>
+          <div className="w-6 h-4 m-0.5 rounded-lg bg-gray-400 animate-pulse" ></div>
         </div>
       </div>
       <div className="flex flex-row justify-evenly" >
       <div className="flex flex-col items-center" >
-          <div className="w-8 h-3 m-0.5 rounded-lg bg-gray-300 animate-pulse" ></div>
-          <div className="w-14 h-4 m-0.5 rounded-lg bg-gray-300 animate-pulse" ></div>
+          <div className="w-8 h-3 m-0.5 rounded-lg bg-gray-400 animate-pulse" ></div>
+          <div className="w-14 h-4 m-0.5 rounded-lg bg-gray-400 animate-pulse" ></div>
         </div>
         <div className="flex flex-col items-center" >
-          <div className="w-8 h-3 m-0.5 rounded-lg bg-gray-300 animate-pulse" ></div>
-          <div className="w-14 h-4 m-0.5 rounded-lg bg-gray-300 animate-pulse" ></div>
+          <div className="w-8 h-3 m-0.5 rounded-lg bg-gray-400 animate-pulse" ></div>
+          <div className="w-14 h-4 m-0.5 rounded-lg bg-gray-400 animate-pulse" ></div>
         </div>
       </div>
     </div>

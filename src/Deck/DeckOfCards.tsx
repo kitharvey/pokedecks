@@ -17,6 +17,7 @@ const DeckOfCards:React.FC = () => {
   const [pokeArray, setPokeArray] = useState<GetPokemonArrayInterface[]>()
   const result = useGetPokemonList()
   const [searchInput, setSearchInput] = useState<string>('')
+  const [pokemonNameSwipedUp, setPokemonNameSwipedUp] = useState<string | null>(null)
   const [isVisible, setIsVisible] = useState<boolean>(false)
 
   useEffect(() => {
@@ -33,13 +34,18 @@ const DeckOfCards:React.FC = () => {
 
   const handleSearch = (e: any) => {
     const key = e.key+''
-    if(e.keyCode >= 65 && e.keyCode <= 90)setSearchInput(searchInput => searchInput + key.toLowerCase())
+    if(e.keyCode >= 65 && e.keyCode <= 90) setSearchInput(searchInput => searchInput + key.toLowerCase())
     if (e.keyCode === 8) setSearchInput(searchInput => searchInput.slice(0, -1))
   }
 
   useEffect(() => {
     document.body.addEventListener( 'keydown', handleSearch )
   }, [])
+
+  useEffect(() => {
+    if(pokemonNameSwipedUp) document.body.addEventListener( 'keydown', (e: any) => e.preventDefault() )
+    console.log(pokemonNameSwipedUp)
+  }, [pokemonNameSwipedUp, document.body])
 
   useEffect(() => {
     setIndex(0)
@@ -62,9 +68,18 @@ const DeckOfCards:React.FC = () => {
   }, [searchInput])
 
   return (
-    <div className="h-screen w-full flex items-center justify-center" >
-        {isVisible && <p className="fixed top-1/5 right-1/2 z-50 transform translate-x-1/2 -translate-y-1/2 text-9xl font-bold text-white text-shadow-md uppercase" >{searchInput}</p> }
+    <div className="h-screen w-full flex items-center justify-center relative" >
+        {isVisible && <p className="absolute top-1/5 right-1/2 z-50 transform translate-x-1/2 -translate-y-1/2 text-9xl font-bold text-white text-shadow-md uppercase" >{searchInput}</p> }
+        {pokemonNameSwipedUp && 
+          <div className="h-full w-full absolute top-1/2 right-1/2 z-50 transform translate-x-1/2 -translate-y-1/2 z-100 pointer-events-none" >
+            <div className="container pointer-events-all" >
+              <div onClick={() => setPokemonNameSwipedUp(null)} >close</div>
+              <div>{pokemonNameSwipedUp}</div>
+            </div>
+            
+          </div> }
     {(pokeArray && !isVisible) && 
+    <div className="" onKeyDown={handleSearch} >
       <motion.div
         style={{
           width: 256,
@@ -85,12 +100,12 @@ const DeckOfCards:React.FC = () => {
               opacity: 0
             }}
             animate={{
-              scale: .7,
+              scale: 1,
               y: 0,
               opacity: 1
             }}
             transition={{
-              scale: { duration: 0.2 },
+              scale: { duration: 0.1 },
             }}
           />}
         {pokeArray.length > 1 &&
@@ -105,12 +120,12 @@ const DeckOfCards:React.FC = () => {
               opacity: 0
             }}
             animate={{
-              scale: .9,
+              scale: 1,
               y: 0,
               opacity: 1,
             }}
             transition={{
-              scale: { duration: 0.2 },
+              scale: { duration: 0.1 },
             }}
           />}
           {pokeArray.length > 0 &&
@@ -126,19 +141,21 @@ const DeckOfCards:React.FC = () => {
             }}
             transition={{
               type: "spring",
-              stiffness: 300,
+              stiffness: 100,
               damping: 20,
               opacity: {
-                duration: 0.2
+                duration: 0.1
               }
             }}
             exitX={exitX}
             setExitX={setExitX}
             setIndex={setIndex}
+            setPokemonNameSwipedUp={setPokemonNameSwipedUp}
             drag
           />}
         </AnimatePresence>
       </motion.div>
+      </div>
     }
     </div>
   );

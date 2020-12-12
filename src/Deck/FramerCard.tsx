@@ -20,6 +20,7 @@ interface CardProps {
     setIndex?: (x: number) => void
     pokeArray: GetPokemonArrayInterface[] | undefined
     length: number
+    setPokemonNameSwipedUp?: (x: string) => void 
   }
   
   interface TransitionProps {
@@ -41,8 +42,13 @@ interface CardProps {
       opacity: number
       
   }
+
+
   
   const FramerCard: React.FC<CardProps> = (props) => {
+    
+    const x = useMotionValue(0);
+    const y = useMotionValue(0);
 
     useEffect(() => {
       if((props.index === props.length + 1) && props.setIndex) {
@@ -52,8 +58,7 @@ interface CardProps {
 
 
 
-    const x = useMotionValue(0);
-    const y = useMotionValue(0);
+
   
     function handleDragEnd(event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) {
         if (info.offset.x < -200) {
@@ -65,6 +70,8 @@ interface CardProps {
           if(props.setIndex) props.setIndex(props.index + 1);
         }
         if (info.offset.y < -300 && props.pokeArray) {
+          console.log(props.pokeArray[props.index])
+          if(props.setPokemonNameSwipedUp) props.setPokemonNameSwipedUp(props.pokeArray[props.index].name)
         }
     }
 
@@ -88,12 +95,11 @@ interface CardProps {
           borderRadius: "10px",
           x: x,
           y: y,
-          // rotate: rotate,
           cursor: "grab",
         }}
         whileHover={{
           scale: 1.05,
-          boxShadow: "0 15px 50px 1px rgba(0,0,0,.25)"
+          boxShadow: "0 15px 50px 1px rgba(0,0,0,.25)",
         }}
         whileTap={{ 
           cursor: "grabbing",
