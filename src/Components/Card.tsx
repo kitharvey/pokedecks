@@ -59,9 +59,9 @@ const ActualCard: React.FC<ActualCardInterface >  =  ({pokemondata, link, name})
         style={{backgroundColor: findColor(pokemondata.types[0].type.name)[1]}} 
         >
         <ProgressiveImage
-              preview={egg}
-              src={sprite}
-              render={src => (
+              preview = {egg}
+              src = {sprite}
+              render = { src => (
                 <img 
                   src={src} 
                   alt={name} 
@@ -78,7 +78,12 @@ const ActualCard: React.FC<ActualCardInterface >  =  ({pokemondata, link, name})
       <div className="w-full flex flex-col justify-between h-32" >
         <div className="flex justify-between" >
           <div className="flex" >
-            {pokemondata.types.map( (type,index) => <img src={getTypeIcon(type.type.name)[1]} className="mr-1 w-8" key={index} alt={getTypeIcon(type.type.name)[0]}/>)}
+            {pokemondata.types.map( (type,index) => <img  src={getTypeIcon(type.type.name)[1]} 
+                                                          className="mr-1 w-8" 
+                                                          key={index} 
+                                                          draggable="false" 
+                                                          onDragStart={ e => e.preventDefault()}  
+                                                          alt={getTypeIcon(type.type.name)[0]}/>)}
           </div>
           <p className="text-black font-bold text-lg" >#{getID(link)}</p>
         </div>
@@ -177,21 +182,21 @@ const CardLoader: React.FC = () => {
 
 
 const Card: React.FC<CardInterface>  = ({link, name, index}) => {
-  const [pokemondata, setPokemondata] = useState<GetPokemonDataInterface>()
+  const [pokemondata, setPokemondata] = useState<GetPokemonDataInterface | null>(null)
   const [isLoader, setIsLoader] = useState<boolean>(true)
   const pokemon = useGetPokemonData(name)
-  var LoadtimeOutID: ReturnType<typeof setTimeout> = setTimeout(() => '', 1000), EggtimeOutID: ReturnType<typeof setTimeout> = setTimeout(() => '', 1000), LoadertimeoutID: ReturnType<typeof setTimeout> = setTimeout(() => '', 1000)
+  var LoadertimeoutID: ReturnType<typeof setTimeout> = setTimeout(() => '', 1000)
 
   useEffect(() => {
     if(pokemon !== undefined) setPokemondata(pokemon)  
+
+    return () => setPokemondata(null) 
    }, [pokemon])
    
    useEffect(() => {
     clearTimeout(LoadertimeoutID)
-    clearTimeout(LoadtimeOutID)
-    clearTimeout(EggtimeOutID)
 
-    setTimeout(() => {
+    LoadertimeoutID = setTimeout(() => {
       setIsLoader(false)
     }, 1000)
 
@@ -200,7 +205,7 @@ const Card: React.FC<CardInterface>  = ({link, name, index}) => {
       setIsLoader(false)
     }
    
-   }, [index])
+   }, [index, LoadertimeoutID])
 
 
 

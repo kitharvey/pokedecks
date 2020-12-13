@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { GetPokemonList, GetPokemonArrayInterface } from './CardInterface';
+import { GetPokemonList } from './CardInterface';
 import axios from 'axios'
 
 const shuffle = (array: []) => {
@@ -15,11 +15,11 @@ const shuffle = (array: []) => {
         return array;
       }
 
-const getID = (link: string) => {
-    const splitLink = link.split('/')
-    const IDString = parseInt(splitLink[splitLink.length-2])
-    return IDString
-}
+// const getID = (link: string) => {
+//     const splitLink = link.split('/')
+//     const IDString = parseInt(splitLink[splitLink.length-2])
+//     return IDString
+// }
 
 export const useGetPokemonList = () => {
     const [result, setResult] = useState<GetPokemonList>()

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useEffect} from "react";
 import {
   motion,
   useMotionValue,
@@ -20,7 +20,16 @@ interface CardProps {
     setIndex?: (x: number) => void
     pokeArray: GetPokemonArrayInterface[] | undefined
     length: number
-    setPokemonNameSwipedUp?: (x: string) => void 
+    setPokemonNameSwipedUp?: (x: string) => void
+    whileHover?: {
+      scale: number,
+      boxShadow: string
+    }
+    whileTap?: {
+      cursor: string,
+      scale: number,
+      boxShadow: string
+     }
   }
   
   interface TransitionProps {
@@ -46,15 +55,32 @@ interface CardProps {
 
   
   const FramerCard: React.FC<CardProps> = (props) => {
+
+    const {
+      initial,
+      animate,
+      transition,
+      exitX,
+      index,
+      drag,
+      setExitX,
+      setIndex,
+      pokeArray,
+      length,
+      setPokemonNameSwipedUp,
+      whileHover,
+      whileTap
+    } = props
     
     const x = useMotionValue(0);
     const y = useMotionValue(0);
 
+
     useEffect(() => {
-      if((props.index === props.length + 1) && props.setIndex) {
-        props.setIndex(0)
+      if((index === length + 1) && setIndex) {
+        setIndex(0)
       } 
-    }, [props.index, props.setIndex, props.length])
+    }, [index, setIndex, length])
 
 
 
@@ -62,16 +88,16 @@ interface CardProps {
   
     function handleDragEnd(event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) {
         if (info.offset.x < -200) {
-          if(props.setExitX) props.setExitX(-1000);
-          if(props.setIndex) props.setIndex(props.index + 1);
+          if(setExitX) setExitX(-1000);
+          if(setIndex) setIndex(index + 1);
         }
         if (info.offset.x > 200) {
-          if(props.setExitX) props.setExitX(1000);
-          if(props.setIndex) props.setIndex(props.index + 1);
+          if(setExitX) setExitX(1000);
+          if(setIndex) setIndex(index + 1);
         }
-        if (info.offset.y < -300 && props.pokeArray) {
-          console.log(props.pokeArray[props.index])
-          if(props.setPokemonNameSwipedUp) props.setPokemonNameSwipedUp(props.pokeArray[props.index].name)
+        if (info.offset.y < -300 && pokeArray) {
+          console.log(pokeArray[index])
+          if(setPokemonNameSwipedUp) setPokemonNameSwipedUp(pokeArray[index].name)
         }
     }
 
@@ -97,16 +123,9 @@ interface CardProps {
           y: y,
           cursor: "grab",
         }}
-        whileHover={{
-          scale: 1.05,
-          boxShadow: "0 15px 50px 1px rgba(0,0,0,.25)",
-        }}
-        whileTap={{ 
-          cursor: "grabbing",
-          scale: 1.05,
-          boxShadow: "0 15px 50px 1px rgba(0,0,0,.25)"
-         }}
-        drag={props.drag}
+        whileHover={whileHover}
+        whileTap={whileHover}
+        drag={drag}
         dragDirectionLock
         dragConstraints={{
           top: 0,
@@ -115,19 +134,19 @@ interface CardProps {
           left: 0
         }}
         onDragEnd={handleDragEnd}
-        initial={props.initial}
-        animate={props.animate}
-        transition={props.transition}
+        initial={initial}
+        animate={animate}
+        transition={transition}
         exit={{
-          x: props.exitX,
+          x: exitX,
           transition: { duration: 0.2 }
         }}
       >
-          {(props.pokeArray) &&  (
-            (props.index >= props.length) 
+          {(pokeArray) &&  (
+            (index >= length) 
               ? <EndCard />
-              : <Card  link={props.pokeArray[props.index].url} name={props.pokeArray[props.index].name} index={props.index} /> )
-              // ? <div>{props.index}</div>
+              : <Card  link={pokeArray[index].url} name={pokeArray[index].name} index={index} /> )
+              // ? <div>{index}</div>
               }
       </motion.div>
     );

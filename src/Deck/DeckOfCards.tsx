@@ -27,25 +27,12 @@ const DeckOfCards:React.FC = () => {
             setPokeArray(newData)
             setLength(newData.length)
     }
-    return () => {
-            setPokeArray(pokeArray)
-    }
+    return () => { }
   }, [result])
 
-  const handleSearch = (e: any) => {
-    const key = e.key+''
-    if(e.keyCode >= 65 && e.keyCode <= 90) setSearchInput(searchInput => searchInput + key.toLowerCase())
-    if (e.keyCode === 8) setSearchInput(searchInput => searchInput.slice(0, -1))
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchInput(e.target.value)
   }
-
-  useEffect(() => {
-    document.body.addEventListener( 'keydown', handleSearch )
-  }, [])
-
-  useEffect(() => {
-    if(pokemonNameSwipedUp) document.body.addEventListener( 'keydown', (e: any) => e.preventDefault() )
-    console.log(pokemonNameSwipedUp)
-  }, [pokemonNameSwipedUp, document.body])
 
   useEffect(() => {
     setIndex(0)
@@ -53,33 +40,41 @@ const DeckOfCards:React.FC = () => {
     setIsVisible(true)
     timeOutID = setTimeout(() => {
             setIsVisible(false)
-    }, 1000)
+    }, 500)
     
     if(result) {
             const filteredResult = result.results.filter( pokemon => pokemon.name.includes(searchInput) )
             setPokeArray(filteredResult)
             setLength(filteredResult.length)
-    } 
-
-    return () => {
-            setPokeArray(pokeArray)
-            setLength(length)
     }
-  }, [searchInput])
+
+    return () => {}
+  }, [searchInput, result])
 
   return (
-    <div className="h-screen w-full flex items-center justify-center relative" >
-        {isVisible && <p className="absolute top-1/5 right-1/2 z-50 transform translate-x-1/2 -translate-y-1/2 text-9xl font-bold text-white text-shadow-md uppercase" >{searchInput}</p> }
+    <div className="h-screen w-full flex flex-col items-center justify-center relative" >
         {pokemonNameSwipedUp && 
-          <div className="h-full w-full absolute top-1/2 right-1/2 z-50 transform translate-x-1/2 -translate-y-1/2 z-100 pointer-events-none" >
+          <div className="h-full w-full absolute top-1/2 right-1/2 z-50 transform translate-x-1/2 -translate-y-1/2 z-100" >
             <div className="container pointer-events-all" >
               <div onClick={() => setPokemonNameSwipedUp(null)} >close</div>
               <div>{pokemonNameSwipedUp}</div>
             </div>
             
           </div> }
+          <div className="absolute top-1/4 right-1/2 z-50 transform translate-x-1/2 translate-y-1/2">
+            <form method="GET">
+              <div className="relative text-gray-400 focus-within:text-gray-900">
+                <span className="absolute inset-y-0 left-0 flex items-center pl-2">
+                  {/* <button type="submit" className="p-1 focus:outline-none focus:shadow-outline"> */}
+                    <svg fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" className="w-6 h-6"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                  {/* </button> */}
+                </span>
+                <input type="search" name="q" className="py-2 text-sm rounded-md pl-10 focus:outline-none bg-white text-gray-900" placeholder="Search Pokemon..." autoComplete="off" onChange={handleSearch} />
+              </div>
+            </form>
+          </div>
     {(pokeArray && !isVisible) && 
-    <div className="" onKeyDown={handleSearch} >
+    <div className="absolute top-3/4 right-1/2 z-50 transform translate-x-1/2 -translate-y-full" >
       <motion.div
         style={{
           width: 256,
@@ -147,6 +142,16 @@ const DeckOfCards:React.FC = () => {
                 duration: 0.1
               }
             }}
+            whileHover={{
+              scale: 1.05,
+              boxShadow: "0 15px 50px 1px rgba(0,0,0,.25)",
+            }}
+            whileTap={{ 
+              cursor: "grabbing",
+              scale: 1.05,
+              boxShadow: "0 15px 50px 1px rgba(0,0,0,.25)"
+             }}
+
             exitX={exitX}
             setExitX={setExitX}
             setIndex={setIndex}
