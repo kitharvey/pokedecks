@@ -1,10 +1,9 @@
 import React from 'react'
-// import PokeDecks from './Components/PokeDecks'
-import DeckOfCards from './Deck/DeckOfCards'
+import Page from './Components/Page';
 
 const App: React.FC = () => {
   return  <div>
-    <DeckOfCards />
+    <Page />
   </div>;
 }
 

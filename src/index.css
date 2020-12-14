@@ -12,3 +12,12 @@ body{
     justify-content: center; */
     background-color: cadetblue;
 }
+
+
+.backDrop{
+    backdrop-filter: blur(5px);
+}
+
+.lighten{
+    filter: brightness(0) invert(1);
+}

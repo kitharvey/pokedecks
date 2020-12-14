@@ -4,7 +4,7 @@ import {
   useMotionValue,
   PanInfo
 } from "framer-motion";
-import Card from "../Components/Card";
+import Card from "./Card";
 import { GetPokemonArrayInterface } from "../Components/CardInterface";
 import logo from "../Assets/colored-logo.png"
 
@@ -20,7 +20,6 @@ interface CardProps {
     setIndex?: (x: number) => void
     pokeArray: GetPokemonArrayInterface[] | undefined
     length: number
-    setPokemonNameSwipedUp?: (x: string) => void
     whileHover?: {
       scale: number,
       boxShadow: string
@@ -67,19 +66,19 @@ interface CardProps {
       setIndex,
       pokeArray,
       length,
-      setPokemonNameSwipedUp,
       whileHover,
       whileTap
     } = props
     
     const x = useMotionValue(0);
-    const y = useMotionValue(0);
 
 
     useEffect(() => {
-      if((index === length + 1) && setIndex) {
+      let isMounted = true
+      if((index === length + 1) && setIndex && isMounted) {
         setIndex(0)
-      } 
+      }
+      return () => {isMounted = false}
     }, [index, setIndex, length])
 
 
@@ -94,10 +93,6 @@ interface CardProps {
         if (info.offset.x > 200) {
           if(setExitX) setExitX(1000);
           if(setIndex) setIndex(index + 1);
-        }
-        if (info.offset.y < -300 && pokeArray) {
-          console.log(pokeArray[index])
-          if(setPokemonNameSwipedUp) setPokemonNameSwipedUp(pokeArray[index].name)
         }
     }
 
@@ -120,13 +115,11 @@ interface CardProps {
           top: 0,
           borderRadius: "10px",
           x: x,
-          y: y,
           cursor: "grab",
         }}
         whileHover={whileHover}
-        whileTap={whileHover}
+        whileTap={whileTap}
         drag={drag}
-        dragDirectionLock
         dragConstraints={{
           top: 0,
           right: 0,
@@ -145,8 +138,7 @@ interface CardProps {
           {(pokeArray) &&  (
             (index >= length) 
               ? <EndCard />
-              : <Card  link={pokeArray[index].url} name={pokeArray[index].name} index={index} /> )
-              // ? <div>{index}</div>
+              : <Card  name={pokeArray[index].name}/> )
               }
       </motion.div>
     );

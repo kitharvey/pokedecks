@@ -6,7 +6,7 @@ import {
 import FramerCard from "./FramerCard";
 import { GetPokemonArrayInterface } from "../Components/CardInterface";
 import { useGetPokemonList } from "../Components/useGetPokemonList";
-
+import undo from "../Assets/undo.svg"
 var timeOutID: ReturnType<typeof setTimeout> = setTimeout(() => '', 1000)
 
 
@@ -17,24 +17,31 @@ const DeckOfCards:React.FC = () => {
   const [pokeArray, setPokeArray] = useState<GetPokemonArrayInterface[]>()
   const result = useGetPokemonList()
   const [searchInput, setSearchInput] = useState<string>('')
-  const [pokemonNameSwipedUp, setPokemonNameSwipedUp] = useState<string | null>(null)
   const [isVisible, setIsVisible] = useState<boolean>(false)
 
   useEffect(() => {
-    let newData
-    if(result !== undefined) {
+    let newData = null
+    let isMounted = true
+    if(result !== undefined && isMounted) {
             newData = result.results.slice(0, result.results.length)
             setPokeArray(newData)
             setLength(newData.length)
     }
-    return () => { }
+    return () => {
+      newData = null
+      isMounted = false
+    }
   }, [result])
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchInput(e.target.value)
   }
+  const handleUndo = (e: React.ChangeEvent<HTMLInputElement>) => {
+    return (index > 0) ? setIndex(index - 1) : setIndex(0)
+  }
 
   useEffect(() => {
+    let isMounted = true
     setIndex(0)
     clearTimeout(timeOutID)
     setIsVisible(true)
@@ -42,26 +49,19 @@ const DeckOfCards:React.FC = () => {
             setIsVisible(false)
     }, 500)
     
-    if(result) {
+    if(result && isMounted) {
             const filteredResult = result.results.filter( pokemon => pokemon.name.includes(searchInput) )
             setPokeArray(filteredResult)
             setLength(filteredResult.length)
     }
 
-    return () => {}
+    return () => {isMounted = false}
   }, [searchInput, result])
 
   return (
-    <div className="h-screen w-full flex flex-col items-center justify-center relative" >
-        {pokemonNameSwipedUp && 
-          <div className="h-full w-full absolute top-1/2 right-1/2 z-50 transform translate-x-1/2 -translate-y-1/2 z-100" >
-            <div className="container pointer-events-all" >
-              <div onClick={() => setPokemonNameSwipedUp(null)} >close</div>
-              <div>{pokemonNameSwipedUp}</div>
-            </div>
-            
-          </div> }
-          <div className="absolute top-1/4 right-1/2 z-50 transform translate-x-1/2 translate-y-1/2">
+    <div className="h-full w-full flex flex-col items-center justify-center" >
+      <div className="h-full w-3/5 flex flex-col items-center justify-center relative">
+          <div className="absolute top-1/4 right-1/2 transform translate-x-1/2 -translate-y-1/2">
             <form method="GET">
               <div className="relative text-gray-400 focus-within:text-gray-900">
                 <span className="absolute inset-y-0 left-0 flex items-center pl-2">
@@ -73,8 +73,27 @@ const DeckOfCards:React.FC = () => {
               </div>
             </form>
           </div>
+          
+          <div className="w-auto h-auto absolute top-1/4 right-0 transform -translate-x-1/2 -translate-y-1/2 cursor-pointer flex flex-col items-center justify-center text-white select-none"
+              onClick={() => handleUndo}
+          >
+            <motion.div
+                  whileTap={{ 
+                    rotate: -360,
+                  }}
+                  whileHover={{
+                    rotate: -180,
+                  }}
+                  transition={{
+                    rotate: { duration: 0.25 },
+                  }}
+            >
+              <img src={undo} alt="undo icon" className="h-5 w-5 lighten" />
+            </motion.div>
+            <span className="text-sm">(Undo)</span>
+          </div>
     {(pokeArray && !isVisible) && 
-    <div className="absolute top-3/4 right-1/2 z-50 transform translate-x-1/2 -translate-y-full" >
+    <div className="absolute top-3/4 right-1/2 transform translate-x-1/2 -translate-y-full" >
       <motion.div
         style={{
           width: 256,
@@ -155,13 +174,13 @@ const DeckOfCards:React.FC = () => {
             exitX={exitX}
             setExitX={setExitX}
             setIndex={setIndex}
-            setPokemonNameSwipedUp={setPokemonNameSwipedUp}
-            drag
+            drag="x"
           />}
         </AnimatePresence>
       </motion.div>
       </div>
     }
+    </div>
     </div>
   );
 }
