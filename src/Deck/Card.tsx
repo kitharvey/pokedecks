@@ -204,23 +204,21 @@ const Card: React.FC<CardInterface>  = ({name}) => {
   var LoadertimeoutID: ReturnType<typeof setTimeout> = setTimeout(() => '', 1000)
 
   useEffect(() => {
-    let isMounted = true
-    if(pokemon !== undefined && isMounted) setPokemondata(pokemon)  
+    if(pokemon !== undefined) setPokemondata(pokemon)  
 
-    return () => {isMounted = false }
-   }, [pokemon])
+    return () => {
+      setPokemondata(null)
+    }
+   }, [pokemon, name])
    
    useEffect(() => {
-    let isMounted = true
-    if(isMounted) {
       clearTimeout(LoadertimeoutID)
 
       LoadertimeoutID = setTimeout(() => {
         setIsLoader(false)
       }, 1000)
-    }
     return () => {
-      isMounted = false 
+      setIsLoader(false)
     }
    
    }, [name, LoadertimeoutID])

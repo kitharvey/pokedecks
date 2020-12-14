@@ -28,15 +28,15 @@ const DeckOfCards:React.FC = () => {
             setLength(newData.length)
     }
     return () => {
-      newData = null
-      isMounted = false
+      setPokeArray(pokeArray)
+      setLength(length)
     }
   }, [result])
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchInput(e.target.value)
   }
-  const handleUndo = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleUndo = () => {
     return (index > 0) ? setIndex(index - 1) : setIndex(0)
   }
 
@@ -55,7 +55,10 @@ const DeckOfCards:React.FC = () => {
             setLength(filteredResult.length)
     }
 
-    return () => {isMounted = false}
+    return () => {
+      setPokeArray(pokeArray)
+      setLength(length)
+    }
   }, [searchInput, result])
 
   return (
@@ -75,7 +78,7 @@ const DeckOfCards:React.FC = () => {
           </div>
           
           <div className="w-auto h-auto absolute top-1/4 right-0 transform -translate-x-1/2 -translate-y-1/2 cursor-pointer flex flex-col items-center justify-center text-white select-none"
-              onClick={() => handleUndo}
+              onClick={() => handleUndo()}
           >
             <motion.div
                   whileTap={{ 
