@@ -1,17 +1,29 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState, useContext} from 'react'
 import { AppContext } from './Page';
 import {useGetPokemonData, useGetPokemonSpeciesData} from './useGetPokemonData';
+import { useSpeechSynthesis } from 'react-speech-kit';
 
 const Modal: React.FC = () => {
-  const {state, setState} = React.useContext(AppContext)
-
-  const pokemonData = useGetPokemonData(state)
-  const pokemonSpeciesData = useGetPokemonSpeciesData(state)
+    const { speak } = useSpeechSynthesis();
+    const {state, setState} = useContext(AppContext)
+    const [statePokemonData, setPokemonData] = useState(null)
+    const [statePokemonSpecieData, setPokemonSpecieData] = useState(null)
+    const pokemonData = useGetPokemonData(state)
+    const pokemonSpeciesData = useGetPokemonSpeciesData(state)
+    // useEffect(() => {
+    //     if(pokemonData) console.log(pokemonData)
+    // }, [pokemonData])
     useEffect(() => {
-        if(pokemonData) console.log(pokemonData)
-    }, [pokemonData])
-    useEffect(() => {
-        if(pokemonSpeciesData) console.log(pokemonSpeciesData)
+        if(pokemonSpeciesData) {
+            const enLang = pokemonSpeciesData.flavor_text_entries.filter((entry) => entry.language.name === "en")[0]
+            const text = state + ". " + enLang.flavor_text.split('\n').join(" ")
+            const voice = window.speechSynthesis.getVoices()
+            speak({
+                text: text,
+                voice: voice[5],
+                pitch: 0.3
+            })
+        } 
     }, [pokemonSpeciesData])
 
         return (
@@ -27,7 +39,7 @@ const Modal: React.FC = () => {
                 </div>
             </div>
         );
-}
+    }
 
 
 export default Modal

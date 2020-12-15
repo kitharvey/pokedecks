@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 // import { Service } from './Service';
-import { GetPokemonDataInterface } from './CardInterface';
+import { GetPokemonDataInterface, GetPokemonSpeciesDataInterface } from './CardInterface';
 import axios from 'axios'
 
 
@@ -21,7 +21,7 @@ export const useGetPokemonData = (name: string) => {
   return result;
 };
 export const useGetPokemonSpeciesData = (name: string) => {
-  const [result, setResult] = useState<GetPokemonDataInterface>()
+  const [result, setResult] = useState<GetPokemonSpeciesDataInterface>()
 
     useEffect( () => {
       const fetchAPI = async (num: string) => {
