@@ -4,7 +4,7 @@ import { GetPokemonDataInterface } from './CardInterface';
 import axios from 'axios'
 
 
-const useGetPokemonData = (name: string) => {
+export const useGetPokemonData = (name: string) => {
   const [result, setResult] = useState<GetPokemonDataInterface>()
 
     useEffect( () => {
@@ -20,5 +20,19 @@ const useGetPokemonData = (name: string) => {
 
   return result;
 };
+export const useGetPokemonSpeciesData = (name: string) => {
+  const [result, setResult] = useState<GetPokemonDataInterface>()
 
-export default useGetPokemonData;
+    useEffect( () => {
+      const fetchAPI = async (num: string) => {
+        if(num !== undefined) {
+          const response = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${name}`)
+          setResult( response.data )
+          // console.log( response.data )
+        }
+      }
+      fetchAPI(name)
+    }, [name])
+
+  return result;
+};

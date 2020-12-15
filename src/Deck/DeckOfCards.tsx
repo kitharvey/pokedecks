@@ -14,7 +14,7 @@ const DeckOfCards:React.FC = () => {
   const [index, setIndex] = useState<number>(0);
   const [exitX, setExitX] = useState<number>(0);
   const [length, setLength] = useState<number>(0);
-  const [pokeArray, setPokeArray] = useState<GetPokemonArrayInterface[]>()
+  const [pokeArray, setPokeArray] = useState<GetPokemonArrayInterface[] | null>(null)
   const result = useGetPokemonList()
   const [searchInput, setSearchInput] = useState<string>('')
   const [isVisible, setIsVisible] = useState<boolean>(false)
@@ -28,8 +28,9 @@ const DeckOfCards:React.FC = () => {
             setLength(newData.length)
     }
     return () => {
-      setPokeArray(pokeArray)
-      setLength(length)
+      setPokeArray(null)
+      setLength(0)
+      isMounted = false
     }
   }, [result])
 
@@ -56,8 +57,9 @@ const DeckOfCards:React.FC = () => {
     }
 
     return () => {
-      setPokeArray(pokeArray)
-      setLength(length)
+      setPokeArray(null)
+      setLength(0)
+      isMounted = false
     }
   }, [searchInput, result])
 
@@ -77,8 +79,8 @@ const DeckOfCards:React.FC = () => {
             </form>
           </div>
           
-          <div className="w-auto h-auto absolute top-1/4 right-0 transform -translate-x-1/2 -translate-y-1/2 cursor-pointer flex flex-col items-center justify-center text-white select-none"
-              onClick={() => handleUndo()}
+          <div className="w-auto h-auto absolute top-1/4 right-0 transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center text-white select-none"
+              
           >
             <motion.div
                   whileTap={{ 
@@ -91,7 +93,7 @@ const DeckOfCards:React.FC = () => {
                     rotate: { duration: 0.25 },
                   }}
             >
-              <img src={undo} alt="undo icon" className="h-5 w-5 lighten" />
+              <img src={undo} alt="undo icon" className="h-5 w-5 lighten cursor-pointer" onClick={() => handleUndo()} />
             </motion.div>
             <span className="text-sm">(Undo)</span>
           </div>

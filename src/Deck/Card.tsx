@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import useGetPokemonData from '../Components/useGetPokemonData';
+import {useGetPokemonData} from '../Components/useGetPokemonData';
 import { GetPokemonDataInterface } from '../Components/CardInterface';
 import {getTypeIcon, findColor} from '../Components/getTypeIcon';
-import ProgressiveImage from 'react-progressive-image-loading';
 import egg from "../Assets/pokemon-egg.png"
 import { motion } from 'framer-motion';
 import { AppContext } from '../Components/Page';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/black-and-white.css';
 
 interface CardInterface{
   name: string
@@ -54,23 +55,17 @@ const ActualCard: React.FC<ActualCardInterface >  =  ({pokemondata, id, name}) =
         className="w-full h-52 rounded-lg p-3 shadow-inner relative " 
         style={{backgroundColor: findColor(pokemondata.types[0].type.name)[1]}} 
         >
-        {sprite && 
-                <ProgressiveImage
-                preview = {egg}
-                src = {sprite}
-                render = { src => (
-                  <img 
-                    src={src} 
-                    alt={name} 
-                    className="w-44 h-auto absolute left-1/2 bottom-2.5 transform -translate-x-1/2 translate-y-1/4" 
-                    draggable="false" 
-                    onDragStart={ e => e.preventDefault()} 
-                  />
-                )}
-              />
-        }
-
-
+        <div className="w-44 h-auto absolute left-1/2 bottom-2.5 transform -translate-x-1/2 translate-y-1/4"  >
+          <LazyLoadImage
+              alt={name}
+              effect="black-and-white"
+              threshold={10}
+              src={sprite}
+              placeholderSrc={egg}
+              draggable="false" 
+              onDragStart={ (e: React.DragEvent<HTMLDivElement>) => e.preventDefault()} 
+          />
+        </div>
         <motion.div 
           className=" w-4/5 absolute top-2.5 left-1/2 transform -translate-x-1/2 text-white text-center font-bold text-2xl cursor-pointer hover:text-opacity-50 leading-none"
           onClick={() => handleClick(name)}
@@ -134,12 +129,6 @@ const ActualCard: React.FC<ActualCardInterface >  =  ({pokemondata, id, name}) =
   )
 }
 
-//height
-//weight
-//type
-//hp
-//ability
-
 const CardLoader: React.FC = () => {
   return (
     <div className="rounded-lg h-full w-full p-2.5 flex flex-col justify-between  bg-white">
@@ -201,17 +190,21 @@ const Card: React.FC<CardInterface>  = ({name}) => {
   const [pokemondata, setPokemondata] = useState<GetPokemonDataInterface | null>(null)
   const [isLoader, setIsLoader] = useState<boolean>(true)
   const pokemon = useGetPokemonData(name)
-  var LoadertimeoutID: ReturnType<typeof setTimeout> = setTimeout(() => '', 1000)
 
   useEffect(() => {
-    if(pokemon !== undefined) setPokemondata(pokemon)  
+    let mounted = true
 
+    if(pokemon && mounted) setPokemondata(pokemon)  
+    else setPokemondata(null)
+       
     return () => {
+      mounted = false
       setPokemondata(null)
     }
    }, [pokemon, name])
    
    useEffect(() => {
+      let LoadertimeoutID: ReturnType<typeof setTimeout> = setTimeout(() => '', 1000)
       clearTimeout(LoadertimeoutID)
 
       LoadertimeoutID = setTimeout(() => {
@@ -221,7 +214,7 @@ const Card: React.FC<CardInterface>  = ({name}) => {
       setIsLoader(false)
     }
    
-   }, [name, LoadertimeoutID])
+   }, [name])
 
 
 
@@ -230,7 +223,7 @@ const Card: React.FC<CardInterface>  = ({name}) => {
 
 
   return (
-    <div className="h-96 w-64" >
+    <div className="h-96 w-64 select-none" >
         {(pokemondata && !isLoader)
             ? <ActualCard pokemondata={pokemondata} id={pokemondata.id} name={name} />
             : <CardLoader/>

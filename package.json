@@ -50,6 +50,7 @@
     ]
   },
   "devDependencies": {
+    "react-lazy-load-image-component": "^1.5.1",
     "tailwindcss-textshadow": "^2.1.3"
   }
 }

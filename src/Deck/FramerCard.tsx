@@ -2,7 +2,8 @@ import React, {useEffect} from "react";
 import {
   motion,
   useMotionValue,
-  PanInfo
+  PanInfo,
+  useTransform
 } from "framer-motion";
 import Card from "./Card";
 import { GetPokemonArrayInterface } from "../Components/CardInterface";
@@ -48,12 +49,27 @@ interface CardProps {
       scale: number,
       y: number,
       opacity: number
-      
+    
+  }
+
+  const EndCard: React.FC = () => {
+    return (
+    <div className="h-full w-full bg-white rounded-xl p-2.5 relative z-10 flex flex-col items-center justify-around" >
+      <div className="text-2xl font-bold text-gray-500" >End of the Deck</div>
+      <img src={logo} draggable="false" onDragStart={ e => e.preventDefault()} className="w-auto" alt="poke-logo" />
+      <div className="text-2xl font-bold text-gray-500">Swipe to Reload</div>
+    </div>
+    )
   }
 
 
   
   const FramerCard: React.FC<CardProps> = (props) => {
+    const x = useMotionValue(0);
+    const maximumX = 300
+    const rotate = useTransform(x, [-maximumX, 0, maximumX], [-15, 0, 15], {
+      clamp: false,
+    })
 
     const {
       initial,
@@ -70,14 +86,13 @@ interface CardProps {
       whileTap
     } = props
     
-    const x = useMotionValue(0);
 
 
     useEffect(() => {
       let isMounted = true
       if((index === length + 1) && setIndex && isMounted) {
         setIndex(0)
-      }
+      } 
       return () => {isMounted = false}
     }, [index, setIndex, length])
 
@@ -86,25 +101,17 @@ interface CardProps {
 
   
     function handleDragEnd(event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) {
-        if (info.offset.x < -200) {
+        if (info.offset.x < -maximumX) {
           if(setExitX) setExitX(-1000);
           if(setIndex) setIndex(index + 1);
         }
-        if (info.offset.x > 200) {
+        if (info.offset.x > maximumX) {
           if(setExitX) setExitX(1000);
           if(setIndex) setIndex(index + 1);
         }
     }
 
-    const EndCard: React.FC = () => {
-      return (
-      <div className="h-full w-full bg-white rounded-xl p-2.5 relative z-10 flex flex-col items-center justify-around" >
-        <div className="text-2xl font-bold text-gray-500" >End of the Deck</div>
-        <img src={logo} draggable="false" onDragStart={ e => e.preventDefault()} className="w-auto" alt="poke-logo" />
-        <div className="text-2xl font-bold text-gray-500">Swipe to Reload</div>
-      </div>
-      )
-    }
+
   
     return (
       <motion.div
@@ -115,6 +122,7 @@ interface CardProps {
           top: 0,
           borderRadius: "10px",
           x: x,
+          rotate: rotate,
           cursor: "grab",
         }}
         whileHover={whileHover}
