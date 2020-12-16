@@ -4,8 +4,8 @@ import Modal from './Modal';
 
 
 const appCtxDefaultValue = {
-    state: "",
-    setState: (state: string) => {} // noop default callback
+    state: 0,
+    setState: (state: number) => {} // noop default callback
 };
 
 export const AppContext = createContext(appCtxDefaultValue);

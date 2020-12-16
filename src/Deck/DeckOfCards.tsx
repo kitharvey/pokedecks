@@ -85,9 +85,11 @@ const DeckOfCards:React.FC = () => {
             <motion.div
                   whileTap={{ 
                     rotate: -360,
+                    scale: 0.9
                   }}
                   whileHover={{
                     rotate: -180,
+                    scale: 1.1
                   }}
                   transition={{
                     rotate: { duration: 0.25 },
@@ -95,7 +97,7 @@ const DeckOfCards:React.FC = () => {
             >
               <img src={undo} alt="undo icon" className="h-5 w-5 lighten cursor-pointer" onClick={() => handleUndo()} />
             </motion.div>
-            <span className="text-sm">(Undo)</span>
+            <span className="text-sm">(Undo Swipe)</span>
           </div>
     {(pokeArray && !isVisible) && 
     <div className="absolute top-3/4 right-1/2 transform translate-x-1/2 -translate-y-full" >
@@ -107,7 +109,7 @@ const DeckOfCards:React.FC = () => {
         }}
       >
         <AnimatePresence initial={false}>
-        {pokeArray.length > 2 &&
+        {pokeArray.length >= 3 &&
           <FramerCard
             pokeArray={pokeArray}
             length={length}
@@ -127,7 +129,7 @@ const DeckOfCards:React.FC = () => {
               scale: { duration: 0.1 },
             }}
           />}
-        {pokeArray.length > 1 &&
+        {pokeArray.length >= 2 &&
           <FramerCard
             pokeArray={pokeArray}
             length={length}
@@ -147,7 +149,7 @@ const DeckOfCards:React.FC = () => {
               scale: { duration: 0.1 },
             }}
           />}
-          {pokeArray.length > 0 &&
+          {pokeArray.length >= 1 &&
           <FramerCard
             pokeArray={pokeArray}
             length={length}

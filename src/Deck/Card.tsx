@@ -9,13 +9,12 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/black-and-white.css';
 
 interface CardInterface{
-  name: string
+  id: number
 }
 
 interface ActualCardInterface{
   pokemondata: GetPokemonDataInterface
   id: number
-  name: string
 }
 
 
@@ -38,12 +37,12 @@ const capitalizeFirstLetter = (string: string) => {
 }
 
 
-const ActualCard: React.FC<ActualCardInterface >  =  ({pokemondata, id, name}) => {
+const ActualCard: React.FC<ActualCardInterface >  =  ({pokemondata, id}) => {
   const {setState} = React.useContext(AppContext)
   const sprite = getImageSource(id)
 
-  const handleClick = (name: string) => {
-    setState(name)
+  const handleClick = (id: number) => {
+    setState(id)
   }
 
 
@@ -57,7 +56,7 @@ const ActualCard: React.FC<ActualCardInterface >  =  ({pokemondata, id, name}) =
         >
         <div className="w-44 h-auto absolute left-1/2 bottom-2.5 transform -translate-x-1/2 translate-y-1/4"  >
           <LazyLoadImage
-              alt={name}
+              alt={pokemondata.name}
               effect="black-and-white"
               threshold={10}
               src={sprite}
@@ -68,7 +67,7 @@ const ActualCard: React.FC<ActualCardInterface >  =  ({pokemondata, id, name}) =
         </div>
         <motion.div 
           className=" w-4/5 absolute top-2.5 left-1/2 transform -translate-x-1/2 text-white text-center font-bold text-2xl cursor-pointer hover:text-opacity-50 leading-none"
-          onClick={() => handleClick(name)}
+          onClick={() => handleClick(pokemondata.id)}
           whileHover={{
             opacity: .5,
           }}
@@ -81,7 +80,7 @@ const ActualCard: React.FC<ActualCardInterface >  =  ({pokemondata, id, name}) =
             }
         }}
           >
-            {capitalizeFirstLetter(name)}
+            {capitalizeFirstLetter(pokemondata.name)}
           </motion.div>
       </div>
 
@@ -186,10 +185,10 @@ const CardLoader: React.FC = () => {
 }
 
 
-const Card: React.FC<CardInterface>  = ({name}) => {
+const Card: React.FC<CardInterface>  = ({id}) => {
   const [pokemondata, setPokemondata] = useState<GetPokemonDataInterface | null>(null)
   const [isLoader, setIsLoader] = useState<boolean>(true)
-  const pokemon = useGetPokemonData(name)
+  const pokemon = useGetPokemonData(id)
 
   useEffect(() => {
     let mounted = true
@@ -201,7 +200,7 @@ const Card: React.FC<CardInterface>  = ({name}) => {
       mounted = false
       setPokemondata(null)
     }
-   }, [pokemon, name])
+   }, [pokemon, id])
    
    useEffect(() => {
       let LoadertimeoutID: ReturnType<typeof setTimeout> = setTimeout(() => '', 1000)
@@ -214,7 +213,7 @@ const Card: React.FC<CardInterface>  = ({name}) => {
       setIsLoader(false)
     }
    
-   }, [name])
+   }, [id])
 
 
 
@@ -225,7 +224,7 @@ const Card: React.FC<CardInterface>  = ({name}) => {
   return (
     <div className="h-96 w-64 select-none" >
         {(pokemondata && !isLoader)
-            ? <ActualCard pokemondata={pokemondata} id={pokemondata.id} name={name} />
+            ? <ActualCard pokemondata={pokemondata} id={pokemondata.id} />
             : <CardLoader/>
         }
         

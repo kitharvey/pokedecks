@@ -60,7 +60,7 @@ interface FlavorTextEntry{
 export interface GetPokemonSpeciesDataInterface {
     base_happiness: number
     capture_rate: number
-    evolution_chain: {url: "https://pokeapi.co/api/v2/evolution-chain/367/"}
+    evolution_chain: {url: string}
     flavor_text_entries: FlavorTextEntry[]
     gender_rate: number
     generation: {name: string, url: string}

@@ -52,6 +52,11 @@ interface CardProps {
     
   }
 
+  const getID = (url: string) => {
+    const tempURL = url.split("/")
+    return +tempURL[tempURL.length - 2]
+  }
+
   const EndCard: React.FC = () => {
     return (
     <div className="h-full w-full bg-white rounded-xl p-2.5 relative z-10 flex flex-col items-center justify-around" >
@@ -144,9 +149,9 @@ interface CardProps {
         }}
       >
           {(pokeArray) &&  (
-            (index >= length) 
+            (index === length + 1) 
               ? <EndCard />
-              : <Card  name={pokeArray[index].name}/> )
+              : <Card  id={getID(pokeArray[index].url)}/> )
               }
       </motion.div>
     );
