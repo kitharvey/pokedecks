@@ -3,6 +3,7 @@ interface Abilities{
         name: string,
         url: string
     }
+    is_hidden: boolean
 }
 interface Types{
     type: {

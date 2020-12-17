@@ -28,7 +28,6 @@ const getIDString = (id: number) => {
       if(id < 10) return '00' + id
       if(id >= 10 && id < 100) return '0' + id
       if(id >= 100 ) return '' + id
-  
 }
 
 const capitalizeFirstLetter = (string: string) => {
@@ -42,7 +41,7 @@ const ActualCard: React.FC<ActualCardInterface >  =  ({pokemondata, id}) => {
   const sprite = getImageSource(id)
 
   const handleClick = (id: number) => {
-    setState(id)
+    setState({id,sprite})
   }
 
 

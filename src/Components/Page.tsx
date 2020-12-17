@@ -2,10 +2,17 @@ import React, {createContext, useState} from 'react'
 import DeckOfCards from '../Deck/DeckOfCards'
 import Modal from './Modal';
 
+interface stateProps {
+    sprite: string,
+    id: number
+}
 
 const appCtxDefaultValue = {
-    state: 0,
-    setState: (state: number) => {} // noop default callback
+    state: {
+        sprite: "",
+        id: 0
+    },
+    setState: (state: stateProps) => {} // noop default callback
 };
 
 export const AppContext = createContext(appCtxDefaultValue);
@@ -17,7 +24,7 @@ const Page: React.FC = () => {
             <AppContext.Provider value={{state, setState }} >
             <div className="relative h-screen w-full" >
                 <DeckOfCards />
-                {state && <Modal />}
+                {state.id && <Modal />}
             </div>
             </AppContext.Provider>
         )

@@ -35,7 +35,7 @@ const DeckOfCards:React.FC = () => {
   }, [result])
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchInput(e.target.value)
+    setSearchInput(e.target.value.toLowerCase())
   }
   const handleUndo = () => {
     return (index > 0) ? setIndex(index - 1) : setIndex(0)
