@@ -56,6 +56,15 @@ export interface GetPokemonList {
 interface FlavorTextEntry{
     flavor_text: string
     language: {name: string, url:string}
+
+}
+
+interface Genera{
+    genus: string
+    language: {
+        name: string
+        url: string
+    }
 }
 
 export interface GetPokemonSpeciesDataInterface {
@@ -69,5 +78,6 @@ export interface GetPokemonSpeciesDataInterface {
     is_legendary: boolean
     is_mythical: boolean
     shape: {name: string, url: string}
+    genera: Genera[]
 }
 

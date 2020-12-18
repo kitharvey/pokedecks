@@ -59,7 +59,7 @@ interface CardProps {
 
   const EndCard: React.FC = () => {
     return (
-    <div className="h-full w-full bg-white rounded-xl p-2.5 relative z-10 flex flex-col items-center justify-around" >
+    <div className="h-full w-full bg-white rounded-xl p-2.5 flex flex-col items-center justify-around" >
       <div className="text-2xl font-bold text-gray-500" >End of the Deck</div>
       <img src={logo} draggable="false" onDragStart={ e => e.preventDefault()} className="w-auto" alt="poke-logo" />
       <div className="text-2xl font-bold text-gray-500">Swipe to Reload</div>
@@ -94,12 +94,9 @@ interface CardProps {
 
 
     useEffect(() => {
-      let isMounted = true
-      if((index === length + 1) && setIndex && isMounted) {
-        setIndex(0)
-      } 
-      return () => {isMounted = false}
-    }, [index, setIndex, length])
+      if(index === length + 1 && setIndex) setIndex(0)
+      return () => {}
+    }, [index, length, setIndex])
 
 
 
@@ -108,7 +105,7 @@ interface CardProps {
     function handleDragEnd(event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) {
         if (info.offset.x < -maximumX) {
           if(setExitX) setExitX(-1000);
-          if(setIndex) setIndex(index + 1);
+          if(setIndex) setIndex(index + 1); 
         }
         if (info.offset.x > maximumX) {
           if(setExitX) setExitX(1000);
@@ -148,11 +145,10 @@ interface CardProps {
           transition: { duration: 0.2 }
         }}
       >
-          {(pokeArray) &&  (
-            (index === length + 1) 
-              ? <EndCard />
-              : <Card  id={getID(pokeArray[index].url)}/> )
-              }
+          {(pokeArray && (index < length)) 
+            ? <Card  id={getID(pokeArray[index].url)}/> 
+            : <EndCard />
+          }
       </motion.div>
     );
   }

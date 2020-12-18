@@ -47,43 +47,59 @@ const ActualCard: React.FC<ActualCardInterface >  =  ({pokemondata, id}) => {
 
   return (
     <div 
-      className="rounded-lg bg-white h-full w-full p-2.5 flex flex-col justify-between"
+      className="h-full w-full p-2.5 flex flex-col justify-between relative addFilter"
+      style={{backgroundColor: "#f5f1e3"}}
       >
       <div 
-        className="w-full h-52 rounded-lg p-3 shadow-inner relative " 
-        style={{backgroundColor: findColor(pokemondata.types[0].type.name)[1]}} 
+        className="w-full h-80 relative border-solid border-4 border-white" 
+        style={{
+          backgroundColor: findColor(pokemondata.types[0].type.name)[1],
+        }} 
         >
-        <div className="w-44 h-auto absolute left-1/2 bottom-2.5 transform -translate-x-1/2 translate-y-1/4"  >
+        <div className="w-52 h-auto absolute left-1/2 bottom-1/2 transform -translate-x-1/2 translate-y-1/2"  >
           <LazyLoadImage
               alt={pokemondata.name}
               effect="black-and-white"
-              threshold={10}
+              threshold={100}
               src={sprite}
               placeholderSrc={egg}
               draggable="false" 
               onDragStart={ (e: React.DragEvent<HTMLDivElement>) => e.preventDefault()} 
           />
         </div>
-        <motion.div 
-          className=" w-4/5 absolute top-2.5 left-1/2 transform -translate-x-1/2 text-white text-center font-bold text-2xl cursor-pointer hover:text-opacity-50 leading-none"
-          onClick={() => handleClick(pokemondata.id)}
-          whileHover={{
-            opacity: .5,
-          }}
-          whileTap={{ 
-            opacity: 8,
-           }}
-          transition={{
-            opacity: {
-              duration: 0.25
-            }
-        }}
-          >
-            {capitalizeFirstLetter(pokemondata.name)}
-          </motion.div>
+      </div>
+      <p className="absolute top-2.5 right-1/2 transform translate-x-1/2 text-white font-bold text-lg p-2 leading-none" >#{getIDString(id)}</p>
+      <div className="flex absolute bottom-10 right-1/2 transform translate-x-1/2 " >
+            {pokemondata.types.map( (type,index) => <img  src={getTypeIcon(type.type.name)[1]} 
+                                                          className="-m-0.5 w-10 rounded-full border-solid border-4 border-white" 
+                                                          key={index} 
+                                                          draggable="false" 
+                                                          onDragStart={ e => e.preventDefault()}  
+                                                          alt={getTypeIcon(type.type.name)[0]}
+                                                    />)}
       </div>
 
-      <div className="w-full flex flex-col justify-between h-32" >
+
+        <motion.div 
+              className="absolute bottom-2.5 right-1/2 transform translate-x-1/2  w-max  text-black text-center font-bold text-xl cursor-pointer hover:text-opacity-50 leading-none"
+              onClick={() => handleClick(pokemondata.id)}
+              whileHover={{
+                opacity: .5,
+              }}
+              whileTap={{ 
+                opacity: 8,
+              }}
+              transition={{
+                opacity: {
+                  duration: 0.25
+                }
+            }}
+              >
+                {capitalizeFirstLetter(pokemondata.name)}
+        </motion.div>
+      
+
+      {/* <div className="w-full flex flex-col justify-between h-32" >
         <div className="flex justify-between" >
           <div className="flex" >
             {pokemondata.types.map( (type,index) => <img  src={getTypeIcon(type.type.name)[1]} 
@@ -120,7 +136,7 @@ const ActualCard: React.FC<ActualCardInterface >  =  ({pokemondata, id}) => {
             <p className="text-black font-bold" >{pokemondata.weight/10}kg</p>
           </div>
         </div>
-      </div>
+      </div> */}
      
 
   </div>
@@ -129,9 +145,9 @@ const ActualCard: React.FC<ActualCardInterface >  =  ({pokemondata, id}) => {
 
 const CardLoader: React.FC = () => {
   return (
-    <div className="rounded-lg h-full w-full p-2.5 flex flex-col justify-between  bg-white">
-    <div className="w-full h-52 rounded-lg bg-gray-400 p-3 shadow-inner relative animate-pulse " >
-      <div className=" w-4/5 h-8 absolute top-2.5 left-1/2 transform -translate-x-1/2 rounded-lg bg-gray-200 animate-pulse" ></div>
+    <div className=" h-full w-full p-2.5 flex flex-col justify-between  bg-white">
+    <div className="w-full h-52  bg-gray-400 p-3 shadow-inner relative animate-pulse " >
+      <div className=" w-4/5 h-8 absolute top-2.5 left-1/2 transform -translate-x-1/2  bg-gray-200 animate-pulse" ></div>
       <img 
         src={egg} 
         alt="egg loaded"
@@ -150,30 +166,30 @@ const CardLoader: React.FC = () => {
           <div className="mr-1 w-8 h-8 rounded-full bg-gray-400 animate-pulse" />
           <div className="mr-1 w-8 h-8 rounded-full bg-gray-400 animate-pulse" />
         </div>
-        <div className="w-12 h-6 m-0.5 rounded-lg bg-gray-400 animate-pulse" ></div>
+        <div className="w-12 h-6 m-0.5  bg-gray-400 animate-pulse" ></div>
       </div>
       <div className="w-full flex justify-evenly" >
         <div className="flex flex-col items-center" >
-          <div className="w-10 h-3 m-0.5 rounded-lg bg-gray-400 animate-pulse" ></div>
-          <div className="w-6 h-4 m-0.5 rounded-lg bg-gray-400 animate-pulse" ></div>
+          <div className="w-10 h-3 m-0.5  bg-gray-400 animate-pulse" ></div>
+          <div className="w-6 h-4 m-0.5  bg-gray-400 animate-pulse" ></div>
         </div>
         <div className="flex flex-col items-center" >
-          <div className="w-8 h-3 m-0.5 rounded-lg bg-gray-400 animate-pulse" ></div>
-          <div className="w-12 h-4 m-0.5 rounded-lg bg-gray-400 animate-pulse" ></div>
+          <div className="w-8 h-3 m-0.5  bg-gray-400 animate-pulse" ></div>
+          <div className="w-12 h-4 m-0.5  bg-gray-400 animate-pulse" ></div>
         </div>
         <div className="flex flex-col items-center" >
-          <div className="w-10 h-3 m-0.5 rounded-lg bg-gray-400 animate-pulse" ></div>
-          <div className="w-6 h-4 m-0.5 rounded-lg bg-gray-400 animate-pulse" ></div>
+          <div className="w-10 h-3 m-0.5  bg-gray-400 animate-pulse" ></div>
+          <div className="w-6 h-4 m-0.5  bg-gray-400 animate-pulse" ></div>
         </div>
       </div>
       <div className="flex flex-row justify-evenly" >
       <div className="flex flex-col items-center" >
-          <div className="w-8 h-3 m-0.5 rounded-lg bg-gray-400 animate-pulse" ></div>
-          <div className="w-14 h-4 m-0.5 rounded-lg bg-gray-400 animate-pulse" ></div>
+          <div className="w-8 h-3 m-0.5  bg-gray-400 animate-pulse" ></div>
+          <div className="w-14 h-4 m-0.5  bg-gray-400 animate-pulse" ></div>
         </div>
         <div className="flex flex-col items-center" >
-          <div className="w-8 h-3 m-0.5 rounded-lg bg-gray-400 animate-pulse" ></div>
-          <div className="w-14 h-4 m-0.5 rounded-lg bg-gray-400 animate-pulse" ></div>
+          <div className="w-8 h-3 m-0.5  bg-gray-400 animate-pulse" ></div>
+          <div className="w-14 h-4 m-0.5  bg-gray-400 animate-pulse" ></div>
         </div>
       </div>
     </div>

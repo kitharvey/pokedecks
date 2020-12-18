@@ -7,7 +7,6 @@ import FramerCard from "./FramerCard";
 import { GetPokemonArrayInterface } from "../Components/CardInterface";
 import { useGetPokemonList } from "../Components/useGetPokemonList";
 import undo from "../Assets/undo.svg"
-var timeOutID: ReturnType<typeof setTimeout> = setTimeout(() => '', 1000)
 
 
 const DeckOfCards:React.FC = () => {
@@ -42,6 +41,7 @@ const DeckOfCards:React.FC = () => {
   }
 
   useEffect(() => {
+    let timeOutID: ReturnType<typeof setTimeout> = setTimeout(() => '', 1000)
     let isMounted = true
     setIndex(0)
     clearTimeout(timeOutID)
@@ -67,7 +67,7 @@ const DeckOfCards:React.FC = () => {
     <div className="h-full w-full flex flex-col items-center justify-center" >
       <div className="h-full w-3/5 flex flex-col items-center justify-center relative">
           <div className="absolute top-1/4 right-1/2 transform translate-x-1/2 -translate-y-1/2">
-            <form method="GET">
+            <form method="GET" onSubmit={ (event: React.FormEvent<HTMLFormElement>) => event.preventDefault() }>
               <div className="relative text-gray-400 focus-within:text-gray-900">
                 <span className="absolute inset-y-0 left-0 flex items-center pl-2">
                   {/* <button type="submit" className="p-1 focus:outline-none focus:shadow-outline"> */}
@@ -79,8 +79,7 @@ const DeckOfCards:React.FC = () => {
             </form>
           </div>
           
-          <div className="w-auto h-auto absolute top-1/4 right-0 transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center text-white select-none"
-              
+          <div className="w-auto h-auto absolute top-1/4 right-0 transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center text-white select-none"           
           >
             <motion.div
                   whileTap={{ 

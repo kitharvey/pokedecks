@@ -21,3 +21,8 @@ body{
 .lighten{
     filter: brightness(0) invert(1);
 }
+
+.addFilter{
+    filter: saturate(.9);
+    
+}
