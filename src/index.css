@@ -7,9 +7,6 @@ body{
     width: 100%;
     height: 100vh;
     overflow: hidden;
-    /* display: flex;
-    align-items: center;
-    justify-content: center; */
     background-color: cadetblue;
 }
 
@@ -25,4 +22,8 @@ body{
 .addFilter{
     filter: saturate(.9);
     
+}
+
+.fontSizeAdjust{
+    font-size: 14px;
 }

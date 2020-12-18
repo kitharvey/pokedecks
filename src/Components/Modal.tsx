@@ -11,8 +11,12 @@ import Card from '../Deck/Card';
 interface ModalCardProps{
     statePokemonSpecieData: GetPokemonSpeciesDataInterface
     statePokemonData: GetPokemonDataInterface
-    id: number
+    state: {
+        sprite: string,
+        id: number
+    }
 }
+
 
 const applySentenceCase = (str: string) => {
     const text = str.replace(/\r?\n|\r/g, " ")
@@ -46,7 +50,7 @@ type PokemonDetailsProps = {
 
 const PokemonDetails: React.FC<PokemonDetailsProps> = ({category, details}) => {
     return (
-        <div className="flex">
+        <div className="w-full flex justify-between">
             <p>{category}</p>
             <div>
                 {details}
@@ -55,86 +59,102 @@ const PokemonDetails: React.FC<PokemonDetailsProps> = ({category, details}) => {
     )
 }  
 
-const ModalCard: React.FC<ModalCardProps> = ({statePokemonSpecieData, statePokemonData, id}) => {
+
+const BackCard: React.FC<ModalCardProps> = ({statePokemonSpecieData, statePokemonData, state}) => {
     return (
-        <div className="w-3/4 h-auto flex">
-            <div  className="w-max h-max m-3">
-                <Card id={id} />
+        <div className="h-96 w-72 p-2.5 fontSizeAdjust" 
+            style={{backgroundColor: "#f5f1e3"}}
+        >
+            <div className="px-2.5" >
+                <div className="flex justify-between" >
+                <p className="uppercase" >{statePokemonData.name}</p>
+                <p>#{getIDString(statePokemonData.id)}</p>
             </div>
-            <div className="rounded-lg p-3 relative m-3" >
-                <div className="flex flex-col" >
-                    <div>Bio</div>
-                    <p>{applySentenceCase(statePokemonSpecieData.flavor_text_entries.filter((entry) => entry.language.name === "en")[0].flavor_text)}</p>
-                    <PokemonDetails
-                        category="Genus:"
-                        details={
-                            <p>{applySentenceCase(statePokemonSpecieData.genera.filter((entry) => entry.language.name === "en")[0].genus)}</p>
-                        }
-                    />
-                    <PokemonDetails
-                        category="Height:"
-                        details={
-                            <p>{statePokemonData.height/10}m <span>({Math.floor(((statePokemonData.height/10) * 39.37)/12)}'{(((statePokemonData.height/10) * 39.37) % 12).toFixed(1)}")</span></p>
-                        }
-                    />
-                    <PokemonDetails
-                        category="Weight:"
-                        details={
-                            <p>{statePokemonData.weight/10}kg <span>({((statePokemonData.weight/10) * 2.2).toFixed(1)} lbs)</span></p>
-                        }
-                    />
-                    <PokemonDetails
-                        category="Type:"
-                        details={
-                            <div className="flex flex-col" >
-                            {statePokemonData.types.map( (type,index) => <div className="mr-1 flex items-center" key={index}> 
-                                                                            <img  src={getTypeIcon(type.type.name)[1]} 
-                                                                                className="w-8 mr-1" 
-                                                                                draggable="false" 
-                                                                                onDragStart={ e => e.preventDefault()}  
-                                                                                alt={getTypeIcon(type.type.name)[0]}
-                                                                            /> 
-                                                                            <span>{getTypeIcon(type.type.name)[0]}</span>
-                                                                        </div>
-                                                                    )}
-                        </div>
-                        }
-                    />
-                    <PokemonDetails
-                        category="Abilities:"
-                        details={
-                            <div className="flex flex-col" >
-                            {statePokemonData.abilities.map( (ability,index) => <p key={index}  >{ability.ability.name.split("-").map( txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()).join(" ")} <span className="text-xs" >{ability.is_hidden && "(Hidden Ability)"}</span> </p> )}
-                            </div>
-                        }
-                    />
-                    
+            <div className="flex justify-between" >
+                <img 
+                    className="w-10"
+                    src={state.sprite}
+                />
+                <div className="flex" >
+                    {statePokemonData.types.map( (type,index) => <div className="m-0.5 flex items-center" >  
+                        <img  src={getTypeIcon(type.type.name)[1]} 
+                            className="mr-0.5 w-8 h-8 rounded-full border-solid border-4 border-white" 
+                            key={index} 
+                            draggable="false" 
+                            onDragStart={ e => e.preventDefault()}  
+                            alt={getTypeIcon(type.type.name)[0]}
+                        />
+                        <p>{type.type.name}</p>
+                    </div>)}
                 </div>
-                <PokemonDetails
-                        category="Base Happiness:"
-                        details={
-                            <p>{statePokemonSpecieData.base_happiness}</p>
-                        }
-                    />
-                <PokemonDetails
-                        category="Base Experience:"
-                        details={
-                            <p>{statePokemonData.base_experience}</p>
-                        }
-                    />
-                <PokemonDetails
-                        category="Capture Rate:"
-                        details={
-                            <p>{statePokemonSpecieData.capture_rate} <span className="text-xs" >({((statePokemonSpecieData.capture_rate / 255)*100).toFixed(1)}%)</span></p>
-                        }
-                    />
-                <PokemonDetails
-                        category="Growth Rate:"
-                        details={
-                            <p>{statePokemonSpecieData.growth_rate.name}</p>
-                        }
-                    />
             </div>
+            </div>
+
+        <div className="flex flex-col bg-white p-2.5" >
+            <PokemonDetails
+                category="Genus:"
+                details={
+                    <p>{applySentenceCase(statePokemonSpecieData.genera.filter((entry) => entry.language.name === "en")[0].genus)}</p>
+                }
+            />
+            <PokemonDetails
+                category="Height:"
+                details={
+                    <p>{statePokemonData.height/10}m <span>({Math.floor(((statePokemonData.height/10) * 39.37)/12)}'{(((statePokemonData.height/10) * 39.37) % 12).toFixed(1)}")</span></p>
+                }
+            />
+            <PokemonDetails
+                category="Weight:"
+                details={
+                    <p>{statePokemonData.weight/10}kg <span>({((statePokemonData.weight/10) * 2.2).toFixed(1)} lbs)</span></p>
+                }
+            />
+            <PokemonDetails
+                category="Base Happiness:"
+                details={
+                    <p>{statePokemonSpecieData.base_happiness}</p>
+                }
+            />
+            <PokemonDetails
+                    category="Base Experience:"
+                    details={
+                        <p>{statePokemonData.base_experience}</p>
+                    }
+                />
+            <PokemonDetails
+                    category="Capture Rate:"
+                    details={
+                        <p>{statePokemonSpecieData.capture_rate} <span className="text-xs" >({((statePokemonSpecieData.capture_rate / 255)*100).toFixed(1)}%)</span></p>
+                    }
+                />
+            <PokemonDetails
+                    category="Growth Rate:"
+                    details={
+                        <p>{statePokemonSpecieData.growth_rate.name}</p>
+                    }
+                />
+        </div>
+
+
+        <div className="max-h-24 leading-tight p-2.5" >{applySentenceCase(statePokemonSpecieData.flavor_text_entries.filter((entry) => entry.language.name === "en")[0].flavor_text)}</div>
+        <div className="w-full flex flex-row justify-between flex-wrap p-2.5" >
+            <div className="" >Abilities:</div>
+            {statePokemonData.abilities.map( (ability,index) => <div className="mr-1" key={index}  >{ability.ability.name.split("-").map( txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()).join(" ")} <span className="text-xs" >{ability.is_hidden && "(Hidden Ability)"}</span> </div> )}
+        </div>
+    </div>
+    )
+}
+
+const ModalCard: React.FC<ModalCardProps> = ({statePokemonSpecieData, statePokemonData, state}) => {
+    return (
+        <div className="w-max h-auto flex">
+            <div className="m-3">
+                <Card id={state.id} />
+            </div>
+            <div className="m-3">
+                <BackCard statePokemonSpecieData={statePokemonSpecieData} statePokemonData={statePokemonData} state={state}  />
+            </div>
+
     </div>
     )
 }
@@ -184,10 +204,9 @@ const Modal: React.FC = () => {
                     <span className="text-sm">(Close)</span>
                 </div>
                 {(statePokemonData && statePokemonSpecieData)
-                    ? <ModalCard statePokemonData={statePokemonData}  statePokemonSpecieData={statePokemonSpecieData} id={state.id} />
+                    ? <ModalCard statePokemonData={statePokemonData}  statePokemonSpecieData={statePokemonSpecieData} state={state} />
                     : <div>Loading...</div>
                 }  
-                
             </div>
         );
     }
