@@ -1,14 +1,13 @@
 import React, {useEffect, useState, useContext} from 'react'
 import { AppContext } from './Page';
-import {useGetPokemonData, useGetPokemonSpeciesData} from './useGetPokemonData';
+import {useGetPokemonData, useGetPokemonEvolutionChain, useGetPokemonSpeciesData} from './useGetPokemonData';
 import { useSpeechSynthesis } from 'react-speech-kit';
 import { GetPokemonDataInterface, GetPokemonSpeciesDataInterface } from './CardInterface';
 import { findColor, getTypeIcon } from './getTypeIcon';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import egg from "../Assets/pokemon-egg.png"
 import Card from '../Deck/Card';
-import { AnimatePresence, motion } from 'framer-motion';
-
+import Flippy, { FrontSide, BackSide } from 'react-flippy';
 interface ModalCardProps{
     statePokemonSpecieData: GetPokemonSpeciesDataInterface
     statePokemonData: GetPokemonDataInterface
@@ -51,7 +50,7 @@ type PokemonDetailsProps = {
     details: React.ReactNode;
 };
 
-const PokemonDetails: React.FC<PokemonDetailsProps> = ({category, details}) => {
+const FlexBetween: React.FC<PokemonDetailsProps> = ({category, details}) => {
     return (
         <div className="w-full flex justify-between">
             <p>{category}</p>
@@ -64,124 +63,90 @@ const PokemonDetails: React.FC<PokemonDetailsProps> = ({category, details}) => {
 
 
 const BackCard: React.FC<ModalCardProps> = ({statePokemonSpecieData, statePokemonData, state}) => {
+    const pokemonEvolutionData = useGetPokemonEvolutionChain(statePokemonSpecieData.evolution_chain.url)
+    useEffect(() => {
+        console.log(pokemonEvolutionData)
+    },[])
     return (
-        <div className="h-96 w-80 p-2.5 overflow-y-scroll fontSizeAdjust hideScroll" 
+        <div className="h-96 w-80 p-2.5 overflow-y-scroll fontSizeAdjust hideScroll flex flex-col items-center justify-between" 
             style={{backgroundColor: "#f5f1e3"}}
         >
-            <div className="p-2.5" >
-                <div className="flex justify-between" >
-                <p className="uppercase" >{statePokemonData.name}</p>
-                <p>#{getIDString(statePokemonData.id)}</p>
-            </div>
-            <div className="flex justify-between" >
-                <img 
-                    className="w-10"
-                    src={state.sprite}
+            <div className="h-auto leading-tight p-2.5" >{applySentenceCase(statePokemonSpecieData.flavor_text_entries.filter((entry) => entry.language.name === "en")[0].flavor_text)}</div>
+            
+            <div className="flex flex-col bg-white p-2.5 w-full" >
+                <FlexBetween
+                    category="Genus:"
+                    details={
+                        <p>{applySentenceCase(statePokemonSpecieData.genera.filter((entry) => entry.language.name === "en")[0].genus)}</p>
+                    }
                 />
-                <div className="flex" >
-                    {statePokemonData.types.map( (type,index) => <div className="m-0.5 flex items-center" key={index}  >  
-                        <img  src={getTypeIcon(type.type.name)[1]} 
-                            className="mr-0.5 w-4 h-4 rounded-full border-solid border-2 border-white" 
-                            
-                            draggable="false" 
-                            onDragStart={ e => e.preventDefault()}  
-                            alt={getTypeIcon(type.type.name)[0]}
-                        />
-                        <p>{type.type.name}</p>
-                    </div>)}
-                </div>
-            </div>
+                <FlexBetween
+                    category="Height:"
+                    details={
+                        <p>{statePokemonData.height/10}m <span>({Math.floor(((statePokemonData.height/10) * 39.37)/12)}'{(((statePokemonData.height/10) * 39.37) % 12).toFixed(1)}")</span></p>
+                    }
+                />
+                <FlexBetween
+                    category="Weight:"
+                    details={
+                        <p>{statePokemonData.weight/10}kg <span>({((statePokemonData.weight/10) * 2.2).toFixed(1)} lbs)</span></p>
+                    }
+                />
+                <FlexBetween
+                    category="Abilities:"
+                    details={
+                        <div className="flex flex-col items-end" >
+                        {statePokemonData.abilities.map( (ability,index) => <p key={index}  >{ability.ability.name.split("-").map( txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()).join(" ")} <span className="text-xs" >{ability.is_hidden && "(Hidden Ability)"}</span> </p> )}
+                        </div>
+                    }
+                />
             </div>
 
-        <div className="flex flex-col bg-white p-2.5" >
-            <PokemonDetails
-                category="Genus:"
-                details={
-                    <p>{applySentenceCase(statePokemonSpecieData.genera.filter((entry) => entry.language.name === "en")[0].genus)}</p>
-                }
-            />
-            <PokemonDetails
-                category="Height:"
-                details={
-                    <p>{statePokemonData.height/10}m <span>({Math.floor(((statePokemonData.height/10) * 39.37)/12)}'{(((statePokemonData.height/10) * 39.37) % 12).toFixed(1)}")</span></p>
-                }
-            />
-            <PokemonDetails
-                category="Weight:"
-                details={
-                    <p>{statePokemonData.weight/10}kg <span>({((statePokemonData.weight/10) * 2.2).toFixed(1)} lbs)</span></p>
-                }
-            />
-            <PokemonDetails
-                category="Base Happiness:"
-                details={
-                    <p>{statePokemonSpecieData.base_happiness}</p>
-                }
-            />
-            <PokemonDetails
-                    category="Base Experience:"
-                    details={
-                        <p>{statePokemonData.base_experience}</p>
-                    }
-                />
-            <PokemonDetails
-                    category="Capture Rate:"
-                    details={
-                        <p>{statePokemonSpecieData.capture_rate} <span className="text-xs" >({((statePokemonSpecieData.capture_rate / 255)*100).toFixed(1)}%)</span></p>
-                    }
-                />
-            <PokemonDetails
-                    category="Growth Rate:"
-                    details={
-                        <p>{statePokemonSpecieData.growth_rate.name}</p>
-                    }
-                />
+            <div className="grid grid-cols-6 gap-1 bg-white p-2.5 w-full" >
+                    <div className="flex flex-col items-center">
+                        <p className="text-xs font-bold" >HP</p>
+                        <p className="text-xs" >{statePokemonData.stats[0].base_stat}</p>
+                    </div>
+                    <div className="flex flex-col items-center">
+                        <p className="text-xs font-bold" >Atk</p>
+                        <p className="text-xs" >{statePokemonData.stats[1].base_stat}</p>
+                    </div>
+                    <div className="flex flex-col items-center">
+                        <p className="text-xs font-bold" >Def</p>
+                        <p className="text-xs" >{statePokemonData.stats[2].base_stat}</p>
+                    </div>
+                    <div className="flex flex-col items-center">
+                        <p className="text-xs font-bold" >Sp. Atk</p>
+                        <p className="text-xs" >{statePokemonData.stats[3].base_stat}</p>
+                    </div>
+                    <div className="flex flex-col items-center">
+                        <p className="text-xs font-bold" >Sp. Def</p>
+                        <p className="text-xs" >{statePokemonData.stats[4].base_stat}</p>
+                    </div>
+                    <div className="flex flex-col items-center">
+                        <p className="text-xs font-bold" >Speed</p>
+                        <p className="text-xs" >{statePokemonData.stats[5].base_stat}</p>
+                    </div>
+            </div>
         </div>
-
-
-        <div className="h-auto leading-tight p-2.5" >{applySentenceCase(statePokemonSpecieData.flavor_text_entries.filter((entry) => entry.language.name === "en")[0].flavor_text)}</div>
-        {/* <div className="w-full flex flex-row justify-between flex-wrap p-2.5" >
-            <div className="" >Abilities:</div>
-            {statePokemonData.abilities.map( (ability,index) => <div className="mr-1" key={index}  >{ability.ability.name.split("-").map( txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()).join(" ")} <span className="text-xs" >{ability.is_hidden && "(Hidden Ability)"}</span> </div> )}
-        </div> */}
-    </div>
     )
 }
 
 const ModalCard: React.FC<ModalCardProps> = ({statePokemonSpecieData, statePokemonData, state}) => {
-    const messages = [
-        {
-            id: 0,
-            content: "test"
-        },
-        {
-            id: 1,
-            content: "test1"
-        },
-        {
-            id: 2,
-            content: "test2"
-        },
-    ]
+
     return (
         <div className="w-max h-auto flex">
-            <div className="m-3">
-                <Card id={state.id} />
-            </div>
-            <div className="m-3">
-                <AnimatePresence>
-                    {messages.map(({ id, content }) => (
-                    <motion.li
-                        key={id}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                    >
-                        {content}
-                    </motion.li>
-                    ))}
-                </AnimatePresence>
-            </div>
-
+             <Flippy
+                flipOnHover={true}
+                flipDirection="horizontal"
+            >
+                <FrontSide style={{padding: 0}} >
+                    <Card id={state.id} />
+                </FrontSide>
+                <BackSide style={{padding: 0}} >
+                    <BackCard statePokemonSpecieData={statePokemonSpecieData} statePokemonData={statePokemonData} state={state} />
+                </BackSide>
+            </Flippy>
     </div>
     )
 }
@@ -212,6 +177,7 @@ const Modal: React.FC = () => {
             }, 1000)
             setPokemonData(pokemonData)
             setPokemonSpecieData(pokemonSpeciesData)
+            console.log(pokemonSpeciesData)
         } 
         return () => {
             cancel()

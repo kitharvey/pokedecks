@@ -36,3 +36,19 @@ export const useGetPokemonSpeciesData = (id: number) => {
 
   return result;
 };
+export const useGetPokemonEvolutionChain = (url: string) => {
+  const [result, setResult] = useState<GetPokemonSpeciesDataInterface>()
+
+    useEffect( () => {
+      const fetchAPI = async (url: string) => {
+        if(url) {
+          const response = await axios.get(url)
+          setResult( response.data )
+          console.log( response.data )
+        }
+      }
+      fetchAPI(url)
+    }, [url])
+
+  return result;
+};

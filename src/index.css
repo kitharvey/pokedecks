@@ -36,7 +36,3 @@ body{
 .hideScroll::-webkit-scrollbar { 
     display: none;
 }
-
-.Courier{
-    font-family: Georgia, serif;
-}

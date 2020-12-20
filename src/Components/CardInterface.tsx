@@ -81,3 +81,33 @@ export interface GetPokemonSpeciesDataInterface {
     genera: Genera[]
 }
 
+interface Chain{
+    isBaby: boolean;
+    species: GetPokemonArrayInterface;
+    evolutionDetails: {
+        item: GetPokemonArrayInterface;
+        trigger: GetPokemonArrayInterface;
+        gender: number;
+        heldItem: GetPokemonArrayInterface;
+        knownMove: GetPokemonArrayInterface;
+        knownMoveType: GetPokemonArrayInterface;
+        location: GetPokemonArrayInterface;
+        minLevel: GetPokemonArrayInterface;
+        minHappiness: GetPokemonArrayInterface;
+        minBeauty: GetPokemonArrayInterface;
+        minAffection: GetPokemonArrayInterface;
+        needsOverworldRain: boolean;
+        partySpecies: GetPokemonArrayInterface;
+        partyType: GetPokemonArrayInterface;
+        relativePhysicalStats: number;
+        timeOfDay: string;
+        tradeSpecies: GetPokemonArrayInterface;
+        turnUpsideDown: boolean;
+    }[];
+    evolvesTo: Chain[];
+    
+}
+
+export interface GetPokemonEvolutionChainInterface{
+    chain: Chain
+}

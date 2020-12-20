@@ -7,7 +7,7 @@ import FramerCard from "./FramerCard";
 import { GetPokemonArrayInterface } from "../Components/CardInterface";
 import { useGetPokemonList } from "../Components/useGetPokemonList";
 import undo from "../Assets/undo.svg"
-
+import { wrap } from "popmotion";
 
 const DeckOfCards:React.FC = () => {
   const [index, setIndex] = useState<number>(0);
@@ -17,6 +17,7 @@ const DeckOfCards:React.FC = () => {
   const result = useGetPokemonList()
   const [searchInput, setSearchInput] = useState<string>('')
   const [isVisible, setIsVisible] = useState<boolean>(false)
+  const cardIndex = wrap(0, length + 1, index);
 
   useEffect(() => {
     let newData = null
@@ -104,7 +105,7 @@ const DeckOfCards:React.FC = () => {
     <div className="absolute top-3/4 right-1/2 transform translate-x-1/2 -translate-y-full" >
       <motion.div
         style={{
-          width: 256,
+          width: 320,
           height: 384,
           position: "relative"
         }}
@@ -114,9 +115,8 @@ const DeckOfCards:React.FC = () => {
           <FramerCard
             pokeArray={pokeArray}
             length={length}
-            key={index + 2}
-            index={index + 2}
-            // setIndex={setIndex}
+            key={cardIndex + 2}
+            index={cardIndex + 2}
             initial={{
               scale: 0,
               y: 0,
@@ -135,9 +135,8 @@ const DeckOfCards:React.FC = () => {
           <FramerCard
             pokeArray={pokeArray}
             length={length}
-            key={index + 1}
-            index={index + 1}
-            // setIndex={setIndex}
+            key={cardIndex + 1}
+            index={cardIndex + 1}
             initial={{
               scale: 0,
               y: 0,
@@ -156,8 +155,8 @@ const DeckOfCards:React.FC = () => {
           <FramerCard
             pokeArray={pokeArray}
             length={length}
-            index={index}
-            key={index}
+            index={cardIndex}
+            key={cardIndex}
             animate={{
               scale: 1,
               y: 0,
@@ -165,10 +164,10 @@ const DeckOfCards:React.FC = () => {
             }}
             transition={{
               type: "spring",
-              stiffness: 100,
-              damping: 20,
+              stiffness: 300,
+              damping: 30,
               opacity: {
-                duration: 0.1
+                duration: 0.2
               }
             }}
             whileHover={{

@@ -92,27 +92,15 @@ interface CardProps {
     } = props
     
 
-
-
-    // useEffect(() => {
-    //   if(localIndex >= length && setIndex) setIndex(0)
-    //   return () => { }
-    // }, [localIndex, length, setIndex])
-
-
-
-
   
     function handleDragEnd(event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) {
         if (info.offset.x < -maximumX) {
           if(setExitX) setExitX(-1000);
-          if(index >= length && setIndex) setIndex(0)
-          if(index < length && setIndex) setIndex(index + 1);
+          if(setIndex) setIndex(index + 1);
         }
         if (info.offset.x > maximumX) {
           if(setExitX) setExitX(1000);
-          if(index >= length && setIndex) setIndex(0)
-          if(index < length && setIndex) setIndex(index + 1);
+          if(setIndex) setIndex(index + 1);
         }
     }
 
@@ -121,8 +109,6 @@ interface CardProps {
     return (
       <motion.div
         style={{
-          width: 256,
-          height: 384,
           position: "absolute",
           top: 0,
           borderRadius: "10px",
@@ -152,10 +138,6 @@ interface CardProps {
             ? <Card  id={getID(pokeArray[index].url)}/> 
             : <EndCard />
           }
-
-          {/* {(pokeArray && (index < length)) && <Card  id={getID(pokeArray[index].url)}/> } */}
-
-          {/* {(index < length + 1) && <div className="w-full h-full bg-white" >{index}</div>} */}
       </motion.div>
     );
   }
