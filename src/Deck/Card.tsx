@@ -3,6 +3,7 @@ import {useGetPokemonData} from '../Components/useGetPokemonData';
 import { GetPokemonDataInterface } from '../Components/CardInterface';
 import {getTypeIcon, findColor} from '../Components/getTypeIcon';
 import egg from "../Assets/pokemon-egg.png"
+import rays from "../Assets/rays.png"
 import { motion } from 'framer-motion';
 import { AppContext } from '../Components/Page';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
@@ -54,9 +55,29 @@ const ActualCard: React.FC<ActualCardInterface >  =  ({pokemondata, id}) => {
         className="w-full h-80 relative border-solid border-4 border-white" 
         style={{
           backgroundColor: findColor(pokemondata.types[0].type.name)[1],
+          backgroundImage: `url(${rays})`,
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
         }} 
         >
+          <motion.div className="absolute right-2 top-2 Courier text-2xl font-black text-white Courier leading-none cursor-pointer hover:text-opacity-50"
+              onClick={() => handleClick(pokemondata.id)}
+              whileHover={{
+                opacity: .5,
+              }}
+              whileTap={{ 
+                opacity: 8,
+              }}
+              transition={{
+                opacity: {
+                  duration: 0.25
+                }
+            }}
+          >i</motion.div>
+          {/* <img src={rays} alt="rays" className="w-96 h-auto absolute left-1/2 bottom-1/2 transform -translate-x-1/2 translate-y-1/2" /> */}
         <div className="w-52 h-auto absolute left-1/2 bottom-1/2 transform -translate-x-1/2 translate-y-1/2"  >
+          
           <LazyLoadImage
               alt={pokemondata.name}
               effect="black-and-white"
@@ -67,6 +88,7 @@ const ActualCard: React.FC<ActualCardInterface >  =  ({pokemondata, id}) => {
               onDragStart={ (e: React.DragEvent<HTMLDivElement>) => e.preventDefault()} 
           />
         </div>
+
         <p className="absolute top-2.5 right-1/2 transform translate-x-1/2 text-white font-bold text-lg leading-none" >#{getIDString(id)}</p>
       </div>
       <div className="flex absolute bottom-10 right-1/2 transform translate-x-1/2 " >
@@ -80,23 +102,9 @@ const ActualCard: React.FC<ActualCardInterface >  =  ({pokemondata, id}) => {
       </div>
 
 
-        <motion.div 
-              className="absolute bottom-2.5 right-1/2 transform translate-x-1/2  w-max  text-black text-center font-bold text-xl cursor-pointer hover:text-opacity-50 leading-none"
-              onClick={() => handleClick(pokemondata.id)}
-              whileHover={{
-                opacity: .5,
-              }}
-              whileTap={{ 
-                opacity: 8,
-              }}
-              transition={{
-                opacity: {
-                  duration: 0.25
-                }
-            }}
-              >
+        <div className="absolute bottom-2.5 right-1/2 transform translate-x-1/2  w-max  text-black text-center font-bold text-xl leading-none">
                 {capitalizeFirstLetter(pokemondata.name)}
-        </motion.div>
+        </div>
   </div>
   )
 }
@@ -137,14 +145,14 @@ const CardLoader: React.FC = () => {
 }
 
 
+
+
 const Card: React.FC<CardInterface>  = ({id}) => {
   const [pokemondata, setPokemondata] = useState<GetPokemonDataInterface | null>(null)
-  const [isLoader, setIsLoader] = useState<boolean>(true)
   const pokemon = useGetPokemonData(id)
 
   useEffect(() => {
     let mounted = true
-
     if(pokemon && mounted) setPokemondata(pokemon)  
     else setPokemondata(null)
        
@@ -154,19 +162,6 @@ const Card: React.FC<CardInterface>  = ({id}) => {
     }
    }, [pokemon, id])
    
-   useEffect(() => {
-      let LoadertimeoutID: ReturnType<typeof setTimeout> = setTimeout(() => '', 1000)
-      clearTimeout(LoadertimeoutID)
-
-      LoadertimeoutID = setTimeout(() => {
-        setIsLoader(false)
-      }, 1000)
-    return () => {
-      setIsLoader(false)
-    }
-   
-   }, [id])
-
 
 
 
@@ -174,8 +169,8 @@ const Card: React.FC<CardInterface>  = ({id}) => {
 
 
   return (
-    <div className="h-96 w-80 select-none" >
-        {(pokemondata && !isLoader)
+    <div className="h-96 w-64 select-none" >
+        {(pokemondata)
             ? <ActualCard pokemondata={pokemondata} id={pokemondata.id} />
             : <CardLoader/>
         }

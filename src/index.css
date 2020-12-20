@@ -27,3 +27,16 @@ body{
 .fontSizeAdjust{
     font-size: 14px;
 }
+
+.hideScroll{
+    -ms-overflow-style: none;
+    scrollbar-width: none; 
+}
+
+.hideScroll::-webkit-scrollbar { 
+    display: none;
+}
+
+.Courier{
+    font-family: Georgia, serif;
+}

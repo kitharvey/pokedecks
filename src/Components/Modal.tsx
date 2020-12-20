@@ -7,6 +7,7 @@ import { findColor, getTypeIcon } from './getTypeIcon';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import egg from "../Assets/pokemon-egg.png"
 import Card from '../Deck/Card';
+import { AnimatePresence, motion } from 'framer-motion';
 
 interface ModalCardProps{
     statePokemonSpecieData: GetPokemonSpeciesDataInterface
@@ -33,7 +34,9 @@ const capitalizeFirstLetter = (string: string) => {
 const getFlavorSpeech = (pokemonSpeciesData: GetPokemonSpeciesDataInterface, pokemonData: GetPokemonDataInterface) => {
     const enLang = pokemonSpeciesData.flavor_text_entries.filter((entry) => entry.language.name === "en")[0]
     const types = pokemonData.types.map(type => type.type.name)
-    const text = pokemonData.name + ". " + types.join(" ") + " type pokemon. " + enLang.flavor_text.replace(/\r?\n|\r/g, " ")
+    const legend = pokemonSpeciesData.is_legendary ? " legendary " : ""
+    const mythic = pokemonSpeciesData.is_mythical ? " mythical " : ""
+    const text = pokemonData.name + ". " + legend + mythic + types.join(" ") + " type pokemon. " + enLang.flavor_text.replace(/\r?\n|\r/g, " ")
     return text
 }
 
@@ -62,10 +65,10 @@ const PokemonDetails: React.FC<PokemonDetailsProps> = ({category, details}) => {
 
 const BackCard: React.FC<ModalCardProps> = ({statePokemonSpecieData, statePokemonData, state}) => {
     return (
-        <div className="h-96 w-72 p-2.5 fontSizeAdjust" 
+        <div className="h-96 w-80 p-2.5 overflow-y-scroll fontSizeAdjust hideScroll" 
             style={{backgroundColor: "#f5f1e3"}}
         >
-            <div className="px-2.5" >
+            <div className="p-2.5" >
                 <div className="flex justify-between" >
                 <p className="uppercase" >{statePokemonData.name}</p>
                 <p>#{getIDString(statePokemonData.id)}</p>
@@ -76,10 +79,10 @@ const BackCard: React.FC<ModalCardProps> = ({statePokemonSpecieData, statePokemo
                     src={state.sprite}
                 />
                 <div className="flex" >
-                    {statePokemonData.types.map( (type,index) => <div className="m-0.5 flex items-center" >  
+                    {statePokemonData.types.map( (type,index) => <div className="m-0.5 flex items-center" key={index}  >  
                         <img  src={getTypeIcon(type.type.name)[1]} 
-                            className="mr-0.5 w-8 h-8 rounded-full border-solid border-4 border-white" 
-                            key={index} 
+                            className="mr-0.5 w-4 h-4 rounded-full border-solid border-2 border-white" 
+                            
                             draggable="false" 
                             onDragStart={ e => e.preventDefault()}  
                             alt={getTypeIcon(type.type.name)[0]}
@@ -136,23 +139,47 @@ const BackCard: React.FC<ModalCardProps> = ({statePokemonSpecieData, statePokemo
         </div>
 
 
-        <div className="max-h-24 leading-tight p-2.5" >{applySentenceCase(statePokemonSpecieData.flavor_text_entries.filter((entry) => entry.language.name === "en")[0].flavor_text)}</div>
-        <div className="w-full flex flex-row justify-between flex-wrap p-2.5" >
+        <div className="h-auto leading-tight p-2.5" >{applySentenceCase(statePokemonSpecieData.flavor_text_entries.filter((entry) => entry.language.name === "en")[0].flavor_text)}</div>
+        {/* <div className="w-full flex flex-row justify-between flex-wrap p-2.5" >
             <div className="" >Abilities:</div>
             {statePokemonData.abilities.map( (ability,index) => <div className="mr-1" key={index}  >{ability.ability.name.split("-").map( txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()).join(" ")} <span className="text-xs" >{ability.is_hidden && "(Hidden Ability)"}</span> </div> )}
-        </div>
+        </div> */}
     </div>
     )
 }
 
 const ModalCard: React.FC<ModalCardProps> = ({statePokemonSpecieData, statePokemonData, state}) => {
+    const messages = [
+        {
+            id: 0,
+            content: "test"
+        },
+        {
+            id: 1,
+            content: "test1"
+        },
+        {
+            id: 2,
+            content: "test2"
+        },
+    ]
     return (
         <div className="w-max h-auto flex">
             <div className="m-3">
                 <Card id={state.id} />
             </div>
             <div className="m-3">
-                <BackCard statePokemonSpecieData={statePokemonSpecieData} statePokemonData={statePokemonData} state={state}  />
+                <AnimatePresence>
+                    {messages.map(({ id, content }) => (
+                    <motion.li
+                        key={id}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                    >
+                        {content}
+                    </motion.li>
+                    ))}
+                </AnimatePresence>
             </div>
 
     </div>
@@ -179,12 +206,10 @@ const Modal: React.FC = () => {
                 speak({
                     text: applySentenceCase(flavorText),
                     voice: voices[5],
-                    pitch: .3
+                    pitch: .3,
+                    speaking: true
                 })
             }, 1000)
-
-            console.log(pokemonSpeciesData)
-            console.log(pokemonData)
             setPokemonData(pokemonData)
             setPokemonSpecieData(pokemonSpeciesData)
         } 

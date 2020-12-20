@@ -21,6 +21,7 @@ const DeckOfCards:React.FC = () => {
   useEffect(() => {
     let newData = null
     let isMounted = true
+    
     if(result !== undefined && isMounted) {
             newData = result.results.slice(0, result.results.length)
             setPokeArray(newData)
@@ -32,6 +33,7 @@ const DeckOfCards:React.FC = () => {
       isMounted = false
     }
   }, [result])
+
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchInput(e.target.value.toLowerCase())
@@ -114,6 +116,7 @@ const DeckOfCards:React.FC = () => {
             length={length}
             key={index + 2}
             index={index + 2}
+            // setIndex={setIndex}
             initial={{
               scale: 0,
               y: 0,
@@ -134,6 +137,7 @@ const DeckOfCards:React.FC = () => {
             length={length}
             key={index + 1}
             index={index + 1}
+            // setIndex={setIndex}
             initial={{
               scale: 0,
               y: 0,
