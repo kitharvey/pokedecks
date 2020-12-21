@@ -4,7 +4,7 @@ import {
   AnimatePresence,
 } from "framer-motion";
 import FramerCard from "./FramerCard";
-import { GetPokemonArrayInterface } from "../Components/CardInterface";
+import { NameURLInterface } from "../Components/CardInterface";
 import { useGetPokemonList } from "../Components/useGetPokemonList";
 import undo from "../Assets/undo.svg"
 import { wrap } from "popmotion";
@@ -13,7 +13,7 @@ const DeckOfCards:React.FC = () => {
   const [index, setIndex] = useState<number>(0);
   const [exitX, setExitX] = useState<number>(0);
   const [length, setLength] = useState<number>(0);
-  const [pokeArray, setPokeArray] = useState<GetPokemonArrayInterface[] | null>(null)
+  const [pokeArray, setPokeArray] = useState<NameURLInterface[] | null>(null)
   const result = useGetPokemonList()
   const [searchInput, setSearchInput] = useState<string>('')
   const [isVisible, setIsVisible] = useState<boolean>(false)
@@ -77,7 +77,7 @@ const DeckOfCards:React.FC = () => {
                     <svg fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" className="w-6 h-6"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                   {/* </button> */}
                 </span>
-                <input type="search" name="q" className="py-2 text-sm rounded-md pl-10 focus:outline-none bg-white text-gray-900" placeholder="Search Pokemon..." autoComplete="off" onChange={handleSearch} />
+                <input type="search" name="q" className="py-2 text-sm pl-10 focus:outline-none bg-white text-gray-900" placeholder="Search Pokemon..." autoComplete="off" onChange={handleSearch} />
               </div>
             </form>
           </div>

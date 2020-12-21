@@ -6,8 +6,8 @@ import egg from "../Assets/pokemon-egg.png"
 import rays from "../Assets/rays.png"
 import { motion } from 'framer-motion';
 import { AppContext } from '../Components/Page';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/black-and-white.css';
+import ProgressiveImage from "react-progressive-image-loading";
 
 interface CardInterface{
   id: number
@@ -30,12 +30,6 @@ const getIDString = (id: number) => {
       if(id >= 10 && id < 100) return '0' + id
       if(id >= 100 ) return '' + id
 }
-
-const capitalizeFirstLetter = (string: string) => {
-  const newName = string.split("-").join(" ")
-  return newName.charAt(0).toUpperCase() + newName.slice(1);
-}
-
 
 const ActualCard: React.FC<ActualCardInterface >  =  ({pokemondata, id}) => {
   const {state, setState} = React.useContext(AppContext)
@@ -88,15 +82,10 @@ const ActualCard: React.FC<ActualCardInterface >  =  ({pokemondata, id}) => {
          
           </motion.div>
         <div className="w-52 h-auto absolute left-1/2 bottom-1/2 transform -translate-x-1/2 translate-y-1/2"  >
-          
-          <LazyLoadImage
-              alt={pokemondata.name}
-              effect="black-and-white"
-              threshold={100}
+          <ProgressiveImage
+              preview={egg}
               src={sprite}
-              placeholderSrc={egg}
-              draggable="false" 
-              onDragStart={ (e: React.DragEvent<HTMLDivElement>) => e.preventDefault()} 
+              render={(src, style) => <img alt={pokemondata.name} src={src} style={style} draggable="false" onDragStart={ (e: React.DragEvent<HTMLDivElement>) => e.preventDefault()} />}
           />
         </div>
 
@@ -113,8 +102,8 @@ const ActualCard: React.FC<ActualCardInterface >  =  ({pokemondata, id}) => {
       </div>
 
 
-        <div className="absolute bottom-2.5 right-1/2 transform translate-x-1/2  w-max  text-black text-center font-bold text-xl leading-none">
-                {capitalizeFirstLetter(pokemondata.name)}
+        <div className="absolute bottom-2.5 right-1/2 transform translate-x-1/2  w-max  text-black text-center font-bold capitalize text-xl leading-none">
+                {pokemondata.name}
         </div>
   </div>
   )
@@ -131,7 +120,7 @@ const CardLoader: React.FC = () => {
       >
       <div className="w-52 h-auto absolute left-1/2 bottom-1/2 transform -translate-x-1/2 translate-y-1/2 animate-pulse"  >
         <img
-            alt="loader image"
+            alt="loader egg"
             src={egg}
             draggable="false" 
             onDragStart={ (e: React.DragEvent<HTMLDivElement>) => e.preventDefault()}

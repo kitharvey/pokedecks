@@ -43,13 +43,13 @@ export interface GetPokemonDataInterface {
     weight: number
     stats: Stats[]
 }
-export interface GetPokemonArrayInterface {
+export interface NameURLInterface {
     name: string
     url: string
 }
 
 export interface GetPokemonList {
-    results: GetPokemonArrayInterface[]
+    results: NameURLInterface[]
 }
 
 
@@ -82,32 +82,33 @@ export interface GetPokemonSpeciesDataInterface {
 }
 
 interface Chain{
-    isBaby: boolean;
-    species: GetPokemonArrayInterface;
-    evolutionDetails: {
-        item: GetPokemonArrayInterface;
-        trigger: GetPokemonArrayInterface;
+    is_baby: boolean;
+    species: NameURLInterface;
+    evolution_details: {
+        item: NameURLInterface;
+        trigger: NameURLInterface;
         gender: number;
-        heldItem: GetPokemonArrayInterface;
-        knownMove: GetPokemonArrayInterface;
-        knownMoveType: GetPokemonArrayInterface;
-        location: GetPokemonArrayInterface;
-        minLevel: GetPokemonArrayInterface;
-        minHappiness: GetPokemonArrayInterface;
-        minBeauty: GetPokemonArrayInterface;
-        minAffection: GetPokemonArrayInterface;
-        needsOverworldRain: boolean;
-        partySpecies: GetPokemonArrayInterface;
-        partyType: GetPokemonArrayInterface;
-        relativePhysicalStats: number;
-        timeOfDay: string;
-        tradeSpecies: GetPokemonArrayInterface;
-        turnUpsideDown: boolean;
+        held_item: NameURLInterface;
+        known_move: NameURLInterface;
+        known_move_type: NameURLInterface;
+        location: NameURLInterface;
+        min_level: NameURLInterface;
+        min_happiness: NameURLInterface;
+        min_beauty: NameURLInterface;
+        min_affection: NameURLInterface;
+        needs_overworldRain: boolean;
+        party_species: NameURLInterface;
+        party_type: NameURLInterface;
+        relative_physicalStats: number;
+        time_of_day: string;
+        trade_species: NameURLInterface;
+        turn_upside_down: boolean;
     }[];
-    evolvesTo: Chain[];
+    evolves_to: Chain[];
     
 }
 
 export interface GetPokemonEvolutionChainInterface{
+    baby_trigger_item: null
     chain: Chain
 }

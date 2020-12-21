@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 // import { Service } from './Service';
-import { GetPokemonDataInterface, GetPokemonSpeciesDataInterface } from './CardInterface';
+import { GetPokemonDataInterface, GetPokemonEvolutionChainInterface, GetPokemonSpeciesDataInterface } from './CardInterface';
 import axios from 'axios'
 
 
@@ -37,14 +37,13 @@ export const useGetPokemonSpeciesData = (id: number) => {
   return result;
 };
 export const useGetPokemonEvolutionChain = (url: string) => {
-  const [result, setResult] = useState<GetPokemonSpeciesDataInterface>()
+  const [result, setResult] = useState<GetPokemonEvolutionChainInterface>()
 
     useEffect( () => {
       const fetchAPI = async (url: string) => {
         if(url) {
           const response = await axios.get(url)
           setResult( response.data )
-          console.log( response.data )
         }
       }
       fetchAPI(url)

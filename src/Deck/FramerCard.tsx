@@ -6,7 +6,7 @@ import {
   useTransform
 } from "framer-motion";
 import Card from "./Card";
-import { GetPokemonArrayInterface } from "../Components/CardInterface";
+import { NameURLInterface } from "../Components/CardInterface";
 import logo from "../Assets/colored-logo.png"
 
 interface CardProps {
@@ -19,7 +19,7 @@ interface CardProps {
     drag?: boolean | "x" | "y"
     setExitX?: (x: number) => void
     setIndex?: (x: number) => void
-    pokeArray: GetPokemonArrayInterface[] | undefined
+    pokeArray: NameURLInterface[] | undefined
     length: number
     whileHover?: {
       scale: number,

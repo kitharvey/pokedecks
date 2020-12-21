@@ -36,3 +36,18 @@ body{
 .hideScroll::-webkit-scrollbar { 
     display: none;
 }
+
+.addFlipInfinite{
+    transform-style: preserve-3d;
+    animation: flipInfinite 1s infinite;
+}
+
+@keyframes flipInfinite {
+    from{
+        transform: rotateY(0deg);
+    }
+
+    to{
+        transform: rotateY(360deg);
+    }
+}

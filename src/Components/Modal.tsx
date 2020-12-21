@@ -2,15 +2,14 @@ import React, {useEffect, useState, useContext} from 'react'
 import { AppContext } from './Page';
 import {useGetPokemonData, useGetPokemonEvolutionChain, useGetPokemonSpeciesData} from './useGetPokemonData';
 import { useSpeechSynthesis } from 'react-speech-kit';
-import { GetPokemonDataInterface, GetPokemonSpeciesDataInterface } from './CardInterface';
-import { findColor, getTypeIcon } from './getTypeIcon';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { GetPokemonDataInterface, GetPokemonEvolutionChainInterface, GetPokemonSpeciesDataInterface, NameURLInterface } from './CardInterface';
 import egg from "../Assets/pokemon-egg.png"
 import Card from '../Deck/Card';
 import Flippy, { FrontSide, BackSide } from 'react-flippy';
+import ProgressiveImage from 'react-progressive-image-loading';
 interface ModalCardProps{
-    statePokemonSpecieData: GetPokemonSpeciesDataInterface
-    statePokemonData: GetPokemonDataInterface
+    pokemonSpeciesData: GetPokemonSpeciesDataInterface
+    pokemonData: GetPokemonDataInterface
     state: {
         sprite: string,
         id: number
@@ -25,10 +24,6 @@ const applySentenceCase = (str: string) => {
     });
 }
 
-const capitalizeFirstLetter = (string: string) => {
-    const newName = string.split("-").join(" ")
-    return newName.charAt(0).toUpperCase() + newName.slice(1);
-}
 
 const getFlavorSpeech = (pokemonSpeciesData: GetPokemonSpeciesDataInterface, pokemonData: GetPokemonDataInterface) => {
     const enLang = pokemonSpeciesData.flavor_text_entries.filter((entry) => entry.language.name === "en")[0]
@@ -39,7 +34,13 @@ const getFlavorSpeech = (pokemonSpeciesData: GetPokemonSpeciesDataInterface, pok
     return text
 }
 
-const getIDString = (id: number) => {
+const getImageSource = (id: string) => {
+    return "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/" + getIDString(id) + ".png"
+  }
+
+const getIDString = (url: string) => {
+    const tempURL = url.split("/")
+    const id = +tempURL[tempURL.length - 2]
     if(id < 10) return '00' + id
     if(id >= 10 && id < 100) return '0' + id
     if(id >= 100 ) return '' + id
@@ -59,92 +60,135 @@ const FlexBetween: React.FC<PokemonDetailsProps> = ({category, details}) => {
             </div>
         </div>
     )
-}  
+} 
 
 
-const BackCard: React.FC<ModalCardProps> = ({statePokemonSpecieData, statePokemonData, state}) => {
-    const pokemonEvolutionData = useGetPokemonEvolutionChain(statePokemonSpecieData.evolution_chain.url)
+const ExtractEvolutionChain = (response: GetPokemonEvolutionChainInterface) => {
+    let evoChain = [];
+    let evoData = response.chain;
+
+    do {
+        // let evoDetails = evoData['evolution_details'][0];
+
+    evoChain.push({
+        "name": evoData.species.name,
+        "url": evoData.species.url,
+    });
+
+    evoData = evoData['evolves_to'][0];
+    } while (evoData && evoData.hasOwnProperty('evolves_to'));
+
+    return evoChain
+}
+
+
+const BackCard: React.FC<ModalCardProps> = ({pokemonSpeciesData, pokemonData}) => {
+    const pokemonEvolutionData = useGetPokemonEvolutionChain(pokemonSpeciesData.evolution_chain.url)
+    const [evolutionChain, setEvolutionChain] = useState<NameURLInterface[]>()
     useEffect(() => {
-        console.log(pokemonEvolutionData)
-    },[])
+        if(pokemonEvolutionData) {
+            const data = ExtractEvolutionChain(pokemonEvolutionData)
+            if(data) setEvolutionChain(data)
+        } 
+    },[pokemonEvolutionData])
+    
     return (
         <div className="h-96 w-80 p-2.5 overflow-y-scroll fontSizeAdjust hideScroll flex flex-col items-center justify-between" 
             style={{backgroundColor: "#f5f1e3"}}
         >
-            <div className="h-auto leading-tight p-2.5" >{applySentenceCase(statePokemonSpecieData.flavor_text_entries.filter((entry) => entry.language.name === "en")[0].flavor_text)}</div>
+            <div className="h-auto leading-tight p-2.5" >{applySentenceCase(pokemonSpeciesData.flavor_text_entries.filter((entry) => entry.language.name === "en")[0].flavor_text)}</div>
             
             <div className="flex flex-col bg-white p-2.5 w-full" >
                 <FlexBetween
                     category="Genus:"
                     details={
-                        <p>{applySentenceCase(statePokemonSpecieData.genera.filter((entry) => entry.language.name === "en")[0].genus)}</p>
+                        <p>{applySentenceCase(pokemonSpeciesData.genera.filter((entry) => entry.language.name === "en")[0].genus)}</p>
                     }
                 />
                 <FlexBetween
                     category="Height:"
                     details={
-                        <p>{statePokemonData.height/10}m <span>({Math.floor(((statePokemonData.height/10) * 39.37)/12)}'{(((statePokemonData.height/10) * 39.37) % 12).toFixed(1)}")</span></p>
+                        <p>{pokemonData.height/10}m <span>({Math.floor(((pokemonData.height/10) * 39.37)/12)}'{(((pokemonData.height/10) * 39.37) % 12).toFixed(1)}")</span></p>
                     }
                 />
                 <FlexBetween
                     category="Weight:"
                     details={
-                        <p>{statePokemonData.weight/10}kg <span>({((statePokemonData.weight/10) * 2.2).toFixed(1)} lbs)</span></p>
+                        <p>{pokemonData.weight/10}kg <span>({((pokemonData.weight/10) * 2.2).toFixed(1)} lbs)</span></p>
                     }
                 />
                 <FlexBetween
                     category="Abilities:"
                     details={
                         <div className="flex flex-col items-end" >
-                        {statePokemonData.abilities.map( (ability,index) => <p key={index}  >{ability.ability.name.split("-").map( txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()).join(" ")} <span className="text-xs" >{ability.is_hidden && "(Hidden Ability)"}</span> </p> )}
+                        {pokemonData.abilities.map( (ability,index) => <p key={index}  >{ability.ability.name.split("-").map( txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()).join(" ")} <span className="text-xs" >{ability.is_hidden && "(Hidden Ability)"}</span> </p> )}
                         </div>
                     }
                 />
+            </div>
+            
+            <div className="flex justify-evenly w-full" >
+                {evolutionChain && evolutionChain.map( ({name, url}, index) => <div key={index} className="flex flex-col items-center" >
+                    <p className="text-xs capitalize" >{name}</p>
+                    <div className="w-12 h-auto"  >
+                    <ProgressiveImage
+                        preview={egg}
+                        src={getImageSource(url)}
+                        render={(src, style) => <img alt={name} src={src} style={style} draggable="false" onDragStart={ (e: React.DragEvent<HTMLDivElement>) => e.preventDefault()} />}
+                    />
+                    </div>
+                    {pokemonSpeciesData.is_legendary &&  <p className="text-xs" >Legendary</p>}
+                    {pokemonSpeciesData.is_mythical &&  <p className="text-xs" >Mythical</p>}
+                    {!(pokemonSpeciesData.is_legendary || pokemonSpeciesData.is_mythical) && <p className="text-xs" >stage{index+1}</p>}
+                    </div> )}
             </div>
 
             <div className="grid grid-cols-6 gap-1 bg-white p-2.5 w-full" >
                     <div className="flex flex-col items-center">
                         <p className="text-xs font-bold" >HP</p>
-                        <p className="text-xs" >{statePokemonData.stats[0].base_stat}</p>
+                        <p className="text-xs" >{pokemonData.stats[0].base_stat}</p>
                     </div>
                     <div className="flex flex-col items-center">
                         <p className="text-xs font-bold" >Atk</p>
-                        <p className="text-xs" >{statePokemonData.stats[1].base_stat}</p>
+                        <p className="text-xs" >{pokemonData.stats[1].base_stat}</p>
                     </div>
                     <div className="flex flex-col items-center">
                         <p className="text-xs font-bold" >Def</p>
-                        <p className="text-xs" >{statePokemonData.stats[2].base_stat}</p>
+                        <p className="text-xs" >{pokemonData.stats[2].base_stat}</p>
                     </div>
                     <div className="flex flex-col items-center">
                         <p className="text-xs font-bold" >Sp. Atk</p>
-                        <p className="text-xs" >{statePokemonData.stats[3].base_stat}</p>
+                        <p className="text-xs" >{pokemonData.stats[3].base_stat}</p>
                     </div>
                     <div className="flex flex-col items-center">
                         <p className="text-xs font-bold" >Sp. Def</p>
-                        <p className="text-xs" >{statePokemonData.stats[4].base_stat}</p>
+                        <p className="text-xs" >{pokemonData.stats[4].base_stat}</p>
                     </div>
                     <div className="flex flex-col items-center">
                         <p className="text-xs font-bold" >Speed</p>
-                        <p className="text-xs" >{statePokemonData.stats[5].base_stat}</p>
+                        <p className="text-xs" >{pokemonData.stats[5].base_stat}</p>
                     </div>
             </div>
         </div>
     )
 }
 
-const ModalCard: React.FC<ModalCardProps> = ({statePokemonSpecieData, statePokemonData, state}) => {
+const ModalCard: React.FC<ModalCardProps> = ({pokemonSpeciesData, pokemonData, state}) => {
 
     return (
         <div className="w-max h-auto flex">
              <Flippy
-                flipOnHover={true}
+                flipOnClick={true}
                 flipDirection="horizontal"
+                style={{
+                    cursor: "pointer"
+                }}
             >
                 <FrontSide style={{padding: 0}} >
                     <Card id={state.id} />
                 </FrontSide>
                 <BackSide style={{padding: 0}} >
-                    <BackCard statePokemonSpecieData={statePokemonSpecieData} statePokemonData={statePokemonData} state={state} />
+                    <BackCard pokemonSpeciesData={pokemonSpeciesData} pokemonData={pokemonData} state={state} />
                 </BackSide>
             </Flippy>
     </div>
@@ -152,13 +196,44 @@ const ModalCard: React.FC<ModalCardProps> = ({statePokemonSpecieData, statePokem
 }
 
 
+const ModalCardLoader: React.FC = () => {
+    return(
+        <div 
+            className="h-96 w-80 select-none p-2.5 flex flex-col justify-between relative addFilter addFlipInfinite"
+            style={{backgroundColor: "#f5f1e3"}}
+            >
+            <div className="w-full h-80 relative bg-gray-400 border-solid border-4 border-white" 
+            >
+            <div className="w-52 h-auto absolute left-1/2 bottom-1/2 transform -translate-x-1/2 translate-y-1/2 animate-pulse"  >
+                <img
+                    alt="loader egg"
+                    src={egg}
+                    draggable="false" 
+                    onDragStart={ (e: React.DragEvent<HTMLDivElement>) => e.preventDefault()}
+                    style={{
+                            filter: "grayscale(1)"
+                        }}
+                />
+            </div>
+            <div className="absolute top-2.5 w-12 h-6  rounded-lg right-1/2 transform translate-x-1/2 bg-gray-200 animate-pulse " />
+            </div>
+        
+            <div className="flex absolute bottom-10 right-1/2 transform translate-x-1/2 " >
+                <div className="-m-0.5 w-10 h-10 rounded-full border-solid border-4 border-white bg-gray-400 animate-pulse" />
+                <div className="-m-0.5 w-10 h-10 rounded-full border-solid border-4 border-white bg-gray-400 animate-pulse" />
+            </div>
+        
+        
+            <div className="absolute w-32 h-6 rounded-lg bottom-2.5 right-1/2 transform translate-x-1/2 bg-gray-400 animate-pulse"   />
+        </div>
+    )
+}
+
 
 
 const Modal: React.FC = () => {
     const { speak, cancel, voices } = useSpeechSynthesis();
     const {state, setState} = useContext(AppContext)
-    const [statePokemonData, setPokemonData] = useState<GetPokemonDataInterface | null>(null)
-    const [statePokemonSpecieData, setPokemonSpecieData] = useState<GetPokemonSpeciesDataInterface | null>(null)
     const pokemonData = useGetPokemonData(state.id)
     const pokemonSpeciesData = useGetPokemonSpeciesData(state.id)
 
@@ -175,14 +250,9 @@ const Modal: React.FC = () => {
                     speaking: true
                 })
             }, 1000)
-            setPokemonData(pokemonData)
-            setPokemonSpecieData(pokemonSpeciesData)
-            console.log(pokemonSpeciesData)
         } 
         return () => {
             cancel()
-            setPokemonData(null)
-            setPokemonSpecieData(null)
         }
     }, [pokemonSpeciesData])
 
@@ -194,9 +264,9 @@ const Modal: React.FC = () => {
                     </svg>
                     <span className="text-sm">(Close)</span>
                 </div>
-                {(statePokemonData && statePokemonSpecieData)
-                    ? <ModalCard statePokemonData={statePokemonData}  statePokemonSpecieData={statePokemonSpecieData} state={state} />
-                    : <div>Loading...</div>
+                {(pokemonData && pokemonSpeciesData)
+                    ? <ModalCard pokemonData={pokemonData}  pokemonSpeciesData={pokemonSpeciesData} state={state} />
+                    : <ModalCardLoader />
                 }  
             </div>
         );
