@@ -1,39 +1,26 @@
 import React, { useEffect, useState } from 'react'
 import {useGetPokemonData} from '../Components/useGetPokemonData';
-import { GetPokemonDataInterface } from '../Components/CardInterface';
-import {getTypeIcon, findColor} from '../Components/getTypeIcon';
+import { GetPokemonDataInterface, ActualCardInterface, CardInterface } from '../Components/CardInterface';
+import {getTypeIcon, findColor} from '../Functions/getTypeIconAndColor';
 import egg from "../Assets/pokemon-egg.png"
 import rays from "../Assets/rays.png"
 import { motion } from 'framer-motion';
 import { AppContext } from '../Components/Page';
 import 'react-lazy-load-image-component/src/effects/black-and-white.css';
 import ProgressiveImage from "react-progressive-image-loading";
-
-interface CardInterface{
-  id: number
-}
-
-interface ActualCardInterface{
-  pokemondata: GetPokemonDataInterface
-  id: number
-}
+import { getImageSourcefromID, getIDStringfromID } from '../Functions/GlobalFunctions';
+import CardLoader from './CardLoader';
 
 
 
 
-const getImageSource = (id: number) => {
-  return "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/" + getIDString(id) + ".png"
-}
 
-const getIDString = (id: number) => {
-      if(id < 10) return '00' + id
-      if(id >= 10 && id < 100) return '0' + id
-      if(id >= 100 ) return '' + id
-}
+
+
 
 const ActualCard: React.FC<ActualCardInterface >  =  ({pokemondata, id}) => {
   const {state, setState} = React.useContext(AppContext)
-  const sprite = getImageSource(id)
+  const sprite = getImageSourcefromID(id)
 
   const handleClick = (id: number) => {
     setState({id,sprite})
@@ -89,7 +76,7 @@ const ActualCard: React.FC<ActualCardInterface >  =  ({pokemondata, id}) => {
           />
         </div>
 
-        <p className="absolute top-2.5 right-1/2 transform translate-x-1/2 text-white font-bold text-lg leading-none" >#{getIDString(id)}</p>
+        <p className="absolute top-2.5 right-1/2 transform translate-x-1/2 text-white font-bold text-lg leading-none" >#{getIDStringfromID(id)}</p>
       </div>
       <div className="flex absolute bottom-10 right-1/2 transform translate-x-1/2 " >
             {pokemondata.types.map( (type,index) => <img  src={getTypeIcon(type.type.name)[1]} 
@@ -109,40 +96,7 @@ const ActualCard: React.FC<ActualCardInterface >  =  ({pokemondata, id}) => {
   )
 }
 
-const CardLoader: React.FC = () => {
-  return (
 
-    <div 
-    className="h-full w-full p-2.5 flex flex-col justify-between relative addFilter"
-    style={{backgroundColor: "#f5f1e3"}}
-    >
-    <div className="w-full h-80 relative bg-gray-400 border-solid border-4 border-white" 
-      >
-      <div className="w-52 h-auto absolute left-1/2 bottom-1/2 transform -translate-x-1/2 translate-y-1/2 animate-pulse"  >
-        <img
-            alt="loader egg"
-            src={egg}
-            draggable="false" 
-            onDragStart={ (e: React.DragEvent<HTMLDivElement>) => e.preventDefault()}
-            style={{
-                    filter: "grayscale(1)"
-                  }}
-        />
-      </div>
-      <div className="absolute top-2.5 w-12 h-6  rounded-lg right-1/2 transform translate-x-1/2 bg-gray-200 animate-pulse " />
-    </div>
-
-    <div className="flex absolute bottom-10 right-1/2 transform translate-x-1/2 " >
-          <div className="-m-0.5 w-10 h-10 rounded-full border-solid border-4 border-white bg-gray-400 animate-pulse" />
-          <div className="-m-0.5 w-10 h-10 rounded-full border-solid border-4 border-white bg-gray-400 animate-pulse" />
-    </div>
-
-
-      <div className="absolute w-32 h-6 rounded-lg bottom-2.5 right-1/2 transform translate-x-1/2 bg-gray-400 animate-pulse"   />
-</div>
-
-  )
-}
 
 
 

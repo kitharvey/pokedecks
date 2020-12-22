@@ -12,7 +12,7 @@ const appCtxDefaultValue = {
         sprite: "",
         id: 0
     },
-    setState: (state: stateProps) => {} // noop default callback
+    setState: (state: stateProps) => {}
 };
 
 export const AppContext = createContext(appCtxDefaultValue);

@@ -112,3 +112,22 @@ export interface GetPokemonEvolutionChainInterface{
     baby_trigger_item: null
     chain: Chain
 }
+
+
+export interface ModalCardProps{
+    pokemonSpeciesData: GetPokemonSpeciesDataInterface
+    pokemonData: GetPokemonDataInterface
+    state: {
+        sprite: string,
+        id: number
+    }
+}
+
+export interface CardInterface{
+    id: number
+  }
+  
+export interface ActualCardInterface{
+    pokemondata: GetPokemonDataInterface
+    id: number
+}

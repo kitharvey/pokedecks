@@ -37,17 +37,6 @@ body{
     display: none;
 }
 
-.addFlipInfinite{
-    transform-style: preserve-3d;
-    animation: flipInfinite 1s infinite;
-}
-
-@keyframes flipInfinite {
-    from{
-        transform: rotateY(0deg);
-    }
-
-    to{
-        transform: rotateY(360deg);
-    }
+.react-card-front, .react-card-back{
+    box-shadow:0 10px 20px 0 rgba(0, 0, 0, 0.1);
 }

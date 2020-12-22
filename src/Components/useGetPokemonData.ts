@@ -12,7 +12,6 @@ export const useGetPokemonData = (id: number) => {
         if(id) {
           const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`)
           setResult( response.data )
-          // console.log( response.data )
         }
       }
       fetchAPI(id)
@@ -28,7 +27,6 @@ export const useGetPokemonSpeciesData = (id: number) => {
         if(id) {
           const response = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${id}`)
           setResult( response.data )
-          // console.log( response.data )
         }
       }
       fetchAPI(id)
