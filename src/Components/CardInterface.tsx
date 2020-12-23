@@ -117,10 +117,6 @@ export interface GetPokemonEvolutionChainInterface{
 export interface ModalCardProps{
     pokemonSpeciesData: GetPokemonSpeciesDataInterface
     pokemonData: GetPokemonDataInterface
-    state: {
-        sprite: string,
-        id: number
-    }
 }
 
 export interface CardInterface{

@@ -19,8 +19,8 @@ const BackCard: React.FC<ModalCardProps> = ({pokemonSpeciesData, pokemonData}) =
     },[pokemonEvolutionData])
     
     return (
-        <div className="h-96 w-80 p-2.5 fontSizeAdjust flex flex-col items-center justify-between" 
-            style={{backgroundColor: "#f5f1e3"}}
+        <div className="h-full w-full p-2.5 fontSizeAdjust flex flex-col items-center justify-between" 
+            style={{backgroundColor: "#eaeaea"}}
         >
             <div className="h-auto max-h-20 leading-tight p-2.5 text-xs overflow-y-scroll hideScroll" >{applySentenceCase(pokemonSpeciesData.flavor_text_entries.filter((entry) => entry.language.name === "en")[0].flavor_text)}</div>
             

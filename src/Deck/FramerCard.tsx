@@ -43,7 +43,8 @@ interface CardProps {
   interface AnimateProps {
       scale: number,
       y: number,
-      opacity: number
+      opacity: number,
+      boxShadow: string
   }
   interface InitialProps {
       scale: number,
@@ -108,7 +109,10 @@ interface CardProps {
   
     return (
       <motion.div
+
         style={{
+          width: "100%",
+          height: "100%",
           position: "absolute",
           top: 0,
           borderRadius: "10px",

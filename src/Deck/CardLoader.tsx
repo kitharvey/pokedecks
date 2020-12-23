@@ -18,7 +18,7 @@ const CardLoader: React.FC = () => {
                     draggable="false" 
                     onDragStart={ (e: React.DragEvent<HTMLDivElement>) => e.preventDefault()}
                     style={{
-                            filter: "grayscale(1)"
+                            filter: "grayscale(1) blur(10px)"
                             }}
                 />
                 </div>

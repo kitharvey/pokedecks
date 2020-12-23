@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useContext} from "react";
 import {
   motion,
   AnimatePresence,
@@ -8,6 +8,8 @@ import { NameURLInterface } from "../Components/CardInterface";
 import { useGetPokemonList } from "../Components/useGetPokemonList";
 import undo from "../Assets/undo.svg"
 import { wrap } from "popmotion";
+import { AppContext } from "../Components/Page";
+import CardLoader from "./CardLoader";
 
 const DeckOfCards:React.FC = () => {
   const [index, setIndex] = useState<number>(0);
@@ -15,9 +17,9 @@ const DeckOfCards:React.FC = () => {
   const [length, setLength] = useState<number>(0);
   const [pokeArray, setPokeArray] = useState<NameURLInterface[] | null>(null)
   const result = useGetPokemonList()
-  const [searchInput, setSearchInput] = useState<string>('')
   const [isVisible, setIsVisible] = useState<boolean>(false)
   const cardIndex = wrap(0, length + 1, index);
+  const {state} = useContext(AppContext)
 
   useEffect(() => {
     let newData = null
@@ -36,9 +38,7 @@ const DeckOfCards:React.FC = () => {
   }, [result])
 
 
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchInput(e.target.value.toLowerCase())
-  }
+
   const handleUndo = () => {
     return (index > 0) ? setIndex(index - 1) : setIndex(0)
   }
@@ -54,7 +54,7 @@ const DeckOfCards:React.FC = () => {
     }, 500)
     
     if(result && isMounted) {
-            const filteredResult = result.results.filter( pokemon => pokemon.name.includes(searchInput) )
+            const filteredResult = result.results.filter( pokemon => pokemon.name.includes(state.search) )
             setPokeArray(filteredResult)
             setLength(filteredResult.length)
     }
@@ -64,23 +64,12 @@ const DeckOfCards:React.FC = () => {
       setLength(0)
       isMounted = false
     }
-  }, [searchInput, result])
+  }, [state.search, result])
 
   return (
     <div className="h-full w-full flex flex-col items-center justify-center" >
       <div className="h-full w-3/5 flex flex-col items-center justify-center relative">
-          <div className="absolute top-1/4 right-1/2 transform translate-x-1/2 -translate-y-1/2">
-            <form method="GET" onSubmit={ (event: React.FormEvent<HTMLFormElement>) => event.preventDefault() }>
-              <div className="relative text-gray-400 focus-within:text-gray-900">
-                <span className="absolute inset-y-0 left-0 flex items-center pl-2">
-                  {/* <button type="submit" className="p-1 focus:outline-none focus:shadow-outline"> */}
-                    <svg fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" className="w-6 h-6"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                  {/* </button> */}
-                </span>
-                <input type="search" name="q" className="py-2 text-sm pl-10 focus:outline-none bg-white text-gray-900" placeholder="Search Pokemon..." autoComplete="off" onChange={handleSearch} />
-              </div>
-            </form>
-          </div>
+
           
           <div className="w-auto h-auto absolute top-1/4 right-0 transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center text-white select-none"           
           >
@@ -101,94 +90,100 @@ const DeckOfCards:React.FC = () => {
             </motion.div>
             <span className="text-sm">(Undo Swipe)</span>
           </div>
-    {(pokeArray && !isVisible) && 
-    <div className="absolute top-3/4 right-1/2 transform translate-x-1/2 -translate-y-full" >
-      <motion.div
-        style={{
-          width: 320,
-          height: 384,
-          position: "relative"
-        }}
-      >
-        <AnimatePresence initial={false}>
-        {pokeArray.length >= 3 &&
-          <FramerCard
-            pokeArray={pokeArray}
-            length={length}
-            key={cardIndex + 2}
-            index={cardIndex + 2}
-            initial={{
-              scale: 0,
-              y: 0,
-              opacity: 0
-            }}
-            animate={{
-              scale: 1,
-              y: 0,
-              opacity: 1
-            }}
-            transition={{
-              scale: { duration: 0.1 },
-            }}
-          />}
-        {pokeArray.length >= 2 &&
-          <FramerCard
-            pokeArray={pokeArray}
-            length={length}
-            key={cardIndex + 1}
-            index={cardIndex + 1}
-            initial={{
-              scale: 0,
-              y: 0,
-              opacity: 0
-            }}
-            animate={{
-              scale: 1,
-              y: 0,
-              opacity: 1,
-            }}
-            transition={{
-              scale: { duration: 0.1 },
-            }}
-          />}
-          {pokeArray.length >= 1 &&
-          <FramerCard
-            pokeArray={pokeArray}
-            length={length}
-            index={cardIndex}
-            key={cardIndex}
-            animate={{
-              scale: 1,
-              y: 0,
-              opacity: 1,
-            }}
-            transition={{
-              type: "spring",
-              stiffness: 300,
-              damping: 30,
-              opacity: {
-                duration: 0.2
-              }
-            }}
-            whileHover={{
-              scale: 1.05,
-              boxShadow: "0 15px 50px 1px rgba(0,0,0,.25)",
-            }}
-            whileTap={{ 
-              cursor: "grabbing",
-              scale: 1.05,
-              boxShadow: "0 15px 50px 1px rgba(0,0,0,.25)"
-             }}
+            <div className="h-96 w-80 select-none absolute top-3/4 right-1/2 transform translate-x-1/2 -translate-y-full" >
+            {(pokeArray && !isVisible) ? 
+              <motion.div
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  position: "relative"
+                }}
+              >
+                <AnimatePresence initial={false}>
+                {pokeArray.length >= 3 &&
+                  <FramerCard
+                    pokeArray={pokeArray}
+                    length={length}
+                    key={cardIndex + 2}
+                    index={cardIndex + 2}
+                    initial={{
+                      scale: 0,
+                      y: 55,
+                      opacity: 0,
+                    }}
+                    animate={{
+                      scale: 0.75,
+                      y: 55,
+                      opacity: 1,
+                      boxShadow: "0 5px 25px 1px rgba(0,0,0,.25)",
+                    }}
+                    transition={{
+                      scale: { duration: 0.1 },
+                    }}
+                  />}
+                {pokeArray.length >= 2 &&
+                  <FramerCard
+                    pokeArray={pokeArray}
+                    length={length}
+                    key={cardIndex + 1}
+                    index={cardIndex + 1}
+                    initial={{
+                      scale: 0,
+                      y: 55,
+                      opacity: 0,
+                    }}
+                    animate={{
+                      scale: 0.75,
+                      y: 55,
+                      opacity: 1,
+                      boxShadow: "0 5px 25px 1px rgba(0,0,0,.25)",
+                    }}
+                    transition={{
+                      scale: { duration: 0.1 },
+                    }}
+                  />}
+                  {pokeArray.length >= 1 &&
+                  <FramerCard
+                    pokeArray={pokeArray}
+                    length={length}
+                    index={cardIndex}
+                    key={cardIndex}
+                    animate={{
+                      boxShadow: "0 5px 25px 1px rgba(0,0,0,.25)",
+                      scale: 1,
+                      y: 0,
+                      opacity: 1,
+                      
+                    }}
+                    transition={{
+                      type: "spring",
+                      stiffness: 300,
+                      damping: 30,
+                      opacity: {
+                        duration: 0.2
+                      }
+                    }}
+                    whileHover={{
+                      scale: 1.05,
+                      boxShadow: "0 15px 50px 1px rgba(0,0,0,.25)",
+                    }}
+                    whileTap={{ 
+                      cursor: "grabbing",
+                      scale: 1.05,
+                      boxShadow: "0 15px 50px 1px rgba(0,0,0,.25)"
+                    }}
 
-            exitX={exitX}
-            setExitX={setExitX}
-            setIndex={setIndex}
-            drag="x"
-          />}
-        </AnimatePresence>
-      </motion.div>
-      </div>
-    }
+                    exitX={exitX}
+                    setExitX={setExitX}
+                    setIndex={setIndex}
+                    drag="x"
+                  />}
+                </AnimatePresence>
+              </motion.div>
+              : <CardLoader />
+            }
+              </div>
+
     </div>
     </div>
   );
