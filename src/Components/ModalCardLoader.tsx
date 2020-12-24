@@ -8,12 +8,12 @@ const ModalCardLoader: React.FC = () => {
     return(
         <div className="h-96 w-80 select-none" >
             <ReactCardFlip infinite={true} isFlipped={isFlipped} >
-                <div className="h-96 w-80" onMouseOver={() => setisFlipped(!isFlipped)}>
+                <div className="h-96 w-80">
                     <CardLoader />
                 </div>
-                <div className="h-96 w-80" onMouseOver={() => setisFlipped(!isFlipped)}>
+                <div className="h-96 w-80">
                     <div className="h-full w-full p-2.5 fontSizeAdjust flex flex-col items-center justify-between" 
-                                style={{backgroundColor: "#f5f1e3"}}
+                                style={{backgroundColor: "#eaeaea"}}
                         >
                             <div className="w-full flex flex-col" >
                                 <div className="h-16 w-full rounded-bl-none bg-gray-400 animate-pulse" />

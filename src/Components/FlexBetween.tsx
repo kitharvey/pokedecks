@@ -8,8 +8,8 @@ type FlexBetweenProps = {
 const FlexBetween: React.FC<FlexBetweenProps> = ({category, details}) => {
     return (
         <div className="w-full flex justify-between">
-            <p>{category}</p>
-            <div>
+            <p className="text-xs font-bold" >{category}</p>
+            <div className="text-xs" >
                 {details}
             </div>
         </div>

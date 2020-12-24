@@ -7,10 +7,10 @@ import rays from "../Assets/rays.png"
 import { motion } from 'framer-motion';
 import { AppContext } from '../Components/Page';
 import 'react-lazy-load-image-component/src/effects/black-and-white.css';
-import ProgressiveImage from "react-progressive-image-loading";
+// import ProgressiveImage from "react-progressive-image-loading";
 import { getImageSourcefromID, getIDStringfromID } from '../Functions/GlobalFunctions';
 import CardLoader from './CardLoader';
-
+import { LazyImage } from "react-lazy-images";
 
 
 
@@ -68,10 +68,18 @@ const ActualCard: React.FC<ActualCardInterface >  =  ({pokemondata, id}) => {
          
           </motion.div>
         <div className="w-52 h-auto absolute left-1/2 bottom-1/2 transform -translate-x-1/2 translate-y-1/2"  >
-          <ProgressiveImage
+          {/* <ProgressiveImage
               preview={egg}
               src={sprite}
               render={(src, style) => <img alt={pokemondata.name} src={src} style={style} draggable="false" onDragStart={ (e: React.DragEvent<HTMLDivElement>) => e.preventDefault()} />}
+          /> */}
+          <LazyImage
+            src={sprite}
+            alt={pokemondata.name}
+            placeholder={({ imageProps, ref }) => (
+              <img ref={ref} src={egg} alt={imageProps.alt} draggable="false" onDragStart={ (e: React.DragEvent<HTMLDivElement>) => e.preventDefault()} style={{filter: "blur(10px)"}} />
+            )}
+            actual={({ imageProps }) => <img {...imageProps} draggable="false" onDragStart={ (e: React.DragEvent<HTMLDivElement>) => e.preventDefault()} />}
           />
         </div>
 
@@ -104,15 +112,12 @@ const Card: React.FC<CardInterface>  = ({id}) => {
   const pokemon = useGetPokemonData(id)
 
   useEffect(() => {
-    let mounted = true
-    if(pokemon && mounted) setPokemondata(pokemon)  
-    else setPokemondata(null)
+    if(pokemon) setPokemondata(pokemon)  
        
     return () => {
-      mounted = false
       setPokemondata(null)
     }
-   }, [pokemon, id])
+   }, [pokemon])
    
 
 

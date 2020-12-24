@@ -6,8 +6,8 @@ const CardLoader: React.FC = () => {
     return (
   
         <div 
-            className="h-full w-full p-2.5 flex flex-col justify-between relative addFilter"
-            style={{backgroundColor: "#f5f1e3"}}
+            className="h-full w-full p-4 flex flex-col justify-between relative addFilter"
+            style={{backgroundColor: "#eaeaea"}}
             >
             <div className="w-full h-80 relative bg-gray-400 border-solid border-4 border-white" 
                 >

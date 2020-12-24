@@ -5,24 +5,27 @@ import { ModalCardProps, NameURLInterface } from './CardInterface'
 import FlexBetween from './FlexBetween';
 import { useGetPokemonEvolutionChain } from './useGetPokemonData'
 import egg from "../Assets/pokemon-egg.png"
+import { LazyImage } from 'react-lazy-images';
 
 
 
-const BackCard: React.FC<ModalCardProps> = ({pokemonSpeciesData, pokemonData}) => {
+const ModalBackCard: React.FC<ModalCardProps> = ({pokemonSpeciesData, pokemonData}) => {
     const pokemonEvolutionData = useGetPokemonEvolutionChain(pokemonSpeciesData.evolution_chain.url)
-    const [evolutionChain, setEvolutionChain] = useState<NameURLInterface[]>()
+    const [evolutionChain, setEvolutionChain] = useState<NameURLInterface[] | null>(null)
     useEffect(() => {
         if(pokemonEvolutionData) {
             const data = extractEvolutionChain(pokemonEvolutionData)
             if(data) setEvolutionChain(data)
-        } 
+        }
+
+        return (() => setEvolutionChain(null))
     },[pokemonEvolutionData])
     
     return (
         <div className="h-full w-full p-2.5 fontSizeAdjust flex flex-col items-center justify-between" 
             style={{backgroundColor: "#eaeaea"}}
         >
-            <div className="h-auto max-h-20 leading-tight p-2.5 text-xs overflow-y-scroll hideScroll" >{applySentenceCase(pokemonSpeciesData.flavor_text_entries.filter((entry) => entry.language.name === "en")[0].flavor_text)}</div>
+            <div className="h-auto max-h-20 leading-tight p-2.5 text-xs" >{applySentenceCase(pokemonSpeciesData.flavor_text_entries.filter((entry) => entry.language.name === "en")[0].flavor_text)}</div>
             
             <div className="flex flex-col bg-white p-2.5 w-full" >
                 <FlexBetween
@@ -57,10 +60,18 @@ const BackCard: React.FC<ModalCardProps> = ({pokemonSpeciesData, pokemonData}) =
                 {evolutionChain && evolutionChain.map( ({name, url}, index) => <div key={index} className="flex flex-col items-center" >
                     <p className="text-xs capitalize" >{name}</p>
                     <div className="w-12 h-auto"  >
-                    <ProgressiveImage
+                    {/* <ProgressiveImage
                         preview={egg}
                         src={getImageSourceFromURL(url)}
                         render={(src, style) => <img alt={name} src={src} style={style} draggable="false" onDragStart={ (e: React.DragEvent<HTMLDivElement>) => e.preventDefault()} />}
+                    /> */}
+                    <LazyImage
+                        src={getImageSourceFromURL(url)}
+                        alt={name}
+                        placeholder={({ imageProps, ref }) => (
+                        <img ref={ref} src={egg} alt={imageProps.alt} draggable="false" onDragStart={ (e: React.DragEvent<HTMLDivElement>) => e.preventDefault()} style={{filter: "blur(10px)"}} />
+                        )}
+                        actual={({ imageProps }) => <img {...imageProps} draggable="false" onDragStart={ (e: React.DragEvent<HTMLDivElement>) => e.preventDefault()} />}
                     />
                     </div>
                     {pokemonSpeciesData.is_legendary &&  <p className="text-xs" >Legendary</p>}
@@ -100,4 +111,4 @@ const BackCard: React.FC<ModalCardProps> = ({pokemonSpeciesData, pokemonData}) =
 }
 
 
-export default BackCard
+export default ModalBackCard

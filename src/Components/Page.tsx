@@ -22,9 +22,10 @@ const Page: React.FC = () => {
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         setState({...state, search: e.target.value.toLowerCase()})
       }
+
         return (
             <AppContext.Provider value={{state, setState}} >
-                <nav className="fixed p-3 top-0 left-0 w-full flex items-center justify-between z-10" style={{background: "#f02d3a"}}>
+                <div className="fixed p-3 top-0 left-0 w-full flex items-center justify-between z-10" style={{background: "#ef233c"}}>
                     <h1 className="text-4xl font-bold text-white" >Pokédecks</h1>
                     <div className="">
                         <form method="GET" onSubmit={ (event: React.FormEvent<HTMLFormElement>) => event.preventDefault() }>
@@ -38,11 +39,11 @@ const Page: React.FC = () => {
                         </div>
                         </form>
                     </div>
-                </nav>
+                </div>
                 <div className="relative h-screen w-full" >
                     <DeckOfCards />
+                    {state.id && <Modal />}
                 </div>
-                {state.id && <Modal />}
             </AppContext.Provider>
         )
         

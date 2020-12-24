@@ -68,29 +68,10 @@ const DeckOfCards:React.FC = () => {
 
   return (
     <div className="h-full w-full flex flex-col items-center justify-center" >
-      <div className="h-full w-3/5 flex flex-col items-center justify-center relative">
+      <div className="h-full w-max flex flex-col items-center justify-center relative">
 
           
-          <div className="w-auto h-auto absolute top-1/4 right-0 transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center text-white select-none"           
-          >
-            <motion.div
-                  whileTap={{ 
-                    rotate: -360,
-                    scale: 0.9
-                  }}
-                  whileHover={{
-                    rotate: -180,
-                    scale: 1.1
-                  }}
-                  transition={{
-                    rotate: { duration: 0.25 },
-                  }}
-            >
-              <img src={undo} alt="undo icon" className="h-5 w-5 lighten cursor-pointer" onClick={() => handleUndo()} />
-            </motion.div>
-            <span className="text-sm">(Undo Swipe)</span>
-          </div>
-            <div className="h-96 w-80 select-none absolute top-3/4 right-1/2 transform translate-x-1/2 -translate-y-full" >
+            <div className="h-96 w-80 select-none" >
             {(pokeArray && !isVisible) ? 
               <motion.div
                 style={{
@@ -108,12 +89,12 @@ const DeckOfCards:React.FC = () => {
                     index={cardIndex + 2}
                     initial={{
                       scale: 0,
-                      y: 55,
+                      y: -60,
                       opacity: 0,
                     }}
                     animate={{
                       scale: 0.75,
-                      y: 55,
+                      y: -60,
                       opacity: 1,
                       boxShadow: "0 5px 25px 1px rgba(0,0,0,.25)",
                     }}
@@ -129,12 +110,12 @@ const DeckOfCards:React.FC = () => {
                     index={cardIndex + 1}
                     initial={{
                       scale: 0,
-                      y: 55,
+                      y: -40,
                       opacity: 0,
                     }}
                     animate={{
-                      scale: 0.75,
-                      y: 55,
+                      scale: 0.8,
+                      y: -40,
                       opacity: 1,
                       boxShadow: "0 5px 25px 1px rgba(0,0,0,.25)",
                     }}
@@ -150,7 +131,7 @@ const DeckOfCards:React.FC = () => {
                     key={cardIndex}
                     animate={{
                       boxShadow: "0 5px 25px 1px rgba(0,0,0,.25)",
-                      scale: 1,
+                      scale: .95,
                       y: 0,
                       opacity: 1,
                       
@@ -164,12 +145,12 @@ const DeckOfCards:React.FC = () => {
                       }
                     }}
                     whileHover={{
-                      scale: 1.05,
-                      boxShadow: "0 15px 50px 1px rgba(0,0,0,.25)",
+                      scale: 1,
+                      boxShadow: "0 15px 50px 1px rgba(0,0,0,.25)"
                     }}
                     whileTap={{ 
                       cursor: "grabbing",
-                      scale: 1.05,
+                      scale: 1,
                       boxShadow: "0 15px 50px 1px rgba(0,0,0,.25)"
                     }}
 
@@ -184,7 +165,36 @@ const DeckOfCards:React.FC = () => {
             }
               </div>
 
-    </div>
+              <div className="mt-10 flex items-center justify-center cursor-pointer" onClick={() => handleUndo()}>
+                <motion.div
+                      style={{
+                        borderRadius:"50%",
+                        padding: "10px"
+                      }}
+                      animate={{
+                        boxShadow: "0 0px 25px 1px rgba(0,0,0,.25)",
+                        scale: .95,
+                        y: 0,
+                        opacity: 1,
+                        
+                      }}
+                      whileTap={{ 
+                        rotate: -360,
+                        scale: 0.9
+                      }}
+                      whileHover={{
+                        rotate: -180,
+                        scale: 1.1
+                      }}
+                      transition={{
+                        rotate: { duration: 0.25 },
+                      }}
+                >
+                  <img src={undo} alt="undo icon" className="h-5 w-5" />
+                </motion.div>
+              </div>
+
+      </div>
     </div>
   );
 }
