@@ -5,7 +5,7 @@ import axios from 'axios'
 
 
 export const useGetPokemonData = (id: number) => {
-  const [result, setResult] = useState<GetPokemonDataInterface>()
+  const [result, setResult] = useState<GetPokemonDataInterface | null>(null)
 
     useEffect( () => {
       const fetchAPI = async (id: number) => {
@@ -15,12 +15,13 @@ export const useGetPokemonData = (id: number) => {
         }
       }
       fetchAPI(id)
+      return() => setResult(null)
     }, [id])
 
   return result;
 };
 export const useGetPokemonSpeciesData = (id: number) => {
-  const [result, setResult] = useState<GetPokemonSpeciesDataInterface>()
+  const [result, setResult] = useState<GetPokemonSpeciesDataInterface | null>(null)
 
     useEffect( () => {
       const fetchAPI = async (id: number) => {
@@ -30,12 +31,13 @@ export const useGetPokemonSpeciesData = (id: number) => {
         }
       }
       fetchAPI(id)
+      return() => setResult(null)
     }, [id])
 
   return result;
 };
 export const useGetPokemonEvolutionChain = (url: string) => {
-  const [result, setResult] = useState<GetPokemonEvolutionChainInterface>()
+  const [result, setResult] = useState<GetPokemonEvolutionChainInterface | null>(null)
 
     useEffect( () => {
       const fetchAPI = async (url: string) => {
@@ -45,6 +47,7 @@ export const useGetPokemonEvolutionChain = (url: string) => {
         }
       }
       fetchAPI(url)
+      return() => setResult(null)
     }, [url])
 
   return result;

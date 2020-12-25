@@ -8,6 +8,7 @@ import {
 import Card from "./Card";
 import { NameURLInterface } from "../Components/CardInterface";
 import logo from "../Assets/colored-logo.png"
+import CardLoader from "./CardLoader";
 
 interface CardProps {
     key?: number
@@ -19,7 +20,7 @@ interface CardProps {
     drag?: boolean | "x" | "y"
     setExitX?: (x: number) => void
     setIndex?: (x: number) => void
-    pokeArray: NameURLInterface[] | undefined
+    pokeArray?: NameURLInterface[] | undefined | null
     length: number
     whileHover?: {
       scale: number,
@@ -138,7 +139,7 @@ interface CardProps {
           transition: { duration: 0.2 }
         }}
       >
-          {(pokeArray && (index < length)) 
+          {(pokeArray && (index < length))
             ? <Card  id={getID(pokeArray[index].url)}/> 
             : <EndCard />
           }

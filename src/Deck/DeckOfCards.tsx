@@ -9,7 +9,6 @@ import { useGetPokemonList } from "../Components/useGetPokemonList";
 import undo from "../Assets/undo.svg"
 import { wrap } from "popmotion";
 import { AppContext } from "../Components/Page";
-import CardLoader from "./CardLoader";
 
 const DeckOfCards:React.FC = () => {
   const [index, setIndex] = useState<number>(0);
@@ -17,7 +16,6 @@ const DeckOfCards:React.FC = () => {
   const [length, setLength] = useState<number>(0);
   const [pokeArray, setPokeArray] = useState<NameURLInterface[] | null>(null)
   const result = useGetPokemonList()
-  const [isVisible, setIsVisible] = useState<boolean>(false)
   const cardIndex = wrap(0, length + 1, index);
   const {state} = useContext(AppContext)
 
@@ -44,16 +42,9 @@ const DeckOfCards:React.FC = () => {
   }
 
   useEffect(() => {
-    let timeOutID: ReturnType<typeof setTimeout> = setTimeout(() => '', 1000)
-    let isMounted = true
     setIndex(0)
-    clearTimeout(timeOutID)
-    setIsVisible(true)
-    timeOutID = setTimeout(() => {
-            setIsVisible(false)
-    }, 500)
     
-    if(result && isMounted) {
+    if(result) {
             const filteredResult = result.results.filter( pokemon => pokemon.name.includes(state.search) )
             setPokeArray(filteredResult)
             setLength(filteredResult.length)
@@ -62,7 +53,6 @@ const DeckOfCards:React.FC = () => {
     return () => {
       setPokeArray(null)
       setLength(0)
-      isMounted = false
     }
   }, [state.search, result])
 
@@ -72,7 +62,7 @@ const DeckOfCards:React.FC = () => {
 
           
             <div className="h-96 w-80 select-none" >
-            {(pokeArray && !isVisible) ? 
+            {/* {(!isVisible) && */}
               <motion.div
                 style={{
                   width: "100%",
@@ -81,7 +71,7 @@ const DeckOfCards:React.FC = () => {
                 }}
               >
                 <AnimatePresence initial={false}>
-                {pokeArray.length >= 3 &&
+                {length >= 3 &&
                   <FramerCard
                     pokeArray={pokeArray}
                     length={length}
@@ -102,7 +92,7 @@ const DeckOfCards:React.FC = () => {
                       scale: { duration: 0.1 },
                     }}
                   />}
-                {pokeArray.length >= 2 &&
+                {length >= 2 &&
                   <FramerCard
                     pokeArray={pokeArray}
                     length={length}
@@ -123,7 +113,7 @@ const DeckOfCards:React.FC = () => {
                       scale: { duration: 0.1 },
                     }}
                   />}
-                  {pokeArray.length >= 1 &&
+                  {length >= 1 &&
                   <FramerCard
                     pokeArray={pokeArray}
                     length={length}
@@ -161,8 +151,7 @@ const DeckOfCards:React.FC = () => {
                   />}
                 </AnimatePresence>
               </motion.div>
-              : <CardLoader />
-            }
+            {/* } */}
               </div>
 
               <div className="mt-10 flex items-center justify-center cursor-pointer" onClick={() => handleUndo()}>

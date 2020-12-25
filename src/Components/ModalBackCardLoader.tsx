@@ -1,17 +1,11 @@
-import React, {useState} from 'react'
-import ReactCardFlip from 'react-card-flip'
-import CardLoader from '../Deck/CardLoader'
+import React from 'react'
 
 
-const ModalCardLoader: React.FC = () => {
-    const [isFlipped, setisFlipped] = useState<boolean>(false)
+
+const ModalBackCardLoader: React.FC = () => {
     return(
         <div className="h-96 w-80 select-none" >
-            <ReactCardFlip infinite={true} isFlipped={isFlipped} >
-                <div className="h-96 w-80">
-                    <CardLoader />
-                </div>
-                <div className="h-96 w-80">
+                <div className="h-full w-full">
                     <div className="h-full w-full p-2.5 fontSizeAdjust flex flex-col items-center justify-between" 
                                 style={{backgroundColor: "#eaeaea"}}
                         >
@@ -81,12 +75,10 @@ const ModalCardLoader: React.FC = () => {
                             </div>
                     </div>
                 </div>
-        
-            </ReactCardFlip>          
     </div>
        
     )
 }
 
 
-export default ModalCardLoader
+export default ModalBackCardLoader

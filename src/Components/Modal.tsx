@@ -1,33 +1,20 @@
-import React, {useEffect, useContext, useState} from 'react'
-import { AppContext } from './Page';
-import {useGetPokemonData, useGetPokemonSpeciesData} from './useGetPokemonData';
+import React, {useContext, useEffect} from 'react'
 import { useSpeechSynthesis } from 'react-speech-kit';
 import { applySentenceCase, getFlavorSpeech } from '../Functions/GlobalFunctions';
 import ModalCardWrapper from './ModalCardWrapper';
-import ModalCardLoader from './ModalCardLoader';
-import {GetPokemonDataInterface, GetPokemonSpeciesDataInterface} from "./CardInterface"
+import { AppContext } from './Page';
+import { useGetPokemonData, useGetPokemonSpeciesData } from './useGetPokemonData';
 let timeOutID: ReturnType<typeof setTimeout> = setTimeout(() => '', 1000)
 
-interface statePokemonProps {
-    data: GetPokemonDataInterface
-    species: GetPokemonSpeciesDataInterface
-}
-
-
-
-
 const Modal: React.FC = () => {
-    const { speak, cancel, voices } = useSpeechSynthesis();
-    const [statePokemon, setStatePokemon] = useState<statePokemonProps|null>(null)
     const {state} = useContext(AppContext)
     const pokemonData = useGetPokemonData(state.id)
     const pokemonSpeciesData = useGetPokemonSpeciesData(state.id)
-
+    const { speak, cancel, voices } = useSpeechSynthesis();
     useEffect(() => {
-        let mounted = true
-        if(pokemonSpeciesData && pokemonData && mounted) {
+        if(pokemonSpeciesData && pokemonData) {
             const flavorText = getFlavorSpeech(pokemonSpeciesData, pokemonData)
-            setStatePokemon({data: pokemonData, species: pokemonSpeciesData})
+            clearTimeout(timeOutID)
             timeOutID = setTimeout(() => {
                 speak({
                     text: applySentenceCase(flavorText),
@@ -37,17 +24,18 @@ const Modal: React.FC = () => {
                 })
             }, 1000)
         }
-
         return () => {
-            cancel()
-            clearTimeout(timeOutID)
-            setStatePokemon(null)
+            if(pokemonSpeciesData && pokemonData) {
+                cancel()
+                clearTimeout(timeOutID)
+            }
+
         }
     }, [pokemonSpeciesData, pokemonData])
 
         return (
             <div className="absolute w-full h-screen top-0 left-0 bg-white bg-opacity-10 z-100 backDrop flex items-center justify-center select-none">
-                {(statePokemon) && <ModalCardWrapper pokemonData={statePokemon.data}  pokemonSpeciesData={statePokemon.species}/>}  
+                 <ModalCardWrapper />
             </div>
         );
     }
