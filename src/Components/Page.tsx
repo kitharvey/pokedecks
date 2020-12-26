@@ -43,8 +43,9 @@ const Page: React.FC = () => {
                 </div>
                 <div className="relative h-screen w-full" >
                     <DeckOfCards />
-                    {state.id && <Modal />}
                 </div>
+                {/* {state.id && <Modal />} */}
+                    
             </AppContext.Provider>
         )
         

@@ -51,7 +51,6 @@ interface CardProps {
       scale: number,
       y: number,
       opacity: number
-    
   }
 
   const getID = (url: string) => {

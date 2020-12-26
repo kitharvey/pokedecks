@@ -17,12 +17,12 @@ const Evolution: React.FC<EvolutionProps> = ({pokemonSpeciesData}) => {
         if(pokemonEvolutionData) {
             const data = extractEvolutionChain(pokemonEvolutionData)
             setEvolutionChain(data)
-            console.log("mounted", pokemonEvolutionData)
+            // console.log("mounted", pokemonEvolutionData)
         }
 
         return (() => {
             setEvolutionChain(null)
-            console.log("unmounted", pokemonEvolutionData)
+            // console.log("unmounted", pokemonEvolutionData)
 
             }
         )

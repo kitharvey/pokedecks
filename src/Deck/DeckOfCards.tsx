@@ -154,8 +154,10 @@ const DeckOfCards:React.FC = () => {
             {/* } */}
               </div>
 
-              <div className="mt-10 flex items-center justify-center cursor-pointer" onClick={() => handleUndo()}>
+              <div >
                 <motion.div
+                      className="mt-10 flex items-center justify-center cursor-pointer select-none"
+                      onClick={() => handleUndo()}
                       style={{
                         borderRadius:"50%",
                         padding: "10px"
