@@ -21,9 +21,8 @@ const DeckOfCards:React.FC = () => {
 
   useEffect(() => {
     let newData = null
-    let isMounted = true
     
-    if(result !== undefined && isMounted) {
+    if(result !== undefined) {
             newData = result.results.slice(0, result.results.length)
             setPokeArray(newData)
             setLength(newData.length)
@@ -31,7 +30,6 @@ const DeckOfCards:React.FC = () => {
     return () => {
       setPokeArray(null)
       setLength(0)
-      isMounted = false
     }
   }, [result])
 
@@ -55,6 +53,7 @@ const DeckOfCards:React.FC = () => {
       setLength(0)
     }
   }, [state.search, result])
+
 
   return (
     <div className="h-full w-full flex flex-col items-center justify-center" >
@@ -154,9 +153,35 @@ const DeckOfCards:React.FC = () => {
             {/* } */}
               </div>
 
-              <div >
+              <div className="flex" >
                 <motion.div
-                      className="mt-10 flex items-center justify-center cursor-pointer select-none"
+                      className="mt-5 h-10 w-10 flex items-center justify-center cursor-pointer select-none"
+                      onClick={() => setExitX(-1000)}
+                      style={{
+                        borderRadius:"50%",
+                        padding: "10px"
+                      }}
+                      animate={{
+                        boxShadow: "0 0px 25px 1px rgba(0,0,0,.25)",
+                        scale: .95,
+                        y: 0,
+                        opacity: 1,
+                        
+                      }}
+                      whileTap={{ 
+                        scale: 0.9
+                      }}
+                      whileHover={{
+                        scale: 1.1
+                      }}
+                      transition={{
+                        rotate: { duration: 0.25 },
+                      }}
+                >
+                  <p className="h-5 w-5" >{"<"}</p>
+                </motion.div>
+                <motion.div
+                      className="mt-10 h-10 w-10 flex items-center justify-center cursor-pointer select-none"
                       onClick={() => handleUndo()}
                       style={{
                         borderRadius:"50%",
@@ -182,6 +207,32 @@ const DeckOfCards:React.FC = () => {
                       }}
                 >
                   <img src={undo} alt="undo icon" className="h-5 w-5" />
+                </motion.div>
+                <motion.div
+                      className="mt-5 h-10 w-10 flex items-center justify-center cursor-pointer select-none"
+                      onClick={() => setExitX(1000)}
+                      style={{
+                        borderRadius:"50%",
+                        padding: "10px"
+                      }}
+                      animate={{
+                        boxShadow: "0 0px 25px 1px rgba(0,0,0,.25)",
+                        scale: .95,
+                        y: 0,
+                        opacity: 1,
+                        
+                      }}
+                      whileTap={{ 
+                        scale: 0.9
+                      }}
+                      whileHover={{
+                        scale: 1.1
+                      }}
+                      transition={{
+                        rotate: { duration: 0.25 },
+                      }}
+                >
+                  <p className="h-5 w-5" >{">"}</p>
                 </motion.div>
               </div>
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {
   motion,
   useMotionValue,
@@ -8,7 +8,6 @@ import {
 import Card from "./Card";
 import { NameURLInterface } from "../Components/CardInterface";
 import logo from "../Assets/colored-logo.png"
-import CardLoader from "./CardLoader";
 
 interface CardProps {
     key?: number
@@ -93,6 +92,10 @@ interface CardProps {
     } = props
     
 
+    useEffect(() => {
+      console.log(exitX)
+    }, [exitX])
+  
   
     function handleDragEnd(event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) {
         if (info.offset.x < -maximumX) {
