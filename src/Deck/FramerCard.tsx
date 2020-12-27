@@ -92,9 +92,9 @@ interface CardProps {
     } = props
     
 
-    useEffect(() => {
-      console.log(exitX)
-    }, [exitX])
+    // useEffect(() => {
+    //   console.log(exitX)
+    // }, [exitX])
   
   
     function handleDragEnd(event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) {

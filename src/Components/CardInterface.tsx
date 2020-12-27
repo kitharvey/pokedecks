@@ -125,5 +125,4 @@ export interface CardInterface{
   
 export interface ActualCardInterface{
     pokemondata: GetPokemonDataInterface
-    id: number
 }
