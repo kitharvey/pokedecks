@@ -22,25 +22,39 @@ const shuffle = (array: []) => {
 // }
 
 export const useGetPokemonList = () => {
-    const [result, setResult] = useState<GetPokemonList>()
-    
+    const [result, setResult] = useState<GetPokemonList | null>(null)
+    let unmounted = false;
     const numofPokemon = 807
-
+      const cancelTokenSource = axios.CancelToken.source();
       useEffect( () => {
         const fetchAPI = async () => {
-          const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/?limit=${numofPokemon}&offset=0`)
+          try {
+          const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/?limit=${numofPokemon}&offset=0`, {
+            cancelToken: cancelTokenSource.token
+          } )
           // console.log(response.data)
-          if(response) {
+          if(!unmounted) {
             // response.data.results.filter( (data: GetPokemonArrayInterface) => getID(data.url) <= 4)
             shuffle( response.data.results )
             setResult( response.data )
           }
+        }catch (error) {
+          if (axios.isCancel(error)) {
+          } else {
+              throw error
+          }
+        }
 
         }
 
         fetchAPI()
+        return() => {
+          unmounted = true
+          setResult(null)
+          cancelTokenSource.cancel()
+        }
       }, [])
-    
+   
     
       return result
 }

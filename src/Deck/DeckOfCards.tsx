@@ -22,7 +22,7 @@ const DeckOfCards:React.FC = () => {
   useEffect(() => {
     let newData = null
     
-    if(result !== undefined) {
+    if(result) {
             newData = result.results.slice(0, result.results.length)
             setPokeArray(newData)
             setLength(newData.length)

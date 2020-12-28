@@ -99,11 +99,11 @@ interface CardProps {
   
     function handleDragEnd(event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) {
         if (info.offset.x < -maximumX) {
-          if(setExitX) setExitX(-1000);
+          if(setExitX) setExitX(-maximumX*3);
           if(setIndex) setIndex(index + 1);
         }
         if (info.offset.x > maximumX) {
-          if(setExitX) setExitX(1000);
+          if(setExitX) setExitX(maximumX*3);
           if(setIndex) setIndex(index + 1);
         }
     }

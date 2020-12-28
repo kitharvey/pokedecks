@@ -7,23 +7,27 @@ import axios from 'axios'
 
 export const useGetPokemonData = (id: number) => {
   const [result, setResult] = useState<GetPokemonDataInterface | null>(null)
-  const cancelTokenSource = axios.CancelToken.source();
-    useEffect( () => {
+  useEffect( () => {
+      let unmounted = false;
+      const cancelTokenSource = axios.CancelToken.source();
       const fetchAPI = async (id: number) => {
-        if(id) {
           try {
             const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`, {
               cancelToken: cancelTokenSource.token
             })
-            setResult( response.data )
-          } catch (err) {
-            setResult(null)
-          }
-          
+            if(!unmounted) setResult( response.data )
+          } catch (error) {
+            if (axios.isCancel(error)) {
+            } else {
+                throw error
+            }
         }
+          
+        
       }
       fetchAPI(id)
       return() => {
+        unmounted = true
         setResult(null)
         cancelTokenSource.cancel()
       } 
@@ -35,24 +39,30 @@ export const useGetPokemonData = (id: number) => {
 
 export const useGetPokemonSpeciesData = (id: number) => {
   const [result, setResult] = useState<GetPokemonSpeciesDataInterface | null>(null)
-  const cancelTokenSource = axios.CancelToken.source();
 
     useEffect( () => {
+      let unmounted = false;
+      const cancelTokenSource = axios.CancelToken.source();
+
       const fetchAPI = async (id: number) => {
-        if(id) {
+      
           try {
             const response = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${id}`, {
               cancelToken: cancelTokenSource.token
             } )
-            setResult( response.data )
-          } catch (err) {
-            setResult(null)
-          }
+            if(!unmounted) setResult( response.data )
+          }catch (error) {
+            if (axios.isCancel(error)) {
+            } else {
+                throw error
+            }
         }
+        
         
       }
       fetchAPI(id)
       return() => {
+        unmounted = true
         setResult(null)
         cancelTokenSource.cancel()
       }
@@ -64,23 +74,29 @@ export const useGetPokemonSpeciesData = (id: number) => {
 
 export const useGetPokemonEvolutionChain = (url: string) => {
   const [result, setResult] = useState<GetPokemonEvolutionChainInterface | null>(null)
-  const cancelTokenSource = axios.CancelToken.source();
+  
+  useEffect( () => {
+      let unmounted = false;
+      const cancelTokenSource = axios.CancelToken.source();
 
-    useEffect( () => {
       const fetchAPI = async (url: string) => {
-        if(url) {
+
           try {
           const response = await axios.get(url, {
             cancelToken: cancelTokenSource.token
           } )
-          setResult( response.data )
-          }catch (err) {
-            setResult(null)
-          }
+          if(!unmounted) setResult( response.data )
+          }catch (error) {
+            if (axios.isCancel(error)) {
+            } else {
+                throw error
+            }
         }
+        
       }
       fetchAPI(url)
       return() => {
+        unmounted = true
         setResult(null)
         cancelTokenSource.cancel()
       }
