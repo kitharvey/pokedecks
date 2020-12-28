@@ -3,7 +3,7 @@ import {useGetPokemonData} from '../Components/useGetPokemonData';
 import { GetPokemonDataInterface, ActualCardInterface, CardInterface } from '../Components/CardInterface';
 import {getTypeIcon, findColor} from '../Functions/getTypeIconAndColor';
 import egg from "../Assets/pokemon-egg.png"
-import rays from "../Assets/rays.png"
+import comic from "../Assets/comic.png"
 import { motion } from 'framer-motion';
 import { AppContext } from '../Components/Page';
 import 'react-lazy-load-image-component/src/effects/black-and-white.css';
@@ -27,20 +27,20 @@ const ActualCard: React.FC<ActualCardInterface >  =  ({pokemondata}) => {
 
   return (
     <div 
-      className="h-full w-full p-4 flex flex-col justify-between relative addFilter"
+      className="h-full w-full p-4 flex flex-col justify-between relative addFilter "
       style={{backgroundColor: "#eaeaea"}}
       >
       <div 
         className="w-full h-80 relative border-solid border-4 border-white" 
         style={{
           backgroundColor: findColor(pokemondata.types[0].type.name)[1],
-          backgroundImage: `url(${rays})`,
+          backgroundImage: `url(${comic})`,
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
         }} 
         >
-        <p className="absolute top-2.5 right-1/2 transform translate-x-1/2 text-black text-opacity-50 font-medium text-6xl tracking-widest leading-none" >#{getIDStringfromID(pokemondata.id)}</p>
+        <p className="absolute top-2.5 right-1/2 transform translate-x-1/2 text-white text-opacity-90 font-medium text-6xl tracking-widest leading-none" >#{getIDStringfromID(pokemondata.id)}</p>
           <motion.div className="absolute right-2 top-2 Courier text-2xl font-black text-white leading-none cursor-pointer hover:text-opacity-50"
               onClick={() => handleClick(pokemondata.id)}
               whileHover={{
@@ -66,14 +66,20 @@ const ActualCard: React.FC<ActualCardInterface >  =  ({pokemondata}) => {
             </svg>}
          
           </motion.div>
-        <div className="w-52 h-auto absolute left-1/2 bottom-1/2 transform -translate-x-1/2 translate-y-1/2"  >
+        <div className="w-max h-max absolute left-1/2 bottom-1/2 transform -translate-x-1/2 translate-y-1/2"  >
           <LazyImage
             src={sprite}
             alt={pokemondata.name}
             placeholder={({ imageProps, ref }) => (
-              <img ref={ref} src={egg} alt={imageProps.alt} draggable="false" onDragStart={ (e: React.DragEvent<HTMLDivElement>) => e.preventDefault()} style={{filter: "blur(10px)"}} />
+              <img className="w-52 h-auto" ref={ref} src={egg} alt={imageProps.alt} draggable="false" onDragStart={ (e: React.DragEvent<HTMLDivElement>) => e.preventDefault()} style={{filter: "blur(10px)"}} />
             )}
-            actual={({ imageProps }) => <img {...imageProps} alt={pokemondata.name}  draggable="false" onDragStart={ (e: React.DragEvent<HTMLDivElement>) => e.preventDefault()} />}
+            
+            actual={({ imageProps }) => <img className="w-52 h-auto" {...imageProps} alt={pokemondata.name}  draggable="false" onDragStart={ (e: React.DragEvent<HTMLDivElement>) => e.preventDefault()}
+
+            />}
+            error={() => (
+              <img src={egg} alt="egg error" className="w-52 h-auto" draggable="false" onDragStart={ (e: React.DragEvent<HTMLDivElement>) => e.preventDefault()} style={{filter: "blur(10px)"}} />
+            )}
           />
         </div>
 
