@@ -32,20 +32,20 @@ const Evolution: React.FC<EvolutionProps> = ({pokemonSpeciesData}) => {
         <div className="flex justify-evenly w-full" >
         {evolutionChain ? evolutionChain.map( ({name, url}, index) => <div key={index} className="flex flex-col items-center" >
             <p className="text-xs capitalize" >{name}</p>
-            {/* <div className="w-12 h-auto"  > */}
+            <div className="w-12 h-auto"  >
             <LazyImage
             
                 src={getImageSourceFromURL(url)}
                 alt={name}
                 placeholder={({ imageProps, ref }) => (
-                <img ref={ref} src={egg} alt={imageProps.alt} className="w-12 h-auto" draggable="false" onDragStart={ (e: React.DragEvent<HTMLDivElement>) => e.preventDefault()} style={{filter: "blur(10px)"}} />
+                <img ref={ref} src={egg} alt={imageProps.alt} draggable="false" onDragStart={ (e: React.DragEvent<HTMLDivElement>) => e.preventDefault()} style={{filter: "blur(10px)"}} />
                 )}
-                actual={({ imageProps }) => <img {...imageProps} draggable="false" className="w-12 h-auto" onDragStart={ (e: React.DragEvent<HTMLDivElement>) => e.preventDefault()} />}
+                actual={({ imageProps }) => <img {...imageProps} draggable="false" onDragStart={ (e: React.DragEvent<HTMLDivElement>) => e.preventDefault()} />}
                 error={() => (
-                    <img src={egg} alt="egg error" className="w-12 h-auto" draggable="false" onDragStart={ (e: React.DragEvent<HTMLDivElement>) => e.preventDefault()} style={{filter: "blur(10px)"}} />
+                    <img src={egg} alt="egg error" draggable="false" onDragStart={ (e: React.DragEvent<HTMLDivElement>) => e.preventDefault()} style={{filter: "blur(10px)"}} />
                   )}
             />
-            {/* </div> */}
+            </div>
             {pokemonSpeciesData.is_legendary &&  <p className="text-xs" >Legendary</p>}
             {pokemonSpeciesData.is_mythical &&  <p className="text-xs" >Mythical</p>}
             {!(pokemonSpeciesData.is_legendary || pokemonSpeciesData.is_mythical) && <p className="text-xs" >stage{index+1}</p>}

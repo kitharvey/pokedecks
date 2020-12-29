@@ -3,6 +3,12 @@ import { useEffect, useState } from 'react';
 import { GetPokemonDataInterface, GetPokemonEvolutionChainInterface, GetPokemonSpeciesDataInterface } from './CardInterface';
 import axios from 'axios'
 
+export const fetchPokemonData = async (id: number, page: number) => {
+  console.log(id)
+  const {data} = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}?page=${page}`)
+  return data
+}
+
 
 
 export const useGetPokemonData = (id: number) => {

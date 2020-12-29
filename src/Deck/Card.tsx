@@ -1,15 +1,16 @@
-import React, { useEffect, useState } from 'react'
-import {useGetPokemonData} from '../Components/useGetPokemonData';
-import { GetPokemonDataInterface, ActualCardInterface, CardInterface } from '../Components/CardInterface';
+import React from 'react'
+import {fetchPokemonData, useGetPokemonData} from '../Components/useGetPokemonData';
+import { ActualCardInterface, CardInterface } from '../Components/CardInterface';
 import {getTypeIcon, findColor} from '../Functions/getTypeIconAndColor';
 import egg from "../Assets/pokemon-egg.png"
-import comic from "../Assets/comic.png"
+import comic from "../Assets/comic.png" //https://www.freepik.com/free-vector/flat-design-comic-style-background_11685288.htm#page=1&query=halftone&position=8
 import { motion } from 'framer-motion';
 import { AppContext } from '../Components/Page';
 import 'react-lazy-load-image-component/src/effects/black-and-white.css';
 import { getImageSourcefromID, getIDStringfromID } from '../Functions/GlobalFunctions';
 import CardLoader from './CardLoader';
 import { LazyImage } from "react-lazy-images";
+import { useQuery } from 'react-query';
 
 
 
@@ -66,19 +67,19 @@ const ActualCard: React.FC<ActualCardInterface >  =  ({pokemondata}) => {
             </svg>}
          
           </motion.div>
-        <div className="w-max h-max absolute left-1/2 bottom-1/2 transform -translate-x-1/2 translate-y-1/2"  >
+        <div className="w-52 h-52 absolute left-1/2 bottom-1/2 transform -translate-x-1/2 translate-y-1/2"  >
           <LazyImage
             src={sprite}
             alt={pokemondata.name}
             placeholder={({ imageProps, ref }) => (
-              <img className="w-52 h-auto" ref={ref} src={egg} alt={imageProps.alt} draggable="false" onDragStart={ (e: React.DragEvent<HTMLDivElement>) => e.preventDefault()} style={{filter: "blur(10px)"}} />
+              <img  ref={ref} src={egg} alt={imageProps.alt} draggable="false" onDragStart={ (e: React.DragEvent<HTMLDivElement>) => e.preventDefault()} style={{filter: "blur(10px)"}} />
             )}
             
-            actual={({ imageProps }) => <img className="w-52 h-auto" {...imageProps} alt={pokemondata.name}  draggable="false" onDragStart={ (e: React.DragEvent<HTMLDivElement>) => e.preventDefault()}
+            actual={({ imageProps }) => <img {...imageProps} alt={pokemondata.name}  draggable="false" onDragStart={ (e: React.DragEvent<HTMLDivElement>) => e.preventDefault()}
 
             />}
             error={() => (
-              <img src={egg} alt="egg error" className="w-52 h-auto" draggable="false" onDragStart={ (e: React.DragEvent<HTMLDivElement>) => e.preventDefault()} style={{filter: "blur(10px)"}} />
+              <img src={egg} alt="egg error" draggable="false" onDragStart={ (e: React.DragEvent<HTMLDivElement>) => e.preventDefault()} style={{filter: "blur(10px)"}} />
             )}
           />
         </div>
@@ -109,8 +110,16 @@ const ActualCard: React.FC<ActualCardInterface >  =  ({pokemondata}) => {
 
 const Card: React.FC<CardInterface>  = ({id}) => {
   // const [pokemondata, setPokemondata] = useState<GetPokemonDataInterface | null>(useGetPokemonData(id))
-  
-  const pokemon = useGetPokemonData(id)
+  const page = 3
+  const {
+    isLoading,
+    isError,
+    error,
+    data,
+    isFetching,
+    isPreviousData,
+  } = useQuery(['fetchData', page], async() => await fetchPokemonData(id, page), { keepPreviousData : true })
+  // const pokemon = useGetPokemonData(id)
 
   // useEffect(() => {
   //   if(pokemon) setPokemondata(pokemon)  
@@ -120,15 +129,16 @@ const Card: React.FC<CardInterface>  = ({id}) => {
   //   }
   //  }, [pokemon])
 
+// React.useEffect(() => {
+// console.log(id)
+// },[id])
 
    
 
   return (
     <div className="h-full w-full select-none" >
-        {(pokemon)
-            ? <ActualCard pokemondata={pokemon}/>
-            : <CardLoader/>
-        }
+        {isFetching ? <CardLoader/> : <ActualCard pokemondata={data}/>} 
+        
         
     </div>
   )
