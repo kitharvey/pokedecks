@@ -41,14 +41,7 @@ const Page: React.FC = () => {
                         </form>
                     </div>
                 </div>
-                <div className="relative h-screen w-full"
-                    style={{
-                        backgroundImage: `url(${bg})`,
-                        // backgroundPosition: "center",
-                        backgroundRepeat: "repeat",
-                        // backgroundSize: "cover",
-                    }}
-                >
+                <div className="relative h-screen w-full">
                     <DeckOfCards />
                 </div>
                 {state.id && <Modal />}
