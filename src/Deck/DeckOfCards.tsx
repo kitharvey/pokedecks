@@ -5,25 +5,33 @@ import {
 } from "framer-motion";
 import FramerCard from "./FramerCard";
 import { NameURLInterface } from "../Components/CardInterface";
-import { useGetPokemonList } from "../Components/useGetPokemonList";
+import { fetchList } from "../Components/useGetPokemonList";
 import undo from "../Assets/undo.svg"
 import { wrap } from "popmotion";
 import { AppContext } from "../Components/Page";
+import { useQuery } from "react-query";
+
+
 
 const DeckOfCards:React.FC = () => {
   const [index, setIndex] = useState<number>(0);
   const [exitX, setExitX] = useState<number>(0);
   const [length, setLength] = useState<number>(0);
   const [pokeArray, setPokeArray] = useState<NameURLInterface[] | null>(null)
-  const result = useGetPokemonList()
   const cardIndex = wrap(0, length + 1, index);
   const {state} = useContext(AppContext)
+  const { data } = useQuery('fetchList', fetchList, {refetchOnWindowFocus: false})
+
+
+  // useEffect(() => {
+  //   console.log(data)
+  // }, [data])
 
   useEffect(() => {
     let newData = null
     
-    if(result) {
-            newData = result.results.slice(0, result.results.length)
+    if(data) {
+            newData = data.slice(0, data.length)
             setPokeArray(newData)
             setLength(newData.length)
     }
@@ -31,7 +39,7 @@ const DeckOfCards:React.FC = () => {
       setPokeArray(null)
       setLength(0)
     }
-  }, [result])
+  }, [data])
 
 
 
@@ -42,8 +50,8 @@ const DeckOfCards:React.FC = () => {
   useEffect(() => {
     setIndex(0)
     
-    if(result) {
-            const filteredResult = result.results.filter( pokemon => pokemon.name.includes(state.search) )
+    if(data) {
+            const filteredResult = data.filter( pokemon => pokemon.name.includes(state.search) )
             setPokeArray(filteredResult)
             setLength(filteredResult.length)
     }
@@ -52,7 +60,7 @@ const DeckOfCards:React.FC = () => {
       setPokeArray(null)
       setLength(0)
     }
-  }, [state.search, result])
+  }, [state.search, data])
 
 
   return (

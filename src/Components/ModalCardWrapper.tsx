@@ -1,4 +1,4 @@
-import React, {useContext, useRef, useEffect, useState} from 'react'
+import React, {useContext, useState} from 'react'
 import { AppContext } from './Page';
 import Card from '../Deck/Card';
 import ModalBackCard from './ModalBackCard';

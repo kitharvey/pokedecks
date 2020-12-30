@@ -1,5 +1,5 @@
 import React from 'react'
-import {fetchPokemonData, useGetPokemonData} from '../Components/useGetPokemonData';
+import {useGetPokemonData} from '../Components/useGetPokemonData';
 import { ActualCardInterface, CardInterface } from '../Components/CardInterface';
 import {getTypeIcon, findColor} from '../Functions/getTypeIconAndColor';
 import egg from "../Assets/pokemon-egg.png"
@@ -10,7 +10,6 @@ import 'react-lazy-load-image-component/src/effects/black-and-white.css';
 import { getImageSourcefromID, getIDStringfromID } from '../Functions/GlobalFunctions';
 import CardLoader from './CardLoader';
 import { LazyImage } from "react-lazy-images";
-import { useQuery } from 'react-query';
 
 
 
@@ -109,35 +108,14 @@ const ActualCard: React.FC<ActualCardInterface >  =  ({pokemondata}) => {
 
 
 const Card: React.FC<CardInterface>  = ({id}) => {
-  // const [pokemondata, setPokemondata] = useState<GetPokemonDataInterface | null>(useGetPokemonData(id))
-  const page = 3
-  const {
-    isLoading,
-    isError,
-    error,
-    data,
-    isFetching,
-    isPreviousData,
-  } = useQuery(['fetchData', page], async() => await fetchPokemonData(id, page), { keepPreviousData : true })
-  // const pokemon = useGetPokemonData(id)
 
-  // useEffect(() => {
-  //   if(pokemon) setPokemondata(pokemon)  
-       
-  //   return () => {
-  //     setPokemondata(null)
-  //   }
-  //  }, [pokemon])
-
-// React.useEffect(() => {
-// console.log(id)
-// },[id])
-
-   
+  const pokemon = useGetPokemonData(id)
+  
 
   return (
     <div className="h-full w-full select-none" >
-        {isFetching ? <CardLoader/> : <ActualCard pokemondata={data}/>} 
+        {pokemon ? <ActualCard pokemondata={pokemon}/> : <CardLoader/>  } 
+        {/* <CardLoader/> */}
         
         
     </div>

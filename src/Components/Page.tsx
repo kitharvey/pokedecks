@@ -1,7 +1,7 @@
-import React, {createContext, useState, useEffect} from 'react'
+import React, {createContext, useState} from 'react'
 import DeckOfCards from '../Deck/DeckOfCards'
 import Modal from './Modal';
-
+import bg from '../Assets/bg-types.png'
 interface ContextStateProps {
     search: string,
     id: number
@@ -41,7 +41,14 @@ const Page: React.FC = () => {
                         </form>
                     </div>
                 </div>
-                <div className="relative h-screen w-full" >
+                <div className="relative h-screen w-full"
+                    style={{
+                        backgroundImage: `url(${bg})`,
+                        // backgroundPosition: "center",
+                        backgroundRepeat: "repeat",
+                        // backgroundSize: "cover",
+                    }}
+                >
                     <DeckOfCards />
                 </div>
                 {state.id && <Modal />}

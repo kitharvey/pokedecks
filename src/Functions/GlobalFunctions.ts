@@ -1,12 +1,5 @@
 import { GetPokemonDataInterface, GetPokemonEvolutionChainInterface, GetPokemonSpeciesDataInterface } from "../Components/CardInterface";
 
-export const applySentenceCase = (str: string) => {
-    const text = str.replace(/\r?\n|\r/g, " ")
-    return text.replace(/.+?[\.\?\!](\s|$)/g, function (txt: string) {
-        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-    });
-}
-
 export const extractEvolutionChain = (response: GetPokemonEvolutionChainInterface) => {
     let evoChain = [];
     let evoData = response.chain;
@@ -57,3 +50,16 @@ export const getFlavorSpeech = (pokemonSpeciesData: GetPokemonSpeciesDataInterfa
     const text = pokemonData.name + ". " + legend + mythic + types.join(" ") + " type pokemon. " + enLang.flavor_text.replace(/\r?\n|\r/g, " ")
     return text
 }
+
+export const shuffle = (array: []) => {
+    let m = array.length, t, i;
+  
+    while (m) {
+      i = Math.floor(Math.random() * m--);
+      t = array[m];
+      array[m] = array[i];
+      array[i] = t;
+    }
+  
+    return array;
+  }

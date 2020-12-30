@@ -1,10 +1,10 @@
 import React, {useEffect} from 'react'
-import { applySentenceCase, getFlavorSpeech } from '../Functions/GlobalFunctions'
+import {  getFlavorSpeech } from '../Functions/GlobalFunctions'
 import { ModalCardProps } from './CardInterface'
 import Evolution from './Evolution'
 import FlexBetween from './FlexBetween'
 import { useSpeechSynthesis } from 'react-speech-kit';
-
+import Case from 'case'
 
 
 const ActualModalBackCard: React.FC<ModalCardProps> = ({pokemonSpeciesData, pokemonData}) => {
@@ -33,13 +33,13 @@ const { speak, cancel, voices } = useSpeechSynthesis();
         <div className="h-full w-full p-2.5 fontSizeAdjust flex flex-col items-center justify-between" 
         style={{backgroundColor: "#eaeaea"}}
         >
-        <div className="h-auto max-h-20 leading-tight p-2.5 text-xs" >{applySentenceCase(pokemonSpeciesData.flavor_text_entries.filter((entry) => entry.language.name === "en")[0].flavor_text)}</div>
+        <div className="h-auto max-h-20 leading-tight p-2.5 text-xs" >{Case.sentence(pokemonSpeciesData.flavor_text_entries.filter((entry) => entry.language.name === "en")[0].flavor_text)}</div>
         
         <div className="flex flex-col bg-white p-2.5 w-full" >
             <FlexBetween
                 category="Genus:"
                 details={
-                    <p>{applySentenceCase(pokemonSpeciesData.genera.filter((entry) => entry.language.name === "en")[0].genus)}</p>
+                    <p>{Case.sentence(pokemonSpeciesData.genera.filter((entry) => entry.language.name === "en")[0].genus)}</p>
                 }
             />
             <FlexBetween

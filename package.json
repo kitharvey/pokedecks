@@ -14,6 +14,7 @@
     "@types/react-dom": "^16.9.8",
     "autoprefixer": "9",
     "axios": "^0.21.0",
+    "case": "^1.6.3",
     "framer": "^1.2.11",
     "framer-motion": "^2.9.5",
     "popmotion": "^9.0.2",
