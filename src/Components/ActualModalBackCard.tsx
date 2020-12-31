@@ -9,25 +9,25 @@ import Case from 'case'
 
 const ActualModalBackCard: React.FC<ModalCardProps> = ({pokemonSpeciesData, pokemonData}) => {
 const { speak, cancel, voices } = useSpeechSynthesis();
-    // useEffect(() => {
-    //     let timeOutID: ReturnType<typeof setTimeout> = setTimeout(() => '', 1000)
+    useEffect(() => {
+        let timeOutID: ReturnType<typeof setTimeout> = setTimeout(() => '', 1000)
 
-    //     const flavorText = getFlavorSpeech(pokemonSpeciesData, pokemonData)
-    //     console.log(applySentenceCase(flavorText))
-    //     timeOutID = setTimeout(() => {
-    //         speak({
-    //             text: "I am a robot.",
-    //             voice: voices[5],
-    //             pitch: .3,
-    //             speaking: true
-    //         })
-    //     }, 1000)
-    //     return () => {
-    //             cancel()
-    //             console.log("unmounted")
-    //             clearTimeout(timeOutID)
-    //     }
-    // }, [pokemonSpeciesData, pokemonData])
+        const flavorText = getFlavorSpeech(pokemonSpeciesData, pokemonData)
+        console.log(Case.sentence(flavorText))
+        timeOutID = setTimeout(() => {
+            speak({
+                text: "I am a robot.",
+                voice: voices[5],
+                pitch: .3,
+                speaking: true
+            })
+        }, 1000)
+        return () => {
+                cancel()
+                console.log("unmounted")
+                clearTimeout(timeOutID)
+        }
+    }, [pokemonSpeciesData])
 
     return (
         <div className="h-full w-full p-2.5 fontSizeAdjust flex flex-col items-center justify-between" 

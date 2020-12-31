@@ -3,7 +3,6 @@ import {useGetPokemonData} from '../Components/useGetPokemonData';
 import { ActualCardInterface, CardInterface } from '../Components/CardInterface';
 import {getTypeIcon, findColor} from '../Functions/getTypeIconAndColor';
 import egg from "../Assets/pokemon-egg.png"
-import comic from "../Assets/comic.png" //https://www.freepik.com/free-vector/flat-design-comic-style-background_11685288.htm#page=1&query=halftone&position=8
 import { motion } from 'framer-motion';
 import { AppContext } from '../Components/Page';
 import 'react-lazy-load-image-component/src/effects/black-and-white.css';
@@ -24,23 +23,28 @@ const ActualCard: React.FC<ActualCardInterface >  =  ({pokemondata}) => {
     setState({...state, id: id})
   }
 
+  React.useEffect(() => {
+    let colorArray = state.bgColors.slice(0)
+    const color = findColor(pokemondata.types[0].type.name)[1]
+    console.log(color)
+    colorArray.push(color)
+    setState({...state, bgColors: colorArray})
+  }, [])
+
 
   return (
     <div 
-      className="h-full w-full p-4 flex flex-col justify-between relative addFilter "
-      style={{backgroundColor: "#eaeaea"}}
+      className="h-full w-full p-4 flex flex-col justify-between bg-white relative addFilter "
+      // style={{backgroundColor: "#eaeaea"}}
       >
       <div 
-        className="w-full h-80 relative border-solid border-4 border-white" 
+        className="w-full h-80 relative" 
         style={{
-          backgroundColor: findColor(pokemondata.types[0].type.name)[1],
-          backgroundImage: `url(${comic})`,
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
+          // background: findColor(pokemondata.types[0].type.name)[1],
+          background: `linear-gradient(0deg, rgba(255,255,255,0) 0%, ${findColor(pokemondata.types[0].type.name)[1]} 100%)`
         }} 
         >
-        <p className="absolute top-2.5 right-1/2 transform translate-x-1/2 text-white text-opacity-90 font-medium text-6xl tracking-widest leading-none" >#{getIDStringfromID(pokemondata.id)}</p>
+        <p className="absolute top-2.5 right-1/2 transform translate-x-1/2 text-black text-opacity-25 font-bold text-6xl tracking-widest leading-none" >#{getIDStringfromID(pokemondata.id)}</p>
           <motion.div className="absolute right-2 top-2 Courier text-2xl font-black text-white leading-none cursor-pointer hover:text-opacity-50"
               onClick={() => handleClick(pokemondata.id)}
               whileHover={{
@@ -84,9 +88,9 @@ const ActualCard: React.FC<ActualCardInterface >  =  ({pokemondata}) => {
         </div>
 
       </div>
-      <div className="flex absolute bottom-10 right-1/2 transform translate-x-1/2 " >
+      <div className="flex absolute bottom-11 right-1/2 transform translate-x-1/2 translate-y-1/4 " >
             {pokemondata.types.map( (type,index) => <img  src={getTypeIcon(type.type.name)[1]} 
-                                                          className="-m-0.5 w-10 rounded-full border-solid border-4 border-white" 
+                                                          className="-m-0.5 w-10 rounded-full" 
                                                           key={index} 
                                                           draggable="false" 
                                                           onDragStart={ e => e.preventDefault()}  
@@ -95,7 +99,7 @@ const ActualCard: React.FC<ActualCardInterface >  =  ({pokemondata}) => {
       </div>
 
 
-        <div className="absolute bottom-3.5 right-1/2 transform translate-x-1/2  w-max  text-black text-center font-bold capitalize text-xl leading-none">
+        <div className="absolute bottom-3 right-1/2 transform translate-x-1/2  w-max  text-black text-center font-bold capitalize text-xl leading-none">
                 {pokemondata.name}
         </div>
   </div>

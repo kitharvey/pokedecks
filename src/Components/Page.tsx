@@ -1,16 +1,20 @@
-import React, {createContext, useState} from 'react'
+import { stat } from 'fs';
+import React, {createContext, useState, useEffect} from 'react'
 import DeckOfCards from '../Deck/DeckOfCards'
 import Modal from './Modal';
-import bg from '../Assets/bg-types.png'
 interface ContextStateProps {
     search: string,
-    id: number
+    id: number,
+    index: number,
+    bgColors: string[]
 }
 
 const appCtxDefaultValue = {
     state: {
         search: "",
-        id: 0
+        id: 0,
+        index: 0,
+        bgColors: ['']
     },
     setState: (state: ContextStateProps) => {}
 };
@@ -23,9 +27,13 @@ const Page: React.FC = () => {
         setState({...state, search: e.target.value.toLowerCase()})
       }
 
+    useEffect(() => {
+        console.log(state)
+    }, [state])
+
         return (
             <AppContext.Provider value={{state, setState}} >
-                <div className="fixed p-3 top-0 left-0 w-full flex items-center justify-between z-10" style={{background: "#ef233c"}}>
+                <div className="fixed p-3 top-0 left-0 w-full flex items-center justify-between z-10" style={{background: state.bgColors[state.index + 1]}}>
                     <h1 className="text-4xl font-bold text-black" >Pokédecks</h1>
                     <div className="flex items-center">
                         <label htmlFor="searchpokemon" className="text-black font-bold mr-3" >Search: </label>
