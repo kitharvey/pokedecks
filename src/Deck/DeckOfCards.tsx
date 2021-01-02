@@ -38,12 +38,19 @@ const DeckOfCards:React.FC = () => {
   }, [data])
 
   useEffect(() => {
-    if(pokeArray && (cardIndex < pokeArray.length)) {
-      setState({...state, pokemonOnTop: pokeArray[cardIndex]})
+    if(pokeArray) {
+      if(cardIndex < pokeArray.length) {
+        setState({...state, pokemonOnTop: pokeArray[cardIndex]})
+      }
+      if(cardIndex >= pokeArray.length) {
+        setState({...state, pokemonOnTop: appCtxDefaultValue.state.pokemonOnTop})
+      }
+      if(pokeArray[cardIndex].name !== state.pokemonData.name){
+        setState({...state, pokemonData: appCtxDefaultValue.state.pokemonData})
+      }
     }
-    else{
-      setState({...state, pokemonOnTop: appCtxDefaultValue.state.pokemonOnTop})
-    }
+
+
     
   },[cardIndex, pokeArray, setState])
 

@@ -56,7 +56,7 @@ const Page: React.FC = () => {
 
 
     const getNavBackGround = () => {
-        return (state.pokemonData.name === state.pokemonOnTop.name && state.pokemonData.types[0].type.name) ? findColor(state.pokemonData.types[0].type.name)[1] : '#eaeaea'
+        return state.pokemonData.types[0].type.name ? findColor(state.pokemonData.types[0].type.name)[1] : '#eaeaea'
     }
 
 
