@@ -8,13 +8,13 @@ import { NameURLInterface } from "../Components/CardInterface";
 import { fetchList } from "../Components/useGetPokemonList";
 import undo from "../Assets/undo.svg"
 import { wrap } from "popmotion";
-import { AppContext } from "../Components/Page";
+import { AppContext, appCtxDefaultValue } from "../Components/Page";
 import { useQuery } from "react-query";
 
 
 
 const DeckOfCards:React.FC = () => {
-  const {state} = useContext(AppContext)
+  const {state, setState} = useContext(AppContext)
   const [index, setIndex] = useState<number>(0);
   const [exitX, setExitX] = useState<number>(0);
   const [length, setLength] = useState<number>(0);
@@ -36,6 +36,16 @@ const DeckOfCards:React.FC = () => {
       setLength(0)
     }
   }, [data])
+
+  useEffect(() => {
+    if(pokeArray && (cardIndex < pokeArray.length)) {
+      setState({...state, pokemonOnTop: pokeArray[cardIndex]})
+    }
+    else{
+      setState({...state, pokemonOnTop: appCtxDefaultValue.state.pokemonOnTop})
+    }
+    
+  },[cardIndex, pokeArray, setState])
 
 
   const handleUndo = () => {

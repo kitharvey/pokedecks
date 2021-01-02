@@ -10,17 +10,12 @@ module.exports = {
       xl: '0 0 3px rgba(0, 0, 0, .8), 0 0 5px rgba(0, 0, 0, .9)',
       none: 'none',
     },
-    boxShadow: {
-      inner: 'inset 0 2px 4px 0px rgba(0, 0, 0, 0.06)',
-      none: 'none',
-    },
     fontFamily: {
       sans: ['Poppins', 'sans-serif'],
     },
   },
   variants: {
     extend: {},
-    textShadow: ['responsive', 'hover'],
     animation: ['hover'],
   },
   plugins: [

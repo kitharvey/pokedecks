@@ -1,18 +1,20 @@
 import React, {createContext, useState} from 'react'
 import DeckOfCards from '../Deck/DeckOfCards'
 import { findColor } from '../Functions/getTypeIconAndColor';
-import { GetPokemonDataInterface } from './CardInterface';
+import { GetPokemonDataInterface, NameURLInterface } from './CardInterface';
 import Modal from './Modal';
 
 
 interface ContextStateProps {
     search: string,
+    pokemonOnTop: NameURLInterface,
     pokemonData: GetPokemonDataInterface
 }
 
 export const appCtxDefaultValue = {
     state: {
         search: "",
+        pokemonOnTop: {name: '', url: ''},
         pokemonData: {
             abilities: [{ability: {name: '', url: ''}, is_hidden: false}],
             base_experience: 0,
@@ -35,6 +37,8 @@ export const appCtxDefaultValue = {
     setState: (state: ContextStateProps) => {}
 };
 
+
+
 export const AppContext = createContext(appCtxDefaultValue);
 
 
@@ -46,10 +50,19 @@ const Page: React.FC = () => {
         setState({...state, search: e.target.value.toLowerCase()})
       }
 
+    React.useEffect(() => {
+        console.log(state)
+    }, [state])
+
+
+    const getNavBackGround = () => {
+        return (state.pokemonData.name === state.pokemonOnTop.name && state.pokemonData.types[0].type.name) ? findColor(state.pokemonData.types[0].type.name)[1] : '#eaeaea'
+    }
+
 
         return (
             <AppContext.Provider value={{state, setState}} >
-                <div className="fixed p-3 top-0 left-0 w-full flex items-center justify-between z-10 transition duration-500 ease-in-out" style={{background: state.pokemonData.types[0].type.name ? findColor(state.pokemonData.types[0].type.name)[1] : '#eaeaea'}}>
+                <nav className="fixed p-3 top-0 left-0 w-full flex items-center justify-between z-10 transition duration-500 ease-in-out" style={{background: getNavBackGround()}}>
                     <h1 className="text-4xl font-bold text-black" >Pokédecks</h1>
                     <div className="flex items-center">
                         <label htmlFor="searchpokemon" className="text-black font-bold mr-3" >Search: </label>
@@ -64,11 +77,11 @@ const Page: React.FC = () => {
                         </div>
                         </form>
                     </div>
-                </div>
+                </nav>
                 <div className="relative h-screen w-full">
                     <DeckOfCards />
                 </div>
-                {state.pokemonData.id && <Modal />}
+                {/* {state.pokemonData.id && <Modal />} */}
                     
             </AppContext.Provider>
         )

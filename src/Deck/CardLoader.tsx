@@ -6,12 +6,17 @@ const CardLoader: React.FC = () => {
     return (
   
         <div 
-            className="h-full w-full p-4 flex flex-col justify-between relative addFilter"
-            style={{backgroundColor: "#eaeaea"}}
+            className="h-full w-full p-4 flex flex-col bg-white justify-between relative addFilter"
+            
             >
-            <div className="w-full h-80 relative bg-gray-400 border-solid border-4 border-white" 
-                >
-                <div className="w-52 h-auto absolute left-1/2 bottom-1/2 transform -translate-x-1/2 translate-y-1/2 animate-pulse"  >
+            <div className="w-full h-80 relative" 
+            style={{
+                background: `linear-gradient(0deg, rgba(255,255,255,0) 0%, #eaeaea 100%)`
+             }}
+            >
+                <div className="absolute top-5 w-32 h-12 rounded right-1/2 transform translate-x-1/2 bg-gray-400 animate-pulse " />
+
+                <div className="w-52 h-auto absolute left-1/2 bottom-1/2 transform -translate-x-1/2 translate-y-1/2"  >
                 <img
                     alt="loader egg"
                     src={egg}
@@ -22,12 +27,11 @@ const CardLoader: React.FC = () => {
                             }}
                 />
                 </div>
-                <div className="absolute top-2.5 w-12 h-6  rounded right-1/2 transform translate-x-1/2 bg-gray-200 animate-pulse " />
             </div>
         
             <div className="flex absolute bottom-10 right-1/2 transform translate-x-1/2 " >
-                    <div className="-m-0.5 w-10 h-10 rounded-full border-solid border-4 border-white bg-gray-400 animate-pulse" />
-                    <div className="-m-0.5 w-10 h-10 rounded-full border-solid border-4 border-white bg-gray-400 animate-pulse" />
+                    <div className="-m-0.5 w-10 h-10 rounded-full bg-gray-400 animate-pulse" />
+                    <div className="-m-0.5 w-10 h-10 rounded-full bg-gray-400 animate-pulse" />
             </div>
         
         
