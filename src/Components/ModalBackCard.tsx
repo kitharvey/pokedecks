@@ -1,6 +1,6 @@
 import React, {useContext} from 'react'
 import ModalBackCardLoader from "./ModalBackCardLoader"
-import {useGetPokemonData, useGetPokemonSpeciesData} from './useGetPokemonData';
+import {useGetPokemonSpeciesData} from './useGetPokemonData';
 import { AppContext } from './Page';
 import ActualModalBackCard from './ActualModalBackCard';
 
@@ -13,13 +13,12 @@ import ActualModalBackCard from './ActualModalBackCard';
 
 const ModalBackCard: React.FC = () => {
     const {state} = useContext(AppContext)
-    const pokemonData = useGetPokemonData(state.id)
-    const pokemonSpeciesData = useGetPokemonSpeciesData(state.id)
+    const pokemonSpeciesData = useGetPokemonSpeciesData(state.pokemonData.id)
     
     return (
         <div className="w-full h-full" >
-            {(pokemonSpeciesData && pokemonData)
-                ? <ActualModalBackCard pokemonSpeciesData={pokemonSpeciesData} pokemonData={pokemonData} />
+            {(pokemonSpeciesData && state.pokemonData.id)
+                ? <ActualModalBackCard pokemonSpeciesData={pokemonSpeciesData} pokemonData={state.pokemonData} />
                 : <ModalBackCardLoader />
             }
         </div>

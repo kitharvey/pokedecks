@@ -1,52 +1,36 @@
+export interface NameURLInterface {
+    name: string
+    url: string
+}
+
 interface Abilities{
-    ability: {
-        name: string,
-        url: string
-    }
+    ability: NameURLInterface
     is_hidden: boolean
 }
 interface Types{
-    type: {
-        name: string,
-        url: string
-    }
-
+    type: NameURLInterface
 }
 interface Stats{
-    
-        base_stat: number
-        effort: number
-        stat: {
-            name: string
-            url: string
-        }
-       
-    
+    base_stat: number
+    effort: number
+    stat: NameURLInterface
 }
 
 export interface GetPokemonDataInterface {
     abilities: Abilities[]
     base_experience: number
-    forms: []
-    game_indices: []
     height: number
-    held_items: []
     id: number
     is_default: boolean
     location_area_encounters: string
-    moves: []
     name: string
     order: number
-    species: {name: string, url: string}
-    sprites: {front_default: string | undefined, front_female: string | undefined}
+    species: NameURLInterface
     types: Types[]
     weight: number
     stats: Stats[]
 }
-export interface NameURLInterface {
-    name: string
-    url: string
-}
+
 
 export interface GetPokemonList {
     results: NameURLInterface[]

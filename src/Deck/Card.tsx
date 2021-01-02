@@ -17,19 +17,14 @@ import { LazyImage } from "react-lazy-images";
 
 
 const ActualCard: React.FC<ActualCardInterface >  =  ({pokemondata}) => {
-  const {state, setState} = React.useContext(AppContext)
   const sprite = getImageSourcefromID(pokemondata.id)
-  const handleClick = (id: number) => {
-    setState({...state, id: id})
+  const {state, setState} = React.useContext(AppContext)
+
+  const handleClick = () => {
+    setState({...state, pokemonData: pokemondata})
   }
 
-  React.useEffect(() => {
-    let colorArray = state.bgColors.slice(0)
-    const color = findColor(pokemondata.types[0].type.name)[1]
-    console.log(color)
-    colorArray.push(color)
-    setState({...state, bgColors: colorArray})
-  }, [])
+
 
 
   return (
@@ -46,7 +41,7 @@ const ActualCard: React.FC<ActualCardInterface >  =  ({pokemondata}) => {
         >
         <p className="absolute top-2.5 right-1/2 transform translate-x-1/2 text-black text-opacity-25 font-bold text-6xl tracking-widest leading-none" >#{getIDStringfromID(pokemondata.id)}</p>
           <motion.div className="absolute right-2 top-2 Courier text-2xl font-black text-white leading-none cursor-pointer hover:text-opacity-50"
-              onClick={() => handleClick(pokemondata.id)}
+              onClick={() => handleClick()}
               whileHover={{
                 opacity: .5,
               }}
@@ -60,7 +55,7 @@ const ActualCard: React.FC<ActualCardInterface >  =  ({pokemondata}) => {
             }}
           >
           {/* more info */}
-            {!state.id && <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+            {!state.pokemonData.id && <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                 width="20px" height="20px" viewBox="0 0 416.979 416.979" xmlSpace="preserve" fill="#FFF" >
                 <path d="M356.004,61.156c-81.37-81.47-213.377-81.551-294.848-0.182c-81.47,81.371-81.552,213.379-0.181,294.85
                   c81.369,81.47,213.378,81.551,294.849,0.181C437.293,274.636,437.375,142.626,356.004,61.156z M237.6,340.786
@@ -112,9 +107,18 @@ const ActualCard: React.FC<ActualCardInterface >  =  ({pokemondata}) => {
 
 
 const Card: React.FC<CardInterface>  = ({id}) => {
-
+  // const {state, setState} = React.useContext(AppContext)
   const pokemon = useGetPokemonData(id)
-  
+
+  // React.useEffect(() => {
+  //   let colorArray = state.bgColors.slice(0)
+  //   if(pokemon) {
+  //     const color = findColor(pokemon.types[0].type.name)[1]
+  //     colorArray[0].color ? colorArray.push({color: color, colorIndex: index}) : colorArray = [{color: color, colorIndex: index}]
+  //     setState({...state, bgColors: colorArray})
+  //   }
+
+  // }, [pokemon])
 
   return (
     <div className="h-full w-full select-none" >

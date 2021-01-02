@@ -1,25 +1,44 @@
-import { stat } from 'fs';
-import React, {createContext, useState, useEffect} from 'react'
+import React, {createContext, useState} from 'react'
 import DeckOfCards from '../Deck/DeckOfCards'
+import { findColor } from '../Functions/getTypeIconAndColor';
+import { GetPokemonDataInterface } from './CardInterface';
 import Modal from './Modal';
+
+
 interface ContextStateProps {
     search: string,
-    id: number,
-    index: number,
-    bgColors: string[]
+    pokemonData: GetPokemonDataInterface
 }
 
-const appCtxDefaultValue = {
+export const appCtxDefaultValue = {
     state: {
         search: "",
-        id: 0,
-        index: 0,
-        bgColors: ['']
+        pokemonData: {
+            abilities: [{ability: {name: '', url: ''}, is_hidden: false}],
+            base_experience: 0,
+            height: 0,
+            id: 0,
+            is_default: false,
+            location_area_encounters: '',
+            name: '',
+            order: 0,
+            species: {name: '', url: ''},
+            types: [{type: {name: '', url: ''}}],
+            weight: 0,
+            stats: [{
+                base_stat: 0,
+                effort: 0,
+                stat: {name: '', url: ''}
+            }]
+        }
     },
     setState: (state: ContextStateProps) => {}
 };
 
 export const AppContext = createContext(appCtxDefaultValue);
+
+
+
   
 const Page: React.FC = () => {
     const [state, setState] = useState<ContextStateProps>(appCtxDefaultValue.state);
@@ -27,13 +46,10 @@ const Page: React.FC = () => {
         setState({...state, search: e.target.value.toLowerCase()})
       }
 
-    useEffect(() => {
-        console.log(state)
-    }, [state])
 
         return (
             <AppContext.Provider value={{state, setState}} >
-                <div className="fixed p-3 top-0 left-0 w-full flex items-center justify-between z-10" style={{background: state.bgColors[state.index + 1]}}>
+                <div className="fixed p-3 top-0 left-0 w-full flex items-center justify-between z-10 transition duration-500 ease-in-out" style={{background: state.pokemonData.types[0].type.name ? findColor(state.pokemonData.types[0].type.name)[1] : '#eaeaea'}}>
                     <h1 className="text-4xl font-bold text-black" >Pokédecks</h1>
                     <div className="flex items-center">
                         <label htmlFor="searchpokemon" className="text-black font-bold mr-3" >Search: </label>
@@ -52,7 +68,7 @@ const Page: React.FC = () => {
                 <div className="relative h-screen w-full">
                     <DeckOfCards />
                 </div>
-                {state.id && <Modal />}
+                {state.pokemonData.id && <Modal />}
                     
             </AppContext.Provider>
         )

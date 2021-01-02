@@ -14,7 +14,7 @@ import { useQuery } from "react-query";
 
 
 const DeckOfCards:React.FC = () => {
-  const {state, setState} = useContext(AppContext)
+  const {state} = useContext(AppContext)
   const [index, setIndex] = useState<number>(0);
   const [exitX, setExitX] = useState<number>(0);
   const [length, setLength] = useState<number>(0);
@@ -36,12 +36,6 @@ const DeckOfCards:React.FC = () => {
       setLength(0)
     }
   }, [data])
-
-
-useEffect(() => {
-  setState({...state, index: index})
-  // return () => setState(state)
-}, [index])
 
 
   const handleUndo = () => {

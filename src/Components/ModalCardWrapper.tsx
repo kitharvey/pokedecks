@@ -1,5 +1,5 @@
 import React, {useContext, useState} from 'react'
-import { AppContext } from './Page';
+import { AppContext, appCtxDefaultValue } from './Page';
 import Card from '../Deck/Card';
 import ModalBackCard from './ModalBackCard';
 import ReactCardFlip from 'react-card-flip';
@@ -11,7 +11,7 @@ const ModalCardWrapper: React.FC = () => {
     const [isFlipped, setisFlipped] = useState<boolean>(false)
     
     const handleClickAway = () => {
-        setState({...state, id: 0})
+        setState(appCtxDefaultValue.state)
     };
 
 
@@ -20,7 +20,7 @@ const ModalCardWrapper: React.FC = () => {
             <div className="w-max h-auto flex">
                 <ReactCardFlip isFlipped={isFlipped} infinite={true} >
                         <div className="cursor-pointer h-96 w-80 " onClick={() => setisFlipped(!isFlipped)}  >
-                            <Card id={state.id} />
+                            <Card id={state.pokemonData.id} />
                         </div>
                 
                         <div className="cursor-pointer h-96 w-80 " onClick={() => setisFlipped(!isFlipped)}>
