@@ -4,6 +4,7 @@ import { findColor } from '../Functions/getTypeIconAndColor';
 import { GetPokemonDataInterface, NameURLInterface } from './CardInterface';
 import Modal from './Modal';
 import LeftCard from './LeftCard';
+import { AnimatePresence, motion } from 'framer-motion';
 
 
 interface ContextStateProps {
@@ -75,9 +76,59 @@ const Page: React.FC = () => {
                     </div>
                 </nav>
                 <div className="relative h-screen w-full flex items-center justify-evenly">
-                    {(state.pokemonData.id > 0) && <LeftCard />}
-                    <DeckOfCards />
-                    {(state.pokemonData.id > 0) && <LeftCard />}
+
+                <AnimatePresence>
+                    {(state.pokemonData.id > 0) && (
+                    <motion.div
+                        initial={{ 
+                            opacity: 0,
+                        }}
+                        animate={{ 
+                            opacity: 1,
+                            scale: 1,
+                        }}
+                        exit={{ 
+                            opacity: 0,
+                            transition: { duration: 0.2 }
+                        }}
+                        transition={{
+                            opacity: {
+                            duration: 0.5
+                            }
+                        }}
+                    >
+                        <LeftCard />
+                    </motion.div>
+                    )}
+                </AnimatePresence>
+
+                <DeckOfCards />
+
+                <AnimatePresence>
+                    {(state.pokemonData.id > 0) && (
+                    <motion.div
+                        initial={{ 
+                            opacity: 0,
+                        }}
+                        animate={{ 
+                            opacity: 1,
+                            scale: 1,
+                        }}
+                        exit={{ 
+                            opacity: 0,
+                            transition: { duration: 0.2 }
+                        }}
+                        transition={{
+                            opacity: {
+                            duration: 0.5
+                            }
+                        }}
+                    >
+                        <LeftCard />
+                    </motion.div>
+                    )}
+                </AnimatePresence>
+
                 </div>
             </AppContext.Provider>
         )

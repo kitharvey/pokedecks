@@ -29,12 +29,12 @@ const { speak, cancel, voices } = useSpeechSynthesis();
     }, [pokemonSpeciesData])
 
     return (
-        <div className="h-full w-full p-2.5 bg-white flex flex-col items-center justify-between">
+        <div className="h-full w-full p-4 bg-white flex flex-col items-center justify-between">
             <div className="w-full h-max" >
                 <p className="mr-auto font-bold" >Bio</p>
-                <div className="h-auto leading-tight" >{Case.sentence(pokemonSpeciesData.flavor_text_entries.filter((entry) => entry.language.name === "en")[0].flavor_text)}</div>
+                <div className="h-auto mt-4 leading-tight" >{Case.sentence(pokemonSpeciesData.flavor_text_entries.filter((entry) => entry.language.name === "en")[0].flavor_text)}</div>
                 
-                <div className="flex flex-col bg-gray-200 w-full" >
+                <div className="flex flex-col w-full mt-4" >
                     <FlexBetween
                         category="Genus:"
                         details={
@@ -56,7 +56,7 @@ const { speak, cancel, voices } = useSpeechSynthesis();
                     <FlexBetween
                         category="Abilities:"
                         details={
-                            <div className="flex flex-col items-end" >
+                            <div className="flex flex-col items-start" >
                             {pokemonData.abilities.map( (ability,index) => <p key={index}  >{ability.ability.name.split("-").map( txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()).join(" ")} <span className="text-xs" >{ability.is_hidden && "(Hidden Ability)"}</span> </p> )}
                             </div>
                         }
@@ -65,35 +65,35 @@ const { speak, cancel, voices } = useSpeechSynthesis();
             </div>
       
 
-<div className="w-full h-max" >
-<p className="mr-auto font-bold" >Training</p>
-        <div className="flex flex-col bg-gray-200 w-full" >
-            <FlexBetween
-                category="Base Exp:"
-                details={
-                    <p>{pokemonData.base_experience}</p>
-                }
-            />
-            <FlexBetween
-                category="Base Happiness:"
-                details={
-                    <p>{pokemonSpeciesData.base_happiness}</p>
-                }
-            />
-            <FlexBetween
-                category="Catch Rate:"
-                details={
-                    <p>{pokemonSpeciesData.capture_rate} <span className="text-xs" >{((pokemonSpeciesData.capture_rate / 255)*100).toFixed(1)}%</span></p>
-                }
-            />
-            <FlexBetween
-                category="Growth Rate:"
-                details={
-                    <p>{pokemonSpeciesData.growth_rate.name}</p>
-                }
-            />
-        </div>
-</div>
+            <div className="w-full h-max mt-4" >
+            <p className="mr-auto font-bold" >Training</p>
+                    <div className="flex flex-col w-full mt-4" >
+                        <FlexBetween
+                            category="Base Exp:"
+                            details={
+                                <p>{pokemonData.base_experience}</p>
+                            }
+                        />
+                        <FlexBetween
+                            category="Base Happiness:"
+                            details={
+                                <p>{pokemonSpeciesData.base_happiness}</p>
+                            }
+                        />
+                        <FlexBetween
+                            category="Catch Rate:"
+                            details={
+                                <p>{pokemonSpeciesData.capture_rate} <span className="text-xs" >({((pokemonSpeciesData.capture_rate / 255)*100).toFixed(1)}%)</span></p>
+                            }
+                        />
+                        <FlexBetween
+                            category="Growth Rate:"
+                            details={
+                                <p>{pokemonSpeciesData.growth_rate.name}</p>
+                            }
+                        />
+                    </div>
+            </div>
 
 
         {/* <Evolution pokemonSpeciesData={pokemonSpeciesData} />
