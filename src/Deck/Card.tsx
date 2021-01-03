@@ -54,7 +54,7 @@ const ActualCard: React.FC<ActualCardInterface >  =  ({pokemondata}) => {
             }}
           >
           {/* more info */}
-            {/* {!state.pokemonData.id &&  */}
+            {!state.pokemonData.id && 
             <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                 width="20px" height="20px" viewBox="0 0 416.979 416.979" xmlSpace="preserve" fill="#FFF" >
                 <path d="M356.004,61.156c-81.37-81.47-213.377-81.551-294.848-0.182c-81.47,81.371-81.552,213.379-0.181,294.85
@@ -63,7 +63,7 @@ const ActualCard: React.FC<ActualCardInterface >  =  ({pokemondata}) => {
                   c3.215,0,5.822,2.604,5.822,5.822V340.786z M208.49,137.901c-18.618,0-33.766-15.146-33.766-33.765
                   c0-18.617,15.147-33.766,33.766-33.766c18.619,0,33.766,15.148,33.766,33.766C242.256,122.755,227.107,137.901,208.49,137.901z"/>
             </svg>
-            {/* } */}
+            }
          
           </motion.div>
         <div className="w-52 h-52 absolute left-1/2 bottom-1/2 transform -translate-x-1/2 translate-y-1/2"  >
@@ -84,7 +84,7 @@ const ActualCard: React.FC<ActualCardInterface >  =  ({pokemondata}) => {
         </div>
 
       </div>
-      <div className="flex absolute bottom-11 right-1/2 transform translate-x-1/2 translate-y-1/4 " >
+      <div className="flex absolute bottom-12 right-1/2 transform translate-x-1/2 translate-y-1/4 " >
             {pokemondata.types.map( (type,index) => <img  src={getTypeIcon(type.type.name)[1]} 
                                                           className="-m-0.5 w-10 rounded-full" 
                                                           key={index} 

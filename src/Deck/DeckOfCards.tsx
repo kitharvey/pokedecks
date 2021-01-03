@@ -40,14 +40,15 @@ const DeckOfCards:React.FC = () => {
   useEffect(() => {
     if(pokeArray) {
       if(cardIndex < pokeArray.length) {
-        setState({...state, pokemonOnTop: pokeArray[cardIndex]})
+        if(pokeArray[cardIndex].name !== state.pokemonData.name){
+          setState({...state, pokemonData: appCtxDefaultValue.state.pokemonData})
+        }
+        else setState({...state, pokemonOnTop: pokeArray[cardIndex]})
       }
       if(cardIndex >= pokeArray.length) {
         setState({...state, pokemonOnTop: appCtxDefaultValue.state.pokemonOnTop})
       }
-      if(pokeArray[cardIndex].name !== state.pokemonData.name){
-        setState({...state, pokemonData: appCtxDefaultValue.state.pokemonData})
-      }
+
     }
 
 
@@ -76,12 +77,9 @@ const DeckOfCards:React.FC = () => {
 
 
   return (
-    <div className="h-full w-full flex flex-col items-center justify-center" >
       <div className="h-full w-max flex flex-col items-center justify-center relative">
 
-          
             <div className="h-96 w-80 select-none" >
-            {/* {(!isVisible) && */}
               <motion.div
                 style={{
                   width: "100%",
@@ -174,7 +172,7 @@ const DeckOfCards:React.FC = () => {
               </div>
 
               <div className="flex" >
-                <motion.div
+                {/* <motion.div
                       className="mt-5 h-10 w-10 flex items-center justify-center cursor-pointer select-none"
                       onClick={() => setExitX(-1000)}
                       style={{
@@ -199,7 +197,7 @@ const DeckOfCards:React.FC = () => {
                       }}
                 >
                   <p className="h-5 w-5" >{"<"}</p>
-                </motion.div>
+                </motion.div> */}
                 <motion.div
                       className="mt-10 h-10 w-10 flex items-center justify-center cursor-pointer select-none"
                       onClick={() => handleUndo()}
@@ -228,7 +226,7 @@ const DeckOfCards:React.FC = () => {
                 >
                   <img src={undo} alt="undo icon" className="h-5 w-5" />
                 </motion.div>
-                <motion.div
+                {/* <motion.div
                       className="mt-5 h-10 w-10 flex items-center justify-center cursor-pointer select-none"
                       onClick={() => setExitX(1000)}
                       style={{
@@ -253,11 +251,10 @@ const DeckOfCards:React.FC = () => {
                       }}
                 >
                   <p className="h-5 w-5" >{">"}</p>
-                </motion.div>
+                </motion.div> */}
               </div>
 
       </div>
-    </div>
   );
 }
 

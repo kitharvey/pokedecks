@@ -3,11 +3,15 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {},
-    textShadow: {
-      default: '0 2px 0 #000',
-      md: '0 0px 20px #00000050',
-      h1: '0 0 3px #FF0000, 0 0 5px #0000FF',
-      xl: '0 0 3px rgba(0, 0, 0, .8), 0 0 5px rgba(0, 0, 0, .9)',
+    boxShadow: {
+      sm: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
+      DEFAULT: '0 5px 25px 1px rgba(0,0,0,.25)',
+      md: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+      lg: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+      xl: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+      '2xl': '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+     '3xl': '0 35px 60px -15px rgba(0, 0, 0, 0.3)',
+      inner: 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.06)',
       none: 'none',
     },
     fontFamily: {

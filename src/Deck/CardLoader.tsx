@@ -29,7 +29,7 @@ const CardLoader: React.FC = () => {
                 </div>
             </div>
         
-            <div className="flex absolute bottom-10 right-1/2 transform translate-x-1/2 " >
+            <div className="flex absolute bottom-12 right-1/2 transform translate-x-1/2 " >
                     <div className="-m-0.5 w-10 h-10 rounded-full bg-gray-400 animate-pulse" />
                     <div className="-m-0.5 w-10 h-10 rounded-full bg-gray-400 animate-pulse" />
             </div>

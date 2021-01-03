@@ -1,7 +1,7 @@
 import React, {useContext, useEffect} from 'react'
 import { AppContext, appCtxDefaultValue } from './Page';
 import Card from '../Deck/Card';
-import ModalBackCard from './ModalBackCard';
+import LeftCard from './LeftCard';
 import ClickAwayListener from 'react-click-away-listener';
 import FramerCard from '../Deck/FramerCard';
 

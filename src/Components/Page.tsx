@@ -3,6 +3,7 @@ import DeckOfCards from '../Deck/DeckOfCards'
 import { findColor } from '../Functions/getTypeIconAndColor';
 import { GetPokemonDataInterface, NameURLInterface } from './CardInterface';
 import Modal from './Modal';
+import LeftCard from './LeftCard';
 
 
 interface ContextStateProps {
@@ -50,11 +51,6 @@ const Page: React.FC = () => {
         setState({...state, search: e.target.value.toLowerCase()})
       }
 
-    React.useEffect(() => {
-        console.log(state)
-    }, [state])
-
-
     const getNavBackGround = () => {
         return state.pokemonData.types[0].type.name ? findColor(state.pokemonData.types[0].type.name)[1] : '#eaeaea'
     }
@@ -78,11 +74,11 @@ const Page: React.FC = () => {
                         </form>
                     </div>
                 </nav>
-                <div className="relative h-screen w-full">
+                <div className="relative h-screen w-full flex items-center justify-evenly">
+                    {(state.pokemonData.id > 0) && <LeftCard />}
                     <DeckOfCards />
+                    {(state.pokemonData.id > 0) && <LeftCard />}
                 </div>
-                {/* {state.pokemonData.id && <Modal />} */}
-                    
             </AppContext.Provider>
         )
         
