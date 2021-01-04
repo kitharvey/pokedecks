@@ -26,9 +26,9 @@ interface CardProps {
       boxShadow: string
     }
     whileTap?: {
-      cursor: string,
-      scale: number,
-      boxShadow: string
+      cursor?: string,
+      scale?: number,
+      boxShadow?: string
      }
   }
   

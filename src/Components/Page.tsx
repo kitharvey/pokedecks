@@ -56,7 +56,6 @@ const Page: React.FC = () => {
         return state.pokemonData.types[0].type.name ? findColor(state.pokemonData.types[0].type.name)[1] : '#eaeaea'
     }
 
-
         return (
             <AppContext.Provider value={{state, setState}} >
                 <nav className="fixed p-3 top-0 left-0 w-full flex items-center justify-between z-10 transition duration-500 ease-in-out" style={{background: getNavBackGround()}}>
@@ -76,35 +75,9 @@ const Page: React.FC = () => {
                     </div>
                 </nav>
                 <div className="relative h-screen w-full flex items-center justify-evenly">
-
-                <AnimatePresence>
-                    {(state.pokemonData.id > 0) && (
-                    <motion.div
-                        initial={{ 
-                            opacity: 0,
-                        }}
-                        animate={{ 
-                            opacity: 1,
-                            scale: 1,
-                        }}
-                        exit={{ 
-                            opacity: 0,
-                            transition: { duration: 0.2 }
-                        }}
-                        transition={{
-                            opacity: {
-                            duration: 0.5
-                            }
-                        }}
-                    >
-                        <LeftCard />
-                    </motion.div>
-                    )}
-                </AnimatePresence>
-
                 <DeckOfCards />
 
-                <AnimatePresence>
+                {/* <AnimatePresence>
                     {(state.pokemonData.id > 0) && (
                     <motion.div
                         initial={{ 
@@ -127,9 +100,33 @@ const Page: React.FC = () => {
                         <LeftCard />
                     </motion.div>
                     )}
-                </AnimatePresence>
+                </AnimatePresence> */}
 
                 </div>
+                <AnimatePresence>
+                    {(state.pokemonData.id > 0) && (
+                    <motion.div
+                        initial={{ 
+                            opacity: 0,
+                        }}
+                        animate={{ 
+                            opacity: 1,
+                            scale: 1,
+                        }}
+                        exit={{ 
+                            opacity: 0,
+                            transition: { duration: 0.2 }
+                        }}
+                        transition={{
+                            opacity: {
+                            duration: 0.5
+                            }
+                        }}
+                    >
+                        <Modal />
+                    </motion.div>
+                    )}
+                </AnimatePresence>
             </AppContext.Provider>
         )
         

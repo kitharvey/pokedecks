@@ -1,44 +1,52 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import {  getFlavorSpeech } from '../Functions/GlobalFunctions'
-import { ModalCardProps } from './CardInterface'
+import { ModalCardProps, ModalCardStateProps } from './CardInterface'
 import Evolution from './Evolution'
 import FlexBetween from './FlexBetween'
 import { useSpeechSynthesis } from 'react-speech-kit';
 import Case from 'case'
 
 
-const ActualLeftCard: React.FC<ModalCardProps> = ({pokemonSpeciesData, pokemonData}) => {
-const { speak, cancel, voices } = useSpeechSynthesis();
-    useEffect(() => {
-        let timeOutID: ReturnType<typeof setTimeout> = setTimeout(() => '', 1000)
 
-        const flavorText = getFlavorSpeech(pokemonSpeciesData, pokemonData)
-        // console.log(Case.sentence(flavorText))
-        timeOutID = setTimeout(() => {
-            speak({
-                text: "I am a robot.",
-                voice: voices[5],
-                pitch: .3,
-                speaking: true
-            })
-        }, 1000)
-        return () => {
-                cancel()
-                clearTimeout(timeOutID)
-        }
-    }, [pokemonSpeciesData])
+
+const ActualLeftCard: React.FC<ModalCardProps | null> = ({speciesdata, pokemondata}) => {
+    const [cardState, setCardState] = useState<ModalCardStateProps>({speciesData: null, pokemonData: null})
+    const {speciesData, pokemonData} = cardState
+// const { speak, cancel, voices } = useSpeechSynthesis();
+    // useEffect(() => {
+
+    //     const flavorText = getFlavorSpeech(pokemonSpeciesData, pokemonData)
+    //     // console.log(Case.sentence(flavorText))
+    //         speak({
+    //             text: "I am a robot.",
+    //             voice: voices[5],
+    //             pitch: .3,
+    //             speaking: true
+    //         })
+    //     return () => {
+    //             cancel()
+    //     }
+    // }, [pokemonSpeciesData])
+
+
+    useEffect(() => {
+        if(speciesdata && pokemondata)setCardState({speciesData: speciesdata, pokemonData: pokemondata})
+
+        return () => setCardState({speciesData: null, pokemonData: null})
+    }, [speciesdata, pokemondata])
 
     return (
         <div className="h-full w-full p-4 bg-white flex flex-col items-center justify-between">
+            {(speciesData && pokemonData) && <>
             <div className="w-full h-max" >
                 <p className="mr-auto font-bold" >Bio</p>
-                <div className="h-auto mt-4 leading-tight" >{Case.sentence(pokemonSpeciesData.flavor_text_entries.filter((entry) => entry.language.name === "en")[0].flavor_text)}</div>
+                <div className="h-auto mt-4 leading-tight" >{Case.sentence(speciesData.flavor_text_entries.filter((entry) => entry.language.name === "en")[0].flavor_text)}</div>
                 
                 <div className="flex flex-col w-full mt-4" >
                     <FlexBetween
                         category="Genus:"
                         details={
-                            <p>{Case.capital(pokemonSpeciesData.genera.filter((entry) => entry.language.name === "en")[0].genus)}</p>
+                            <p>{Case.capital(speciesData.genera.filter((entry) => entry.language.name === "en")[0].genus)}</p>
                         }
                     />
                     <FlexBetween
@@ -77,24 +85,25 @@ const { speak, cancel, voices } = useSpeechSynthesis();
                         <FlexBetween
                             category="Base Happiness:"
                             details={
-                                <p>{pokemonSpeciesData.base_happiness}</p>
+                                <p>{speciesData.base_happiness}</p>
                             }
                         />
                         <FlexBetween
                             category="Catch Rate:"
                             details={
-                                <p>{pokemonSpeciesData.capture_rate} <span className="text-xs" >({((pokemonSpeciesData.capture_rate / 255)*100).toFixed(1)}%)</span></p>
+                                <p>{speciesData.capture_rate} <span className="text-xs" >({((speciesData.capture_rate / 255)*100).toFixed(1)}%)</span></p>
                             }
                         />
                         <FlexBetween
                             category="Growth Rate:"
                             details={
-                                <p>{pokemonSpeciesData.growth_rate.name}</p>
+                                <p>{speciesData.growth_rate.name}</p>
                             }
                         />
                     </div>
             </div>
-
+            </>
+}
 
         {/* <Evolution pokemonSpeciesData={pokemonSpeciesData} />
     

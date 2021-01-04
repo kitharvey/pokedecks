@@ -99,8 +99,12 @@ export interface GetPokemonEvolutionChainInterface{
 
 
 export interface ModalCardProps{
-    pokemonSpeciesData: GetPokemonSpeciesDataInterface
-    pokemonData: GetPokemonDataInterface
+    speciesdata: GetPokemonSpeciesDataInterface | null
+    pokemondata: GetPokemonDataInterface | null
+}
+export interface ModalCardStateProps{
+    speciesData: GetPokemonSpeciesDataInterface | null
+    pokemonData: GetPokemonDataInterface | null
 }
 
 export interface CardInterface{

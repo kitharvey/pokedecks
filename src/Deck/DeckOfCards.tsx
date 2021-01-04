@@ -77,7 +77,7 @@ const DeckOfCards:React.FC = () => {
 
 
   return (
-      <div className="h-full w-max flex flex-col items-center justify-center relative">
+      <div className="h-max w-max flex flex-col items-center justify-center relative">
 
             <div className="h-96 w-80 select-none" >
               <motion.div
@@ -151,14 +151,14 @@ const DeckOfCards:React.FC = () => {
                         duration: 0.2
                       }
                     }}
-                    whileHover={{
-                      scale: 1,
-                      boxShadow: "0 15px 50px 1px rgba(0,0,0,.25)"
-                    }}
+                    // whileHover={{
+                    //   scale: 1,
+                    //   boxShadow: "0 15px 50px 1px rgba(0,0,0,.25)"
+                    // }}
                     whileTap={{ 
                       cursor: "grabbing",
-                      scale: 1,
-                      boxShadow: "0 15px 50px 1px rgba(0,0,0,.25)"
+                      // scale: 1,
+                      // boxShadow: "0 15px 50px 1px rgba(0,0,0,.25)"
                     }}
 
                     exitX={exitX}
@@ -171,7 +171,7 @@ const DeckOfCards:React.FC = () => {
             {/* } */}
               </div>
 
-              <div className="flex" >
+              <div className="flex absolute -bottom-16" >
                 {/* <motion.div
                       className="mt-5 h-10 w-10 flex items-center justify-center cursor-pointer select-none"
                       onClick={() => setExitX(-1000)}
