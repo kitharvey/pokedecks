@@ -17,6 +17,15 @@ module.exports = {
     fontFamily: {
       sans: ['Poppins', 'sans-serif'],
     },
+    minHeight: {
+      '0': '0',
+      '1/4': '25%',
+      '1/2': '50%',
+      '3/4': '75%',
+      'full': '100%',
+      '96': '24rem',
+      '100': '30rem',
+     }
   },
   variants: {
     extend: {},

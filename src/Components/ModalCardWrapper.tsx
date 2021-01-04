@@ -1,26 +1,19 @@
-import React, {useContext, useEffect} from 'react'
-import { AppContext, appCtxDefaultValue } from './Page';
+import React, {useContext} from 'react'
+import { AppContext } from './Page';
 import Card from '../Deck/Card';
-import LeftCard from './LeftCard';
-import ClickAwayListener from 'react-click-away-listener';
+import ModalCard from './ModalCard';
 import FramerCard from '../Deck/FramerCard';
 
 
 const ModalCardWrapper: React.FC = () => {
-    const {state, setState} = useContext(AppContext)
-    
-    const handleClickAway = () => {
-        setState({...state, showModal: false})
-    };
+    const {state} = useContext(AppContext)
+  
 
-    // useEffect(() => {
-    //     console.log(state)
-    // }, [state])
 
     return (
-        <ClickAwayListener className="w-full h-full" onClickAway={handleClickAway}>
-            <div className="bg-white w-full h-full shadow-lg flex items-center justify-around" >
-                <LeftCard />
+        
+            <div className="w-full h-full flex items-center justify-center relative" >
+                <ModalCard />
                 <div className="h-96 w-80 select-none relative">
                             <FramerCard
                                 length={2}
@@ -45,24 +38,15 @@ const ModalCardWrapper: React.FC = () => {
                                     duration: 0.5
                                     }
                                 }}
-                                // whileHover={{
-                                //     scale: 1,
-                                //     boxShadow: "0 15px 50px 1px rgba(0,0,0,.25)"
-                                //   }}
                                 whileTap={{ 
                                     cursor: "grabbing",
-                                    // scale: 1,
-                                    // boxShadow: "0 15px 50px 1px rgba(0,0,0,.25)"
                                 }}
                                 drag='x'
                             >
                                 <Card id={state.pokemonData.id} />
                             </FramerCard>
                 </div>
-                <LeftCard />
             </div>
-           
-        </ClickAwayListener>
     )
 }
 

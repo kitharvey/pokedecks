@@ -1,33 +1,103 @@
-import React, {useContext} from 'react'
-import ModalBackCardLoader from "./ModalBackCardLoader"
-import {useGetPokemonSpeciesData} from './useGetPokemonData';
-import { AppContext } from './Page';
-import ActualLeftCard from './ActualLeftCard';
-import { useQuery } from 'react-query';
-import { fetchPokemonSpeciesData } from "../Components/useGetPokemonData";
-import axios from 'axios';
+import React from 'react'
+import {  getFlavorSpeech } from '../Functions/GlobalFunctions'
+import { ModalCardProps } from './CardInterface'
+import Evolution from './Evolution'
+import FlexBetween from './FlexBetween'
+import { useSpeechSynthesis } from 'react-speech-kit';
+import Case from 'case'
 
 
 
 
+const ActualLeftCard: React.FC<ModalCardProps> = ({speciesdata, pokemondata}) => {
+// const { speak, cancel, voices } = useSpeechSynthesis();
+    // useEffect(() => {
+
+    //     const flavorText = getFlavorSpeech(pokemonSpeciesData, pokemonData)
+    //     // console.log(Case.sentence(flavorText))
+    //         speak({
+    //             text: "I am a robot.",
+    //             voice: voices[5],
+    //             pitch: .3,
+    //             speaking: true
+    //         })
+    //     return () => {
+    //             cancel()
+    //     }
+    // }, [pokemonSpeciesData])
 
 
-
-const LeftCard: React.FC = () => {
-    const {state} = useContext(AppContext)
-    // const pokemonSpeciesData = useGetPokemonSpeciesData(state.pokemonData.id)
-    const { data, isFetching } = useQuery('fetchSpeciesData', async() => await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${state.pokemonData.id}`), {refetchOnWindowFocus: false})
-    
     return (
-        <div className="h-max w-96" >
-            {(data && !isFetching && state.pokemonData.id > 0)
-                ? <ActualLeftCard speciesdata={data.data} pokemondata={state.pokemonData} />
-                : <ModalBackCardLoader />
-            }
-            {/* <ModalBackCardLoader /> */}
-        </div>
+        <div className="min-h-100 h-max w-96 p-4 bg-white">
+            {(speciesdata && pokemondata) && <>
+            <div className="w-full h-full flex flex-col items-center justify-between" >
+                <p className="mr-auto text-xl font-bold" >Bio</p>
+                <div className="h-auto mt-4 leading-tight" >{Case.sentence(speciesdata.flavor_text_entries.filter((entry) => entry.language.name === "en")[0].flavor_text)}</div>
+                
+                <div className="flex flex-col w-full mt-4" >
+                    <FlexBetween
+                        category="Genus:"
+                        details={
+                            <p>{Case.capital(speciesdata.genera.filter((entry) => entry.language.name === "en")[0].genus)}</p>
+                        }
+                    />
+                    <FlexBetween
+                        category="Height:"
+                        details={
+                            <p>{pokemondata.height/10}m <span>({Math.floor(((pokemondata.height/10) * 39.37)/12)}'{(((pokemondata.height/10) * 39.37) % 12).toFixed(1)}")</span></p>
+                        }
+                    />
+                    <FlexBetween
+                        category="Weight:"
+                        details={
+                            <p>{pokemondata.weight/10}kg <span>({((pokemondata.weight/10) * 2.2).toFixed(1)} lbs)</span></p>
+                        }
+                    />
+                    <FlexBetween
+                        category="Abilities:"
+                        details={
+                            <div className="flex flex-col items-start" >
+                            {pokemondata.abilities.map( (ability,index) => <p key={index}  >{ability.ability.name.split("-").map( txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()).join(" ")} <span className="text-xs" >{ability.is_hidden && "(Hidden Ability)"}</span> </p> )}
+                            </div>
+                        }
+                    />
+                </div>
+            </div>
+      
+            <div className="w-full h-max mt-4" >
+            <p className="mr-auto text-xl font-bold" >Training</p>
+                    <div className="flex flex-col w-full mt-4" >
+                        <FlexBetween
+                            category="Base Exp:"
+                            details={
+                                <p>{pokemondata.base_experience}</p>
+                            }
+                        />
+                        <FlexBetween
+                            category="Base Happiness:"
+                            details={
+                                <p>{speciesdata.base_happiness}</p>
+                            }
+                        />
+                        <FlexBetween
+                            category="Catch Rate:"
+                            details={
+                                <p>{speciesdata.capture_rate} <span className="text-xs" >({((speciesdata.capture_rate / 255)*100).toFixed(1)}%)</span></p>
+                            }
+                        />
+                        <FlexBetween
+                            category="Growth Rate:"
+                            details={
+                                <p>{speciesdata.growth_rate.name}</p>
+                            }
+                        />
+                    </div>
+            </div>
+            </>
+        }
+    </div>
     )
 }
 
 
-export default LeftCard
+export default ActualLeftCard

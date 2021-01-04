@@ -10,12 +10,6 @@ import { getImageSourcefromID, getIDStringfromID } from '../Functions/GlobalFunc
 import CardLoader from './CardLoader';
 import { LazyImage } from "react-lazy-images";
 
-
-
-
-
-
-
 const ActualCard: React.FC<ActualCardInterface >  =  ({pokemondata}) => {
   const sprite = getImageSourcefromID(pokemondata.id)
   const {state, setState} = React.useContext(AppContext)
@@ -41,6 +35,9 @@ const ActualCard: React.FC<ActualCardInterface >  =  ({pokemondata}) => {
         <p className="absolute top-5 right-1/2 transform translate-x-1/2 text-black text-opacity-25 font-bold text-5xl tracking-widest leading-none" >#{getIDStringfromID(pokemondata.id)}</p>
           <motion.div className="absolute right-2 top-2 Courier text-2xl font-black text-white leading-none cursor-pointer hover:text-opacity-50"
               onClick={() => handleClick()}
+              initial={{
+                opacity: 1
+              }}
               whileHover={{
                 opacity: .5,
               }}
@@ -54,7 +51,7 @@ const ActualCard: React.FC<ActualCardInterface >  =  ({pokemondata}) => {
             }}
           >
           {/* more info */}
-            {!state.pokemonData.id && 
+            {!state.showModal && 
             <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                 width="20px" height="20px" viewBox="0 0 416.979 416.979" xmlSpace="preserve" fill="#FFF" >
                 <path d="M356.004,61.156c-81.37-81.47-213.377-81.551-294.848-0.182c-81.47,81.371-81.552,213.379-0.181,294.85

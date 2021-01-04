@@ -11,34 +11,3 @@ body{
     background-image: url("./Assets/bg-types.png");
     background-repeat: repeat;
 }
-
-
-.backDrop{
-    backdrop-filter: blur(5px);
-}
-
-.lighten{
-    filter: brightness(0) invert(1);
-}
-
-.addFilter{
-    filter: saturate(.9);
-    
-}
-
-.fontSizeAdjust{
-    font-size: 14px;
-}
-
-.hideScroll{
-    -ms-overflow-style: none;
-    scrollbar-width: none; 
-}
-
-.hideScroll::-webkit-scrollbar { 
-    display: none;
-}
-
-.react-card-front, .react-card-back{
-    box-shadow:0 10px 20px 0 rgba(0, 0, 0, 0.1);
-}
