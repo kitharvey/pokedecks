@@ -21,7 +21,7 @@ const ActualCard: React.FC<ActualCardInterface >  =  ({pokemondata}) => {
   const {state, setState} = React.useContext(AppContext)
 
   const handleClick = () => {
-    setState({...state, pokemonData: pokemondata})
+    setState({...state, pokemonData: pokemondata, showModal: true})
   }
 
 

@@ -19,7 +19,7 @@ const LeftCard: React.FC = () => {
     const { data, isFetching } = useQuery('fetchSpeciesData', async() => await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${state.pokemonData.id}`), {refetchOnWindowFocus: false})
     
     return (
-        <div className="h-max w-96 transition-all duration-500 ease-in-out" >
+        <div className="h-max w-96" >
             {(data && !isFetching && state.pokemonData.id > 0)
                 ? <ActualLeftCard speciesdata={data.data} pokemondata={state.pokemonData} />
                 : <ModalBackCardLoader />

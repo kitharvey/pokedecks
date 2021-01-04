@@ -96,12 +96,12 @@ const DeckOfCards:React.FC = () => {
                     index={cardIndex + 2}
                     initial={{
                       scale: 0,
-                      y: -60,
+                      y: 0,
                       opacity: 0,
                     }}
                     animate={{
-                      scale: 0.75,
-                      y: -60,
+                      scale: 0.8,
+                      y: -75,
                       opacity: 1,
                       boxShadow: "0 5px 25px 1px rgba(0,0,0,.25)",
                     }}
@@ -115,13 +115,13 @@ const DeckOfCards:React.FC = () => {
                     length={length}
                     key={cardIndex + 1}
                     index={cardIndex + 1}
-                    initial={{
-                      scale: 0,
-                      y: -40,
-                      opacity: 0,
-                    }}
+                    // initial={{
+                    //   scale: 0,
+                    //   y: 0,
+                    //   opacity: 0,
+                    // }}
                     animate={{
-                      scale: 0.8,
+                      scale: 0.9,
                       y: -40,
                       opacity: 1,
                       boxShadow: "0 5px 25px 1px rgba(0,0,0,.25)",
@@ -136,9 +136,14 @@ const DeckOfCards:React.FC = () => {
                     length={length}
                     index={cardIndex}
                     key={cardIndex}
+                    initial={{
+                      scale: 1,
+                      y: 100,
+                      opacity: 0,
+                    }}
                     animate={{
                       boxShadow: "0 5px 25px 1px rgba(0,0,0,.25)",
-                      scale: .95,
+                      scale: 1,
                       y: 0,
                       opacity: 1,
                       

@@ -3,14 +3,15 @@ import DeckOfCards from '../Deck/DeckOfCards'
 import { findColor } from '../Functions/getTypeIconAndColor';
 import { GetPokemonDataInterface, NameURLInterface } from './CardInterface';
 import Modal from './Modal';
-import LeftCard from './LeftCard';
+// import LeftCard from './LeftCard';
 import { AnimatePresence, motion } from 'framer-motion';
 
 
 interface ContextStateProps {
     search: string,
     pokemonOnTop: NameURLInterface,
-    pokemonData: GetPokemonDataInterface
+    pokemonData: GetPokemonDataInterface,
+    showModal: boolean
 }
 
 export const appCtxDefaultValue = {
@@ -34,7 +35,8 @@ export const appCtxDefaultValue = {
                 effort: 0,
                 stat: {name: '', url: ''}
             }]
-        }
+        },
+        showModal: false
     },
     setState: (state: ContextStateProps) => {}
 };
@@ -104,7 +106,7 @@ const Page: React.FC = () => {
 
                 </div>
                 <AnimatePresence>
-                    {(state.pokemonData.id > 0) && (
+                    {(state.showModal) && (
                     <motion.div
                         initial={{ 
                             opacity: 0,
@@ -115,7 +117,7 @@ const Page: React.FC = () => {
                         }}
                         exit={{ 
                             opacity: 0,
-                            transition: { duration: 0.2 }
+                            transition: { duration: 0.5 }
                         }}
                         transition={{
                             opacity: {

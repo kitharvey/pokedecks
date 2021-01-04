@@ -10,7 +10,7 @@ const ModalCardWrapper: React.FC = () => {
     const {state, setState} = useContext(AppContext)
     
     const handleClickAway = () => {
-        setState({...state, pokemonData: appCtxDefaultValue.state.pokemonData})
+        setState({...state, showModal: false})
     };
 
     // useEffect(() => {
@@ -27,13 +27,13 @@ const ModalCardWrapper: React.FC = () => {
                                 index={0}
                                 pokeArray={[state.pokemonData.species]}
                                 initial={{
-                                    scale: .95,
+                                    scale: 1,
                                     y: 0,
                                     opacity: 1,
                                 }}
                                 animate={{
                                     boxShadow: "0 5px 25px 1px rgba(0,0,0,.25)",
-                                    scale: .95,
+                                    scale: 1,
                                     y: 0,
                                     opacity: 1,
                                 }}
