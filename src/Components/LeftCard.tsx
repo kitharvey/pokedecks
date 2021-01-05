@@ -28,9 +28,9 @@ const ActualLeftCard: React.FC<ModalCardProps> = ({speciesdata, pokemondata}) =>
 
 
     return (
-        <div className="min-h-100 h-max w-96 p-4 bg-white">
-            {(speciesdata && pokemondata) && <>
-            <div className="w-full h-full flex flex-col items-center justify-between" >
+        <div className="h-100 w-96 p-4 bg-white">
+            {(speciesdata && pokemondata) && <div className="h-full w-full flex flex-col items-center justify-between">
+            <div className="w-full h-max" >
                 <p className="mr-auto text-xl font-bold" >Bio</p>
                 <div className="h-auto mt-4 leading-tight" >{Case.sentence(speciesdata.flavor_text_entries.filter((entry) => entry.language.name === "en")[0].flavor_text)}</div>
                 
@@ -64,7 +64,7 @@ const ActualLeftCard: React.FC<ModalCardProps> = ({speciesdata, pokemondata}) =>
                 </div>
             </div>
       
-            <div className="w-full h-max mt-4" >
+            <div className="w-full h-max" >
             <p className="mr-auto text-xl font-bold" >Training</p>
                     <div className="flex flex-col w-full mt-4" >
                         <FlexBetween
@@ -93,7 +93,7 @@ const ActualLeftCard: React.FC<ModalCardProps> = ({speciesdata, pokemondata}) =>
                         />
                     </div>
             </div>
-            </>
+            </div>
         }
     </div>
     )

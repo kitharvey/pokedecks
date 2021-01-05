@@ -12,7 +12,7 @@ const ModalCardWrapper: React.FC = () => {
 
     return (
         
-            <div className="w-full h-full flex items-center justify-center relative" >
+            <div className="w-full h-max flex items-center justify-center relative" >
                 <ModalCard />
                 <div className="h-96 w-80 select-none relative">
                             <FramerCard

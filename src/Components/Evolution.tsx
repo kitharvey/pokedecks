@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import { LazyImage } from 'react-lazy-images'
-import { extractEvolutionChain, getImageSourceFromURL } from '../Functions/GlobalFunctions'
+import { extractEvolutionChain, getIDStringfromURL, getImageSourceFromURL } from '../Functions/GlobalFunctions'
 import { GetPokemonSpeciesDataInterface, NameURLInterface } from './CardInterface'
 import { useGetPokemonEvolutionChain } from './useGetPokemonData'
 import egg from "../Assets/pokemon-egg.png"
@@ -17,22 +17,20 @@ const Evolution: React.FC<EvolutionProps> = ({pokemonSpeciesData}) => {
         if(pokemonEvolutionData) {
             const data = extractEvolutionChain(pokemonEvolutionData)
             setEvolutionChain(data)
-            // console.log("mounted", pokemonEvolutionData)
         }
 
         return (() => {
             setEvolutionChain(null)
-            // console.log("unmounted", pokemonEvolutionData)
 
             }
         )
     },[pokemonEvolutionData])
 
     return (
-        <div className="flex justify-evenly w-full" >
+        <div className="flex justify-evenly w-full mt-4" >
         {evolutionChain ? evolutionChain.map( ({name, url}, index) => <div key={index} className="flex flex-col items-center" >
             <p className="text-xs capitalize" >{name}</p>
-            <div className="w-12 h-auto"  >
+            <div className="w-24 m-1 h-auto"  >
             <LazyImage
             
                 src={getImageSourceFromURL(url)}
@@ -46,15 +44,13 @@ const Evolution: React.FC<EvolutionProps> = ({pokemonSpeciesData}) => {
                   )}
             />
             </div>
-            {pokemonSpeciesData.is_legendary &&  <p className="text-xs" >Legendary</p>}
-            {pokemonSpeciesData.is_mythical &&  <p className="text-xs" >Mythical</p>}
-            {!(pokemonSpeciesData.is_legendary || pokemonSpeciesData.is_mythical) && <p className="text-xs" >stage{index+1}</p>}
+            <p>#{getIDStringfromURL(url)}</p>
             </div> )
 
             :   <div className="flex justify-evenly w-full" >
-                    <div className="w-10 h-10 rounded-full bg-gray-400 animate-pulse" />
-                    <div className="w-10 h-10 rounded-full bg-gray-400 animate-pulse" />
-                    <div className="w-10 h-10 rounded-full bg-gray-400 animate-pulse" />
+                    <div className="w-24 h-24 m-1 rounded-full bg-gray-400 animate-pulse" />
+                    <div className="w-24 h-24 m-1 rounded-full bg-gray-400 animate-pulse" />
+                    <div className="w-24 h-24 m-1 rounded-full bg-gray-400 animate-pulse" />
                 </div>
         }
     </div>
