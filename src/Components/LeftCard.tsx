@@ -1,7 +1,7 @@
 import React from 'react'
 import {  getFlavorSpeech } from '../Functions/GlobalFunctions'
 import { ModalCardProps } from './CardInterface'
-import Evolution from './Evolution'
+// import Evolution from './Evolution'
 import FlexBetween from './FlexBetween'
 import { useSpeechSynthesis } from 'react-speech-kit';
 import Case from 'case'
@@ -9,7 +9,7 @@ import Case from 'case'
 
 
 
-const ActualLeftCard: React.FC<ModalCardProps> = ({speciesdata, pokemondata}) => {
+const LeftCard: React.FC<ModalCardProps> = ({speciesdata, pokemondata}) => {
 // const { speak, cancel, voices } = useSpeechSynthesis();
     // useEffect(() => {
 
@@ -27,9 +27,11 @@ const ActualLeftCard: React.FC<ModalCardProps> = ({speciesdata, pokemondata}) =>
     // }, [pokemonSpeciesData])
 
 
+
     return (
         <div className="h-100 w-96 p-4 bg-white">
-            {(speciesdata && pokemondata) && <div className="h-full w-full flex flex-col items-center justify-between">
+            {(speciesdata && pokemondata) 
+                && <div className="h-full w-full flex flex-col items-center justify-between">
             <div className="w-full h-max" >
                 <p className="mr-auto text-xl font-bold" >Bio</p>
                 <div className="h-auto mt-4 leading-tight" >{Case.sentence(speciesdata.flavor_text_entries.filter((entry) => entry.language.name === "en")[0].flavor_text)}</div>
@@ -100,4 +102,4 @@ const ActualLeftCard: React.FC<ModalCardProps> = ({speciesdata, pokemondata}) =>
 }
 
 
-export default ActualLeftCard
+export default LeftCard
