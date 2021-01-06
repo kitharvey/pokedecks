@@ -34,7 +34,8 @@ const Evolution: React.FC<EvolutionProps> = ({pokemonSpeciesData}) => {
     return (
         <div className="flex justify-evenly w-full mt-4" >
         {(evolutionChain && !isFetching) ? evolutionChain.map( ({name, url}, index) => <div key={index} className="flex flex-col items-center" >
-            <p className="text-xs capitalize" >{name}</p>
+            <p className="text-xs" >#{getIDStringfromURL(url)}</p>
+
             <div className="w-28 h-28 rounded-full p-4 m-2"
             style={{
                 background: `linear-gradient(0deg, ${findColor(state.pokemonData.types[0].type.name)[1] + "10"} 0%, ${findColor(state.pokemonData.types[0].type.name)[1]} 80%)`
@@ -53,7 +54,8 @@ const Evolution: React.FC<EvolutionProps> = ({pokemonSpeciesData}) => {
                   )}
             />
             </div>
-            <p className="text-xs" >#{getIDStringfromURL(url)}</p>
+            <p className="text-xs capitalize" >{name}</p>
+
             </div> )
 
             : <div className="flex justify-evenly w-full" >

@@ -48,7 +48,6 @@ const DeckOfCards:React.FC = () => {
       if(cardIndex >= pokeArray.length) {
         setState({...state, pokemonOnTop: appCtxDefaultValue.state.pokemonOnTop})
       }
-
     }
 
 

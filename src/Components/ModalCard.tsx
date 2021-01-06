@@ -5,6 +5,7 @@ import LeftCard from './LeftCard';
 import { useQuery } from 'react-query';
 import axios from 'axios';
 import RightCard from './RightCard';
+import CenterCard from './CenterCard';
 
 
 
@@ -28,7 +29,7 @@ const ModalCard: React.FC = () => {
                 ? <LeftCard speciesdata={pokemonSpeciesData.data} pokemondata={pokemonData.data} />
                 : <LeftCardLoader />
             }
-            <div className="h-96 w-80 select-none relative"></div>
+            <CenterCard />
             {(pokemonData && pokemonSpeciesData && !isFetchingPokemonSpeciesData && !isFetchingPokemonData)
                 ? <RightCard speciesdata={pokemonSpeciesData.data} pokemondata={pokemonData.data} />
                 : <RightCardLoader />

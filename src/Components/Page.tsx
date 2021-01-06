@@ -11,13 +11,15 @@ interface ContextStateProps {
     search: string,
     pokemonOnTop: NameURLInterface,
     pokemonData: GetPokemonDataInterface,
-    showModal: boolean
+    showModal: boolean,
+    activePokemon: NameURLInterface,
 }
 
 export const appCtxDefaultValue = {
     state: {
         search: "",
         pokemonOnTop: {name: '', url: ''},
+        activePokemon: {name: '', url: ''},
         pokemonData: {
             abilities: [{ability: {name: '', url: ''}, is_hidden: false}],
             base_experience: 0,

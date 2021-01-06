@@ -41,20 +41,20 @@ export const LeftCardLoader: React.FC = () => {
                     <div className="w-20 h-7 rounded bg-gray-500 animate-pulse mr-auto" ></div>
                     <div className="flex flex-col w-full mt-4" >
                         <div className="w-full grid grid-cols-2 gap-x-1">
-                            <div className="h-4 w-16 my-0.5 rounded bg-gray-400 animate-pulse" />
-                            <div className="h-3.5 w-20 my-0.5 rounded bg-gray-200 animate-pulse"/>
+                            <div className="h-5 w-12 my-0.5 rounded bg-gray-400 animate-pulse" />
+                            <div className="h-3.5 w-4 my-0.5 rounded bg-gray-200 animate-pulse"/>
                         </div>
                         <div className="w-full grid grid-cols-2 gap-x-1">
-                            <div className="h-4 w-12 my-0.5 rounded bg-gray-400 animate-pulse" />
-                            <div className="h-3.5 w-16 my-0.5 rounded bg-gray-200 animate-pulse"/>
+                            <div className="h-5 w-20 my-0.5 rounded bg-gray-400 animate-pulse" />
+                            <div className="h-3.5 w-4 my-0.5 rounded bg-gray-200 animate-pulse"/>
                         </div>
                         <div className="w-full grid grid-cols-2 gap-x-1">
-                            <div className="h-4 w-16 my-0.5 rounded bg-gray-400 animate-pulse" />
-                            <div className="h-3.5 w-20 my-0.5 rounded bg-gray-200 animate-pulse"/>
+                            <div className="h-5 w-14 my-0.5 rounded bg-gray-400 animate-pulse" />
+                            <div className="h-3.5 w-14 my-0.5 rounded bg-gray-200 animate-pulse"/>
                         </div>
                         <div className="w-full grid grid-cols-2 gap-x-1">
-                            <div className="h-4 w-12 my-0.5 rounded bg-gray-400 animate-pulse" />
-                            <div className="h-3.5 w-16 my-0.5 rounded bg-gray-200 animate-pulse"/>
+                            <div className="h-5 w-16 my-0.5 rounded bg-gray-400 animate-pulse" />
+                            <div className="h-3.5 w-14 my-0.5 rounded bg-gray-200 animate-pulse"/>
                         </div>
                     </div>
                 </div>
