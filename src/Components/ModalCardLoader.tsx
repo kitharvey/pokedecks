@@ -65,7 +65,7 @@ export const LeftCardLoader: React.FC = () => {
 
 
 
-export const RightCardLoader: React.FC = ({}) => {
+export const RightCardLoader: React.FC = () => {
         return (
             <div className="h-100 w-96 p-4 flex flex-col items-center justify-between bg-white">
                 <div className="w-full">

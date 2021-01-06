@@ -2,12 +2,11 @@ import React, {useState, useEffect, useContext} from 'react'
 import { LazyImage } from 'react-lazy-images'
 import { extractEvolutionChain, getIDStringfromURL, getImageSourceFromURL } from '../Functions/GlobalFunctions'
 import { GetPokemonSpeciesDataInterface, NameURLInterface } from './CardInterface'
-import { useGetPokemonEvolutionChain } from './useGetPokemonData'
 import egg from "../Assets/pokemon-egg.png"
 import { useQuery } from 'react-query'
 import { AppContext } from './Page'
 import axios from 'axios'
-import { findColor } from '../Functions/getTypeIconAndColor'
+import { motion } from 'framer-motion'
 
 interface EvolutionProps{
     pokemonSpeciesData: GetPokemonSpeciesDataInterface
@@ -15,7 +14,7 @@ interface EvolutionProps{
 
 
 const Evolution: React.FC<EvolutionProps> = ({pokemonSpeciesData}) => {
-    const {state} = useContext(AppContext)
+    const {state, setState} = useContext(AppContext)
     const { data, isFetching } = useQuery('fetchEvolutionData', async() => await axios.get(`${pokemonSpeciesData.evolution_chain.url}`), {refetchOnWindowFocus: false})
     const [evolutionChain, setEvolutionChain] = useState<NameURLInterface[] | null>(null)
     useEffect(() => {
@@ -31,15 +30,43 @@ const Evolution: React.FC<EvolutionProps> = ({pokemonSpeciesData}) => {
         )
     },[data])
 
+    const handleClick = (id: string) => {
+        setState({...state, activePokemonID: id})
+    }
+
     return (
         <div className="flex justify-evenly w-full mt-4" >
         {(evolutionChain && !isFetching) ? evolutionChain.map( ({name, url}, index) => <div key={index} className="flex flex-col items-center" >
             <p className="text-xs" >#{getIDStringfromURL(url)}</p>
 
-            <div className="w-28 h-28 rounded-full p-4 m-2"
-            style={{
-                background: `linear-gradient(0deg, ${findColor(state.pokemonData.types[0].type.name)[1] + "10"} 0%, ${findColor(state.pokemonData.types[0].type.name)[1]} 80%)`
-              }} 
+            <motion.div className="w-28 h-28 rounded-full p-4 m-2 cursor-pointer"
+                onClick={() => handleClick(getIDStringfromURL(url))}
+                style={{
+                    background: `linear-gradient(0deg, ${state.activeColorTheme + "10"} 0%, ${state.activeColorTheme} 80%)`
+                }}
+                initial={{
+                    scale: 0,
+                    y: 0,
+                    opacity: 0,
+                }}
+                animate={{
+                    scale: 1,
+                    y: 0,
+                    opacity: 1,
+                    
+                  }}
+                whileHover={{
+                    scale: 1.1,
+                    boxShadow: "0 5px 5px 1px rgba(0,0,0,.25)",
+                }}
+                whileTap={{
+                    scale: 1,
+                    boxShadow: "0 0px 0px 0px rgba(0,0,0,.25)",
+                }}
+                // transition={{
+                //     scale: { duration: 0.1 },
+                //     opacity: { duration: 0.1 },
+                // }}
             >
             <LazyImage
             
@@ -53,7 +80,7 @@ const Evolution: React.FC<EvolutionProps> = ({pokemonSpeciesData}) => {
                     <img src={egg} alt="egg error" draggable="false" onDragStart={ (e: React.DragEvent<HTMLDivElement>) => e.preventDefault()} style={{filter: "blur(10px)"}} />
                   )}
             />
-            </div>
+            </motion.div>
             <p className="text-xs capitalize" >{name}</p>
 
             </div> )

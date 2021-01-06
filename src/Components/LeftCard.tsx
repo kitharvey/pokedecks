@@ -1,32 +1,13 @@
 import React from 'react'
 import {  getFlavorSpeech } from '../Functions/GlobalFunctions'
 import { ModalCardProps } from './CardInterface'
-// import Evolution from './Evolution'
 import FlexBetween from './FlexBetween'
-import { useSpeechSynthesis } from 'react-speech-kit';
 import Case from 'case'
 
 
 
 
 const LeftCard: React.FC<ModalCardProps> = ({speciesdata, pokemondata}) => {
-// const { speak, cancel, voices } = useSpeechSynthesis();
-    // useEffect(() => {
-
-    //     const flavorText = getFlavorSpeech(pokemonSpeciesData, pokemonData)
-    //     // console.log(Case.sentence(flavorText))
-    //         speak({
-    //             text: "I am a robot.",
-    //             voice: voices[5],
-    //             pitch: .3,
-    //             speaking: true
-    //         })
-    //     return () => {
-    //             cancel()
-    //     }
-    // }, [pokemonSpeciesData])
-
-
 
     return (
         <div className="h-100 w-96 p-4 bg-white">
@@ -34,7 +15,7 @@ const LeftCard: React.FC<ModalCardProps> = ({speciesdata, pokemondata}) => {
                 && <div className="h-full w-full flex flex-col items-center justify-between">
             <div className="w-full h-max" >
                 <p className="mr-auto text-xl font-bold" >Bio</p>
-                <div className="h-auto mt-4 leading-tight" >{Case.sentence(speciesdata.flavor_text_entries.filter((entry) => entry.language.name === "en")[0].flavor_text)}</div>
+                <div className="h-auto mt-4 leading-tight" >{Case.sentence(getFlavorSpeech(speciesdata, pokemondata))}</div>
                 
                 <div className="flex flex-col w-full mt-4" >
                     <FlexBetween

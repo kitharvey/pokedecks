@@ -15,7 +15,7 @@ const ActualCard: React.FC<ActualCardInterface >  =  ({pokemondata}) => {
   const {state, setState} = React.useContext(AppContext)
 
   const handleClick = () => {
-    setState({...state, pokemonData: pokemondata, showModal: true})
+    setState({...state, activePokemonID: getIDStringfromID(pokemondata.id), activeColorTheme: findColor(pokemondata.types[0].type.name)[1], showModal: true})
   }
 
 

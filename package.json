@@ -55,7 +55,6 @@
   },
   "devDependencies": {
     "react-lazy-load-image-component": "^1.5.1",
-    "react-speech-kit": "^3.0.1",
     "tailwindcss-textshadow": "^2.1.3"
   }
 }

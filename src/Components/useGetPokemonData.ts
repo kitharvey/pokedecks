@@ -71,7 +71,7 @@ export const useGetPokemonSpeciesData = (id: number) => {
         
         
       }
-      fetchAPI(id)
+      if(id > 0) fetchAPI(id)
       return() => {
         unmounted = true
         setResult(null)

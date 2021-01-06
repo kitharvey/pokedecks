@@ -5,7 +5,7 @@ import { AppContext } from './Page';
 
 
 
-const CenterCard: React.FC = ({}) => {
+const CenterCard: React.FC = () => {
     const {state} = useContext(AppContext)
         return (
 <div className="h-96 w-80 select-none relative">
@@ -25,14 +25,6 @@ const CenterCard: React.FC = ({}) => {
                                     y: 0,
                                     opacity: 1,
                                 }}
-                                transition={{
-                                    // type: "spring",
-                                    stiffness: 30,
-                                    damping: 30,
-                                    opacity: {
-                                    duration: 0.5
-                                    }
-                                }}
                                 whileHover={{
                                     cursor: "grab",
                                 }}
@@ -47,7 +39,7 @@ const CenterCard: React.FC = ({}) => {
                                     left: 0
                                   }}
                             >
-                                <Card id={state.pokemonData.id} />
+                                <Card id={+state.activePokemonID} />
                             </motion.div>
                 </div>
         );

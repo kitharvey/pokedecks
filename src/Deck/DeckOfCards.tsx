@@ -10,6 +10,7 @@ import undo from "../Assets/undo.svg"
 import { wrap } from "popmotion";
 import { AppContext, appCtxDefaultValue } from "../Components/Page";
 import { useQuery } from "react-query";
+import { getIDStringfromURL } from "../Functions/GlobalFunctions";
 
 
 
@@ -40,8 +41,8 @@ const DeckOfCards:React.FC = () => {
   useEffect(() => {
     if(pokeArray) {
       if(cardIndex < pokeArray.length) {
-        if(pokeArray[cardIndex].name !== state.pokemonData.name){
-          setState({...state, pokemonData: appCtxDefaultValue.state.pokemonData})
+        if(getIDStringfromURL(pokeArray[cardIndex].url) !== state.activePokemonID){
+          setState({...state, activePokemonID: '', activeColorTheme: '#eaeaea'})
         }
         else setState({...state, pokemonOnTop: pokeArray[cardIndex]})
       }
@@ -203,7 +204,7 @@ const DeckOfCards:React.FC = () => {
                   <p className="h-5 w-5" >{"<"}</p>
                 </motion.div> */}
                 <motion.div
-                      className="mt-10 h-10 w-10 flex items-center justify-center cursor-pointer select-none"
+                      className="mt-10 h-10 w-10 flex items-center justify-center cursor-pointer select-none bg-white"
                       onClick={() => handleUndo()}
                       style={{
                         borderRadius:"50%",
