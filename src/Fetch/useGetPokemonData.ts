@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 // import { Service } from './Service';
-import { GetPokemonDataInterface, GetPokemonEvolutionChainInterface, GetPokemonSpeciesDataInterface } from './CardInterface';
+import { GetPokemonDataInterface, GetPokemonEvolutionChainInterface, GetPokemonSpeciesDataInterface } from '../InterfacesProps/Interfaces';
 import axios from 'axios'
 
 export const fetchPokemonData = async (id: number) => {

@@ -1,7 +1,7 @@
 import React, {createContext, useState} from 'react'
 import DeckOfCards from '../Deck/DeckOfCards'
-import { NameURLInterface } from './CardInterface';
-import Modal from './Modal';
+import { NameURLInterface } from '../InterfacesProps/Interfaces';
+import Modal from './ModalComponents/Modal';
 // import LeftCard from './LeftCard';
 import { AnimatePresence, motion } from 'framer-motion';
 

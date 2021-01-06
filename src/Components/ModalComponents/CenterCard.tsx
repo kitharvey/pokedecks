@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import React, {useContext} from 'react'
-import Card from '../Deck/Card';
-import { AppContext } from './Page';
+import Card from '../../Deck/Card';
+import { AppContext } from '../Page';
 
 
 

@@ -4,8 +4,8 @@ import {
   AnimatePresence,
 } from "framer-motion";
 import FramerCard from "./FramerCard";
-import { NameURLInterface } from "../Components/CardInterface";
-import { fetchList } from "../Components/useGetPokemonList";
+import { NameURLInterface } from "../InterfacesProps/Interfaces";
+import { fetchList } from "../Fetch/useGetPokemonList";
 import undo from "../Assets/undo.svg"
 import { wrap } from "popmotion";
 import { AppContext, appCtxDefaultValue } from "../Components/Page";

@@ -1,6 +1,6 @@
 import React from 'react'
-import {  getFlavorSpeech } from '../Functions/GlobalFunctions'
-import { ModalCardProps } from './CardInterface'
+import {  getFlavorSpeech } from '../../Functions/GlobalFunctions'
+import { ModalCardProps } from "../../InterfacesProps/Interfaces"
 import FlexBetween from './FlexBetween'
 import Case from 'case'
 

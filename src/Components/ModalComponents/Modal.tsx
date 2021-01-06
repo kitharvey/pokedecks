@@ -1,6 +1,6 @@
 import React, {useContext} from 'react'
 import ModalCardWrapper from './ModalCardWrapper';
-import { AppContext } from './Page';
+import { AppContext } from '../Page';
 
 const Modal: React.FC = () => {
     const {state, setState} = useContext(AppContext)

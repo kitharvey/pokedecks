@@ -1,10 +1,10 @@
 import React, {useState, useEffect, useContext} from 'react'
 import { LazyImage } from 'react-lazy-images'
-import { extractEvolutionChain, getIDStringfromURL, getImageSourceFromURL } from '../Functions/GlobalFunctions'
-import { GetPokemonSpeciesDataInterface, NameURLInterface } from './CardInterface'
-import egg from "../Assets/pokemon-egg.png"
+import { extractEvolutionChain, getIDStringfromURL, getImageSourceFromURL } from '../../Functions/GlobalFunctions'
+import { GetPokemonSpeciesDataInterface, NameURLInterface } from '../../InterfacesProps/Interfaces'
+import egg from "../../Assets/pokemon-egg.png"
 import { useQuery } from 'react-query'
-import { AppContext } from './Page'
+import { AppContext } from '../Page'
 import axios from 'axios'
 import { motion } from 'framer-motion'
 

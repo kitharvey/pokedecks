@@ -1,4 +1,4 @@
-import { NameURLInterface } from './CardInterface';
+import { NameURLInterface } from '../InterfacesProps/Interfaces';
 import axios from 'axios'
 import { shuffle } from '../Functions/GlobalFunctions';
 

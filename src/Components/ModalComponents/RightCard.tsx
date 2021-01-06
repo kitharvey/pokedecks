@@ -1,5 +1,5 @@
 import React from 'react'
-import { ModalCardProps } from './CardInterface';
+import { ModalCardProps } from '../../InterfacesProps/Interfaces';
 import Evolution from './Evolution';
 
 

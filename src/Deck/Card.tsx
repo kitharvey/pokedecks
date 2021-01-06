@@ -1,6 +1,6 @@
 import React from 'react'
-import {useGetPokemonData} from '../Components/useGetPokemonData';
-import { ActualCardInterface, CardInterface } from '../Components/CardInterface';
+import {useGetPokemonData} from '../Fetch/useGetPokemonData';
+import { ActualCardInterface, CardInterface } from '../InterfacesProps/Interfaces';
 import {getTypeIcon, findColor} from '../Functions/getTypeIconAndColor';
 import egg from "../Assets/pokemon-egg.png"
 import { motion } from 'framer-motion';

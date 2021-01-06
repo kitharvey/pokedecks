@@ -1,12 +1,12 @@
 import React, {useContext} from 'react'
 import {LeftCardLoader, RightCardLoader} from "./ModalCardLoader"
-import { AppContext } from './Page';
+import { AppContext } from '../Page';
 import LeftCard from './LeftCard';
 // import { useQuery } from 'react-query';
 // import axios from 'axios';
 import RightCard from './RightCard';
 import CenterCard from './CenterCard';
-import { useGetPokemonData, useGetPokemonSpeciesData } from './useGetPokemonData';
+import { useGetPokemonData, useGetPokemonSpeciesData } from '../../Fetch/useGetPokemonData';
 
 
 

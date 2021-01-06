@@ -1,4 +1,4 @@
-import { GetPokemonDataInterface, GetPokemonEvolutionChainInterface, GetPokemonSpeciesDataInterface } from "../Components/CardInterface";
+import { GetPokemonDataInterface, GetPokemonEvolutionChainInterface, GetPokemonSpeciesDataInterface } from "../InterfacesProps/Interfaces";
 
 export const extractEvolutionChain = (response: GetPokemonEvolutionChainInterface) => {
     let evoChain = [];
