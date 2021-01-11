@@ -71,8 +71,8 @@ interface CardProps {
   
   const FramerCard: React.FC<CardProps> = (props) => {
     const x = useMotionValue(0);
-    const maximumX = 300
-    const rotate = useTransform(x, [-maximumX, 0, maximumX], [-15, 0, 15], {
+    const maximumX = 100
+    const rotate = useTransform(x, [-maximumX, 0, maximumX], [-5, 0, 5], {
       clamp: false,
     })
 
@@ -99,11 +99,11 @@ interface CardProps {
   
     function handleDragEnd(event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) {
         if (info.offset.x < -maximumX) {
-          if(setExitX) setExitX(-maximumX*3);
+          if(setExitX) setExitX(-maximumX*5);
           if(setIndex) setIndex(index + 1);
         }
         if (info.offset.x > maximumX) {
-          if(setExitX) setExitX(maximumX*3);
+          if(setExitX) setExitX(maximumX*5);
           if(setIndex) setIndex(index + 1);
         }
     }
@@ -138,6 +138,7 @@ interface CardProps {
         transition={transition}
         exit={{
           x: exitX,
+          opacity: 0,
           transition: { duration: 0.2 }
         }}
       >

@@ -8,7 +8,7 @@ import { NameURLInterface } from "../InterfacesProps/Interfaces";
 import { fetchList } from "../Fetch/useGetPokemonList";
 import undo from "../Assets/undo.svg"
 import { wrap } from "popmotion";
-import { AppContext, appCtxDefaultValue } from "../Components/Page";
+import { AppContext, appCtxDefaultValue } from "../Page/Page";
 import { useQuery } from "react-query";
 import { getIDStringfromURL } from "../Functions/GlobalFunctions";
 
@@ -106,7 +106,7 @@ const DeckOfCards:React.FC = () => {
                       boxShadow: "0 5px 25px 1px rgba(0,0,0,.25)",
                     }}
                     transition={{
-                      scale: { duration: 0.1 },
+                      scale: { duration: 0.5 },
                     }}
                   />}
                 {length >= 2 &&
@@ -127,7 +127,7 @@ const DeckOfCards:React.FC = () => {
                       boxShadow: "0 5px 25px 1px rgba(0,0,0,.25)",
                     }}
                     transition={{
-                      scale: { duration: 0.1 },
+                      scale: { duration: 0.5 },
                     }}
                   />}
                   {length >= 1 &&
@@ -148,14 +148,14 @@ const DeckOfCards:React.FC = () => {
                       opacity: 1,
                       
                     }}
-                    transition={{
-                      type: "spring",
-                      stiffness: 300,
-                      damping: 30,
-                      opacity: {
-                        duration: 0.2
-                      }
-                    }}
+                    // transition={{
+                    //   type: "spring",
+                    //   stiffness: 100,
+                    //   damping: 30,
+                    //   opacity: {
+                    //     duration: 0.2
+                    //   }
+                    // }}
                     // whileHover={{
                     //   scale: 1,
                     //   boxShadow: "0 15px 50px 1px rgba(0,0,0,.25)"

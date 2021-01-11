@@ -4,7 +4,7 @@ import { ActualCardInterface, CardInterface } from '../InterfacesProps/Interface
 import {getTypeIcon, findColor} from '../Functions/getTypeIconAndColor';
 import egg from "../Assets/pokemon-egg.png"
 import { motion } from 'framer-motion';
-import { AppContext } from '../Components/Page';
+import { AppContext } from '../Page/Page';
 import 'react-lazy-load-image-component/src/effects/black-and-white.css';
 import { getImageSourcefromID, getIDStringfromID } from '../Functions/GlobalFunctions';
 import CardLoader from './CardLoader';

@@ -1,7 +1,7 @@
 import React, {createContext, useState} from 'react'
 import DeckOfCards from '../Deck/DeckOfCards'
 import { NameURLInterface } from '../InterfacesProps/Interfaces';
-import Modal from './ModalComponents/Modal';
+import Modal from '../Components/ModalComponents/Modal';
 // import LeftCard from './LeftCard';
 import { AnimatePresence, motion } from 'framer-motion';
 
@@ -56,34 +56,8 @@ const Page: React.FC = () => {
                         </form>
                     </div>
                 </nav>
-                <div className="relative h-screen w-full flex items-center justify-evenly">
+                <div className="relative min-h-screen h-max w-full flex items-center justify-evenly">
                 <DeckOfCards />
-
-                {/* <AnimatePresence>
-                    {(state.pokemonData.id > 0) && (
-                    <motion.div
-                        initial={{ 
-                            opacity: 0,
-                        }}
-                        animate={{ 
-                            opacity: 1,
-                            scale: 1,
-                        }}
-                        exit={{ 
-                            opacity: 0,
-                            transition: { duration: 0.2 }
-                        }}
-                        transition={{
-                            opacity: {
-                            duration: 0.5
-                            }
-                        }}
-                    >
-                        <LeftCard />
-                    </motion.div>
-                    )}
-                </AnimatePresence> */}
-
                 </div>
                 <AnimatePresence>
                     {(state.showModal) && (

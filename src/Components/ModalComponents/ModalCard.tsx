@@ -1,6 +1,6 @@
 import React, {useContext} from 'react'
 import {LeftCardLoader, RightCardLoader} from "./ModalCardLoader"
-import { AppContext } from '../Page';
+import { AppContext } from '../../Page/Page';
 import LeftCard from './LeftCard';
 // import { useQuery } from 'react-query';
 // import axios from 'axios';
@@ -29,16 +29,23 @@ const ModalCard: React.FC = () => {
 
     
     return (
-        <div className="h-max w-full flex items-center justify-evenly absolute" >
-            {(pokemonData && pokemonSpeciesData)
-                ? <LeftCard speciesdata={pokemonSpeciesData} pokemondata={pokemonData} />
-                : <LeftCardLoader />
-            }
-            <CenterCard />
-            {(pokemonData && pokemonSpeciesData)
-                ? <RightCard speciesdata={pokemonSpeciesData} pokemondata={pokemonData} />
-                : <RightCardLoader />
-            }
+        <div className="h-max w-full flex flex-col items-center justify-evenly sm:flex-row" >
+            <div className="h-max w-max" >
+                {(pokemonData && pokemonSpeciesData)
+                    ? <LeftCard speciesdata={pokemonSpeciesData} pokemondata={pokemonData} />
+                    : <LeftCardLoader />
+                }
+            </div>
+            <div className="h-max w-max" >
+                <CenterCard />
+            </div>
+            <div className="h-max w-max" >
+                {(pokemonData && pokemonSpeciesData)
+                    ? <RightCard speciesdata={pokemonSpeciesData} pokemondata={pokemonData} />
+                    : <RightCardLoader />
+                }
+            </div>
+
         </div>
     )
 }

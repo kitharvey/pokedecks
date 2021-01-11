@@ -45,8 +45,8 @@ export const getIDStringfromID = (id: number) => {
 export const getFlavorSpeech = (pokemonSpeciesData: GetPokemonSpeciesDataInterface, pokemonData: GetPokemonDataInterface) => {
     const enLang = pokemonSpeciesData.flavor_text_entries.filter((entry) => entry.language.name === "en")[0]
     const types = pokemonData.types.map(type => type.type.name).join(" and ")
-    const legend = pokemonSpeciesData.is_legendary ? " legendary " : ""
-    const mythic = pokemonSpeciesData.is_mythical ? " mythical " : ""
+    const legend = pokemonSpeciesData.is_legendary ? " legendary, " : ""
+    const mythic = pokemonSpeciesData.is_mythical ? " mythical, " : ""
     const text = pokemonData.name + ", " + legend + mythic + types + " type pokemon. " + enLang.flavor_text.replace(/\r?\n|\r/g, " ")
     return text
 }

@@ -4,7 +4,7 @@ import { extractEvolutionChain, getIDStringfromURL, getImageSourceFromURL } from
 import { GetPokemonSpeciesDataInterface, NameURLInterface } from '../../InterfacesProps/Interfaces'
 import egg from "../../Assets/pokemon-egg.png"
 import { useQuery } from 'react-query'
-import { AppContext } from '../Page'
+import { AppContext } from '../../Page/Page'
 import axios from 'axios'
 import { motion } from 'framer-motion'
 
