@@ -14,7 +14,7 @@ interface EvolutionProps{
 
 
 const Evolution: React.FC<EvolutionProps> = ({pokemonSpeciesData}) => {
-    const {state, setState} = useContext(AppContext)
+    const {setStateActivePokemonID, stateActiveColorTheme} = useContext(AppContext)
     const { data, isFetching } = useQuery('fetchEvolutionData', async() => await axios.get(`${pokemonSpeciesData.evolution_chain.url}`), {refetchOnWindowFocus: false})
     const [evolutionChain, setEvolutionChain] = useState<NameURLInterface[] | null>(null)
     useEffect(() => {
@@ -31,7 +31,7 @@ const Evolution: React.FC<EvolutionProps> = ({pokemonSpeciesData}) => {
     },[data])
 
     const handleClick = (id: string) => {
-        setState({...state, activePokemonID: id})
+        setStateActivePokemonID(id)
     }
 
     return (
@@ -42,7 +42,7 @@ const Evolution: React.FC<EvolutionProps> = ({pokemonSpeciesData}) => {
             <motion.div className="w-28 h-28 rounded-full p-4 m-2 cursor-pointer"
                 onClick={() => handleClick(getIDStringfromURL(url))}
                 style={{
-                    background: `linear-gradient(0deg, ${state.activeColorTheme + "10"} 0%, ${state.activeColorTheme} 80%)`
+                    background: `linear-gradient(0deg, ${stateActiveColorTheme + "10"} 0%, ${stateActiveColorTheme} 80%)`
                 }}
                 initial={{
                     scale: 0,

@@ -6,7 +6,7 @@ import { AppContext } from '../../Page/Page';
 
 
 const CenterCard: React.FC = () => {
-    const {state} = useContext(AppContext)
+    const {stateActivePokemonID} = useContext(AppContext)
         return (
 <div className="h-96 w-80 select-none relative">
                             <motion.div
@@ -39,7 +39,7 @@ const CenterCard: React.FC = () => {
                                     left: 0
                                   }}
                             >
-                                <Card id={+state.activePokemonID} />
+                                <Card id={+stateActivePokemonID} />
                             </motion.div>
                 </div>
         );

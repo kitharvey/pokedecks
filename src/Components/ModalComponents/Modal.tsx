@@ -3,10 +3,10 @@ import ModalCardWrapper from './ModalCardWrapper';
 import { AppContext } from '../../Page/Page';
 
 const Modal: React.FC = () => {
-    const {state, setState} = useContext(AppContext)
+    const {setStateModal} = useContext(AppContext)
     
     const handleCloseModal = () => {
-        setState({...state, showModal: false})
+        setStateModal(false)
     };
         return (
             <div className="fixed w-full h-max min-h-screen  top-0 left-0 bg-white z-100 flex items-center justify-center">

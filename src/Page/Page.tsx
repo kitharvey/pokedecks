@@ -8,21 +8,29 @@ import { AnimatePresence, motion } from 'framer-motion';
 
 interface ContextStateProps {
     search: string,
-    pokemonOnTop: NameURLInterface,
     showModal: boolean,
     activePokemonID: string,
     activeColorTheme: string,
 }
 
+interface PokemonOnTop {
+    pokemonOnTop: NameURLInterface,
+}
+
 export const appCtxDefaultValue = {
-    state: {
-        search: "",
-        pokemonOnTop: {name: '', url: ''},
-        activePokemonID: '',
-        activeColorTheme: '',
-        showModal: false
+    stateSearch: '',
+    setStateSearch: (stateSearch: string) => {},
+    stateTop: {
+        pokemonOnTop:{name: '', url: ''}
     },
-    setState: (state: ContextStateProps) => {}
+    setStateTop: (stateTop: PokemonOnTop) => {},
+
+    stateModal: false,
+    setStateModal: (stateModal: boolean) => {},
+    stateActivePokemonID: '',
+    setStateActivePokemonID: (stateActivePokemonID: string) => {},
+    stateActiveColorTheme: '',
+    setStateActiveColorTheme: (stateModal: string) => {},
 };
 
 
@@ -33,14 +41,24 @@ export const AppContext = createContext(appCtxDefaultValue);
 
   
 const Page: React.FC = () => {
-    const [state, setState] = useState<ContextStateProps>(appCtxDefaultValue.state);
+    const [stateSearch, setStateSearch] = useState<string>(appCtxDefaultValue.stateSearch);
+    const [stateTop, setStateTop] = useState<PokemonOnTop>(appCtxDefaultValue.stateTop)
+    const [stateModal, setStateModal] = useState<boolean>(appCtxDefaultValue.stateModal)
+    const [stateActivePokemonID, setStateActivePokemonID] = useState<string>(appCtxDefaultValue.stateActivePokemonID)
+    const [stateActiveColorTheme, setStateActiveColorTheme] = useState<string>(appCtxDefaultValue.stateActiveColorTheme)
+
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setState({...state, search: e.target.value.toLowerCase()})
+        setStateSearch(e.target.value.toLowerCase())
       }
 
         return (
-            <AppContext.Provider value={{state, setState}} >
-                <nav className="fixed p-3 top-0 left-0 w-full flex items-center justify-between z-10 transition duration-500 ease-in-out" style={{background: state.activeColorTheme}}>
+            <AppContext.Provider value={{stateSearch, setStateSearch, 
+                                        stateTop, setStateTop, 
+                                        stateModal, setStateModal,
+                                        stateActivePokemonID, setStateActivePokemonID,
+                                        stateActiveColorTheme, setStateActiveColorTheme
+                                        }} >
+                <nav className="fixed p-3 top-0 left-0 w-full flex items-center justify-between z-10 transition duration-500 ease-in-out" style={{background: stateActiveColorTheme}}>
                     <h1 className="text-4xl font-bold text-black" >Pokédecks</h1>
                     <div className="flex items-center">
                         <label htmlFor="searchpokemon" className="text-black font-bold mr-3" >Search: </label>
@@ -60,7 +78,7 @@ const Page: React.FC = () => {
                 <DeckOfCards />
                 </div>
                 <AnimatePresence>
-                    {(state.showModal) && (
+                    {(stateModal) && (
                     <motion.div
                         initial={{ 
                             opacity: 0,

@@ -15,7 +15,7 @@ import { useGetPokemonData, useGetPokemonSpeciesData } from '../../Fetch/useGetP
 
 
 const ModalCard: React.FC = () => {
-    const {state} = useContext(AppContext)
+    const {stateActivePokemonID} = useContext(AppContext)
     // const { 
     //         data: pokemonSpeciesData, 
     //         isFetching: isFetchingPokemonSpeciesData } = useQuery('fetchSpeciesData', async() => await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${+state.activePokemonID}`), {refetchOnWindowFocus: false})
@@ -24,8 +24,8 @@ const ModalCard: React.FC = () => {
     //         isFetching: isFetchingPokemonData } = useQuery('fetchPokemonData', async() => await axios.get(`https://pokeapi.co/api/v2/pokemon/${+state.activePokemonID}`), {refetchOnWindowFocus: false})
 
 
-      const pokemonData = useGetPokemonData(+state.activePokemonID)
-      const pokemonSpeciesData = useGetPokemonSpeciesData(+state.activePokemonID)
+      const pokemonData = useGetPokemonData(+stateActivePokemonID)
+      const pokemonSpeciesData = useGetPokemonSpeciesData(+stateActivePokemonID)
 
     
     return (

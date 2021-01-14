@@ -12,10 +12,12 @@ import { LazyImage } from "react-lazy-images";
 
 const ActualCard: React.FC<ActualCardInterface >  =  ({pokemondata}) => {
   const sprite = getImageSourcefromID(pokemondata.id)
-  const {state, setState} = React.useContext(AppContext)
+  const {setStateActivePokemonID, setStateActiveColorTheme, setStateModal, stateModal} = React.useContext(AppContext)
 
   const handleClick = () => {
-    setState({...state, activePokemonID: getIDStringfromID(pokemondata.id), activeColorTheme: findColor(pokemondata.types[0].type.name)[1], showModal: true})
+    setStateActivePokemonID(getIDStringfromID(pokemondata.id))
+    setStateActiveColorTheme(findColor(pokemondata.types[0].type.name)[1])
+    setStateModal(true)
   }
 
 
@@ -51,7 +53,7 @@ const ActualCard: React.FC<ActualCardInterface >  =  ({pokemondata}) => {
             }}
           >
           {/* more info */}
-            {!state.showModal && 
+            {!stateModal && 
             <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                 width="20px" height="20px" viewBox="0 0 416.979 416.979" xmlSpace="preserve" fill="#FFF" >
                 <path d="M356.004,61.156c-81.37-81.47-213.377-81.551-294.848-0.182c-81.47,81.371-81.552,213.379-0.181,294.85

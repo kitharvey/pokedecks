@@ -8,14 +8,14 @@ import { NameURLInterface } from "../InterfacesProps/Interfaces";
 import { fetchList } from "../Fetch/useGetPokemonList";
 import undo from "../Assets/undo.svg"
 import { wrap } from "popmotion";
-import { AppContext, appCtxDefaultValue } from "../Page/Page";
+import { AppContext } from "../Page/Page";
 import { useQuery } from "react-query";
 import { getIDStringfromURL } from "../Functions/GlobalFunctions";
 
 
 
 const DeckOfCards:React.FC = () => {
-  const {state, setState} = useContext(AppContext)
+  const {stateSearch, stateActivePokemonID, setStateActivePokemonID, setStateActiveColorTheme} = useContext(AppContext)
   const [index, setIndex] = useState<number>(0);
   const [exitX, setExitX] = useState<number>(0);
   const [length, setLength] = useState<number>(0);
@@ -41,19 +41,20 @@ const DeckOfCards:React.FC = () => {
   useEffect(() => {
     if(pokeArray) {
       if(cardIndex < pokeArray.length) {
-        if(getIDStringfromURL(pokeArray[cardIndex].url) !== state.activePokemonID){
-          setState({...state, activePokemonID: '', activeColorTheme: '#eaeaea'})
+        if(getIDStringfromURL(pokeArray[cardIndex].url) !== stateActivePokemonID){
+          setStateActivePokemonID('')
+          setStateActiveColorTheme('#eaeaea')
         }
-        else setState({...state, pokemonOnTop: pokeArray[cardIndex]})
+        // else setState({...state, pokemonOnTop: pokeArray[cardIndex]})
       }
-      if(cardIndex >= pokeArray.length) {
-        setState({...state, pokemonOnTop: appCtxDefaultValue.state.pokemonOnTop})
-      }
+      // if(cardIndex >= pokeArray.length) {
+      //   // setState({...state, pokemonOnTop: appCtxDefaultValue.state.pokemonOnTop})
+      // }
     }
 
 
     
-  },[cardIndex, pokeArray, setState])
+  },[cardIndex, pokeArray, setStateActivePokemonID, setStateActiveColorTheme, stateActivePokemonID])
 
 
   const handleUndo = () => {
@@ -64,7 +65,7 @@ const DeckOfCards:React.FC = () => {
     setIndex(0)
     
     if(data) {
-            const filteredResult = data.filter( pokemon => pokemon.name.includes(state.search) )
+            const filteredResult = data.filter( pokemon => pokemon.name.includes(stateSearch) )
             setPokeArray(filteredResult)
             setLength(filteredResult.length)
     }
@@ -73,7 +74,7 @@ const DeckOfCards:React.FC = () => {
       setPokeArray(null)
       setLength(0)
     }
-  }, [state.search, data])
+  }, [stateSearch, data])
 
 
   return (
