@@ -5,6 +5,7 @@ module.exports = {
     extend: {
       height: {
           '100' : '30rem',
+          '9/10': '90vh'
         },
     },
     boxShadow: {

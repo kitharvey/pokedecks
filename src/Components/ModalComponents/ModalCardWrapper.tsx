@@ -1,11 +1,7 @@
 import React from 'react'
 import ModalCard from './ModalCard';
 
-
 const ModalCardWrapper: React.FC = () => {
-
-  
-
 
     return (
         
@@ -14,7 +10,5 @@ const ModalCardWrapper: React.FC = () => {
             </div>
     )
 }
-
-
 
 export default ModalCardWrapper

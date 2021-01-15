@@ -7,6 +7,7 @@ import { useQuery } from 'react-query'
 import { AppContext } from '../../Page/Page'
 import axios from 'axios'
 import { motion } from 'framer-motion'
+import { Link } from "react-router-dom";
 
 interface EvolutionProps{
     pokemonSpeciesData: GetPokemonSpeciesDataInterface
@@ -38,7 +39,7 @@ const Evolution: React.FC<EvolutionProps> = ({pokemonSpeciesData}) => {
         <div className="flex justify-evenly w-full mt-4" >
         {(evolutionChain && !isFetching) ? evolutionChain.map( ({name, url}, index) => <div key={index} className="flex flex-col items-center" >
             <p className="text-xs" >#{getIDStringfromURL(url)}</p>
-
+            <Link to={`/${getIDStringfromURL(url)}`} >
             <motion.div className="w-28 h-28 rounded-full p-4 m-2 cursor-pointer"
                 onClick={() => handleClick(getIDStringfromURL(url))}
                 style={{
@@ -81,6 +82,7 @@ const Evolution: React.FC<EvolutionProps> = ({pokemonSpeciesData}) => {
                   )}
             />
             </motion.div>
+            </Link>
             <p className="text-xs capitalize" >{name}</p>
 
             </div> )

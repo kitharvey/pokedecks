@@ -5,23 +5,24 @@ import {
 } from "framer-motion";
 import FramerCard from "./FramerCard";
 import { NameURLInterface } from "../InterfacesProps/Interfaces";
-import { fetchList } from "../Fetch/useGetPokemonList";
 import undo from "../Assets/undo.svg"
 import { wrap } from "popmotion";
 import { AppContext } from "../Page/Page";
-import { useQuery } from "react-query";
 import { getIDStringfromURL } from "../Functions/GlobalFunctions";
 
 
+interface DeckofCards{
+  data: NameURLInterface[] | undefined
+}
 
-const DeckOfCards:React.FC = () => {
-  const {stateSearch, stateActivePokemonID, setStateActivePokemonID, setStateActiveColorTheme} = useContext(AppContext)
-  const [index, setIndex] = useState<number>(0);
+
+const DeckOfCards:React.FC<DeckofCards> = ({data}) => {
+  const {stateSearch, stateActivePokemonID, setStateActivePokemonID, setStateActiveColorTheme, stateIndex, setStateIndex} = useContext(AppContext)
   const [exitX, setExitX] = useState<number>(0);
   const [length, setLength] = useState<number>(0);
   const [pokeArray, setPokeArray] = useState<NameURLInterface[] | null>(null)
-  const cardIndex = wrap(0, length + 1, index);
-  const { data } = useQuery('fetchList', fetchList, {refetchOnWindowFocus: false})
+  const cardIndex = wrap(0, length + 1, stateIndex);
+
 
 
   useEffect(() => {
@@ -42,7 +43,7 @@ const DeckOfCards:React.FC = () => {
     if(pokeArray) {
       if(cardIndex < pokeArray.length) {
         if(getIDStringfromURL(pokeArray[cardIndex].url) !== stateActivePokemonID){
-          setStateActivePokemonID('')
+          setStateActivePokemonID('0')
           setStateActiveColorTheme('#eaeaea')
         }
         // else setState({...state, pokemonOnTop: pokeArray[cardIndex]})
@@ -58,11 +59,11 @@ const DeckOfCards:React.FC = () => {
 
 
   const handleUndo = () => {
-    return (index > 0) ? setIndex(index - 1) : setIndex(0)
+    return (stateIndex > 0) ? setStateIndex(stateIndex - 1) : setStateIndex(0)
   }
 
   useEffect(() => {
-    setIndex(0)
+    
     
     if(data) {
             const filteredResult = data.filter( pokemon => pokemon.name.includes(stateSearch) )
@@ -140,7 +141,7 @@ const DeckOfCards:React.FC = () => {
                     initial={{
                       scale: 1,
                       y: 100,
-                      opacity: 0,
+                      opacity: 1,
                     }}
                     animate={{
                       boxShadow: "0 5px 25px 1px rgba(0,0,0,.25)",
@@ -149,14 +150,14 @@ const DeckOfCards:React.FC = () => {
                       opacity: 1,
                       
                     }}
-                    // transition={{
-                    //   type: "spring",
-                    //   stiffness: 100,
-                    //   damping: 30,
-                    //   opacity: {
-                    //     duration: 0.2
-                    //   }
-                    // }}
+                    transition={{
+                      // type: "spring",
+                      // stiffness: 100,
+                      // damping: 30,
+                      // opacity: {
+                      //   duration: 0.1
+                      // }
+                    }}
                     // whileHover={{
                     //   scale: 1,
                     //   boxShadow: "0 15px 50px 1px rgba(0,0,0,.25)"
@@ -169,7 +170,7 @@ const DeckOfCards:React.FC = () => {
 
                     exitX={exitX}
                     setExitX={setExitX}
-                    setIndex={setIndex}
+                    setIndex={setStateIndex}
                     drag="x"
                   />}
                 </AnimatePresence>
