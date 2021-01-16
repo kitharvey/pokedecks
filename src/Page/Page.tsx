@@ -1,5 +1,5 @@
 import React, {createContext, useState} from 'react'
-import DeckOfCards from '../Deck/DeckOfCards'
+import DeckOfCards from '../Components/Deck/DeckOfCards'
 import { NameURLInterface } from '../InterfacesProps/Interfaces';
 import Modal from '../Components/ModalComponents/Modal';
 import {

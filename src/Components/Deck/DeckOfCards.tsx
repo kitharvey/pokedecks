@@ -4,11 +4,11 @@ import {
   AnimatePresence,
 } from "framer-motion";
 import FramerCard from "./FramerCard";
-import { NameURLInterface } from "../InterfacesProps/Interfaces";
-import undo from "../Assets/undo.svg"
+import { NameURLInterface } from "../../InterfacesProps/Interfaces";
+import undo from "../../Assets/undo.svg"
 import { wrap } from "popmotion";
-import { AppContext } from "../Page/Page";
-import { getIDStringfromURL } from "../Functions/GlobalFunctions";
+import { AppContext } from "../../Page/Page";
+import { getIDStringfromURL } from "../../Functions/GlobalFunctions";
 
 
 interface DeckofCards{
@@ -87,7 +87,7 @@ const DeckOfCards:React.FC<DeckofCards> = ({data}) => {
   return (
       <div className="h-max w-max flex flex-col items-center justify-center relative">
 
-            <div className="shadow flex items-center bg-white pl-4 p-1 absolute -top-28">
+            <div className="shadow flex items-center bg-white pl-4 p-1 absolute -top-32">
                 <label htmlFor="searchpokemon" className="text-black font-bold mr-3 " >Search: </label>
                 <form method="GET" onSubmit={ (event: React.FormEvent<HTMLFormElement>) => event.preventDefault() }>
                 <div className="relative text-gray-400 focus-within:text-black">

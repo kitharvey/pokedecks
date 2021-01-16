@@ -1,12 +1,12 @@
 import React from 'react'
-import {useGetPokemonData} from '../Fetch/useGetPokemonData';
-import { ActualCardInterface, CardInterface } from '../InterfacesProps/Interfaces';
-import {getTypeIcon, findColor} from '../Functions/getTypeIconAndColor';
-import egg from "../Assets/pokemon-egg.png"
+import {useGetPokemonData} from '../../Fetch/useGetPokemonData';
+import { ActualCardInterface, CardInterface } from '../../InterfacesProps/Interfaces';
+import {getTypeIcon, findColor} from '../../Functions/getTypeIconAndColor';
+import egg from "../../Assets/pokemon-egg.png"
 import { motion } from 'framer-motion';
-import { AppContext } from '../Page/Page';
+import { AppContext } from '../../Page/Page';
 import 'react-lazy-load-image-component/src/effects/black-and-white.css';
-import { getImageSourcefromID, getIDStringfromID } from '../Functions/GlobalFunctions';
+import { getImageSourcefromID, getIDStringfromID } from '../../Functions/GlobalFunctions';
 import CardLoader from './CardLoader';
 import { LazyImage } from "react-lazy-images";
 import { Link } from "react-router-dom";
