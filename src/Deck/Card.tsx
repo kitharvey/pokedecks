@@ -15,9 +15,14 @@ const ActualCard: React.FC<ActualCardInterface >  =  ({pokemondata}) => {
   const {setStateActivePokemonID, setStateActiveColorTheme, setStateModal, stateModal} = React.useContext(AppContext)
 
   const handleClick = () => {
-    setStateActivePokemonID(getIDStringfromID(pokemondata.id))
-    setStateActiveColorTheme(findColor(pokemondata.types[0].type.name)[1])
+    const activeID = getIDStringfromID(pokemondata.id)
+    const activeColor = findColor(pokemondata.types[0].type.name)[1]
+    setStateActivePokemonID(activeID)
+    setStateActiveColorTheme(activeColor)
     setStateModal(true)
+    localStorage.setItem('stateActivePokemonID', activeID)
+    localStorage.setItem('stateActiveColorTheme', activeColor)
+    localStorage.setItem('stateModal', 'true')
   }
 
 
@@ -29,7 +34,7 @@ const ActualCard: React.FC<ActualCardInterface >  =  ({pokemondata}) => {
       // style={{backgroundColor: "#eaeaea"}}
       >
       <div 
-        className="w-full h-80 relative" 
+        className="w-full h-full relative" 
         style={{
           background: `linear-gradient(0deg, rgba(255,255,255,0) 0%, ${findColor(pokemondata.types[0].type.name)[1]} 100%)`
         }} 
@@ -96,7 +101,7 @@ const ActualCard: React.FC<ActualCardInterface >  =  ({pokemondata}) => {
       </div>
 
 
-        <div className="absolute bottom-3 right-1/2 transform translate-x-1/2  w-max  text-black text-center font-bold capitalize text-xl leading-none">
+        <div className="absolute bottom-4 right-1/2 transform translate-x-1/2  w-max  text-black text-center font-bold capitalize text-xl leading-none">
                 {pokemondata.name}
         </div>
   </div>

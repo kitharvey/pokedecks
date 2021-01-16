@@ -9,7 +9,7 @@ const CardLoader: React.FC = () => {
             className="h-full w-full p-4 flex flex-col bg-white justify-between relative addFilter"
             
             >
-            <div className="w-full h-80 relative" 
+            <div className="w-full h-full relative" 
             style={{
                 background: `linear-gradient(0deg, rgba(255,255,255,0) 0%, #eaeaea 100%)`
              }}

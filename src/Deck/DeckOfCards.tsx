@@ -17,7 +17,7 @@ interface DeckofCards{
 
 
 const DeckOfCards:React.FC<DeckofCards> = ({data}) => {
-  const {stateSearch, stateActivePokemonID, setStateActivePokemonID, setStateActiveColorTheme, stateIndex, setStateIndex} = useContext(AppContext)
+  const {stateSearch, stateActivePokemonID, setStateActivePokemonID, setStateActiveColorTheme, stateIndex, setStateIndex, setStateModal, setStateSearch} = useContext(AppContext)
   const [exitX, setExitX] = useState<number>(0);
   const [length, setLength] = useState<number>(0);
   const [pokeArray, setPokeArray] = useState<NameURLInterface[] | null>(null)
@@ -77,9 +77,29 @@ const DeckOfCards:React.FC<DeckofCards> = ({data}) => {
     }
   }, [stateSearch, data])
 
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setStateIndex(0)
+    setStateModal(false)
+    setStateSearch(e.target.value.toLowerCase())
+  }
+
 
   return (
       <div className="h-max w-max flex flex-col items-center justify-center relative">
+
+            <div className="shadow flex items-center bg-white pl-4 p-1 absolute -top-28">
+                <label htmlFor="searchpokemon" className="text-black font-bold mr-3 " >Search: </label>
+                <form method="GET" onSubmit={ (event: React.FormEvent<HTMLFormElement>) => event.preventDefault() }>
+                <div className="relative text-gray-400 focus-within:text-black">
+                    <span className="absolute inset-y-0 left-0 flex items-center pl-2">
+                    {/* <button type="submit" className="p-1 focus:outline-none focus:shadow-outline"> */}
+                        <svg fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" className="w-6 h-6"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    {/* </button> */}
+                    </span>
+                    <input id="searchpokemon" type="search" name="q" className="py-2 text-sm pl-10 focus:outline-none text-gray-900" placeholder="Enter Pokemon Name..." autoComplete="off" onChange={handleSearch} />
+                </div>
+                </form>
+            </div>
 
             <div className="h-96 w-80 select-none" >
               <motion.div
@@ -179,32 +199,6 @@ const DeckOfCards:React.FC<DeckofCards> = ({data}) => {
               </div>
 
               <div className="flex absolute -bottom-16" >
-                {/* <motion.div
-                      className="mt-5 h-10 w-10 flex items-center justify-center cursor-pointer select-none"
-                      onClick={() => setExitX(-1000)}
-                      style={{
-                        borderRadius:"50%",
-                        padding: "10px"
-                      }}
-                      animate={{
-                        boxShadow: "0 0px 25px 1px rgba(0,0,0,.25)",
-                        scale: .95,
-                        y: 0,
-                        opacity: 1,
-                        
-                      }}
-                      whileTap={{ 
-                        scale: 0.9
-                      }}
-                      whileHover={{
-                        scale: 1.1
-                      }}
-                      transition={{
-                        rotate: { duration: 0.25 },
-                      }}
-                >
-                  <p className="h-5 w-5" >{"<"}</p>
-                </motion.div> */}
                 <motion.div
                       className="mt-10 h-10 w-10 flex items-center justify-center cursor-pointer select-none bg-white"
                       onClick={() => handleUndo()}
@@ -213,7 +207,7 @@ const DeckOfCards:React.FC<DeckofCards> = ({data}) => {
                         padding: "10px"
                       }}
                       animate={{
-                        boxShadow: "0 0px 25px 1px rgba(0,0,0,.25)",
+                        boxShadow: "0 5px 25px 1px rgba(0,0,0,.25)",
                         scale: .95,
                         y: 0,
                         opacity: 1,
@@ -233,32 +227,6 @@ const DeckOfCards:React.FC<DeckofCards> = ({data}) => {
                 >
                   <img src={undo} alt="undo icon" className="h-5 w-5" />
                 </motion.div>
-                {/* <motion.div
-                      className="mt-5 h-10 w-10 flex items-center justify-center cursor-pointer select-none"
-                      onClick={() => setExitX(1000)}
-                      style={{
-                        borderRadius:"50%",
-                        padding: "10px"
-                      }}
-                      animate={{
-                        boxShadow: "0 0px 25px 1px rgba(0,0,0,.25)",
-                        scale: .95,
-                        y: 0,
-                        opacity: 1,
-                        
-                      }}
-                      whileTap={{ 
-                        scale: 0.9
-                      }}
-                      whileHover={{
-                        scale: 1.1
-                      }}
-                      transition={{
-                        rotate: { duration: 0.25 },
-                      }}
-                >
-                  <p className="h-5 w-5" >{">"}</p>
-                </motion.div> */}
               </div>
 
       </div>

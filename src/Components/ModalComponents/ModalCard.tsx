@@ -19,17 +19,17 @@ const ModalCard: React.FC = () => {
 
     
     return (
-        <div className="h-max w-full flex flex-col items-center justify-evenly sm:flex-row" >
-            <div className="h-max w-max" >
+        <div className="h-max min-h-full w-full flex flex-col items-center justify-evenly bg-white p-4 shadow-lg lg:flex-row" >
+            <div className="h-max w-full" >
                 <CenterCard />
             </div>
-            <div className="h-max w-max" >
+            <div className="h-max w-full" >
                 {(pokemonData && pokemonSpeciesData)
                     ? <LeftCard speciesdata={pokemonSpeciesData} pokemondata={pokemonData} />
                     : <LeftCardLoader />
                 }
             </div>
-            <div className="h-max w-max" >
+            <div className="h-max w-full" >
                 {(pokemonData && pokemonSpeciesData)
                     ? <RightCard speciesdata={pokemonSpeciesData} pokemondata={pokemonData} />
                     : <RightCardLoader />

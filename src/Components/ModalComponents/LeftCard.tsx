@@ -10,9 +10,9 @@ import Case from 'case'
 const LeftCard: React.FC<ModalCardProps> = ({speciesdata, pokemondata}) => {
 
     return (
-        <div className="h-100 w-96 p-4 bg-white">
+        <div className="h-max  w-full p-4 bg-white">
             {(speciesdata && pokemondata) 
-                && <div className="h-full w-full flex flex-col items-center justify-between">
+                && <div className="min-h-0 h-max w-full flex flex-col items-center justify-between lg:min-h-100">
             <div className="w-full h-max" >
                 <p className="mr-auto text-xl font-bold" >Bio</p>
                 <div className="h-auto mt-4 leading-tight" >{Case.sentence(getFlavorSpeech(speciesdata, pokemondata))}</div>
@@ -47,7 +47,7 @@ const LeftCard: React.FC<ModalCardProps> = ({speciesdata, pokemondata}) => {
                 </div>
             </div>
       
-            <div className="w-full h-max" >
+            <div className="w-full h-max mt-8" >
             <p className="mr-auto text-xl font-bold" >Training</p>
                     <div className="flex flex-col w-full mt-4" >
                         <FlexBetween

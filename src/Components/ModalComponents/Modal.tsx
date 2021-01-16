@@ -12,10 +12,10 @@ const Modal: React.FC = () => {
         history.push("/")
     };
         return (
-            <div className="w-full h-max min-h-screen  top-0 left-0 bg-white z-100 flex items-center justify-center h-9/10">
-                <div className="h-10 w-10 fixed top-20 right-5 z-100 cursor-pointer transition duration-100 ease-in-out hover:opacity-50" onClick={handleCloseModal} >
+            <div className="w-full h-max min-h-9/10-screen relative z-100 flex flex-col items-center justify-center">
+                <div className="h-8 w-8 ml-auto mr-4 my-4 lg:mr-12 cursor-pointer transition duration-100 ease-in-out hover:opacity-50" onClick={handleCloseModal} >
                     <svg viewBox="0 0 40 40">
-                        <path stroke="#000000" strokeWidth={4} d="M 10,10 L 30,30 M 30,10 L 10,30" />
+                        <path stroke="#000000" strokeWidth={4} d="M 5,5 L 35,35 M 35,5 L 5,35" />
                     </svg>
                 </div>
                     <ModalCardWrapper />

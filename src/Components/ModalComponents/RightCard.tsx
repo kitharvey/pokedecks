@@ -6,14 +6,14 @@ import Evolution from './Evolution';
 
 const RightCard: React.FC<ModalCardProps> = ({speciesdata, pokemondata}) => {
         return (
-            <div className="h-100 w-96 p-4 bg-white">
+            <div className="h-max w-full p-4 bg-white">
                 {(speciesdata && pokemondata) && 
-                <div className="h-full w-full flex flex-col items-center justify-between">
+                <div className="min-h-0 h-max w-full flex flex-col items-center justify-between lg:min-h-100">
                     <div className="w-full" >
                         <p className="mr-auto text-xl font-bold" >Evolution</p>
                         <Evolution pokemonSpeciesData={speciesdata} />
                     </div>
-                    <div className="w-full">
+                    <div className="w-full mt-8">
                         <p className="mr-auto text-xl font-bold" >Stats</p>
                         <div className="grid grid-cols-3 gap-y-5 w-full mt-4" >
                                 <div className="flex flex-col items-center">

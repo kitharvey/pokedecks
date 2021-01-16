@@ -21,6 +21,6 @@
     "jsx": "react"
   },
   "include": [
-    "src"
-, "react-lazy-load-image-component.d.ts"  ],
+    "src",
+  ],
 }

@@ -2,12 +2,6 @@ module.exports = {
   purge: ['./src/**/*.js', './public/index.html'],
   darkMode: false, // or 'media' or 'class'
   theme: {
-    extend: {
-      height: {
-          '100' : '30rem',
-          '9/10': '90vh'
-        },
-    },
     boxShadow: {
       sm: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
       DEFAULT: '0 5px 25px 1px rgba(0,0,0,.25)',
@@ -23,13 +17,24 @@ module.exports = {
       sans: ['Poppins', 'sans-serif'],
     },
 
+    extend: {
+      height: {
+          '100' : '30rem',
+          '9/10': '90vh',
+          '1/10': '7.5vh',
+        },
+      minHeight: {
+        '9/10-screen': '92.5vh',
+        '100' : '30rem',
+      },
+      width: {
+        '88': '22rem',
+      }
+    },
+
   },
   variants: {
     extend: {},
     animation: ['hover'],
-  },
-  plugins: [
-    require('tailwindcss-textShadow')
-  ],
-  
+  },  
 }
