@@ -2,7 +2,7 @@
 
 #### A pokedex built with PokéAPI, React, TailwindCSS and TypeScript.
 
-[GIF Screenshot](https://github.com/kitharvey/poke-decks/tree/main/src/Assets/screen.gif)
+![GIF Screenshot](https://github.com/kitharvey/poke-decks/tree/main/src/Assets/screen.gif)
 
 
 ## Installation and Setup Instructions
@@ -24,13 +24,17 @@ yarn
 
 To Start Server:
 
-`npm start`  
+```sh 
+npm start
+```
 
 
 
 To Visit App:
 
-`localhost:3000`  
+```sh 
+localhost:3000
+```
 
 
 ## Built With
