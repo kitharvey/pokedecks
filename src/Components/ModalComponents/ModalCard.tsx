@@ -19,7 +19,7 @@ const ModalCard: React.FC = () => {
 
     
     return (
-        <div className="h-max min-h-full w-full flex flex-col items-center justify-evenly bg-white p-4 shadow-lg lg:flex-row" >
+        <div className="h-max min-h-full w-full flex flex-col items-center justify-evenly bg-white p-4 shadow lg:flex-row" >
             <div className="h-max w-full" >
                 <CenterCard />
             </div>

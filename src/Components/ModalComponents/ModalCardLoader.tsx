@@ -4,7 +4,7 @@ import React from 'react'
 
 export const LeftCardLoader: React.FC = () => {
     return(
-        <div className="h-100 w-96 p-4 flex flex-col bg-white">
+        <div className="h-100 w-full p-4 flex flex-col bg-white">
                 <div className="w-7 h-7 rounded bg-gray-500 animate-pulse mr-auto" />
                 <div className="w-full flex flex-col mt-4" >
                     <div className="h-16 w-full rounded-bl-none bg-gray-400 animate-pulse" />
@@ -67,7 +67,7 @@ export const LeftCardLoader: React.FC = () => {
 
 export const RightCardLoader: React.FC = () => {
         return (
-            <div className="h-100 w-96 p-4 flex flex-col items-center justify-between bg-white">
+            <div className="h-100 w-full p-4 flex flex-col items-center justify-between bg-white">
                 <div className="w-full">
                 <div className="w-20 h-7 rounded bg-gray-500 animate-pulse mr-auto" ></div>
                     <div className="flex justify-evenly w-full mt-4" >

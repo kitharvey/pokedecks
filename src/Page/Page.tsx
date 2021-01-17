@@ -37,9 +37,10 @@ export const AppContext = createContext(appCtxDefaultValue);
 const Page: React.FC = () => {
     const ActivePokemonID = localStorage.getItem('stateActivePokemonID');
     const ActiveColorTheme = localStorage.getItem('stateActiveColorTheme');
+    const isStateModal = localStorage.getItem('stateModal');
     const [stateSearch, setStateSearch] = useState<string>(appCtxDefaultValue.stateSearch);
     const [stateTop, setStateTop] = useState<NameURLInterface>(appCtxDefaultValue.stateTop)
-    const [stateModal, setStateModal] = useState<boolean>(appCtxDefaultValue.stateModal)
+    const [stateModal, setStateModal] = useState<boolean>(isStateModal === "true")
     const [stateActivePokemonID, setStateActivePokemonID] = useState<string>(ActivePokemonID ? ActivePokemonID : appCtxDefaultValue.stateActivePokemonID)
     const [stateActiveColorTheme, setStateActiveColorTheme] = useState<string>(ActiveColorTheme ? ActiveColorTheme : appCtxDefaultValue.stateActiveColorTheme)
     const [stateIndex, setStateIndex] = useState<number>(0)
@@ -60,7 +61,7 @@ const Page: React.FC = () => {
                 </nav>
                 <Switch>
                         <Route exact path="/">
-                            <motion.div
+                            {/* <motion.div
                                 key={0}
                                 initial={{ 
                                     opacity: 0,
@@ -78,11 +79,11 @@ const Page: React.FC = () => {
                                     duration: 0.5
                                     }
                                 }}
-                            >
+                            > */}
                                 <div className="relative min-h-9/10-screen h-max w-full flex items-center justify-evenly h-9/10">
                                     <DeckOfCards data={data} />
                                 </div>
-                            </motion.div>
+                            {/* </motion.div> */}
                         </Route>
                         <Route exact path={`/${stateActivePokemonID}`}>
                             <motion.div

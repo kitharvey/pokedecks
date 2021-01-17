@@ -36,7 +36,7 @@ const Evolution: React.FC<EvolutionProps> = ({pokemonSpeciesData}) => {
     }
 
     return (
-        <div className="flex justify-evenly w-full mt-4" >
+        <div className="flex flex-wrap justify-evenly w-full mt-4" >
         {(evolutionChain && !isFetching) ? evolutionChain.map( ({name, url}, index) => <div key={index} className="flex flex-col items-center" >
             <p className="text-xs" >#{getIDStringfromURL(url)}</p>
             <Link to={`/${getIDStringfromURL(url)}`} >
