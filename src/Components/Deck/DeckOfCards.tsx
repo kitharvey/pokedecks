@@ -92,11 +92,9 @@ const DeckOfCards:React.FC<DeckofCards> = ({data}) => {
                 <form method="GET" onSubmit={ (event: React.FormEvent<HTMLFormElement>) => event.preventDefault() }>
                 <div className="relative text-gray-400 focus-within:text-black">
                     <span className="absolute inset-y-0 left-0 flex items-center pl-2">
-                    {/* <button type="submit" className="p-1 focus:outline-none focus:shadow-outline"> */}
                         <svg fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" className="w-6 h-6"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                    {/* </button> */}
                     </span>
-                    <input id="searchpokemon" type="search" name="q" className="py-2 text-sm pl-10 focus:outline-none text-gray-900" placeholder="Enter Pokemon Name..." autoComplete="off" onChange={handleSearch} />
+                    <input id="searchpokemon" type="search" name="q" value={stateSearch} className="py-2 text-sm pl-10 focus:outline-none text-gray-900" placeholder="Enter Pokemon Name..." autoComplete="off" onChange={handleSearch} />
                 </div>
                 </form>
             </div>
@@ -137,11 +135,6 @@ const DeckOfCards:React.FC<DeckofCards> = ({data}) => {
                     length={length}
                     key={cardIndex + 1}
                     index={cardIndex + 1}
-                    // initial={{
-                    //   scale: 0,
-                    //   y: 0,
-                    //   opacity: 0,
-                    // }}
                     animate={{
                       scale: 0.9,
                       y: -40,
@@ -160,7 +153,7 @@ const DeckOfCards:React.FC<DeckofCards> = ({data}) => {
                     key={cardIndex}
                     initial={{
                       scale: 1,
-                      y: 100,
+                      y: 40,
                       opacity: 1,
                     }}
                     animate={{
@@ -170,14 +163,14 @@ const DeckOfCards:React.FC<DeckofCards> = ({data}) => {
                       opacity: 1,
                       
                     }}
-                    transition={{
+                    // transition={{
                       // type: "spring",
                       // stiffness: 100,
                       // damping: 30,
                       // opacity: {
                       //   duration: 0.1
                       // }
-                    }}
+                    // }}
                     // whileHover={{
                     //   scale: 1,
                     //   boxShadow: "0 15px 50px 1px rgba(0,0,0,.25)"
@@ -198,16 +191,16 @@ const DeckOfCards:React.FC<DeckofCards> = ({data}) => {
             {/* } */}
               </div>
 
-              <div className="flex absolute -bottom-16" >
+              <div className="flex absolute rounded-full shadow -bottom-32" >
                 <motion.div
-                      className="mt-10 h-10 w-10 flex items-center justify-center cursor-pointer select-none bg-white"
+                      className="h-10 w-10 flex items-center justify-center cursor-pointer select-none bg-white"
                       onClick={() => handleUndo()}
                       style={{
                         borderRadius:"50%",
                         padding: "10px"
                       }}
                       animate={{
-                        boxShadow: "0 5px 25px 1px rgba(0,0,0,.25)",
+                        // boxShadow: "0 5px 25px 1px rgba(0,0,0,.25)",
                         scale: .95,
                         y: 0,
                         opacity: 1,

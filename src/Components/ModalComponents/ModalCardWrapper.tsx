@@ -5,7 +5,7 @@ const ModalCardWrapper: React.FC = () => {
 
     return (
         
-            <div className="w-full h-max min-h-full p-4 lg:p-24" >
+            <div className="w-full h-max min-h-full py-4 px-4 lg:px-24" >
                 
                 <ModalCard />
             </div>
