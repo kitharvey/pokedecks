@@ -25,7 +25,7 @@ yarn
 To Start Server:
 
 ```sh 
-npm start
+yarn start
 ```
 
 
