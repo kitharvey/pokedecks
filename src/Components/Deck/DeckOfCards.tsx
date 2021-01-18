@@ -163,22 +163,8 @@ const DeckOfCards:React.FC<DeckofCards> = ({data}) => {
                       opacity: 1,
                       
                     }}
-                    // transition={{
-                      // type: "spring",
-                      // stiffness: 100,
-                      // damping: 30,
-                      // opacity: {
-                      //   duration: 0.1
-                      // }
-                    // }}
-                    // whileHover={{
-                    //   scale: 1,
-                    //   boxShadow: "0 15px 50px 1px rgba(0,0,0,.25)"
-                    // }}
                     whileTap={{ 
                       cursor: "grabbing",
-                      // scale: 1,
-                      // boxShadow: "0 15px 50px 1px rgba(0,0,0,.25)"
                     }}
 
                     exitX={exitX}
@@ -191,7 +177,7 @@ const DeckOfCards:React.FC<DeckofCards> = ({data}) => {
             {/* } */}
               </div>
 
-              <div className="flex absolute rounded-full shadow -bottom-32" >
+              <div className="flex absolute rounded-full shadow -bottom-24" >
                 <motion.div
                       className="h-10 w-10 flex items-center justify-center cursor-pointer select-none bg-white"
                       onClick={() => handleUndo()}
@@ -200,7 +186,6 @@ const DeckOfCards:React.FC<DeckofCards> = ({data}) => {
                         padding: "10px"
                       }}
                       animate={{
-                        // boxShadow: "0 5px 25px 1px rgba(0,0,0,.25)",
                         scale: .95,
                         y: 0,
                         opacity: 1,
