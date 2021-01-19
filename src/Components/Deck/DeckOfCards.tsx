@@ -87,14 +87,14 @@ const DeckOfCards:React.FC<DeckofCards> = ({data}) => {
   return (
       <div className="h-max w-max flex flex-col items-center justify-center relative">
 
-            <div className="shadow flex items-center bg-white pl-4 p-1 absolute -top-32">
+            <div className="shadow flex items-center bg-white pl-4 p-1 absolute -top-32 w-80">
                 <label htmlFor="searchpokemon" className="text-black font-bold mr-3 " >Search: </label>
                 <form method="GET" onSubmit={ (event: React.FormEvent<HTMLFormElement>) => event.preventDefault() }>
                 <div className="relative text-gray-400 focus-within:text-black">
                     <span className="absolute inset-y-0 left-0 flex items-center pl-2">
                         <svg fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" className="w-6 h-6"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                     </span>
-                    <input id="searchpokemon" type="search" name="q" value={stateSearch} className="py-2 text-sm pl-10 focus:outline-none text-gray-900" placeholder="Enter Pokemon Name..." autoComplete="off" onChange={handleSearch} />
+                    <input id="searchpokemon" type="search" name="q" value={stateSearch} className="py-2 text-sm pl-10 focus:outline-none text-gray-900 w-full" placeholder="Enter Pokemon Name..." autoComplete="off" onChange={handleSearch} />
                 </div>
                 </form>
             </div>
@@ -177,7 +177,7 @@ const DeckOfCards:React.FC<DeckofCards> = ({data}) => {
             {/* } */}
               </div>
 
-              <div className="flex absolute rounded-full shadow -bottom-24" >
+              <div className="flex absolute rounded-full shadow -bottom-16" >
                 <motion.div
                       className="h-10 w-10 flex items-center justify-center cursor-pointer select-none bg-white"
                       onClick={() => handleUndo()}

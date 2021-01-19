@@ -92,7 +92,7 @@ const ActualCard: React.FC<ActualCardInterface >  =  ({pokemondata}) => {
       </div>
       <div className="flex absolute bottom-12 right-1/2 transform translate-x-1/2 translate-y-1/4 " >
             {pokemondata.types.map( (type,index) => <img  src={getTypeIcon(type.type.name)[1]} 
-                                                          className="-m-0.5 w-10 rounded-full" 
+                                                          className="-m-0.5 w-10 h-10 rounded-full" 
                                                           key={index} 
                                                           draggable="false" 
                                                           onDragStart={ e => e.preventDefault()}  

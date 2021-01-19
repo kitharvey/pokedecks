@@ -64,10 +64,6 @@ const Evolution: React.FC<EvolutionProps> = ({pokemonSpeciesData}) => {
                     scale: 1,
                     boxShadow: "0 0px 0px 0px rgba(0,0,0,.25)",
                 }}
-                // transition={{
-                //     scale: { duration: 0.1 },
-                //     opacity: { duration: 0.1 },
-                // }}
             >
             <LazyImage
             
@@ -87,7 +83,7 @@ const Evolution: React.FC<EvolutionProps> = ({pokemonSpeciesData}) => {
 
             </div> )
 
-            : <div className="flex justify-evenly w-full" >
+            : <div className="flex justify-evenly flex-wrap w-full" >
                     <div className="flex flex-col items-center" >
                         <div className="w-10 h-3.5 rounded bg-gray-200 animate-pulses"/>
                         <div className="w-28 h-28 m-1 rounded-full bg-gray-400 animate-pulse" />
@@ -103,7 +99,6 @@ const Evolution: React.FC<EvolutionProps> = ({pokemonSpeciesData}) => {
                         <div className="w-28 h-28 m-1 rounded-full bg-gray-400 animate-pulse" />
                         <div className="w-10 h-3.5 rounded bg-gray-200 animate-pulses"/>
                     </div>
-                
                 </div>
         }
     </div>
