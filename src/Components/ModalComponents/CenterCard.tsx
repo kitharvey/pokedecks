@@ -1,14 +1,13 @@
-import React, {useContext} from 'react'
+import React from 'react'
 import Card from '../Deck/Card';
-import { AppContext } from '../../Page/Page';
-
+import { useParams } from "react-router-dom";
 
 
 const CenterCard: React.FC = () => {
-    const {stateActivePokemonID} = useContext(AppContext)
+    const { pokemon } = useParams()
         return (
                 <div className="h-100 w-full">
-                    <Card id={+stateActivePokemonID} />
+                    <Card id={+pokemon} />
                 </div>
         );
 }

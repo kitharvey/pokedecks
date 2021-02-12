@@ -11,3 +11,11 @@ export const fetchList = async () => {
   return shuffledData
 }
 
+export const fetchPokemonData = async (id: number) => {
+  const {data} = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`)
+  return data
+}
+export const fetchPokemonSpeciesData = async (id: number) => {
+  const {data} = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${id}`)
+  return data
+}

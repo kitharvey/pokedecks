@@ -11,7 +11,7 @@ const RightCard: React.FC<ModalCardProps> = ({speciesdata, pokemondata}) => {
                 <div className="min-h-0 h-max w-full flex flex-col items-center justify-between lg:min-h-100">
                     <div className="w-full" >
                         <p className="mr-auto text-xl font-bold" >Evolution</p>
-                        <Evolution pokemonSpeciesData={speciesdata} />
+                        <Evolution pokemonSpeciesData={speciesdata} pokemonData={pokemondata} />
                     </div>
                     <div className="w-full mt-8">
                         <p className="mr-auto text-xl font-bold" >Stats</p>

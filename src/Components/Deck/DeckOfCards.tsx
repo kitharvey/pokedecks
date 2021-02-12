@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext} from "react";
+import React, {useState, useEffect} from "react";
 import {
   motion,
   AnimatePresence,
@@ -7,20 +7,21 @@ import FramerCard from "./FramerCard";
 import { NameURLInterface } from "../../InterfacesProps/Interfaces";
 import undo from "../../Assets/undo.svg"
 import { wrap } from "popmotion";
-import { AppContext } from "../../Page/Page";
-import { getIDStringfromURL } from "../../Functions/GlobalFunctions";
 
-
-interface DeckofCards{
+interface DeckofCardsProps{
   data: NameURLInterface[] | undefined
+  stateIndex: number
+  setStateIndex: (stateIndex: number) => void
+  stateSearch: string
+  setStateSearch: (stateSearch: string) => void
 }
 
 
-const DeckOfCards:React.FC<DeckofCards> = ({data}) => {
-  const {stateSearch, stateActivePokemonID, setStateActivePokemonID, setStateActiveColorTheme, stateIndex, setStateIndex, setStateModal, setStateSearch} = useContext(AppContext)
+
+const DeckOfCards:React.FC<DeckofCardsProps> = ({data, stateIndex, setStateIndex, stateSearch, setStateSearch}) => {
   const [exitX, setExitX] = useState<number>(0);
   const [length, setLength] = useState<number>(0);
-  const [pokeArray, setPokeArray] = useState<NameURLInterface[] | null>(null)
+  const [pokeArray, setPokeArray] = useState<NameURLInterface[] | undefined>(data)
   const cardIndex = wrap(0, length + 1, stateIndex);
 
 
@@ -34,29 +35,10 @@ const DeckOfCards:React.FC<DeckofCards> = ({data}) => {
             setLength(newData.length)
     }
     return () => {
-      setPokeArray(null)
+      setPokeArray(data)
       setLength(0)
     }
   }, [data])
-
-  useEffect(() => {
-    if(pokeArray) {
-      if(cardIndex < pokeArray.length) {
-        if(getIDStringfromURL(pokeArray[cardIndex].url) !== stateActivePokemonID){
-          setStateActivePokemonID('0')
-          setStateActiveColorTheme('#eaeaea')
-        }
-        // else setState({...state, pokemonOnTop: pokeArray[cardIndex]})
-      }
-      // if(cardIndex >= pokeArray.length) {
-      //   // setState({...state, pokemonOnTop: appCtxDefaultValue.state.pokemonOnTop})
-      // }
-    }
-
-
-    
-  },[cardIndex, pokeArray, setStateActivePokemonID, setStateActiveColorTheme, stateActivePokemonID])
-
 
   const handleUndo = () => {
     return (stateIndex > 0) ? setStateIndex(stateIndex - 1) : setStateIndex(0)
@@ -72,14 +54,13 @@ const DeckOfCards:React.FC<DeckofCards> = ({data}) => {
     }
 
     return () => {
-      setPokeArray(null)
+      setPokeArray(data)
       setLength(0)
     }
   }, [stateSearch, data])
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setStateIndex(0)
-    setStateModal(false)
     setStateSearch(e.target.value.toLowerCase())
   }
 

@@ -1,15 +1,10 @@
-import React, {useContext} from 'react'
+import React from 'react'
 import ModalCardWrapper from './ModalCardWrapper';
-import { AppContext } from '../../Page/Page';
 import { useHistory } from "react-router-dom";
 
 const Modal: React.FC = () => {
-    const history = useHistory();
-    const {setStateModal} = useContext(AppContext)
-    
+    const history = useHistory();  
     const handleCloseModal = () => {
-        setStateModal(false)
-        localStorage.setItem('stateModal', 'false')
         history.push("/")
     };
         return (

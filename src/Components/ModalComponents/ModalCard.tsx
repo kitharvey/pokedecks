@@ -1,11 +1,11 @@
-import React, {useContext} from 'react'
+import React from 'react'
 import {LeftCardLoader, RightCardLoader} from "./ModalCardLoader"
-import { AppContext } from '../../Page/Page';
 import LeftCard from './LeftCard';
 import RightCard from './RightCard';
 import CenterCard from './CenterCard';
-import { useGetPokemonData, useGetPokemonSpeciesData } from '../../Fetch/useGetPokemonData';
-
+import { fetchPokemonData, fetchPokemonSpeciesData } from '../../Fetch/FetchData';
+import { useQuery } from 'react-query';
+import { useParams } from "react-router-dom";
 
 
 
@@ -13,9 +13,9 @@ import { useGetPokemonData, useGetPokemonSpeciesData } from '../../Fetch/useGetP
 
 
 const ModalCard: React.FC = () => {
-    const {stateActivePokemonID} = useContext(AppContext)
-    const pokemonData = useGetPokemonData(+stateActivePokemonID)
-    const pokemonSpeciesData = useGetPokemonSpeciesData(+stateActivePokemonID)
+    const { pokemon } = useParams()
+    const { data: dataP } = useQuery(['fetchPokemonData', pokemon], async() => await fetchPokemonData(pokemon))
+    const { data: dataS } = useQuery(['fetchPokemonSpeciesData', pokemon], async() => await fetchPokemonSpeciesData(pokemon))
 
     
     return (
@@ -24,14 +24,14 @@ const ModalCard: React.FC = () => {
                 <CenterCard />
             </div>
             <div className="h-max w-full" >
-                {(pokemonData && pokemonSpeciesData)
-                    ? <LeftCard speciesdata={pokemonSpeciesData} pokemondata={pokemonData} />
+                {(dataP && dataS)
+                    ? <LeftCard speciesdata={dataS} pokemondata={dataP} />
                     : <LeftCardLoader />
                 }
             </div>
             <div className="h-max w-full" >
-                {(pokemonData && pokemonSpeciesData)
-                    ? <RightCard speciesdata={pokemonSpeciesData} pokemondata={pokemonData} />
+                {(dataP && dataS)
+                    ? <RightCard speciesdata={dataS} pokemondata={dataP} />
                     : <RightCardLoader />
                 }
             </div>
