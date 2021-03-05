@@ -8,7 +8,7 @@ export async function getStaticPaths() {
     const items = await fetchList('pokemon')
   
     const paths = items.map((item) => ({
-      params: { pokemonID: +getIDStringfromURL(item.url) },
+      params: { id: getIDStringfromURL(item.url) },
     }))
   
     return { paths, fallback: false }
@@ -17,8 +17,8 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
 
-    const pokemonData = await fetchPokemonData(''+params.pokemonID)
-    const pokemonSpeciesData = await fetchPokemonSpeciesData(''+params.pokemonID)
+    const pokemonData = await fetchPokemonData(params.id)
+    const pokemonSpeciesData = await fetchPokemonSpeciesData(params.id)
 
     return { props: { pokemonData,  pokemonSpeciesData} }
 }
@@ -26,7 +26,6 @@ export async function getStaticProps({ params }) {
 
 const PokemonID = ({pokemonData,  pokemonSpeciesData}:  InferGetServerSidePropsType<typeof getStaticProps>) => {
 const router = useRouter()
-console.log(router)
     return (
         <div className="w-full h-max min-h-9/10-screen relative z-100 flex flex-col items-center justify-center">
                 <div className="h-8 w-8 ml-auto mr-4 my-4 lg:mr-24 cursor-pointer transition duration-100 ease-in-out hover:opacity-50" onClick={() => router.push('/')} >

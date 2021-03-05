@@ -21,9 +21,10 @@ const Evolution: React.FC<EvolutionProps> = ({pokemonSpeciesData, pokemonData}) 
 
     useEffect(() => {
         if(data) {
-            const evolutionData = extractEvolutionChain(data.data)
+            const evolutionData = extractEvolutionChain(data)
             setEvolutionChain(evolutionData)
         }
+        else setEvolutionChain(null)
 
         return (() => {
             setEvolutionChain(null)
@@ -59,7 +60,7 @@ const Evolution: React.FC<EvolutionProps> = ({pokemonSpeciesData, pokemonData}) 
                     scale: 1,
                     boxShadow: "0 0px 0px 0px rgba(0,0,0,.25)",
                 }}
-                onClick={() => router.push(`/${+getIDStringfromURL(url)}`)}
+                onClick={() => router.push(`/${getIDStringfromURL(url)}`)}
             >
             <LazyImage
             

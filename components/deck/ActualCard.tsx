@@ -12,7 +12,6 @@ import { LazyImage } from "react-lazy-images";
 const ActualCard: React.FC<ActualCardInterface >  =  ({pokemondata}) => {
     const sprite = getImageSourcefromID(pokemondata.id)
     const router = useRouter()
-    console.log(router.asPath)
     return (
       <div 
         className="h-full w-full p-4 flex flex-col justify-between bg-white relative addFilter "
