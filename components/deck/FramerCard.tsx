@@ -93,6 +93,7 @@ interface CardProps {
  
   
     function handleDragEnd(event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) {
+        console.log(event)
         if (info.offset.x < -maximumX) {
           if(setExitX) setExitX(-maximumX*5);
           if(setIndex) setIndex(index + 1);
