@@ -3,11 +3,12 @@ import {fetchList, fetchPokemonData, fetchPokemonSpeciesData} from '../fetch/Fet
 import { getIDStringfromURL } from '../functions/GlobalFunctions';
 import ModalCard from '../components/modal-components/ModalCard';
 import { useRouter } from 'next/dist/client/router';
+import { NameURLInterface } from '../InterfacesProps/Interfaces';
 
 export async function getStaticPaths() {
     const items = await fetchList('pokemon')
   
-    const paths = items.map((item) => ({
+    const paths = items.map((item: NameURLInterface) => ({
       params: { id: getIDStringfromURL(item.url) },
     }))
   
@@ -15,7 +16,14 @@ export async function getStaticPaths() {
   }
 
 
-export async function getStaticProps({ params }) {
+interface paramsProps{
+    params: {
+        id: string
+    }
+}
+
+
+export async function getStaticProps({params}: paramsProps)  {
 
     const pokemonData = await fetchPokemonData(params.id)
     const pokemonSpeciesData = await fetchPokemonSpeciesData(params.id)
