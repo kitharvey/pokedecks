@@ -2,7 +2,7 @@
 
 #### A pokedex built with PokéAPI, React, TailwindCSS and TypeScript.
 
-![GIF Screenshot](https://github.com/kitharvey/poke-decks/blob/main/src/Assets/screen.gif)
+![GIF Screenshot](./src/Assets/screen.gif)
 
 
 ## Installation and Setup Instructions
