@@ -8,6 +8,6 @@ body{
     height: 100vh;
     overflow-x: hidden;
     background-color: white;
-    background-image: url("./Assets/bg-types.png");
+    background-image: url("./assets/bg-types.png");
     background-repeat: repeat;
 }

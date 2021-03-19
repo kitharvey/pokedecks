@@ -1,13 +1,13 @@
 import React, {useState, useEffect} from 'react'
 import { LazyImage } from 'react-lazy-images'
-import { extractEvolutionChain, getIDStringfromURL, getImageSourceFromURL } from '../../Functions/GlobalFunctions'
+import { extractEvolutionChain, getIDStringfromURL, getImageSourceFromURL } from '../../functions/GlobalFunctions'
 import { GetPokemonDataInterface, GetPokemonSpeciesDataInterface, NameURLInterface } from '../../InterfacesProps/Interfaces'
-import egg from "../../Assets/pokemon-egg.png"
+import egg from "../../assets/pokemon-egg.png"
 import { useQuery } from 'react-query'
 import axios from 'axios'
 import { motion } from 'framer-motion'
 import { Link } from "react-router-dom";
-import { findColor } from '../../Functions/getTypeIconAndColor'
+import { findColor } from '../../functions/getTypeIconAndColor'
 
 interface EvolutionProps{
     pokemonSpeciesData: GetPokemonSpeciesDataInterface

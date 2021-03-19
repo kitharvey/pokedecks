@@ -1,18 +1,10 @@
 import React from 'react'
-import {fetchPokemonData} from '../../Fetch/FetchData';
+import {fetchPokemonData} from '../../fetch/FetchData';
 import { CardInterface } from '../../InterfacesProps/Interfaces';
 import 'react-lazy-load-image-component/src/effects/black-and-white.css';
 import CardLoader from './CardLoader';
 import { useQuery } from 'react-query';
 import ActualCard from './ActualCard';
-
-
-
-
-
-
-
-
 
 const Card: React.FC<CardInterface>  = ({id}) => {
   const {data, isFetching} = useQuery(['fetchPokemonData', id], async() => await fetchPokemonData(id))

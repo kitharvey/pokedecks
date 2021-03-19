@@ -1,5 +1,5 @@
 import React from 'react'
-import egg from "../../Assets/pokemon-egg.png"
+import egg from "../../assets/pokemon-egg.png"
 
 
 const CardLoader: React.FC = () => {

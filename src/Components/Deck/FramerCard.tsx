@@ -7,7 +7,7 @@ import {
 } from "framer-motion";
 import Card from "./Card";
 import { NameURLInterface } from "../../InterfacesProps/Interfaces";
-import logo from "../../Assets/colored-logo.png"
+import logo from "../../assets/colored-logo.png"
 
 interface CardProps {
     key?: number

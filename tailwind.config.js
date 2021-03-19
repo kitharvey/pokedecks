@@ -1,7 +1,19 @@
+const colors = require('tailwindcss/colors')
+
 module.exports = {
   purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
   darkMode: false, // or 'media' or 'class'
   theme: {
+    colors: {
+      transparent: 'transparent',
+      current: 'currentColor',
+      black: colors.black,
+      white: colors.white,
+      gray: colors.trueGray,
+      indigo: colors.indigo,
+      red: colors.rose,
+      yellow: colors.amber,
+    },
     boxShadow: {
       sm: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
       DEFAULT: '0 5px 25px 1px rgba(0,0,0,.25)',
@@ -21,7 +33,8 @@ module.exports = {
       height: {
           '100' : '30rem',
           '9/10': '90vh',
-          '1/10': '7.5vh',
+          '7.5-screen': '7.5vh',
+          '92.5-screen': '92.5vh',
         },
       minHeight: {
         '9/10-screen': '92.5vh',
@@ -36,5 +49,6 @@ module.exports = {
   variants: {
     extend: {},
     animation: ['hover'],
+    transform: ['hover', 'focus'],
   },  
 }

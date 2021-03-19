@@ -114,3 +114,17 @@ export interface CardInterface{
 export interface ActualCardInterface{
     pokemondata: GetPokemonDataInterface
 }
+
+export interface UserProps{
+    "favorites": [ Number ],
+    "_id": string,
+    "username": string,
+    "password": string,
+    "date": string,
+    "__v": number
+}
+
+export interface SignUpProps{
+    username: string,
+    password: string,
+}

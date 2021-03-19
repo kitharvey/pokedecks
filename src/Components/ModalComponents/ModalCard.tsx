@@ -3,7 +3,7 @@ import {LeftCardLoader, RightCardLoader} from "./ModalCardLoader"
 import LeftCard from './LeftCard';
 import RightCard from './RightCard';
 import CenterCard from './CenterCard';
-import { fetchPokemonData, fetchPokemonSpeciesData } from '../../Fetch/FetchData';
+import { fetchPokemonData, fetchPokemonSpeciesData } from '../../fetch/FetchData';
 import { useQuery } from 'react-query';
 import { useParams } from "react-router-dom";
 
@@ -19,7 +19,7 @@ const ModalCard: React.FC = () => {
 
     
     return (
-        <div className="h-max min-h-full w-full flex flex-col items-center justify-evenly bg-white p-4 shadow lg:flex-row" >
+        <div className="h-max min-h-full w-full rounded-md flex flex-col items-center justify-evenly bg-white p-4 shadow lg:flex-row" >
             <div className="h-max w-full" >
                 <CenterCard />
             </div>
