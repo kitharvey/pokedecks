@@ -8,6 +8,8 @@ import {
 import Card from "./Card";
 import { NameURLInterface } from "../../InterfacesProps/Interfaces";
 import logo from "../../assets/colored-logo.png"
+import { useAppDispatch } from "../../redux/hooks";
+import { setPokemonIndex } from "../../redux/pokemonSlice";
 
 interface CardProps {
     key?: number
@@ -18,7 +20,6 @@ interface CardProps {
     index: number
     drag?: boolean | "x" | "y"
     setExitX?: (x: number) => void
-    setIndex?: (x: number) => void
     pokeArray?: NameURLInterface[] | undefined | null
     length: number
     whileHover?: {
@@ -70,6 +71,7 @@ interface CardProps {
 
   
   const FramerCard: React.FC<CardProps> = (props) => {
+    const dispatch = useAppDispatch()
     const x = useMotionValue(0);
     const maximumX = 100
     const rotate = useTransform(x, [-maximumX, 0, maximumX], [-5, 0, 5], {
@@ -84,27 +86,22 @@ interface CardProps {
       index,
       drag,
       setExitX,
-      setIndex,
       pokeArray,
       length,
       whileHover,
       whileTap
     } = props
     
-
-    // useEffect(() => {
-    //   console.log(exitX)
-    // }, [exitX])
-  
+ 
   
     function handleDragEnd(event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) {
         if (info.offset.x < -maximumX) {
           if(setExitX) setExitX(-maximumX*5);
-          if(setIndex) setIndex(index + 1);
+          dispatch(setPokemonIndex(index + 1))
         }
         if (info.offset.x > maximumX) {
           if(setExitX) setExitX(maximumX*5);
-          if(setIndex) setIndex(index + 1);
+          dispatch(setPokemonIndex(index + 1))
         }
     }
 

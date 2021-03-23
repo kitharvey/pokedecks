@@ -116,15 +116,14 @@ export interface ActualCardInterface{
 }
 
 export interface UserProps{
-    "favorites": [ Number ],
-    "_id": string,
-    "username": string,
-    "password": string,
-    "date": string,
-    "__v": number
+    favorites: [ Number ],
+    _id: string,
+    uid: string,
+    displayName: string,
+    __v: number
 }
 
-export interface SignUpProps{
-    username: string,
-    password: string,
+export interface SignInProps{
+    uid: string,
+    displayName: string,
 }

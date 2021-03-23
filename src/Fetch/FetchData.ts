@@ -1,4 +1,4 @@
-import { NameURLInterface } from '../InterfacesProps/Interfaces';
+import { NameURLInterface, SignInProps } from '../InterfacesProps/Interfaces';
 import axios from 'axios'
 import { shuffle } from '../functions/GlobalFunctions';
 
@@ -20,7 +20,7 @@ export const fetchPokemonSpeciesData = async (id: number) => {
   const {data} = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${id}`)
   return data
 }
-export const signUp = async (body: any) => {
-  const {data} = await axios.post('http://localhost:5000/test/signup', body)
+export const signIn = async (body: SignInProps) => {
+  const {data} = await axios.post(`http://localhost:5000/test/signin`, body)
   return data
 }

@@ -1,34 +1,28 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
-import { signUp } from '../fetch/FetchData'
-import { SignUpProps, UserProps } from '../InterfacesProps/Interfaces'
-// import { RootState } from './store'
+import { signIn } from '../fetch/FetchData'
+import { SignInProps, UserProps } from '../InterfacesProps/Interfaces'
 
-// export const getProduct = createAsyncThunk<UserProps>(
-//   'user/login',
-//   async () => {
-//     return await getData('https://api-test.innoloft.com/product/6781/')
-//   }
-// )
-export const signup = createAsyncThunk(
-  'user/signup',
-  async (body: SignUpProps) => {
-      const userData = await signUp(body)
-    return userData as UserProps
-  }
-)
+export const signin = createAsyncThunk(
+    'user/signin',
+    async (body: SignInProps) => {
+          const userData = await signIn(body)
+          console.log(userData.user)
+          return userData.user
+    }
+  )
 
 interface initialStateProps{
-    item: UserProps | null
+    userData: UserProps | null,
     status: 'loading' | 'success' | 'failed'
 }
 
 const initialState: initialStateProps = {
-    item: null,
+    userData: null,
     status: 'loading',
 }
 
-const productSlice = createSlice({
-    name: 'product',
+const userSlice = createSlice({
+    name: 'user',
     initialState,
     reducers: {
         // updateTRL: (state ,action: PayloadAction<TRLProps>) => {
@@ -42,14 +36,14 @@ const productSlice = createSlice({
         // },
     },
     extraReducers: (builder) => {
-        builder.addCase(signup.pending, (state) => {
+        builder.addCase(signin.pending, (state) => {
             state.status = 'loading'
         })
-        builder.addCase(signup.rejected, (state) => {
+        builder.addCase(signin.rejected, (state) => {
             state.status = 'failed'
         })
-        builder.addCase(signup.fulfilled, (state, { payload })  => {
-            state.item = payload
+        builder.addCase(signin.fulfilled, (state, { payload })  => {
+            state.userData = payload
             state.status = 'success'
         })
       },
@@ -57,4 +51,4 @@ const productSlice = createSlice({
   
 
 // export const {updateTRL,updateCategories,updateBusinessModels} = productSlice.actions
-export default productSlice.reducer
+export default userSlice.reducer

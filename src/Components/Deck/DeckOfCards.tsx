@@ -7,61 +7,37 @@ import FramerCard from "./FramerCard";
 import { NameURLInterface } from "../../InterfacesProps/Interfaces";
 import {FaUndoAlt, FaSearch} from 'react-icons/fa'
 import { wrap } from "popmotion";
-
-interface DeckofCardsProps{
-  data: NameURLInterface[] | undefined
-  stateIndex: number
-  setStateIndex: (stateIndex: number) => void
-  stateSearch: string
-  setStateSearch: (stateSearch: string) => void
-}
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { setPokemonIndex, setPokemonListLength, setPokemonSearch } from "../../redux/pokemonSlice";
 
 
-
-const DeckOfCards:React.FC<DeckofCardsProps> = ({data, stateIndex, setStateIndex, stateSearch, setStateSearch}) => {
+const DeckOfCards:React.FC = () => {
+  const { pokemonList, pokemonIndex, pokemonSearch, pokemonListLength } = useAppSelector(state => state.pokemonlist)
+  const [pokeArray, setPokeArray] = useState<NameURLInterface[] | null>(pokemonList)
   const [exitX, setExitX] = useState<number>(0);
-  const [length, setLength] = useState<number>(0);
-  const [pokeArray, setPokeArray] = useState<NameURLInterface[] | undefined>(data)
-  const cardIndex = wrap(0, length + 1, stateIndex);
-
-
-
-  useEffect(() => {
-    let newData = null
-    
-    if(data) {
-            newData = data.slice(0, data.length)
-            setPokeArray(newData)
-            setLength(newData.length)
-    }
-    return () => {
-      setPokeArray(data)
-      setLength(0)
-    }
-  }, [data])
+  const cardIndex = wrap(0, pokemonListLength + 1, pokemonIndex);
+  const dispatch = useAppDispatch()
 
   const handleUndo = () => {
-    return (stateIndex > 0) ? setStateIndex(stateIndex - 1) : setStateIndex(0)
+    return (pokemonIndex > 0) ? dispatch(setPokemonIndex(pokemonIndex - 1)) : dispatch(setPokemonIndex(0))
   }
 
   useEffect(() => {
-    
-    
-    if(data) {
-            const filteredResult = data.filter( pokemon => pokemon.name.includes(stateSearch) )
+    if(pokemonList) {
+            const filteredResult = pokemonList.filter( pokemon => pokemon.name.includes(pokemonSearch) )
             setPokeArray(filteredResult)
-            setLength(filteredResult.length)
+            dispatch(setPokemonListLength(filteredResult.length))
     }
 
     return () => {
-      setPokeArray(data)
-      setLength(0)
+      setPokeArray(pokemonList)
+      dispatch(setPokemonListLength(0))
     }
-  }, [stateSearch, data])
+  }, [pokemonSearch, pokemonList, dispatch])
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setStateIndex(0)
-    setStateSearch(e.target.value.toLowerCase())
+    dispatch(setPokemonSearch(e.target.value.toLowerCase()))
+    dispatch(setPokemonIndex(0))
   }
 
 
@@ -75,7 +51,7 @@ const DeckOfCards:React.FC<DeckofCardsProps> = ({data, stateIndex, setStateIndex
                     <span className="absolute inset-y-0 left-0 flex items-center pl-2">
                         <FaSearch/>
                     </span>
-                    <input id="searchpokemon" type="search" name="q" value={stateSearch} className="py-2 text-sm pl-10 focus:outline-none text-gray-900 w-full" placeholder="Enter Pokemon Name..." autoComplete="off" onChange={handleSearch} />
+                    <input id="searchpokemon" type="search" name="q" value={pokemonSearch} className="py-2 text-sm pl-10 focus:outline-none text-gray-900 w-full" placeholder="Enter Pokemon Name..." autoComplete="off" onChange={handleSearch} />
                 </div>
                 </form>
             </div>
@@ -89,10 +65,10 @@ const DeckOfCards:React.FC<DeckofCardsProps> = ({data, stateIndex, setStateIndex
                 }}
               >
                 <AnimatePresence initial={false}>
-                {length >= 3 &&
+                {pokemonListLength >= 3 &&
                   <FramerCard
                     pokeArray={pokeArray}
-                    length={length}
+                    length={pokemonListLength}
                     key={cardIndex + 2}
                     index={cardIndex + 2}
                     initial={{
@@ -110,10 +86,10 @@ const DeckOfCards:React.FC<DeckofCardsProps> = ({data, stateIndex, setStateIndex
                       scale: { duration: 0.5 },
                     }}
                   />}
-                {length >= 2 &&
+                {pokemonListLength >= 2 &&
                   <FramerCard
                     pokeArray={pokeArray}
-                    length={length}
+                    length={pokemonListLength}
                     key={cardIndex + 1}
                     index={cardIndex + 1}
                     animate={{
@@ -126,10 +102,10 @@ const DeckOfCards:React.FC<DeckofCardsProps> = ({data, stateIndex, setStateIndex
                       scale: { duration: 0.5 },
                     }}
                   />}
-                  {length >= 1 &&
+                  {pokemonListLength >= 1 &&
                   <FramerCard
                     pokeArray={pokeArray}
-                    length={length}
+                    length={pokemonListLength}
                     index={cardIndex}
                     key={cardIndex}
                     initial={{
@@ -154,7 +130,6 @@ const DeckOfCards:React.FC<DeckofCardsProps> = ({data, stateIndex, setStateIndex
 
                     exitX={exitX}
                     setExitX={setExitX}
-                    setIndex={setStateIndex}
                     drag="x"
                   />}
                 </AnimatePresence>

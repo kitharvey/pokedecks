@@ -1,22 +1,36 @@
-import React, {useState} from 'react'
-import DeckOfCards from '../components/Deck/DeckOfCards'
+import React, { useEffect } from 'react'
 import Modal from '../components/ModalComponents/Modal';
 import {
     HashRouter as Router,
     Switch,
     Route,
+    Redirect,
   } from "react-router-dom";
-import { fetchList } from '../fetch/FetchData';
-import { useQuery } from 'react-query';
-import Login from '../components/Login/Login';
-import SignUp from '../components/Login/SignUp';
 import LandingPage from './LandingPage';
-import {FaGithub} from 'react-icons/fa'
+import User from '../components/User/User';
+import FirebaseAuth from '../components/Login/FirebaseAuth';
+import { useAppDispatch, useAppSelector } from '../redux/hooks';
+import PokemonsPage from './PokemonsPage';
+import { auth } from '../firebase';
+import { signin } from '../redux/userSlice';
+import { fetchPokemonList } from '../redux/pokemonSlice';
   
 const Page: React.FC = () => {
-    const { data } = useQuery('fetchList', fetchList)
-    const [stateIndex, setStateIndex] = useState<number>(0);
-    const [stateSearch, setStateSearch] = useState<string>('');
+    const dispatch = useAppDispatch()
+    const {userData} = useAppSelector(state => state.user)
+    useEffect(() => {
+
+        const unsubscribe = auth.onAuthStateChanged(user => {
+            if(user && user.displayName) {
+                dispatch(signin({
+                    uid: user.uid,
+                    displayName: user.displayName,
+                }))
+                dispatch(fetchPokemonList())
+            }
+        })
+        return unsubscribe
+      }, [dispatch])
 
         return (
             <Router>
@@ -26,19 +40,28 @@ const Page: React.FC = () => {
                 <div className="relative h-92.5-screen w-full flex items-center justify-evenly">
                     <Switch>
                             <Route exact path="/pokemons">
-                                    <DeckOfCards data={data} stateIndex={stateIndex} setStateIndex={setStateIndex} stateSearch={stateSearch} setStateSearch={setStateSearch} />
+                                {userData 
+                                    ?  <PokemonsPage /> 
+                                    : <Redirect to='/' /> 
+                                } 
                             </Route>
                             <Route exact path='/pokemons/:pokemon'>
-                                    <Modal />
-                            </Route>
-                            <Route exact path='/login' >
-                                <Login/>
-                            </Route>
-                            <Route exact path='/signup'>
-                                <SignUp/>
+                                {userData 
+                                    ?  <Modal />
+                                    : <Redirect to='/' /> 
+                                } 
                             </Route>
                             <Route exact path='/'>
                                 <LandingPage/>
+                            </Route>
+                            <Route exact path='/auth'>
+                                <FirebaseAuth/>
+                            </Route>
+                            <Route exact path='/:user'>
+                                {userData 
+                                    ? <User/>
+                                    : <Redirect to='/' /> 
+                                } 
                             </Route>
                     </Switch>
                 </div>
