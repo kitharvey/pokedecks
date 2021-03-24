@@ -12,7 +12,7 @@ Installation:
 1. Clone the repo
 
 ```sh
-git clone https://github.com/kitharvey/poke-decks.git
+git clone https://github.com/kitharvey/pokedecks.git
 
 ```
 2. Install NPM packages
