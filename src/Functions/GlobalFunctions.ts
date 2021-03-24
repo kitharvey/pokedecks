@@ -51,7 +51,7 @@ export const getFlavorSpeech = (pokemonSpeciesData: GetPokemonSpeciesDataInterfa
     return text
 }
 
-export const shuffle = (array: []) => {
+export const shuffle = (array: any[]) => {
     let m = array.length, t, i;
   
     while (m) {
@@ -63,3 +63,8 @@ export const shuffle = (array: []) => {
   
     return array;
   }
+
+
+export const getrandomIndex = (max: number, min: number) => {
+  return Math.floor(Math.random() * (max - min) + min)
+}

@@ -1,11 +1,9 @@
 import React from 'react'
 import ModalCardWrapper from './ModalCardWrapper';
 import {RiCloseCircleFill} from 'react-icons/ri'
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { useAppDispatch } from '../../redux/hooks';
 import { setModalShow } from '../../redux/modalSlice';
-import { Redirect } from 'react-router-dom'
 const Modal: React.FC = () => {
-    const {userData} = useAppSelector( state => state.user )
     const dispatch = useAppDispatch()
     const handleCloseModal = () => {
         dispatch(setModalShow(false))
@@ -16,7 +14,6 @@ const Modal: React.FC = () => {
                     <RiCloseCircleFill />
                 </div>
                 <ModalCardWrapper />
-                {!userData && <Redirect to='/signin' /> }
             </div>
         );
     }

@@ -2,11 +2,13 @@ import { configureStore } from '@reduxjs/toolkit'
 import pokemonlistReducer from './pokemonSlice'
 import userReducer from './userSlice'
 import modalReducer from './modalSlice'
+import leaderboardReducer from './leaderboardSlice'
 const store =  configureStore({
     reducer: {
         user: userReducer,
         pokemonlist: pokemonlistReducer,
         modal: modalReducer,
+        leaderboard: leaderboardReducer,
     },
   })
 

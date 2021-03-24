@@ -13,6 +13,7 @@ module.exports = {
       indigo: colors.indigo,
       red: colors.rose,
       yellow: colors.amber,
+      green: colors.green,
     },
     boxShadow: {
       sm: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
@@ -47,7 +48,6 @@ module.exports = {
 
   },
   variants: {
-    extend: {},
     animation: ['hover'],
     transform: ['hover', 'focus'],
   },  

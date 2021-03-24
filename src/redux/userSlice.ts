@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
-import { signIn, patchFavorites } from '../fetch/FetchData'
+import { signIn, patchFavorites, patchScore } from '../fetch/FetchData'
 import { SignInProps, UserProps } from '../InterfacesProps/Interfaces'
-// import { RootState } from './store'
 
 export const signin = createAsyncThunk(
     'user/signin',
@@ -42,6 +41,15 @@ const userSlice = createSlice({
                     patchFavorites(tempFav, state.userData._id)
                     state.userData.favorites = tempFav
                 } 
+            }
+        },
+        updateScore: (state, action: PayloadAction<number>) => {
+            const newScore = action.payload
+            if(state.userData) {
+                if(state.userData.score < newScore) {
+                    state.userData.score = newScore
+                    patchScore(newScore, state.userData._id)
+                }
             }
         },
         signout: (state) => {

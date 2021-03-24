@@ -122,6 +122,7 @@ export interface UserProps{
     _id: string
     uid: string
     displayName: string
+    score: number
     __v: number
 }
 

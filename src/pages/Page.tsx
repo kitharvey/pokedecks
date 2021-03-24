@@ -16,6 +16,8 @@ import { signout } from '../redux/userSlice';
 import DeckOfCards from '../components/Deck/DeckOfCards';
 import Nav from '../components/Nav/Nav';
 import FirebaseAuth from '../components/Login/FirebaseAuth';
+import GameWrapper from '../components/Game/GameWrapper';
+import LeaderBoard from '../components/Game/LeaderBoard';
   
 const Page: React.FC = () => {
     const dispatch = useAppDispatch()
@@ -43,9 +45,21 @@ const Page: React.FC = () => {
                 <Nav />
                 <div className="relative h-92.5-screen w-full flex items-center justify-evenly">
                     <Switch>
-                            <Route exact path="/pokemons">
+                            <Route exact path="/browse">
                                 {userData 
                                     ?  <DeckOfCards /> 
+                                    : <Redirect to='/signin' /> 
+                                } 
+                            </Route>
+                            <Route exact path="/leaderboard">
+                                {userData 
+                                    ?  <LeaderBoard /> 
+                                    : <Redirect to='/signin' /> 
+                                } 
+                            </Route>
+                            <Route exact path="/game">
+                                {userData 
+                                    ?  <GameWrapper /> 
                                     : <Redirect to='/signin' /> 
                                 } 
                             </Route>

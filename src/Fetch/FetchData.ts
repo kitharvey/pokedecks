@@ -21,10 +21,18 @@ export const fetchPokemonSpeciesData = async (id: number) => {
   return data
 }
 export const signIn = async (body: SignInProps) => {
-  const {data} = await axios.post(`http://localhost:5000/test/signin`, body)
+  const {data} = await axios.post(`${process.env.REACT_APP_BACKEND_API}/api/signin`, body)
   return data
 }
 export const patchFavorites = async (favorites: number[], id: string) => {
-  const {data} = await axios.patch(`http://localhost:5000/test/${id}`, {favorites})
+  const {data} = await axios.patch(`${process.env.REACT_APP_BACKEND_API}/api/favorites/${id}`, {favorites})
+  return data
+}
+export const patchScore = async (score: number, id: string) => {
+  const {data} = await axios.patch(`${process.env.REACT_APP_BACKEND_API}/api/score/${id}`, {score})
+  return data
+}
+export const fetchUsersList = async () => {
+  const {data} = await axios.get(`${process.env.REACT_APP_BACKEND_API}/api/users`)
   return data
 }
