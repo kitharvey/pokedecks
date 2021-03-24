@@ -19,7 +19,8 @@ const DeckOfCards:React.FC = () => {
   const dispatch = useAppDispatch()
 
   const handleUndo = () => {
-    return (pokemonIndex > 0) ? dispatch(setPokemonIndex(pokemonIndex - 1)) : dispatch(setPokemonIndex(0))
+    setExitX(0)
+    pokemonIndex > 0 ? dispatch(setPokemonIndex(pokemonIndex - 1)) : dispatch(setPokemonIndex(0))
   }
 
   useEffect(() => {
@@ -32,12 +33,14 @@ const DeckOfCards:React.FC = () => {
     return () => {
       setPokeArray(pokemonList)
       dispatch(setPokemonListLength(0))
+      setExitX(0)
     }
   }, [pokemonSearch, pokemonList, dispatch])
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setPokemonSearch(e.target.value.toLowerCase()))
     dispatch(setPokemonIndex(0))
+    setExitX(0)
   }
 
 

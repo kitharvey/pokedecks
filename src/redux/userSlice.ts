@@ -1,39 +1,53 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
-import { signIn } from '../fetch/FetchData'
+import { signIn, patchFavorites } from '../fetch/FetchData'
 import { SignInProps, UserProps } from '../InterfacesProps/Interfaces'
+// import { RootState } from './store'
 
 export const signin = createAsyncThunk(
     'user/signin',
     async (body: SignInProps) => {
           const userData = await signIn(body)
-          console.log(userData.user)
           return userData.user
     }
   )
 
+
 interface initialStateProps{
     userData: UserProps | null,
-    status: 'loading' | 'success' | 'failed'
+    status: 'loading' | 'success' | 'failed' | null
 }
 
 const initialState: initialStateProps = {
     userData: null,
-    status: 'loading',
+    status: null,
 }
+
 
 const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
-        // updateTRL: (state ,action: PayloadAction<TRLProps>) => {
-        //     if(state.item) state.item.trl = action.payload
-        // },
-        // updateCategories: (state ,action: PayloadAction<IDName[]>) => {
-        //     if(state.item) state.item.categories = action.payload
-        // },
-        // updateBusinessModels: (state ,action: PayloadAction<IDName[]>) => {
-        //     if(state.item) state.item.businessModels = action.payload
-        // },
+        updateFavorites: (state, action: PayloadAction<number>) => {
+            const id = action.payload
+            if(state.userData) {
+                let tempFav = state.userData.favorites.slice()
+                if(tempFav.includes(id)) {
+                    const index = tempFav.indexOf(id)
+                    tempFav.splice(index, 1)
+                    patchFavorites(tempFav, state.userData._id)
+                    state.userData.favorites = tempFav
+                }
+                else {
+                    tempFav.push(id)
+                    patchFavorites(tempFav, state.userData._id)
+                    state.userData.favorites = tempFav
+                } 
+            }
+        },
+        signout: (state) => {
+            state.userData = null
+            state.status = null
+        }
     },
     extraReducers: (builder) => {
         builder.addCase(signin.pending, (state) => {
@@ -50,5 +64,5 @@ const userSlice = createSlice({
   })
   
 
-// export const {updateTRL,updateCategories,updateBusinessModels} = productSlice.actions
+export const {updateFavorites, signout} = userSlice.actions
 export default userSlice.reducer

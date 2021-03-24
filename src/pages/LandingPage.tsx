@@ -1,12 +1,7 @@
 import React from 'react'
-
-interface LandingPageProps {
-
-}
-
-const LandingPage: React.FC<LandingPageProps> = ({}) => {
+const LandingPage: React.FC = () => {
         return (
-            <div className='w-full h-full bg-white' > 
+            <div> 
                 <h1>Landing Page</h1>
             </div>
         );

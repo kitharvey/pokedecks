@@ -5,7 +5,7 @@ import RightCard from './RightCard';
 import CenterCard from './CenterCard';
 import { fetchPokemonData, fetchPokemonSpeciesData } from '../../fetch/FetchData';
 import { useQuery } from 'react-query';
-import { useParams } from "react-router-dom";
+import { useAppSelector } from '../../redux/hooks';
 
 
 
@@ -13,15 +13,15 @@ import { useParams } from "react-router-dom";
 
 
 const ModalCard: React.FC = () => {
-    const { pokemon } = useParams()
-    const { data: dataP } = useQuery(['fetchPokemonData', pokemon], async() => await fetchPokemonData(pokemon))
-    const { data: dataS } = useQuery(['fetchPokemonSpeciesData', pokemon], async() => await fetchPokemonSpeciesData(pokemon))
+    const {modalIndex} = useAppSelector( state => state.modal )
+    const { data: dataP } = useQuery(['fetchPokemonData', modalIndex], async() => await fetchPokemonData(modalIndex))
+    const { data: dataS } = useQuery(['fetchPokemonSpeciesData', modalIndex], async() => await fetchPokemonSpeciesData(modalIndex))
 
     
     return (
         <div className="h-max min-h-full w-full rounded-md flex flex-col items-center justify-evenly bg-white p-4 shadow lg:flex-row" >
             <div className="h-max w-full" >
-                <CenterCard />
+                <CenterCard pokemon={modalIndex} />
             </div>
             <div className="h-max w-full" >
                 {(dataP && dataS)

@@ -6,7 +6,6 @@ export const fetchPokemonList = createAsyncThunk(
     'pokemon/fetchPokemonList',
     async () => {
           const data = await fetchList()
-          console.log(data)
           return data as NameURLInterface[]
     }
   )

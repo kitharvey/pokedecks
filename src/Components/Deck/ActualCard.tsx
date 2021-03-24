@@ -1,22 +1,32 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { ActualCardInterface } from "../../InterfacesProps/Interfaces"
 import {getTypeIcon, findColor} from '../../functions/getTypeIconAndColor';
 import egg from "../../assets/pokemon-egg.png"
 import { getImageSourcefromID, getIDStringfromID } from '../../functions/GlobalFunctions';
 import { LazyImage } from "react-lazy-images";
-import { Link, useParams } from "react-router-dom";
 import {FaInfoCircle} from 'react-icons/fa'
 import {FaHeart, FaRegHeart} from 'react-icons/fa'
 import ClickableIcons from './ClickableIcons';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { updateFavorites } from '../../redux/userSlice';
+import { setModalIndex, setModalShow } from '../../redux/modalSlice';
 
 
 
 
 
 const ActualCard: React.FC<ActualCardInterface >  =  ({pokemondata}) => {
+    const dispatch = useAppDispatch()
+    const {userData} = useAppSelector(state => state.user)
+    const {modalShow} = useAppSelector(state => state.modal)
     const sprite = getImageSourcefromID(pokemondata.id)
-    const {pokemon} = useParams()
-    const [isFav, setIsFav] = useState(false)
+    const handleFavToggle = () => {
+      dispatch(updateFavorites(pokemondata.id))
+    }
+    const handleModal = () => {
+      dispatch(setModalIndex(pokemondata.id))
+      dispatch(setModalShow(true))
+    }
     return (
       <div 
         className="h-full w-full rounded-md p-4 flex flex-col justify-between bg-white relative addFilter"
@@ -28,21 +38,19 @@ const ActualCard: React.FC<ActualCardInterface >  =  ({pokemondata}) => {
           }} 
           >
             <div className="absolute left-2 top-2" >
-            {!pokemon && 
-              <div onClick={() => setIsFav(!isFav)} >
-                {isFav 
+              <div onClick={handleFavToggle} >
+                {(userData && userData.favorites.includes(pokemondata.id)) 
                   ? <ClickableIcons icon={<FaHeart/>} text="Remove from favorites" color='red-500' colorHover='red-500' />
                   : <ClickableIcons icon={<FaRegHeart/>} text="Add to favorites" color='white' colorHover='red-500' />
                   }
               </div>
-              }
             </div>
           <p className="absolute top-5 right-1/2 transform translate-x-1/2 text-black text-opacity-25 font-bold text-5xl tracking-widest leading-none" >#{getIDStringfromID(pokemondata.id)}</p>
           <div className="absolute right-2 top-2 ">
-            {!pokemon && 
-            <Link to={`/pokemons/${pokemondata.id}`} >
+            {!modalShow && 
+            <div onClick={handleModal}>
               <ClickableIcons icon={<FaInfoCircle/>} text="View more info" color='white' colorHover='gray-200' />
-            </Link>
+            </div>
             }
           </div>
           <div className="w-52 h-52 absolute left-1/2 bottom-1/2 transform -translate-x-1/2 translate-y-1/2"  >

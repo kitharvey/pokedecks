@@ -1,13 +1,11 @@
 import React from 'react'
 import Card from '../Deck/Card';
-import { useParams } from "react-router-dom";
 
 
-const CenterCard: React.FC = () => {
-    const { pokemon } = useParams()
+const CenterCard: React.FC<{pokemon: number}> = ({pokemon}) => {
         return (
                 <div className="h-100 w-full">
-                    <Card id={+pokemon} />
+                    <Card id={pokemon} />
                 </div>
         );
 }

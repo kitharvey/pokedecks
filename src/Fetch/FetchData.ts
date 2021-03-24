@@ -24,3 +24,7 @@ export const signIn = async (body: SignInProps) => {
   const {data} = await axios.post(`http://localhost:5000/test/signin`, body)
   return data
 }
+export const patchFavorites = async (favorites: number[], id: string) => {
+  const {data} = await axios.patch(`http://localhost:5000/test/${id}`, {favorites})
+  return data
+}

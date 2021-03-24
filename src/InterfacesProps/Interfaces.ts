@@ -8,6 +8,7 @@ interface Abilities{
     is_hidden: boolean
 }
 interface Types{
+    slot: number
     type: NameURLInterface
 }
 interface Stats{
@@ -115,15 +116,21 @@ export interface ActualCardInterface{
     pokemondata: GetPokemonDataInterface
 }
 
+
 export interface UserProps{
-    favorites: [ Number ],
-    _id: string,
-    uid: string,
-    displayName: string,
+    favorites: number[]
+    _id: string
+    uid: string
+    displayName: string
     __v: number
 }
 
 export interface SignInProps{
-    uid: string,
-    displayName: string,
+    uid: string
+    displayName: string
+}
+
+export interface UpdateFavoritesProps{
+    id: number
+    name: string
 }

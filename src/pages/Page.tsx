@@ -8,62 +8,62 @@ import {
   } from "react-router-dom";
 import LandingPage from './LandingPage';
 import User from '../components/User/User';
-import FirebaseAuth from '../components/Login/FirebaseAuth';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
-import PokemonsPage from './PokemonsPage';
 import { auth } from '../firebase';
 import { signin } from '../redux/userSlice';
 import { fetchPokemonList } from '../redux/pokemonSlice';
+import { signout } from '../redux/userSlice';
+import DeckOfCards from '../components/Deck/DeckOfCards';
+import Nav from '../components/Nav/Nav';
+import FirebaseAuth from '../components/Login/FirebaseAuth';
   
 const Page: React.FC = () => {
     const dispatch = useAppDispatch()
     const {userData} = useAppSelector(state => state.user)
+    const {modalShow} = useAppSelector(state => state.modal)
     useEffect(() => {
-
         const unsubscribe = auth.onAuthStateChanged(user => {
-            if(user && user.displayName) {
-                dispatch(signin({
-                    uid: user.uid,
-                    displayName: user.displayName,
-                }))
+            if(user) {
+                if(user.displayName) {
+                    dispatch(signin({
+                        uid: user.uid,
+                        displayName: user.displayName,
+                    }))
+                }
                 dispatch(fetchPokemonList())
+
             }
+            else dispatch(signout())
         })
         return unsubscribe
       }, [dispatch])
 
         return (
             <Router>
-                <nav className="p-3 w-full h-7.5-screen flex items-center justify-between z-10 bg-white shadow-lg">
-                    <h1 className="text-4xl font-bold text-black mr-2" >Pokédecks</h1>
-                </nav>
+                <Nav />
                 <div className="relative h-92.5-screen w-full flex items-center justify-evenly">
                     <Switch>
                             <Route exact path="/pokemons">
                                 {userData 
-                                    ?  <PokemonsPage /> 
-                                    : <Redirect to='/' /> 
+                                    ?  <DeckOfCards /> 
+                                    : <Redirect to='/signin' /> 
                                 } 
                             </Route>
-                            <Route exact path='/pokemons/:pokemon'>
-                                {userData 
-                                    ?  <Modal />
-                                    : <Redirect to='/' /> 
-                                } 
-                            </Route>
-                            <Route exact path='/'>
+                               <Route exact path='/'>
                                 <LandingPage/>
                             </Route>
-                            <Route exact path='/auth'>
+                            <Route exact path='/signin'>
                                 <FirebaseAuth/>
                             </Route>
-                            <Route exact path='/:user'>
+                            <Route exact path='/user/:userid'>
                                 {userData 
                                     ? <User/>
-                                    : <Redirect to='/' /> 
+                                    : <Redirect to='/signin' /> 
                                 } 
                             </Route>
                     </Switch>
+
+                    {modalShow && <Modal />}
                 </div>
             </Router>
         )

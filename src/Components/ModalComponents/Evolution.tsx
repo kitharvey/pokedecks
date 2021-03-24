@@ -6,8 +6,9 @@ import egg from "../../assets/pokemon-egg.png"
 import { useQuery } from 'react-query'
 import axios from 'axios'
 import { motion } from 'framer-motion'
-import { Link } from "react-router-dom";
 import { findColor } from '../../functions/getTypeIconAndColor'
+import { useAppDispatch } from '../../redux/hooks'
+import { setModalIndex, setModalShow } from '../../redux/modalSlice'
 
 interface EvolutionProps{
     pokemonSpeciesData: GetPokemonSpeciesDataInterface
@@ -18,7 +19,7 @@ interface EvolutionProps{
 const Evolution: React.FC<EvolutionProps> = ({pokemonSpeciesData, pokemonData}) => {
     const { data, isFetching } = useQuery('fetchEvolutionData', async() => await axios.get(`${pokemonSpeciesData.evolution_chain.url}`))
     const [evolutionChain, setEvolutionChain] = useState<NameURLInterface[] | null>(null)
-
+    const dispatch = useAppDispatch()
     useEffect(() => {
         if(data) {
             const evolutionData = extractEvolutionChain(data.data)
@@ -31,12 +32,17 @@ const Evolution: React.FC<EvolutionProps> = ({pokemonSpeciesData, pokemonData}) 
         )
     },[data])
 
+    const handleModal = (id: number) => {
+        dispatch(setModalIndex(id))
+        dispatch(setModalShow(true))
+      }
+
 
     return (
         <div className="flex flex-wrap justify-evenly w-full mt-4" >
         {(evolutionChain && !isFetching) ? evolutionChain.map( ({name, url}, index) => <div key={index} className="flex flex-col items-center" >
             <p className="text-xs" >#{getIDStringfromURL(url)}</p>
-            <Link to={`/${+getIDStringfromURL(url)}`} >
+            <div onClick={() => handleModal(+getIDStringfromURL(url))} >
             <motion.div className="w-28 h-28 rounded-full p-4 m-2 cursor-pointer"
                 style={{
                     background: `linear-gradient(0deg, ${findColor(pokemonData.types[0].type.name)[1] + "10"} 0%, ${findColor(pokemonData.types[0].type.name)[1]} 80%)`
@@ -74,7 +80,7 @@ const Evolution: React.FC<EvolutionProps> = ({pokemonSpeciesData, pokemonData}) 
                   )}
             />
             </motion.div>
-            </Link>
+            </div>
             <p className="text-xs capitalize" >{name}</p>
 
             </div> )
