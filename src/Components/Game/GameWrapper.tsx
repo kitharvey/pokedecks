@@ -1,5 +1,5 @@
 import React from 'react'
-import { useAppSelector } from '../../redux/hooks';
+import { useAppSelector } from '../../reduxStore/hooks';
 import Game from './Game';
 
 const GameWrapper: React.FC = () => {

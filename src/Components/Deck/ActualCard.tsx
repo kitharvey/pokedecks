@@ -7,9 +7,9 @@ import { LazyImage } from "react-lazy-images";
 import {FaInfoCircle} from 'react-icons/fa'
 import {FaHeart, FaRegHeart} from 'react-icons/fa'
 import ClickableIcons from './ClickableIcons';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { updateFavorites } from '../../redux/userSlice';
-import { setModalIndex, setModalShow } from '../../redux/modalSlice';
+import { useAppDispatch, useAppSelector } from '../../reduxStore/hooks';
+import { updateFavorites } from '../../reduxStore/userSlice';
+import { setModalIndex, setModalShow } from '../../reduxStore/modalSlice';
 
 
 

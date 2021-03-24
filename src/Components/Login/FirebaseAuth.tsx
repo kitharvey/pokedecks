@@ -2,7 +2,7 @@ import React from 'react'
 import { StyledFirebaseAuth } from 'react-firebaseui';
 import { auth } from "../../firebase"
 import firebase from "firebase"
-import { useAppSelector } from '../../redux/hooks';
+import { useAppSelector } from '../../reduxStore/hooks';
 import { Redirect } from 'react-router-dom'
 
 const FirebaseAuth: React.FC = () => {

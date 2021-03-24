@@ -8,11 +8,11 @@ import {
   } from "react-router-dom";
 import LandingPage from './LandingPage';
 import User from '../components/User/User';
-import { useAppDispatch, useAppSelector } from '../redux/hooks';
+import { useAppDispatch, useAppSelector } from '../reduxStore/hooks';
 import { auth } from '../firebase';
-import { signin } from '../redux/userSlice';
-import { fetchPokemonList } from '../redux/pokemonSlice';
-import { signout } from '../redux/userSlice';
+import { signin } from '../reduxStore/userSlice';
+import { fetchPokemonList } from '../reduxStore/pokemonSlice';
+import { signout } from '../reduxStore/userSlice';
 import DeckOfCards from '../components/Deck/DeckOfCards';
 import Nav from '../components/Nav/Nav';
 import FirebaseAuth from '../components/Login/FirebaseAuth';

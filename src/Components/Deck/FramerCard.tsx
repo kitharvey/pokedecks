@@ -8,8 +8,8 @@ import {
 import Card from "./Card";
 import { NameURLInterface } from "../../InterfacesProps/Interfaces";
 import logo from "../../assets/colored-logo.png"
-import { useAppDispatch } from "../../redux/hooks";
-import { setPokemonIndex } from "../../redux/pokemonSlice";
+import { useAppDispatch } from "../../reduxStore/hooks";
+import { setPokemonIndex } from "../../reduxStore/pokemonSlice";
 
 interface CardProps {
     key?: number

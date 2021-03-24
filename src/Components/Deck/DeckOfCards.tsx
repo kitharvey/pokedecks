@@ -7,8 +7,8 @@ import FramerCard from "./FramerCard";
 import { NameURLInterface } from "../../InterfacesProps/Interfaces";
 import {FaUndoAlt, FaSearch} from 'react-icons/fa'
 import { wrap } from "popmotion";
-import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { setPokemonIndex, setPokemonListLength, setPokemonSearch } from "../../redux/pokemonSlice";
+import { useAppDispatch, useAppSelector } from "../../reduxStore/hooks";
+import { setPokemonIndex, setPokemonListLength, setPokemonSearch } from "../../reduxStore/pokemonSlice";
 
 
 const DeckOfCards:React.FC = () => {

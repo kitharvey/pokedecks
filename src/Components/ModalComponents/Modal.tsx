@@ -1,8 +1,8 @@
 import React from 'react'
 import ModalCardWrapper from './ModalCardWrapper';
 import {RiCloseCircleFill} from 'react-icons/ri'
-import { useAppDispatch } from '../../redux/hooks';
-import { setModalShow } from '../../redux/modalSlice';
+import { useAppDispatch } from '../../reduxStore/hooks';
+import { setModalShow } from '../../reduxStore/modalSlice';
 const Modal: React.FC = () => {
     const dispatch = useAppDispatch()
     const handleCloseModal = () => {

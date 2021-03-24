@@ -1,7 +1,7 @@
 import React from 'react'
 import { RiCloseCircleFill } from 'react-icons/ri';
 import {Link} from 'react-router-dom'
-import { useAppSelector } from '../../redux/hooks';
+import { useAppSelector } from '../../reduxStore/hooks';
 
 
 const GameOver: React.FC<{score: number}> = ({score}) => {

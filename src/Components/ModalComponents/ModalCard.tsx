@@ -5,7 +5,7 @@ import RightCard from './RightCard';
 import CenterCard from './CenterCard';
 import { fetchPokemonData, fetchPokemonSpeciesData } from '../../fetch/FetchData';
 import { useQuery } from 'react-query';
-import { useAppSelector } from '../../redux/hooks';
+import { useAppSelector } from '../../reduxStore/hooks';
 
 
 

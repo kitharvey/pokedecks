@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { auth } from '../../firebase';
 import { useHistory } from 'react-router-dom'
 import {FaChevronCircleDown} from 'react-icons/fa'
-import { useAppSelector } from '../../redux/hooks';
+import { useAppSelector } from '../../reduxStore/hooks';
 const Nav: React.FC = () => {
     const {userData} = useAppSelector(state => state.user)
     const [show, setShow] = useState(false)

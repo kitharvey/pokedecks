@@ -7,8 +7,8 @@ import { useQuery } from 'react-query'
 import axios from 'axios'
 import { motion } from 'framer-motion'
 import { findColor } from '../../functions/getTypeIconAndColor'
-import { useAppDispatch } from '../../redux/hooks'
-import { setModalIndex, setModalShow } from '../../redux/modalSlice'
+import { useAppDispatch } from '../../reduxStore/hooks'
+import { setModalIndex, setModalShow } from '../../reduxStore/modalSlice'
 
 interface EvolutionProps{
     pokemonSpeciesData: GetPokemonSpeciesDataInterface

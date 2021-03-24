@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
-import { useAppDispatch, useAppSelector } from '../../redux/hooks'
-import { fetchusersList } from '../../redux/leaderboardSlice'
+import { useAppDispatch, useAppSelector } from '../../reduxStore/hooks'
+import { fetchusersList } from '../../reduxStore/leaderboardSlice'
 
 
 const LeaderBoard: React.FC = () => {
