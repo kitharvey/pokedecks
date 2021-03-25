@@ -1,4 +1,4 @@
-import { NameURLInterface, SignInProps } from '../InterfacesProps/Interfaces';
+import { SignInProps } from '../InterfacesProps/Interfaces';
 import axios from 'axios'
 import { shuffle } from '../functions/GlobalFunctions';
 

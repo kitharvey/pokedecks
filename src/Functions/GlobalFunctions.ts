@@ -60,6 +60,7 @@ export const shuffle = (array: any[]) => {
       array[m] = array[i];
       array[i] = t;
     }
+  
     return array;
   }
 
