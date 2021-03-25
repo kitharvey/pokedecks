@@ -18,7 +18,7 @@ const LeaderBoard: React.FC = () => {
                         <p className='p-4 text-center font-bold' >Name</p>
                         <p className='p-4 text-center font-bold' >Score</p>
                     </div>
-                    {usersList && usersList.map( (user, index) => (
+                    {usersList && usersList.filter( user => user.score > 0 ).map( (user, index) => (
                         <div className='w-full grid grid-cols-3 border-t' key={index}>
                             <p className='p-4 text-center' >{index+1}</p>
                             <p className='p-4 text-center' >{user.displayName}</p>

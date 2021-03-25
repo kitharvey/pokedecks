@@ -1,13 +1,27 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { shuffle } from '../../functions/GlobalFunctions';
+import { NameURLInterface } from '../../InterfacesProps/Interfaces';
 import { useAppSelector } from '../../reduxStore/hooks';
 import Game from './Game';
 
 const GameWrapper: React.FC = () => {
         const {pokemonList} = useAppSelector( state => state.pokemonlist )
+        const [shuffled, setShuffled] = useState<NameURLInterface[] | null>(null)
+        
+        useEffect(() => {
+            if(pokemonList) {
+                const temp = pokemonList.slice()
+                const shuff = shuffle(temp)
+                setShuffled(shuff)
+            }
+            return () => {
+                setShuffled(null)
+            }
+        }, [pokemonList, setShuffled])
 
         return (
             <div className="container h-9/10 m-auto relative">
-                {pokemonList && <Game pokemonList={pokemonList} />}
+                {shuffled && <Game pokemonList={shuffled} />}
             </div>
         );
 }

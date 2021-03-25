@@ -15,37 +15,39 @@ const arrlives = (num: number) => {
 }
 
 const Game: React.FC<GameProps> = ({pokemonList}) => {
-    const [randomIndex, setRandom] = useState<number>(0)
+    const [index, setIndex] = useState<number>(0)
     const [guessed, setGuessed] = useState<number[]>([0])
     const [options, setOptions] = useState<number[] | null>(null)
     const [score, setScore] = useState<number>(0)
     const [lives, setLives] = useState<number>(3)
     const [reveal, setReveal] = useState<boolean>(false)
-    const sprite = getImageSourceFromURL(pokemonList[randomIndex].url)
+    const [selected, setSelected] = useState<number | null>(null)
+    const sprite = getImageSourceFromURL(pokemonList[index].url)
+
     useEffect(() => {
-        const tempOptions = [randomIndex]
+        const tempOptions = [index]
         while(tempOptions.length < 4) tempOptions.push(getrandomIndex(pokemonList.length-1, 0))
         const shuffledOptions = shuffle(tempOptions)
         setOptions(shuffledOptions)
         return () => {
             setOptions(null)
         }
-    }, [pokemonList, randomIndex])
+    }, [pokemonList, index])
 
     const handleSelect = (option: number) => {
-        let newRandomIndex = randomIndex
-        do {
-            newRandomIndex = getrandomIndex(pokemonList.length-1, 0)
-        } while (guessed.includes(newRandomIndex));
-        setGuessed([...guessed, newRandomIndex])
-        setReveal(true)
-        setTimeout(() => {
-            setRandom(newRandomIndex)
-            setReveal(false)
-
-        }, 3000)
-        if(randomIndex === option) setScore(score+1)
-        if(randomIndex !== option) setLives(lives-1)
+        
+        if(index < pokemonList.length) {
+            setSelected(option)
+            setGuessed([...guessed, index])
+            setReveal(true)
+            setTimeout(() => {
+                setIndex(index+1)
+                setReveal(false)
+                setSelected(null)
+            }, 3000)
+        }
+        if(index === option) setScore(score+1)
+        if(index !== option) setLives(lives-1)
     }
 
 
@@ -62,7 +64,12 @@ const Game: React.FC<GameProps> = ({pokemonList}) => {
                         {options && options.map( option => (
                             <div key={option} className={'m-2'} > 
                                 <button 
-                                    className='p-2 cursor-pointer shadow-md transition-colors rounded-md bg-gray-100 hover:bg-gray-300' 
+                                    className={
+                                        `p-2 cursor-pointer shadow-md transition-colors rounded-md hover:shadow-lg ${
+                                            reveal ? option === selected
+                                                ? selected === index ? 'bg-green-300' : 'bg-red-300' 
+                                                : index === option ? 'bg-green-300' : 'bg-gray-100' : 'bg-gray-100'}`
+                                    }
                                     onClick={() => handleSelect(option)} 
                                     disabled={reveal}
                                     style={{

@@ -8,7 +8,10 @@ const User: React.FC = () => {
     else return (
         <div className='container mx-auto h-full' >
             <div className='flex flex-wrap justify-center mt-10' >
-                {userData.favorites.map( fav => <div key={fav} className='h-96 w-80 m-4 rounded-md shadow' > <Card id={fav} /></div> )}
+                {userData.favorites.length > 0 
+                    ? userData.favorites.map( fav => <div key={fav} className='h-96 w-80 m-4 rounded-md shadow' > <Card id={fav} /></div> )
+                    : <h1>No Favorites</h1>
+                }
             </div>
         </div>
         );
