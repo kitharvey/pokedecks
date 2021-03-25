@@ -9,6 +9,9 @@ import {FaUndoAlt, FaSearch} from 'react-icons/fa'
 import { wrap } from "popmotion";
 import { useAppDispatch, useAppSelector } from "../../reduxStore/hooks";
 import { setPokemonIndex, setPokemonListLength, setPokemonSearch } from "../../reduxStore/pokemonSlice";
+import { getIDStringfromURL } from "../../functions/GlobalFunctions";
+import Card from "./Card";
+import EndCard from "./EndCard";
 
 
 const DeckOfCards:React.FC = () => {
@@ -17,6 +20,7 @@ const DeckOfCards:React.FC = () => {
   const [exitX, setExitX] = useState<number>(0);
   const cardIndex = wrap(0, pokemonListLength + 1, pokemonIndex);
   const dispatch = useAppDispatch()
+  
 
   const handleUndo = () => {
     setExitX(0)
@@ -33,7 +37,6 @@ const DeckOfCards:React.FC = () => {
     return () => {
       setPokeArray(pokemonList)
       dispatch(setPokemonListLength(0))
-      setExitX(0)
     }
   }, [pokemonSearch, pokemonList, dispatch])
 
@@ -68,10 +71,8 @@ const DeckOfCards:React.FC = () => {
                 }}
               >
                 <AnimatePresence initial={false}>
-                {pokemonListLength >= 3 &&
+                {(pokemonListLength >= 3 && cardIndex + 2 < pokemonListLength + 1)  &&
                   <FramerCard
-                    pokeArray={pokeArray}
-                    length={pokemonListLength}
                     key={cardIndex + 2}
                     index={cardIndex + 2}
                     initial={{
@@ -88,11 +89,15 @@ const DeckOfCards:React.FC = () => {
                     transition={{
                       scale: { duration: 0.5 },
                     }}
-                  />}
-                {pokemonListLength >= 2 &&
+                  >
+                      {(pokeArray && (cardIndex + 2 < pokemonListLength))
+                        ? <Card  id={+getIDStringfromURL(pokeArray[cardIndex + 2].url)}/> 
+                        : <EndCard />
+                      }
+                  </FramerCard>
+                  }
+                {(pokemonListLength >= 2 && cardIndex + 1 < pokemonListLength + 1 ) &&
                   <FramerCard
-                    pokeArray={pokeArray}
-                    length={pokemonListLength}
                     key={cardIndex + 1}
                     index={cardIndex + 1}
                     animate={{
@@ -104,11 +109,16 @@ const DeckOfCards:React.FC = () => {
                     transition={{
                       scale: { duration: 0.5 },
                     }}
-                  />}
-                  {pokemonListLength >= 1 &&
+                  >
+                      {(pokeArray && (cardIndex + 1 < pokemonListLength))
+                        ? <Card  id={+getIDStringfromURL(pokeArray[cardIndex + 1].url)}/> 
+                        : <EndCard />
+                      }
+                  </FramerCard>
+                  
+                  }
+                  {(pokemonListLength >= 1 && cardIndex < pokemonListLength + 1) &&
                   <FramerCard
-                    pokeArray={pokeArray}
-                    length={pokemonListLength}
                     index={cardIndex}
                     key={cardIndex}
                     initial={{
@@ -134,7 +144,13 @@ const DeckOfCards:React.FC = () => {
                     exitX={exitX}
                     setExitX={setExitX}
                     drag="x"
-                  />}
+                  >
+                    {(pokeArray && (cardIndex < pokemonListLength))
+                        ? <Card  id={+getIDStringfromURL(pokeArray[cardIndex].url)}/> 
+                        : <EndCard />
+                    }
+                  </FramerCard>
+                  }
                 </AnimatePresence>
               </motion.div>
             {/* } */}
@@ -155,15 +171,11 @@ const DeckOfCards:React.FC = () => {
                         
                       }}
                       whileTap={{ 
-                        rotate: -360,
+                        rotate: -180,
                         scale: 0.9
                       }}
                       whileHover={{
-                        rotate: -180,
                         scale: 1.1
-                      }}
-                      transition={{
-                        rotate: { duration: 0.25 },
                       }}
                 >
                   <FaUndoAlt/>

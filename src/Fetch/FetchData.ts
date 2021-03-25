@@ -1,4 +1,4 @@
-import { SignInProps } from '../InterfacesProps/Interfaces';
+import { SignInProps, UserProps } from '../InterfacesProps/Interfaces';
 import axios from 'axios'
 import { shuffle } from '../functions/GlobalFunctions';
 
@@ -25,6 +25,15 @@ export const signIn = async (body: SignInProps) => {
   const {data} = await axios.post(`${BACKEND_API}/api/signin`, body)
   return data
 }
+export const deleteUser = async (body: SignInProps) => {
+  const {uid, displayName} = body
+  const {data} = await fetch(`${BACKEND_API}/api/delete`, {
+    method: 'DELETE',
+    body: JSON.stringify({uid, displayName})
+  }).then(response => response.json())
+
+  return data
+}
 export const patchFavorites = async (favorites: number[], id: string) => {
   const {data} = await axios.patch(`${BACKEND_API}/api/favorites/${id}`, {favorites})
   return data
@@ -35,5 +44,6 @@ export const patchScore = async (score: number, id: string) => {
 }
 export const fetchUsersList = async () => {
   const {data} = await axios.get(`${BACKEND_API}/api/users`)
-  return data
+  const sortedData = data.sort( (a: UserProps, b: UserProps) => b.score - a.score )
+  return sortedData
 }

@@ -9,24 +9,39 @@ interface HiddenPokemonProps {
 
 const HiddenPokemon: React.FC<HiddenPokemonProps> = ({sprite, reveal}) => {
         return (
-            <div className='w-72 h-72 my-8' >
-            <LazyImage
-                src={sprite}
-                alt='secret pokemon'
-                placeholder={({ imageProps, ref }) => (
-                    <img  ref={ref} src={egg} alt={imageProps.alt} draggable="false" onDragStart={ (e: React.DragEvent<HTMLDivElement>) => e.preventDefault()} style={{filter: "blur(10px)"}} />
-                )}
-                
-                actual={({ imageProps }) => <img
-                    {...imageProps} 
-                    alt='secret pokemon' 
-                    draggable="false" 
-                    onDragStart={ (e: React.DragEvent<HTMLDivElement>) => e.preventDefault()}
-                    style={{filter: `brightness(${reveal ? 1 : 0})`}}
-                />}
-                error={() => (
-                    <img src={egg} alt="egg error" draggable="false" onDragStart={ (e: React.DragEvent<HTMLDivElement>) => e.preventDefault()} style={{filter: "blur(10px)"}} />
-                )} />
+            <div className='w-full h-full rounded-md bg-white p-4' >
+                <div 
+                    className="w-full h-full flex items-center justify-center" 
+                    style={{
+                        background: `radial-gradient(rgba(255,255,255,0) 0%, #6890F0 100%)`
+                    }} 
+                >
+                    <div className="w-52 h-52">
+                        <LazyImage
+                            src={sprite}
+                            alt='secret pokemon'
+                            placeholder={({ imageProps, ref }) => (
+                                <img  ref={ref} src={egg} alt={imageProps.alt} draggable="false" onDragStart={ (e: React.DragEvent<HTMLDivElement>) => e.preventDefault()} style={{filter: "blur(10px)"}} />
+                            )}
+                            
+                            actual={({ imageProps }) => <img
+                                {...imageProps} 
+                                alt='secret pokemon' 
+                                draggable="false" 
+                                onDragStart={ (e: React.DragEvent<HTMLDivElement>) => e.preventDefault()}
+                                style={{
+                                    filter: `brightness(${reveal ? 1 : 0})`,
+                                    opacity: reveal ? 1 : .8
+                                }}
+                            />}
+                            error={() => (
+                                <img src={egg} alt="egg error" draggable="false" onDragStart={ (e: React.DragEvent<HTMLDivElement>) => e.preventDefault()} style={{filter: "blur(10px)"}} />
+                            )} 
+                        />
+                    </div>
+                   
+          </div>
+            
         </div>
         );
 }

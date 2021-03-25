@@ -40,7 +40,7 @@ const Nav: React.FC = () => {
                                 </div>
 
 
-                    : <div className='cursor-pointer' onClick={() => history.push('/signin')} >Sign In</div>}
+                    : <div className='cursor-pointer font-bold text-sm' onClick={() => history.push('/signin')} >Sign In</div>}
                     
                 </div>
                

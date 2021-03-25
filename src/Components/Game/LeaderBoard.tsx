@@ -1,14 +1,10 @@
-import React, { useEffect } from 'react'
-import { useAppDispatch, useAppSelector } from '../../reduxStore/hooks'
-import { fetchusersList } from '../../reduxStore/leaderboardSlice'
+import React from 'react'
+import { useAppSelector } from '../../reduxStore/hooks'
 
 
 const LeaderBoard: React.FC = () => {
-    const dispatch = useAppDispatch()
     const {usersList} = useAppSelector( state => state.leaderboard)
-    useEffect(() => {
-        dispatch(fetchusersList())
-    }, [dispatch])
+
         return (
             <div className="container min-h-9/10-screen mx-auto">
                 <h1 className='m-4 font-bold text-xl' >Leader Board</h1>

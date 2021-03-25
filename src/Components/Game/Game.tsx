@@ -4,6 +4,7 @@ import {getImageSourceFromURL, getrandomIndex, shuffle} from '../../functions/Gl
 import HiddenPokemon from './HiddenPokemon';
 import {FaHeart} from 'react-icons/fa'
 import GameOver from './GameOver';
+import { AnimatePresence, motion } from 'framer-motion';
 
 interface GameProps {
     pokemonList: NameURLInterface[]
@@ -22,7 +23,10 @@ const Game: React.FC<GameProps> = ({pokemonList}) => {
     const [lives, setLives] = useState<number>(3)
     const [reveal, setReveal] = useState<boolean>(false)
     const [selected, setSelected] = useState<number | null>(null)
-    const sprite = getImageSourceFromURL(pokemonList[index].url)
+    const [exitX, setExitX] = useState<number>(0);
+    const [rotateX, setRotateX] = useState<number>(0);
+    const x = 100
+    const rotate = 15
 
     useEffect(() => {
         const tempOptions = [index]
@@ -40,6 +44,10 @@ const Game: React.FC<GameProps> = ({pokemonList}) => {
             setSelected(option)
             setGuessed([...guessed, index])
             setReveal(true)
+            const tempX = index % 2 === 0 ? -x : x
+            const tempRotate = index % 2 === 0 ? -rotate : rotate
+            setExitX(tempX)
+            setRotateX(tempRotate)
             setTimeout(() => {
                 setIndex(index+1)
                 setReveal(false)
@@ -56,10 +64,98 @@ const Game: React.FC<GameProps> = ({pokemonList}) => {
                 {pokemonList && 
                 <div className='flex flex-col items-center justify-center w-full' >
                     <div className='flex items-center justify-evenly w-full' >
-                        <span>score: {score}</span>
+                        <span>score <span className='font-bold' >{score}</span></span>
                         <span className='flex text-red-500 text-lg' >{arrlives(lives).map( (_, index) => <span key={index} className='ml-1' ><FaHeart /></span> )}</span>
                     </div>
-                    <HiddenPokemon sprite={sprite} reveal={reveal} />
+                    <div className="h-96 w-80 select-none relative my-8" >
+
+                    <AnimatePresence initial={false}>
+
+                        <motion.div
+                            key={index+2}
+                            style={{
+                                width: "100%",
+                                height: "100%",
+                                position: "absolute",
+                                top: 0,
+                                borderRadius: "10px",
+                            }}
+                            initial={{
+                                scale: 0,
+                                y: 0,
+                                opacity: 0,
+                                }}
+                            animate={{
+                                scale: 0.8,
+                                y: -75,
+                                opacity: 1,
+                                boxShadow: "0 5px 25px 1px rgba(0,0,0,.25)",
+                            }}
+                            transition={{
+                                scale: { duration: 0.5 },
+                            }}
+                        >
+                            <HiddenPokemon sprite={getImageSourceFromURL(pokemonList[index+2].url)} reveal={reveal} />
+                        </motion.div>
+
+                        <motion.div
+                            key={index+1}
+                            style={{
+                                width: "100%",
+                                height: "100%",
+                                position: "absolute",
+                                top: 0,
+                                borderRadius: "10px",
+                            }}
+                            animate={{
+                                scale: 0.9,
+                                y: -40,
+                                opacity: 1,
+                                boxShadow: "0 5px 25px 1px rgba(0,0,0,.25)",
+                              }}
+                            transition={{
+                                scale: { duration: 0.5 },
+                            }}
+                            
+
+                        >
+                            <HiddenPokemon sprite={getImageSourceFromURL(pokemonList[index+1].url)} reveal={reveal} />
+                        </motion.div>
+
+                        <motion.div
+                            key={index}
+                            style={{
+                                width: "100%",
+                                height: "100%",
+                                position: "absolute",
+                                top: 0,
+                                borderRadius: "10px",
+                            }}
+                            initial={{
+                                scale: 1,
+                                y: 40,
+                                opacity: 1,
+                            }}
+                            animate={{
+                                boxShadow: "0 5px 25px 1px rgba(0,0,0,.25)",
+                                scale: 1,
+                                y: 0,
+                                opacity: 1,
+                            }}           
+                            exit={{
+                                x: exitX,
+                                rotate: rotateX,
+                                opacity: 0,
+                                transition: { duration: 0.2 }
+                            }}
+
+                        >
+                            <HiddenPokemon sprite={getImageSourceFromURL(pokemonList[index].url)} reveal={reveal} />
+                        </motion.div>
+
+                    </AnimatePresence>
+
+                    </div>
                     <div className='flex' >
                         {options && options.map( option => (
                             <div key={option} className={'m-2'} > 
@@ -68,7 +164,7 @@ const Game: React.FC<GameProps> = ({pokemonList}) => {
                                         `p-2 cursor-pointer shadow-md transition-colors rounded-md hover:shadow-lg ${
                                             reveal ? option === selected
                                                 ? selected === index ? 'bg-green-300' : 'bg-red-300' 
-                                                : index === option ? 'bg-green-300' : 'bg-gray-100' : 'bg-gray-100'}`
+                                                : index === option ? 'bg-green-300' : 'bg-white' : 'bg-white'}`
                                     }
                                     onClick={() => handleSelect(option)} 
                                     disabled={reveal}

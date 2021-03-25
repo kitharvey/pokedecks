@@ -5,13 +5,10 @@ import {
   PanInfo,
   useTransform
 } from "framer-motion";
-import Card from "./Card";
-import { NameURLInterface } from "../../InterfacesProps/Interfaces";
-import logo from "../../assets/colored-logo.png"
 import { useAppDispatch } from "../../reduxStore/hooks";
 import { setPokemonIndex } from "../../reduxStore/pokemonSlice";
 
-interface CardProps {
+interface FramerCardProps {
     key?: number
     initial?: InitialProps
     animate?: AnimateProps
@@ -20,8 +17,6 @@ interface CardProps {
     index: number
     drag?: boolean | "x" | "y"
     setExitX?: (x: number) => void
-    pokeArray?: NameURLInterface[] | undefined | null
-    length: number
     whileHover?: {
       scale: number,
       boxShadow: string
@@ -53,24 +48,13 @@ interface CardProps {
       opacity: number
   }
 
-  const getID = (url: string) => {
-    const tempURL = url.split("/")
-    return +tempURL[tempURL.length - 2]
-  }
 
-  const EndCard: React.FC = () => {
-    return (
-    <div className="h-full w-full bg-white p-4 flex flex-col items-center justify-around rounded-md" >
-      <div className="text-2xl font-bold text-gray-500" >End of the Deck</div>
-      <img src={logo} draggable="false" onDragStart={ e => e.preventDefault()} className="w-auto" alt="poke-logo" />
-      <div className="text-2xl font-bold text-gray-500">Swipe to Reload</div>
-    </div>
-    )
-  }
+
+
 
 
   
-  const FramerCard: React.FC<CardProps> = (props) => {
+  const FramerCard: React.FC<FramerCardProps> = (props) => {
     const dispatch = useAppDispatch()
     const x = useMotionValue(0);
     const maximumX = 100
@@ -86,10 +70,9 @@ interface CardProps {
       index,
       drag,
       setExitX,
-      pokeArray,
-      length,
       whileHover,
-      whileTap
+      whileTap,
+      children
     } = props
     
  
@@ -139,10 +122,7 @@ interface CardProps {
           transition: { duration: 0.2 }
         }}
       >
-          {(pokeArray && (index < length))
-            ? <Card  id={getID(pokeArray[index].url)}/> 
-            : <EndCard />
-          }
+          {children}
       </motion.div>
     );
   }
