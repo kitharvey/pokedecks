@@ -1,11 +1,19 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { RiCloseCircleFill } from 'react-icons/ri';
 import {Link} from 'react-router-dom'
-import { useAppSelector } from '../../reduxStore/hooks';
-
+import { useAppDispatch, useAppSelector } from '../../reduxStore/hooks';
+import {updateScore} from '../../reduxStore/userSlice'
 
 const GameOver: React.FC<{score: number}> = ({score}) => {
     const {userData} = useAppSelector( state => state.user )
+    const dispatch = useAppDispatch()
+
+    useEffect(() => {
+        
+        dispatch(updateScore(score))
+
+    }, [dispatch])
+
         return (
             <div className="w-full h-full absolute z-100 flex flex-col items-center rounded-md justify-center bg-white p-4 shadow">
                 <div className="h-8 w-8 absolute top-6 right-7 cursor-pointer transition duration-100 ease-in-out hover:opacity-50 text-4xl font-black">

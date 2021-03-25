@@ -72,5 +72,5 @@ const userSlice = createSlice({
   })
   
 
-export const {updateFavorites, signout} = userSlice.actions
+export const {updateFavorites, updateScore, signout} = userSlice.actions
 export default userSlice.reducer
