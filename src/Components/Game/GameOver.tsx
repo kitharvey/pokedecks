@@ -9,10 +9,10 @@ const GameOver: React.FC<{score: number}> = ({score}) => {
     const dispatch = useAppDispatch()
 
     useEffect(() => {
-        
+
         dispatch(updateScore(score))
 
-    }, [dispatch])
+    }, [dispatch, score])
 
         return (
             <div className="w-full h-full absolute z-100 flex flex-col items-center rounded-md justify-center bg-white p-4 shadow">
