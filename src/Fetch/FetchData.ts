@@ -3,8 +3,8 @@ import axios from 'axios'
 import { shuffle } from '../functions/GlobalFunctions';
 
 
-// const BACKEND_API = process.env.REACT_APP_BACKEND_API
-const BACKEND_API = 'http://localhost:5000'
+const BACKEND_API = process.env.REACT_APP_BACKEND_API
+// const BACKEND_API = 'http://localhost:5000'
 
 export const fetchList = async () => {
   const { data } = await axios.get(`https://pokeapi.co/api/v2/pokemon/?limit=${807}&offset=0`)
