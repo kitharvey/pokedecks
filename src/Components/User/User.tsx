@@ -1,5 +1,5 @@
 import React from 'react'
-import { deleteUser } from '../../fetch/FetchData'
+import { deleteUser } from '../../fromAPI/axiosFunctions'
 import { auth } from '../../firebase'
 import { useAppSelector } from '../../reduxStore/hooks'
 import Card from '../Deck/Card'
@@ -9,7 +9,7 @@ const User: React.FC = () => {
     const {usersList} = useAppSelector( state => state.leaderboard)
     const handleDelete = () => {
         if(userData) {
-            deleteUser({uid: userData.uid, displayName: userData.displayName})
+            deleteUser(userData._id)
             auth.signOut()
         }
     }

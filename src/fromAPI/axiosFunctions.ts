@@ -25,13 +25,8 @@ export const signIn = async (body: SignInProps) => {
   const {data} = await axios.post(`${BACKEND_API}/api/signin`, body)
   return data
 }
-export const deleteUser = async (body: SignInProps) => {
-  const {uid, displayName} = body
-  const {data} = await fetch(`${BACKEND_API}/api/delete`, {
-    method: 'DELETE',
-    body: JSON.stringify({uid, displayName})
-  }).then(response => response.json())
-
+export const deleteUser = async (id: string) => {
+  const {data} = await axios.delete(`${BACKEND_API}/api/delete/${id}`)
   return data
 }
 export const patchFavorites = async (favorites: number[], id: string) => {

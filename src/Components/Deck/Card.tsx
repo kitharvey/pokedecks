@@ -1,5 +1,5 @@
 import React from 'react'
-import {fetchPokemonData} from '../../fetch/FetchData';
+import {fetchPokemonData} from '../../fromAPI/axiosFunctions';
 import { CardInterface } from '../../InterfacesProps/Interfaces';
 import 'react-lazy-load-image-component/src/effects/black-and-white.css';
 import CardLoader from './CardLoader';

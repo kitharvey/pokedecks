@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import { fetchUsersList } from "../fetch/FetchData"
+import { fetchUsersList } from "../fromAPI/axiosFunctions"
 import {UserProps} from '../InterfacesProps/Interfaces'
 
 export const fetchusersList = createAsyncThunk(

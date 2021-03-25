@@ -3,7 +3,7 @@ import {LeftCardLoader, RightCardLoader} from "./ModalCardLoader"
 import LeftCard from './LeftCard';
 import RightCard from './RightCard';
 import CenterCard from './CenterCard';
-import { fetchPokemonData, fetchPokemonSpeciesData } from '../../fetch/FetchData';
+import { fetchPokemonData, fetchPokemonSpeciesData } from '../../fromAPI/axiosFunctions';
 import { useQuery } from 'react-query';
 import { useAppSelector } from '../../reduxStore/hooks';
 

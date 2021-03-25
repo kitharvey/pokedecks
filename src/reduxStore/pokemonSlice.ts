@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
-import { fetchList } from "../fetch/FetchData"
+import { fetchList } from "../fromAPI/axiosFunctions"
 import {NameURLInterface} from '../InterfacesProps/Interfaces'
 
 export const fetchPokemonList = createAsyncThunk(

@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
-import { signIn, patchFavorites, patchScore } from '../fetch/FetchData'
+import { signIn, patchFavorites, patchScore } from '../fromAPI/axiosFunctions'
 import { SignInProps, UserProps } from '../InterfacesProps/Interfaces'
 
 export const signin = createAsyncThunk(
