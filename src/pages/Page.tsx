@@ -18,7 +18,6 @@ import Nav from '../components/Nav/Nav';
 import FirebaseAuth from '../components/Login/FirebaseAuth';
 import GameWrapper from '../components/Game/GameWrapper';
 import LeaderBoard from '../components/Game/LeaderBoard';
-import { fetchusersList } from '../reduxStore/leaderboardSlice';
   
 const Page: React.FC = () => {
     const dispatch = useAppDispatch()
@@ -34,7 +33,6 @@ const Page: React.FC = () => {
                     }))
                 }
                 dispatch(fetchPokemonList())
-                dispatch(fetchusersList())
 
             }
             else dispatch(signout())

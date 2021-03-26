@@ -1,9 +1,15 @@
-import React from 'react'
-import { useAppSelector } from '../../reduxStore/hooks'
-
+import React, { useEffect } from 'react'
+import { useAppDispatch, useAppSelector } from '../../reduxStore/hooks'
+import { fetchusersList } from '../../reduxStore/leaderboardSlice'
+import { ScaleLoader } from 'react-spinners';
 
 const LeaderBoard: React.FC = () => {
     const {usersList} = useAppSelector( state => state.leaderboard)
+    const dispatch = useAppDispatch()
+    
+    useEffect(() => {
+        dispatch(fetchusersList())
+    }, [dispatch])
 
         return (
             <div className="container min-h-9/10-screen mx-auto">
@@ -14,13 +20,15 @@ const LeaderBoard: React.FC = () => {
                         <p className='p-2 text-center font-bold' >Name</p>
                         <p className='p-2 text-center font-bold' >Score</p>
                     </div>
-                    {usersList && usersList.filter( user => user.score > 0 ).map( (user, index) => (
+                    {usersList ? usersList.filter( user => user.score > 0 ).map( (user, index) => (
                         <div className='w-full grid grid-cols-3 border-t' key={index}>
                             <p className='p-2 text-sm text-center' >{index+1}</p>
                             <p className='p-2 text-sm text-center' >{user.displayName}</p>
                             <p className='p-2 text-sm text-center' >{user.score}</p>
                         </div>
-                    ) ) }
+                    ) ) 
+                    : <ScaleLoader height={20} width={4} radius={2} margin={2} />
+                    }
                 </div>
             </div>
         );

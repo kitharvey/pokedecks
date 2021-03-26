@@ -23,21 +23,18 @@ const FirebaseAuth: React.FC = () => {
                 <motion.div
                       className="w-52 mx-auto my-4 cursor-pointer"
                       animate={{
-                        scale: .95,
                         y: 0,
                         opacity: 1,
                         
                       }}
                       whileTap={{ 
                         rotate: 0,
-                        scale: 0.95
                       }}
                       whileHover={{
-                        rotate: -360,
-                        scale: 1.05
+                        rotate: -45,
                       }}
                       transition={{
-                        rotate: { duration: .5 },
+                        rotate: { duration: .2 },
                       }}
                 >
                   <img src={logo} draggable="false" onDragStart={ e => e.preventDefault()} className="w-auto" alt="poke-logo" />

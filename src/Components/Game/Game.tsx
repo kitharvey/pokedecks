@@ -38,6 +38,7 @@ const Game: React.FC<GameProps> = ({pokemonList}) => {
             setOptions(null)
         }
     }, [pokemonList, index])
+    
 
     const handleSelect = (option: number) => {
         

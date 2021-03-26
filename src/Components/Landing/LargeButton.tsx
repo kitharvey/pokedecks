@@ -14,15 +14,15 @@ const LargeButton: React.FC<LargeButtonProps> = ({link, title, cards}) => {
     const [rotate, setRotate]= useState<number>(5)
 
     const handleMouseOver = () => {
-        setTransLateX(200)
-        setRotate(25)
+        setTransLateX(100)
+        setRotate(15)
     }
     const handleMouseOut = () => {
         setTransLateX(10)
         setRotate(5)
     }
         return (
-            <motion.div onClick={() => history.push(link)} className='cursor-pointer w-1/2 h-9/10 m-auto rounded-md flex flex-col items-center justify-center transition-all bg-black bg-opacity-0 hover:bg-opacity-20' 
+            <motion.div onClick={() => history.push(link)} className='cursor-pointer w-1/2 h-4/5 m-auto rounded-md flex flex-col items-center justify-center transition-all bg-black bg-opacity-0 hover:bg-opacity-20' 
             onHoverStart={handleMouseOver} 
             onHoverEnd={handleMouseOut} >
         <div className="h-96 w-80 select-none rounded-md pointer-events-none" >
