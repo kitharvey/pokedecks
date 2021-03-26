@@ -3,22 +3,22 @@ export interface NameURLInterface {
     url: string
 }
 
-interface Abilities{
+interface PokemonAbilities{
     ability: NameURLInterface
     is_hidden: boolean
 }
-interface Types{
+export interface PokemonTypes{
     slot: number
     type: NameURLInterface
 }
-interface Stats{
+interface PokemonStats{
     base_stat: number
     effort: number
     stat: NameURLInterface
 }
 
 export interface GetPokemonDataInterface {
-    abilities: Abilities[]
+    abilities: PokemonAbilities[]
     base_experience: number
     height: number
     id: number
@@ -27,9 +27,9 @@ export interface GetPokemonDataInterface {
     name: string
     order: number
     species: NameURLInterface
-    types: Types[]
+    types: PokemonTypes[]
     weight: number
-    stats: Stats[]
+    stats: PokemonStats[]
 }
 
 
@@ -134,4 +134,24 @@ export interface SignInProps{
 export interface UpdateFavoritesProps{
     id: number
     name: string
+}
+
+export interface TransitionProps {
+    scale?: { duration: number },
+    opacity?: { duration: number},
+    type?: "inertia" | "spring" | "tween",
+    stiffness?: number,
+    damping?: number,
+}
+
+export interface AnimateProps {
+    scale: number,
+    y: number,
+    opacity: number,
+    boxShadow: string
+}
+export interface InitialProps {
+    scale: number,
+    y: number,
+    opacity: number
 }

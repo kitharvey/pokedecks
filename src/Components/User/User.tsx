@@ -2,7 +2,7 @@ import React from 'react'
 import { deleteUser } from '../../fromAPI/axiosFunctions'
 import { auth } from '../../firebase'
 import { useAppSelector } from '../../reduxStore/hooks'
-import Card from '../Deck/Card'
+import CardWrapper from '../Deck/CardWrapper'
 
 const User: React.FC = () => {
     const {userData} = useAppSelector( state => state.user)
@@ -24,7 +24,7 @@ const User: React.FC = () => {
                 <h1>Favorites: </h1>
                 <div className='flex flex-wrap justify-center mt-4' >
                     {userData.favorites.length > 0 
-                        ? userData.favorites.map( fav => <div key={fav} className='h-96 w-80 m-4 rounded-md shadow' > <Card id={fav} /></div> )
+                        ? userData.favorites.map( fav => <div key={fav} className='h-96 w-80 m-4 rounded-md shadow' > <CardWrapper id={fav} /></div> )
                         : <h1>No Favorites</h1>
                     }
                 </div>

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { NameURLInterface } from '../../InterfacesProps/Interfaces';
-import {getImageSourceFromURL, getrandomIndex, shuffle} from '../../functions/GlobalFunctions'
+import {getIDStringfromURL, getrandomIndex, shuffle} from '../../functions/GlobalFunctions'
 import HiddenPokemon from './HiddenPokemon';
 import {FaHeart} from 'react-icons/fa'
 import GameOver from './GameOver';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
+import GameFramerCard from './GameFramerCard';
 
 interface GameProps {
     pokemonList: NameURLInterface[]
@@ -25,7 +26,7 @@ const Game: React.FC<GameProps> = ({pokemonList}) => {
     const [selected, setSelected] = useState<number | null>(null)
     const [exitX, setExitX] = useState<number>(0);
     const [rotateX, setRotateX] = useState<number>(0);
-    const x = 100
+    const x = 500
     const rotate = 15
 
     useEffect(() => {
@@ -69,17 +70,10 @@ const Game: React.FC<GameProps> = ({pokemonList}) => {
                     </div>
                     <div className="h-96 w-80 select-none relative my-8" >
 
-                    <AnimatePresence initial={false}>
+                    <AnimatePresence>
 
-                        <motion.div
+                        <GameFramerCard
                             key={index+2}
-                            style={{
-                                width: "100%",
-                                height: "100%",
-                                position: "absolute",
-                                top: 0,
-                                borderRadius: "10px",
-                            }}
                             initial={{
                                 scale: 0,
                                 y: 0,
@@ -95,18 +89,11 @@ const Game: React.FC<GameProps> = ({pokemonList}) => {
                                 scale: { duration: 0.5 },
                             }}
                         >
-                            <HiddenPokemon sprite={getImageSourceFromURL(pokemonList[index+2].url)} reveal={reveal} />
-                        </motion.div>
+                            <HiddenPokemon id={+getIDStringfromURL(pokemonList[index+2].url)} reveal={reveal} />
+                        </GameFramerCard>
 
-                        <motion.div
+                        <GameFramerCard
                             key={index+1}
-                            style={{
-                                width: "100%",
-                                height: "100%",
-                                position: "absolute",
-                                top: 0,
-                                borderRadius: "10px",
-                            }}
                             animate={{
                                 scale: 0.9,
                                 y: -40,
@@ -119,18 +106,11 @@ const Game: React.FC<GameProps> = ({pokemonList}) => {
                             
 
                         >
-                            <HiddenPokemon sprite={getImageSourceFromURL(pokemonList[index+1].url)} reveal={reveal} />
-                        </motion.div>
+                            <HiddenPokemon id={+getIDStringfromURL(pokemonList[index+1].url)} reveal={reveal} />
+                        </GameFramerCard>
 
-                        <motion.div
+                        <GameFramerCard
                             key={index}
-                            style={{
-                                width: "100%",
-                                height: "100%",
-                                position: "absolute",
-                                top: 0,
-                                borderRadius: "10px",
-                            }}
                             initial={{
                                 scale: 1,
                                 y: 40,
@@ -141,17 +121,12 @@ const Game: React.FC<GameProps> = ({pokemonList}) => {
                                 scale: 1,
                                 y: 0,
                                 opacity: 1,
-                            }}           
-                            exit={{
-                                x: exitX,
-                                rotate: rotateX,
-                                opacity: 0,
-                                transition: { duration: 0.2 }
                             }}
-
+                            exitX={exitX}
+                            rotateX={rotateX}    
                         >
-                            <HiddenPokemon sprite={getImageSourceFromURL(pokemonList[index].url)} reveal={reveal} />
-                        </motion.div>
+                            <HiddenPokemon id={+getIDStringfromURL(pokemonList[index].url)} reveal={reveal} />
+                        </GameFramerCard>
 
                     </AnimatePresence>
 

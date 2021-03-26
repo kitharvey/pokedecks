@@ -10,7 +10,7 @@ import { wrap } from "popmotion";
 import { useAppDispatch, useAppSelector } from "../../reduxStore/hooks";
 import { setPokemonIndex, setPokemonListLength, setPokemonSearch } from "../../reduxStore/pokemonSlice";
 import { getIDStringfromURL } from "../../functions/GlobalFunctions";
-import Card from "./Card";
+import CardWrapper from "./CardWrapper";
 import EndCard from "./EndCard";
 
 
@@ -48,9 +48,9 @@ const DeckOfCards:React.FC = () => {
 
 
   return (
-      <div className="h-max w-max flex flex-col items-center justify-center relative">
+      <div className="h-full w-full flex flex-col items-center justify-center relative">
 
-            <div className="shadow rounded-md flex items-center bg-white pl-4 p-1 absolute -top-32 w-80">
+            <div className="shadow rounded-full flex items-center bg-white py-2 px-6  mb-20">
                 <label htmlFor="searchpokemon" className="text-black font-bold mr-3 " >Search: </label>
                 <form method="GET" onSubmit={ (event: React.FormEvent<HTMLFormElement>) => event.preventDefault() }>
                 <div className="relative text-gray-400 focus-within:text-black">
@@ -70,7 +70,7 @@ const DeckOfCards:React.FC = () => {
                   position: "relative"
                 }}
               >
-                <AnimatePresence initial={false}>
+                <AnimatePresence >
                 {(pokemonListLength >= 3 && cardIndex + 2 < pokemonListLength + 1)  &&
                   <FramerCard
                     key={cardIndex + 2}
@@ -91,7 +91,7 @@ const DeckOfCards:React.FC = () => {
                     }}
                   >
                       {(pokeArray && (cardIndex + 2 < pokemonListLength))
-                        ? <Card  id={+getIDStringfromURL(pokeArray[cardIndex + 2].url)}/> 
+                        ? <CardWrapper  id={+getIDStringfromURL(pokeArray[cardIndex + 2].url)}/> 
                         : <EndCard />
                       }
                   </FramerCard>
@@ -111,7 +111,7 @@ const DeckOfCards:React.FC = () => {
                     }}
                   >
                       {(pokeArray && (cardIndex + 1 < pokemonListLength))
-                        ? <Card  id={+getIDStringfromURL(pokeArray[cardIndex + 1].url)}/> 
+                        ? <CardWrapper  id={+getIDStringfromURL(pokeArray[cardIndex + 1].url)}/> 
                         : <EndCard />
                       }
                   </FramerCard>
@@ -146,7 +146,7 @@ const DeckOfCards:React.FC = () => {
                     drag="x"
                   >
                     {(pokeArray && (cardIndex < pokemonListLength))
-                        ? <Card  id={+getIDStringfromURL(pokeArray[cardIndex].url)}/> 
+                        ? <CardWrapper  id={+getIDStringfromURL(pokeArray[cardIndex].url)}/> 
                         : <EndCard />
                     }
                   </FramerCard>
@@ -156,7 +156,7 @@ const DeckOfCards:React.FC = () => {
             {/* } */}
               </div>
 
-              <div className="flex absolute rounded-full shadow -bottom-16" >
+              <div className="flex rounded-full shadow mt-10" >
                 <motion.div
                       className="h-10 w-10 flex items-center justify-center cursor-pointer select-none bg-white"
                       onClick={() => handleUndo()}

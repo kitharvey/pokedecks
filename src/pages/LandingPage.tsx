@@ -1,15 +1,19 @@
 import React from 'react'
-import { useHistory } from 'react-router-dom'
+import ActualCard from '../components/Deck/ActualCard';
+import HiddenPokemon from '../components/Game/HiddenPokemon';
+import LargeButton from '../components/Landing/LargeButton';
+import { landingPokemons } from '../functions/getTypeIconAndColor';
+
+
+
 const LandingPage: React.FC = () => {
-    const history = useHistory()
+    const playCards = landingPokemons.map( pokemon => <HiddenPokemon id={pokemon.id} reveal={false} /> )
+    const browseCards = landingPokemons.map( pokemon => <ActualCard id={pokemon.id} name={pokemon.name} mainType={pokemon.mainType} types={pokemon.types} /> )
+    
         return (
-            <div className='flex h-full w-full' > 
-                    <div onClick={() => history.push('/browse')} className='cursor-pointer hover:opacity-50 w-1/2 h-full flex items-center justify-center' >
-                        <h1 className='font-bold text-4xl' >Browse</h1>
-                    </div>
-                    <div onClick={() => history.push('/game')} className='cursor-pointer hover:opacity-50 w-1/2 h-full flex items-center justify-center' >
-                        <h1 className='font-bold text-4xl' >Play</h1>
-                    </div>
+            <div className='flex h-full container mx-auto px-2' > 
+                <LargeButton link='/browse' title='Browse' cards={browseCards} />
+                <LargeButton link='/game' title='Play' cards={playCards} />
             </div>
         );
 }

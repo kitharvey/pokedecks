@@ -7,9 +7,9 @@ import {
 } from "framer-motion";
 import { useAppDispatch } from "../../reduxStore/hooks";
 import { setPokemonIndex } from "../../reduxStore/pokemonSlice";
+import { AnimateProps, InitialProps, TransitionProps } from "../../InterfacesProps/Interfaces";
 
 interface FramerCardProps {
-    key?: number
     initial?: InitialProps
     animate?: AnimateProps
     transition?: TransitionProps
@@ -28,25 +28,6 @@ interface FramerCardProps {
      }
   }
   
-  interface TransitionProps {
-      scale?: { duration: number },
-      opacity?: { duration: number},
-      type?: "inertia" | "spring" | "tween",
-      stiffness?: number,
-      damping?: number,
-  }
-  
-  interface AnimateProps {
-      scale: number,
-      y: number,
-      opacity: number,
-      boxShadow: string
-  }
-  interface InitialProps {
-      scale: number,
-      y: number,
-      opacity: number
-  }
 
 
 
@@ -56,8 +37,8 @@ interface FramerCardProps {
   
   const FramerCard: React.FC<FramerCardProps> = (props) => {
     const dispatch = useAppDispatch()
-    const x = useMotionValue(0);
     const maximumX = 100
+    const x = useMotionValue(0);
     const rotate = useTransform(x, [-maximumX, 0, maximumX], [-5, 0, 5], {
       clamp: false,
     })

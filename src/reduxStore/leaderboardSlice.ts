@@ -12,12 +12,12 @@ export const fetchusersList = createAsyncThunk(
 
 interface initialStateProps{
     usersList: UserProps[] | null,
-    status: 'loading' | 'success' | 'failed'
+    status: 'loading' | 'success' | 'failed' | null
 }
 
 const initialState: initialStateProps = {
     usersList: null,
-    status: 'loading',
+    status: null,
 }
 
 

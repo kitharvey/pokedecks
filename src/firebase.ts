@@ -10,7 +10,7 @@ const app = firebase.initializeApp({
   appId: process.env.REACT_APP_APP_ID
 })
 
-firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
 
 export const auth = app.auth()
 export default app

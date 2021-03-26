@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import Modal from '../components/ModalComponents/Modal';
 import {
-    HashRouter as Router,
+    BrowserRouter as Router,
     Switch,
     Route,
     Redirect,

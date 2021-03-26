@@ -1,20 +1,15 @@
 import React from 'react'
-import {fetchPokemonData} from '../../fromAPI/axiosFunctions';
-import { CardInterface } from '../../InterfacesProps/Interfaces';
-import 'react-lazy-load-image-component/src/effects/black-and-white.css';
-import CardLoader from './CardLoader';
-import { useQuery } from 'react-query';
+import { ActualCardInterface } from "../../InterfacesProps/Interfaces"
 import ActualCard from './ActualCard';
 
-const Card: React.FC<CardInterface>  = ({id}) => {
-  const {data, isFetching} = useQuery(['fetchPokemonData', id], async() => await fetchPokemonData(id))
 
-  return (
-    <div className="h-full w-full select-none" >
-        {(data && !isFetching) ? <ActualCard pokemondata={data}/> : <CardLoader/>  } 
-    </div>
-  )
-}
 
+
+
+const Card: React.FC<ActualCardInterface >  =  ({pokemondata}) => {
+    return (
+      <ActualCard  id={pokemondata.id}  mainType={pokemondata.types[0].type.name}  name={pokemondata.name}  types={pokemondata.types} />
+    )
+  }
 
 export default Card
