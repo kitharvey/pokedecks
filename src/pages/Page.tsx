@@ -18,6 +18,7 @@ import Nav from '../components/Nav/Nav';
 import FirebaseAuth from '../components/Login/FirebaseAuth';
 import GameWrapper from '../components/Game/GameWrapper';
 import LeaderBoard from '../components/Game/LeaderBoard';
+import { fetchusersList } from '../reduxStore/leaderboardSlice';
   
 const Page: React.FC = () => {
     const dispatch = useAppDispatch()
@@ -33,7 +34,7 @@ const Page: React.FC = () => {
                     }))
                 }
                 dispatch(fetchPokemonList())
-
+                dispatch(fetchusersList())
             }
             else dispatch(signout())
         })
@@ -45,7 +46,7 @@ const Page: React.FC = () => {
                 <Nav />
                 <div className="relative h-92.5-screen w-full flex items-center justify-evenly">
                     <Switch>
-                            <Route exact path="/browse">
+                            <Route exact path="/explore">
                                 {userData 
                                     ?  <DeckOfCards /> 
                                     : <Redirect to='/signin' /> 
@@ -57,7 +58,7 @@ const Page: React.FC = () => {
                                     : <Redirect to='/signin' /> 
                                 } 
                             </Route>
-                            <Route exact path="/game">
+                            <Route exact path="/play">
                                 {userData 
                                     ?  <GameWrapper /> 
                                     : <Redirect to='/signin' /> 

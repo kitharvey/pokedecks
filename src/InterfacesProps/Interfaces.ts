@@ -116,9 +116,15 @@ export interface ActualCardInterface{
     pokemondata: GetPokemonDataInterface
 }
 
+export interface UserFavoritesProps{
+    id: number, 
+    name: string, 
+    types: string[],
+    _id?: string
+}
 
 export interface UserProps{
-    favorites: number[]
+    favorites: UserFavoritesProps[]
     _id: string
     uid: string
     displayName: string
@@ -132,8 +138,9 @@ export interface SignInProps{
 }
 
 export interface UpdateFavoritesProps{
-    id: number
-    name: string
+    id: number, 
+    name: string, 
+    types: string[]
 }
 
 export interface TransitionProps {

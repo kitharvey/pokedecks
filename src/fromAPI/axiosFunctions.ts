@@ -1,10 +1,10 @@
-import { SignInProps, UserProps } from '../InterfacesProps/Interfaces';
+import { SignInProps, UpdateFavoritesProps, UserProps } from '../InterfacesProps/Interfaces';
 import axios from 'axios'
 import { shuffle } from '../functions/GlobalFunctions';
 
 
-const BACKEND_API = process.env.REACT_APP_BACKEND_API
-// const BACKEND_API = 'http://localhost:5000'
+// const BACKEND_API = process.env.REACT_APP_BACKEND_API
+const BACKEND_API = 'http://localhost:5000'
 
 export const fetchList = async () => {
   const { data } = await axios.get(`https://pokeapi.co/api/v2/pokemon/?limit=${807}&offset=0`)
@@ -29,7 +29,7 @@ export const deleteUser = async (id: string) => {
   const {data} = await axios.delete(`${BACKEND_API}/api/delete/${id}`)
   return data
 }
-export const patchFavorites = async (favorites: number[], id: string) => {
+export const patchFavorites = async (favorites: UpdateFavoritesProps[], id: string) => {
   const {data} = await axios.patch(`${BACKEND_API}/api/favorites/${id}`, {favorites})
   return data
 }

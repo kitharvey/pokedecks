@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 import { signIn, patchFavorites, patchScore } from '../fromAPI/axiosFunctions'
-import { SignInProps, UserProps } from '../InterfacesProps/Interfaces'
+import { SignInProps, UpdateFavoritesProps, UserProps } from '../InterfacesProps/Interfaces'
 
 export const signin = createAsyncThunk(
     'user/signin',
@@ -26,18 +26,23 @@ const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
-        updateFavorites: (state, action: PayloadAction<number>) => {
-            const id = action.payload
+        updateFavorites: (state, action: PayloadAction<UpdateFavoritesProps>) => {
+            const payload = action.payload
+            console.log(payload)
             if(state.userData) {
-                let tempFav = state.userData.favorites.slice()
-                if(tempFav.includes(id)) {
-                    const index = tempFav.indexOf(id)
-                    tempFav.splice(index, 1)
+                let tempFav = state.userData.favorites.map( fav => ({
+                    id: fav.id,
+                    name: fav.name,
+                    types: fav.types,
+                }) )
+                console.log(tempFav.filter( fav => fav.id === payload.id).length > 0)
+                if(tempFav.filter( fav => fav.id === payload.id).length > 0) {
+                    tempFav.splice(tempFav.findIndex(fav => fav.id === payload.id) , 1)
                     patchFavorites(tempFav, state.userData._id)
                     state.userData.favorites = tempFav
                 }
                 else {
-                    tempFav.push(id)
+                    tempFav.push(payload)
                     patchFavorites(tempFav, state.userData._id)
                     state.userData.favorites = tempFav
                 } 

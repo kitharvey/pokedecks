@@ -9,9 +9,7 @@ const GameOver: React.FC<{score: number}> = ({score}) => {
     const dispatch = useAppDispatch()
 
     useEffect(() => {
-
         dispatch(updateScore(score))
-
     }, [dispatch, score])
 
         return (

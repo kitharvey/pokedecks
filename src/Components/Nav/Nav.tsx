@@ -24,10 +24,10 @@ const Nav: React.FC = () => {
                     <h1 className="text-xl font-bold text-black cursor-pointer" onClick={() => history.push('/')} >Pokédecks</h1>
                     {userData ?
                                 <div className="flex items-center">
-                                    <NavLink activeClassName={activenavStyle} className={navStyle} to='/browse' >
+                                    <NavLink activeClassName={activenavStyle} className={navStyle} to='/explore' >
                                         <span>Browse</span>
                                     </NavLink>
-                                    <NavLink activeClassName={activenavStyle} className={navStyle} to='/game' >
+                                    <NavLink activeClassName={activenavStyle} className={navStyle} to='/play' >
                                         <span>Play</span>
                                     </NavLink>
                                     <NavLink activeClassName={activenavStyle} className={navStyle} to='/leaderboard' >

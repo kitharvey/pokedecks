@@ -76,51 +76,17 @@ export const landingPokemons = [
   {
     id: 1,
     name: 'bulbasaur',
-    mainType: 'grass',
-    types: [
-        {
-            "slot": 1,
-            "type": {
-                "name": "grass",
-                "url": "https://pokeapi.co/api/v2/type/12/"
-            }
-        },
-        {
-            "slot": 2,
-            "type": {
-                "name": "poison",
-                "url": "https://pokeapi.co/api/v2/type/4/"
-            }
-        }
-    ],
+    types: ["grass","poison"],
   },
   {
     id: 4,
     name: 'charmander',
-    mainType: 'fire',
-    types:[
-      {
-          "slot": 1,
-          "type": {
-              "name": "fire",
-              "url": "https://pokeapi.co/api/v2/type/10/"
-          }
-      }
-    ],
+    types:["fire"],
   },
   {
     id: 7,
     name: 'squirtle',
-    mainType: 'water',
-    types:[
-      {
-          "slot": 1,
-          "type": {
-              "name": "water",
-              "url": "https://pokeapi.co/api/v2/type/11/"
-          }
-      }
-    ],
+    types:["water"],
   },
 
 ]

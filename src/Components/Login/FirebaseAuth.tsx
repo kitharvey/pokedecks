@@ -22,11 +22,6 @@ const FirebaseAuth: React.FC = () => {
             <div className="rounded-md p-4 bg-white shadow">
                 <motion.div
                       className="w-52 mx-auto my-4 cursor-pointer"
-                      animate={{
-                        y: 0,
-                        opacity: 1,
-                        
-                      }}
                       whileTap={{ 
                         rotate: 0,
                       }}
