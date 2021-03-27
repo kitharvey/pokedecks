@@ -39,7 +39,7 @@ module.exports = {
           '92.5-screen': '92.5vh',
         },
       minHeight: {
-        '9/10-screen': '92.5vh',
+        '92.5-screen': '92.5vh',
         '100' : '30rem',
       },
       width: {

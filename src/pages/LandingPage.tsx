@@ -11,7 +11,7 @@ const LandingPage: React.FC = () => {
     const browseCards = landingPokemons.map( pokemon => <ActualCard id={pokemon.id} name={pokemon.name} types={pokemon.types} /> )
     
         return (
-            <div className='flex h-full container mx-auto px-2' > 
+            <div className='flex h-92.5-screen container mx-auto px-2' > 
                 <LargeButton link='/explore' title='Explore' cards={browseCards} />
                 <LargeButton link='/play' title='Play' cards={playCards} />
             </div>

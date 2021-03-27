@@ -44,7 +44,7 @@ const Page: React.FC = () => {
         return (
             <Router>
                 <Nav />
-                <div className="relative h-92.5-screen w-full flex items-center justify-evenly">
+                <div className="relative min-h-92.5-screen w-full flex items-center justify-evenly">
                     <Switch>
                             <Route exact path="/explore">
                                 {userData 

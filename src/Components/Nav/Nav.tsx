@@ -3,12 +3,13 @@ import { auth } from '../../firebase';
 import { useHistory, NavLink } from 'react-router-dom'
 import {FaChevronDown, FaChevronUp} from 'react-icons/fa'
 import { useAppSelector } from '../../reduxStore/hooks';
+import { PulseLoader } from 'react-spinners';
 
 const navStyle = 'transition-all mr-8 mt-1 text-sm border-b-2 border-blue-500 border-opacity-0 hover:border-opacity-100 hover:text-blue-700'
 const activenavStyle = 'transition-all mr-8 mt-1 text-sm border-b-2 border-blue-500 border-opacity-0 border-opacity-100 text-blue-700'
 
 const Nav: React.FC = () => {
-    const {userData} = useAppSelector(state => state.user)
+    const {userData, status} = useAppSelector(state => state.user)
     const [show, setShow] = useState(false)
 
     let history = useHistory()
@@ -22,7 +23,9 @@ const Nav: React.FC = () => {
             <nav className="w-full bg-white shadow-lg h-14">
                 <div className="container py-3 px-5 flex items-center justify-between w-full m-auto">
                     <h1 className="text-xl font-bold text-black cursor-pointer" onClick={() => history.push('/')} >Pokédecks</h1>
-                    {userData ?
+                    {status === 'loading' ? <PulseLoader color='#1D4ED8' size={5} margin={3} />
+                    : 
+                    userData ?
                                 <div className="flex items-center">
                                     <NavLink activeClassName={activenavStyle} className={navStyle} to='/explore' >
                                         <span>Browse</span>
@@ -57,6 +60,7 @@ const Nav: React.FC = () => {
                     :   <NavLink activeClassName={activenavStyle} className={navStyle} to='/signin' >
                             <span>Sign In</span>
                         </NavLink>}
+                        
                     
                 </div>
                
