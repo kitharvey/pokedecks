@@ -28,14 +28,12 @@ const userSlice = createSlice({
     reducers: {
         updateFavorites: (state, action: PayloadAction<UpdateFavoritesProps>) => {
             const payload = action.payload
-            console.log(payload)
             if(state.userData) {
                 let tempFav = state.userData.favorites.map( fav => ({
                     id: fav.id,
                     name: fav.name,
                     types: fav.types,
                 }) )
-                console.log(tempFav.filter( fav => fav.id === payload.id).length > 0)
                 if(tempFav.filter( fav => fav.id === payload.id).length > 0) {
                     tempFav.splice(tempFav.findIndex(fav => fav.id === payload.id) , 1)
                     patchFavorites(tempFav, state.userData._id)

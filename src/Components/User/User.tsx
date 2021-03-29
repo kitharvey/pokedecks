@@ -3,7 +3,6 @@ import { deleteUser } from '../../fromAPI/axiosFunctions'
 import { auth } from '../../firebase'
 import { useAppSelector } from '../../reduxStore/hooks'
 import { ScaleLoader } from 'react-spinners'
-import ActualCard from '../Deck/ActualCard'
 import Favorites from './Favorites'
 
 const User: React.FC = () => {

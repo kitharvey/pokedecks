@@ -28,7 +28,7 @@ const Nav: React.FC = () => {
                     userData ?
                                 <div className="flex items-center">
                                     <NavLink activeClassName={activenavStyle} className={navStyle} to='/explore' >
-                                        <span>Browse</span>
+                                        <span>Explore</span>
                                     </NavLink>
                                     <NavLink activeClassName={activenavStyle} className={navStyle} to='/play' >
                                         <span>Play</span>
