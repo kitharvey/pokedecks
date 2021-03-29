@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { auth } from '../../firebase';
 import { useHistory, NavLink } from 'react-router-dom'
 import {FaChevronDown, FaChevronUp} from 'react-icons/fa'
 import { useAppSelector } from '../../reduxStore/hooks';
 import { PulseLoader } from 'react-spinners';
+import useOnClickOutside from '../../functions/customHooks';
 
 const navStyle = 'transition-all mr-8 mt-1 text-sm border-b-2 border-blue-500 border-opacity-0 hover:border-opacity-100 hover:text-blue-700'
 const activenavStyle = 'transition-all mr-8 mt-1 text-sm border-b-2 border-blue-500 border-opacity-0 border-opacity-100 text-blue-700'
@@ -11,9 +12,14 @@ const activenavStyle = 'transition-all mr-8 mt-1 text-sm border-b-2 border-blue-
 const Nav: React.FC = () => {
     const {userData, status} = useAppSelector(state => state.user)
     const [show, setShow] = useState(false)
-
+    const navRef = useRef<HTMLDivElement>(null)
     let history = useHistory()
 
+    const handleClickOutside = () => {
+        setShow(false)
+    }
+
+    useOnClickOutside(navRef, handleClickOutside)
     const handleLogOut = () => {
         auth.signOut()
         history.push('/')
@@ -37,10 +43,11 @@ const Nav: React.FC = () => {
                                         <span>Leaderboard</span>
                                     </NavLink>
                                     <div 
+                                    ref={navRef}
                                         className={`relative cursor-pointer select-none flex items-center px-3 py-1 rounded-full border hover:shadow-md hover:bg-gray-100 ${show && 'bg-gray-100 shadow-md'}`} onClick={() => setShow(!show)} 
                                     >
                                         <p className='text-sm' >{userData.displayName.split(' ')[0]}</p>
-                                        {show ? <FaChevronUp className='ml-2 text-xs'/> : <FaChevronDown className='ml-2 text-xs'/>}
+                                        <p className='ml-2 text-xs' >{show ? <FaChevronUp /> : <FaChevronDown />}</p>
                                         {show && 
                                         <div 
                                             className='bg-white text-xs font-light shadow-lg rounded z-10 absolute -bottom-4 right-0 transform translate-y-full overflow-hidden'
