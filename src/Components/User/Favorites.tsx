@@ -46,8 +46,8 @@ const Favorites: React.FC = () => {
     }
 
         return (
-            <div className='w-full' >
-                <div className='text-sm flex' >
+            <div className='w-full mt-4' >
+                <div className='text-xs flex' >
                     <select 
                     onChange={handleSort} 
                     className='cursor-pointer select-none p-1 mr-3 rounded outline-none border text-gray-400 focus-within:text-black hover:text-black' >
@@ -67,9 +67,9 @@ const Favorites: React.FC = () => {
                         <input id="searchpokemon" type="search" name="q" value={search} className="py-2 text-sm pl-10 outline-none rounded border text-gray-900 w-full" placeholder="Enter Pokemon Name..." autoComplete="off" onChange={handleSearch} />
                     </div>
                 </div>
-                <div className='flex flex-wrap justify-center mt-4' >
+                <div className='flex flex-wrap justify-center mt-2' >
                     {FavoritesList
-                        ? FavoritesList.map( fav => <div key={fav.id} className='h-96 w-80 m-4 rounded-md shadow' > <ActualCard id={fav.id} name={fav.name} types={fav.types} /></div> )
+                        ? FavoritesList.map( fav => <div key={fav.id} className='h-96 w-80 m-2 rounded-md shadow' > <ActualCard id={fav.id} name={fav.name} types={fav.types} /></div> )
                         : <h1>No Favorites</h1>
                     }
                 </div>
