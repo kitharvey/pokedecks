@@ -1,43 +1,15 @@
 # Pokedecks
 
-#### A pokedex built with PokéAPI, React, TailwindCSS and TypeScript.
+#### A pokédex in card style. Swipe through random pokemon cards or guess who's that pokemon.
 
 ![GIF Screenshot](./src/Assets/screen.gif)
 
+<br/>
+<br/>
 
-## Installation and Setup Instructions
+# Built With
 
-Installation:
-
-1. Clone the repo
-
-```sh
-git clone https://github.com/kitharvey/pokedecks.git
-
-```
-2. Install NPM packages
-
-```sh
-yarn
-```
-
-
-To Start Server:
-
-```sh 
-yarn start
-```
-
-
-
-To Visit App:
-
-```sh 
-localhost:3000
-```
-
-
-## Built With
+## Frontend
 
 - [PokéAPI](https://pokeapi.co/)
 - [React](https://reactjs.org/)
@@ -46,3 +18,18 @@ localhost:3000
 - [react-query](https://react-query.tanstack.com/)
 - [Framer](https://www.framer.com/api/motion/)
 - [Pokemon Assets from HybridShivam](https://github.com/HybridShivam/Pokemon)
+- [Firebase-Auth](https://firebase.google.com/docs/auth)
+
+
+## Backend
+
+- [NodeJS](https://nodejs.org/en/)
+- [ExpressJS](https://expressjs.com/)
+- [MongoDB](https://www.mongodb.com/)
+- [Mongoose](https://mongoosejs.com/)
+
+<br/>
+<br/>
+
+#### Backend Repo
+[https://github.com/kitharvey/pokedecksbackend](https://github.com/kitharvey/pokedecksbackend)
