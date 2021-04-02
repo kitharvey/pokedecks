@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react'
 import { auth } from '../../firebase';
 import { useHistory, NavLink } from 'react-router-dom'
-import {FaChevronDown, FaChevronUp} from 'react-icons/fa'
+import {FaChevronDown, FaChevronUp, FaGithub} from 'react-icons/fa'
 import { useAppSelector } from '../../reduxStore/hooks';
 import { PulseLoader } from 'react-spinners';
 import useOnClickOutside from '../../functions/customHooks';
@@ -20,6 +20,7 @@ const Nav: React.FC = () => {
     }
 
     useOnClickOutside(navRef, handleClickOutside)
+    
     const handleLogOut = () => {
         auth.signOut()
         history.push('/')
@@ -28,7 +29,11 @@ const Nav: React.FC = () => {
         return (
             <nav className="w-full bg-white shadow-lg h-14">
                 <div className="container py-3 px-5 flex items-center justify-between w-full m-auto">
-                    <h1 className="text-xl font-bold text-black cursor-pointer" onClick={() => history.push('/')} >Pokédecks</h1>
+                    <div className='flex text-xl' >
+                        <h1 className="font-bold text-black cursor-pointer hover:text-blue-700" onClick={() => history.push('/')} >Pokédecks</h1>
+                        <a className='flex items-center ml-2 hover:text-blue-700' href="https://github.com/kitharvey/pokedecks" target="_blank" rel="noopener noreferrer" ><FaGithub  /></a>
+                    </div>
+
                     {status === 'loading' ? <PulseLoader color='#1D4ED8' size={5} margin={3} />
                     : 
                     userData ?

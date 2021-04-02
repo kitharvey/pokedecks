@@ -39,7 +39,7 @@ const ActualCard: React.FC<ActualCardProps> = ({id, name, types}) => {
             <div className="absolute left-2 top-2" >
               <div onClick={handleFavToggle} >
                 {(userData && userData.favorites.filter( fav => fav.id === id).length > 0) 
-                  ? <ClickableIcons icon={<FaHeart/>} text="Remove from favorites" color='red-500' colorHover='red-500' />
+                  ? <ClickableIcons icon={<FaHeart/>} text="Remove from favorites" color='red-400' colorHover='red-500' />
                   : <ClickableIcons icon={<FaRegHeart/>} text="Add to favorites" color='white' colorHover='red-500' />
                   }
               </div>

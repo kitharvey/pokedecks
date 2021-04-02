@@ -47,7 +47,7 @@ const Favorites: React.FC = () => {
 
         return (
             <div className='w-full mt-4' >
-                <div className='flex' >
+                <div className='flex justify-end' >
                     <select 
                     onChange={handleSort} 
                     className='text-xs cursor-pointer select-none p-1 mr-3 rounded outline-none border hover:border-black focus-within:border-black text-gray-400 focus-within:text-black hover:text-black' >
@@ -64,7 +64,7 @@ const Favorites: React.FC = () => {
                         <span className="absolute inset-y-0 left-0 flex items-center pl-2">
                             <FaSearch/>
                         </span>
-                        <input id="searchpokemon" type="search" name="q" value={search} className="text-xs py-2 pl-10 outline-none rounded border hover:border-black focus-within:border-black text-gray-900 w-full" placeholder="Enter Pokemon Name..." autoComplete="off" onChange={handleSearch} />
+                        <input id="searchpokemon" type="search" name="q" value={search} className="text-xs py-2 pl-6 outline-none rounded border hover:border-black focus-within:border-black text-gray-900 w-full" placeholder="Enter Pokemon Name..." autoComplete="off" onChange={handleSearch} />
                     </div>
                 </div>
                 <div className='flex flex-wrap justify-center mt-2' >

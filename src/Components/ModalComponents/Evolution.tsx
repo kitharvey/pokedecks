@@ -39,7 +39,19 @@ const Evolution: React.FC<EvolutionProps> = ({pokemonSpeciesData, pokemonData}) 
 
 
     return (
-        <div className="flex flex-wrap justify-evenly w-full mt-4" >
+        <motion.div className="flex flex-wrap justify-evenly w-full mt-4"
+        initial={{
+            scale: 0,
+            y: 0,
+            opacity: 0,
+        }}
+        animate={{
+            scale: 1,
+            y: 0,
+            opacity: 1,
+            
+          }}
+        >
         {(evolutionChain && !isFetching) ? evolutionChain.map( ({name, url}, index) => <div key={index} className="flex flex-col items-center" >
             <p className="text-xs" >#{getIDStringfromURL(url)}</p>
             <div onClick={() => handleModal(+getIDStringfromURL(url))} >
@@ -60,7 +72,7 @@ const Evolution: React.FC<EvolutionProps> = ({pokemonSpeciesData, pokemonData}) 
                   }}
                 whileHover={{
                     scale: 1.1,
-                    boxShadow: "0 5px 5px 1px rgba(0,0,0,.25)",
+                    boxShadow: "0 5px 15px 1px rgba(0,0,0,.25)",
                 }}
                 whileTap={{
                     scale: 1,
@@ -103,7 +115,7 @@ const Evolution: React.FC<EvolutionProps> = ({pokemonSpeciesData, pokemonData}) 
                     </div>
                 </div>
         }
-    </div>
+    </motion.div>
     )
 }
 

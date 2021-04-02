@@ -3,8 +3,7 @@ import axios from 'axios'
 import { shuffle } from '../functions/GlobalFunctions';
 
 
-const BACKEND_API = process.env.REACT_APP_BACKEND_API
-// const BACKEND_API = 'http://localhost:5000'
+const BACKEND_SERVER_URL = process.env.REACT_APP_BACKEND_SERVER_URL
 
 export const fetchList = async () => {
   const { data } = await axios.get(`https://pokeapi.co/api/v2/pokemon/?limit=${807}&offset=0`)
@@ -22,23 +21,23 @@ export const fetchPokemonSpeciesData = async (id: number) => {
   return data
 }
 export const signIn = async (body: SignInProps) => {
-  const {data} = await axios.post(`${BACKEND_API}/api/signin`, body)
+  const {data} = await axios.post(`${BACKEND_SERVER_URL}/api/signin`, body)
   return data
 }
 export const deleteUser = async (id: string) => {
-  const {data} = await axios.delete(`${BACKEND_API}/api/delete/${id}`)
+  const {data} = await axios.delete(`${BACKEND_SERVER_URL}/api/delete/${id}`)
   return data
 }
 export const patchFavorites = async (favorites: UpdateFavoritesProps[], id: string) => {
-  const {data} = await axios.patch(`${BACKEND_API}/api/favorites/${id}`, {favorites})
+  const {data} = await axios.patch(`${BACKEND_SERVER_URL}/api/favorites/${id}`, {favorites})
   return data
 }
 export const patchScore = async (score: number, id: string) => {
-  const {data} = await axios.patch(`${BACKEND_API}/api/score/${id}`, {score})
+  const {data} = await axios.patch(`${BACKEND_SERVER_URL}/api/score/${id}`, {score})
   return data
 }
 export const fetchUsersList = async () => {
-  const {data} = await axios.get(`${BACKEND_API}/api/users`)
+  const {data} = await axios.get(`${BACKEND_SERVER_URL}/api/users`)
   const sortedData = data.sort( (a: UserProps, b: UserProps) => b.score - a.score )
   return sortedData
 }
