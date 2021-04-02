@@ -76,6 +76,9 @@ const Page: React.FC = () => {
                                     : <Redirect to='/signin' /> 
                                 } 
                             </Route>
+                            <Route path="*">
+                                <h1>404 | Not Found</h1>
+                            </Route>
                     </Switch>
 
                     {modalShow && <Modal />}

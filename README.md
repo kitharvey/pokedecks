@@ -141,6 +141,7 @@ This is an example of how to list things you need to use the software and how to
 2. Sign in with Google or Github.
 3. You'll be redirected to the dashboard.
 
+<br />
 
 **How to explore?**
 
@@ -152,6 +153,7 @@ This is an example of how to list things you need to use the software and how to
 4. Click the heart icon to add/remove the pokemon card to/from your favorites.
 5. Click the information icon to see more details about the pokemon.
 
+<br />
 
 **How to play?**
 
@@ -162,16 +164,19 @@ This is an example of how to list things you need to use the software and how to
 3. Guess the correct answer and your score will increment by one.
 4. Pick the wrong answer and your lives will decrement by one.
 5. You only have 3 lives.
-6. Score as many as you want before your lives run out.
+6. Score as many as you can before your lives run out.
 7. Only your best score will be recorded on the leaderboard.
 
+<br />
 
 **How to check account?**
 
 ![](public/readmeImages/account.PNG)
 
 1. Click your name on the top right of the dashboard, then click account.
-2. Check your details and favorites.
+2. Check your details and favorite.
+3. Sort or filter your favorite pokémons.
+4. Delete button at the bottom to delete your account.
 
 <br />
 <br />
