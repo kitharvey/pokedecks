@@ -101,19 +101,25 @@ This is an example of how to list things you need to use the software and how to
 
 ### Installation
 
-1. Clone the repo
+**Set up client**
+
+1. Clone the frontend repo for client
    ```sh
         git clone https://github.com/kitharvey/pokedecks.git
    ```
-2. Install NPM packages
+2. Go to project directory
+   ```sh
+        cd pokedecks
+   ```
+3. Install NPM packages
    ```sh
         yarn
    ```
-3. Create `.env` file and add server url
+4. Create `.env` file and add server url
     ```js
         REACT_APP_BACKEND_SERVER_URL="http://localhost:5000"
     ```
-4. Create a firebase web app and add Firebase SDK to `.env` file
+5. Create a firebase web app and add Firebase SDK to `.env` file
     ```js
         REACT_APP_API_KEY="xxxxxxxxxxxxxxxxxxxxxxxx"
         REACT_APP_AUTH_DOMAIN="your_firebase_app.firebaseapp.com"
@@ -122,10 +128,35 @@ This is an example of how to list things you need to use the software and how to
         REACT_APP_MESSAGING_SENDER_ID="101010101010"
         REACT_APP_APP_ID="xxxxxxxxxxxxxxxxxxxxxxxx"
     ```
-5. Start the application
+6. Start the application
    ```sh
         yarn start
    ```
+
+**Set up server**
+
+7. Go to home directory
+   ```sh
+        cd ..
+   ```
+8. Clone the backend repo for server
+   ```sh
+        git clone https://github.com/kitharvey/pokedecksbackend.git
+   ```
+9. Install NPM packages
+   ```sh
+        yarn
+   ```
+10. Create `.env` file 
+11. Create MongoDB Atlas account, set up your database and add MONGODB_URI to `.env`
+    ```js
+        MONGODB_URI=xxxxxxxxxxxxxxxxxxxxxxxx
+    ```
+12. Start the server, "http://localhost:5000"
+   ```sh
+        yarn dev
+   ```
+
 
 <br />
 <br />
