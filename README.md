@@ -15,6 +15,8 @@
     <a href="https://github.com/kitharvey/pokedecks/issues" target="_blank" >Report Bug</a>
     ·
     <a href="https://github.com/kitharvey/pokedecks/issues" target="_blank" >Request Feature</a>
+    ·
+    <a href="https://github.com/kitharvey/pokedecks/blob/main/How_its_made.md" target="_blank" >How it's made?</a>
   </p>
 </p>
 
@@ -53,6 +55,8 @@
 ![Pokedecks Screenshot](./src/Assets/screen.gif)
 
 There are many great pokédex apps online but I found most of them are similarly built, displayed in a grid, scroll and click a pokémon to view more details about it. So I build my own but in a different style.
+
+No mobile version yet.
 
 Features:
 * Swipe pokémon cards to explore
@@ -96,7 +100,7 @@ To get a local copy up and running follow these simple example steps.
 This is an example of how to list things you need to use the software and how to install them.
 * yarn
     ```sh
-            npm install --global yarn
+    npm install --global yarn
     ```
 
 ### Installation
@@ -104,58 +108,62 @@ This is an example of how to list things you need to use the software and how to
 **Set up client**
 
 1. Clone the frontend repo for client
-   ```sh
-        git clone https://github.com/kitharvey/pokedecks.git
-   ```
+    ```sh
+    git clone https://github.com/kitharvey/pokedecks.git
+    ```
 2. Go to project directory
-   ```sh
-        cd pokedecks
-   ```
+    ```sh
+    cd pokedecks
+    ```
 3. Install NPM packages
-   ```sh
-        yarn
-   ```
+    ```sh
+    yarn
+    ```
 4. Create `.env` file and add server url
     ```js
         REACT_APP_BACKEND_SERVER_URL="http://localhost:5000"
     ```
 5. Create a firebase web app and add Firebase SDK to `.env` file
     ```js
-        REACT_APP_API_KEY="xxxxxxxxxxxxxxxxxxxxxxxx"
-        REACT_APP_AUTH_DOMAIN="your_firebase_app.firebaseapp.com"
-        REACT_APP_PROJECT_ID="your_firebase_app"
-        REACT_APP_STORAGE_BUCKET="your_firebase_app.appspot.com"
-        REACT_APP_MESSAGING_SENDER_ID="101010101010"
-        REACT_APP_APP_ID="xxxxxxxxxxxxxxxxxxxxxxxx"
+    REACT_APP_API_KEY="xxxxxxxxxxxxxxxxxxxxxxxx"
+    REACT_APP_AUTH_DOMAIN="your_firebase_app.firebaseapp.com"
+    REACT_APP_PROJECT_ID="your_firebase_app"
+    REACT_APP_STORAGE_BUCKET="your_firebase_app.appspot.com"
+    REACT_APP_MESSAGING_SENDER_ID="101010101010"
+    REACT_APP_APP_ID="xxxxxxxxxxxxxxxxxxxxxxxx"
     ```
 6. Start the application
-   ```sh
-        yarn start
-   ```
+    ```sh
+    yarn start
+    ```
 
 **Set up server**
 
 7. Go to home directory
-   ```sh
-        cd ..
-   ```
-8. Clone the backend repo for server
-   ```sh
-        git clone https://github.com/kitharvey/pokedecksbackend.git
-   ```
-9. Install NPM packages
-   ```sh
-        yarn
-   ```
-10. Create `.env` file 
-11. Create MongoDB Atlas account, set up your database and add MONGODB_URI to `.env`
-    ```js
-        MONGODB_URI=xxxxxxxxxxxxxxxxxxxxxxxx
+    ```sh
+    cd ..
     ```
-12. Start the server, "http://localhost:5000"
-   ```sh
-        yarn dev
-   ```
+8. Clone the backend repo for server
+    ```sh
+    git clone https://github.com/kitharvey/pokedecksbackend.git
+    ```
+9. Go to project directory
+    ```sh
+    cd pokedecksbackend
+    ```
+10. Install NPM packages
+    ```sh
+    yarn
+    ```
+11. Create `.env` file 
+12. Create MongoDB Atlas account, set up your database and add MONGODB_URI to `.env`
+    ```js
+    MONGODB_URI=xxxxxxxxxxxxxxxxxxxxxxxx
+    ```
+13. Start the server, "http://localhost:5000"
+    ```sh
+    yarn dev
+    ```
 
 
 <br />
@@ -206,8 +214,8 @@ This is an example of how to list things you need to use the software and how to
 
 1. Click your name on the top right of the dashboard, then click account.
 2. Check your details and favorite.
-3. Sort or filter your favorite pokémons.
-4. Delete button at the bottom to delete your account.
+    - Sort or filter your favorite pokémons.
+    - Click the delete button at the bottom to delete your account.
 
 <br />
 <br />

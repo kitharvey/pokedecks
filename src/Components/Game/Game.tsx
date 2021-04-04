@@ -30,8 +30,9 @@ const Game: React.FC<GameProps> = ({pokemonList}) => {
     const rotate = 15
 
     useEffect(() => {
-        const tempOptions = [index]
-        while(tempOptions.length < 4) tempOptions.push(getrandomIndex(pokemonList.length-1, 0))
+        const tempOptions: number[] = []
+        while(tempOptions.length < 3 && !tempOptions.includes(index)) tempOptions.push(getrandomIndex(pokemonList.length-1, 1))
+        tempOptions.push(index)
         const shuffledOptions = shuffle(tempOptions)
         setOptions(shuffledOptions)
         return () => {
