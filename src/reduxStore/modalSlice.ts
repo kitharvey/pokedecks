@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface initialStateProps {
+interface InitialStateProps {
   modalIndex: number;
   modalShow: boolean;
 }
 
-const initialState: initialStateProps = {
+const initialState: InitialStateProps = {
   modalIndex: 0,
   modalShow: false,
 };

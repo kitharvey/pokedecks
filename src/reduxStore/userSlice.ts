@@ -14,12 +14,12 @@ export const signin = createAsyncThunk(
   }
 );
 
-interface initialStateProps {
+interface InitialStateProps {
   userData: UserProps | null;
   status: "loading" | "success" | "failed" | null;
 }
 
-const initialState: initialStateProps = {
+const initialState: InitialStateProps = {
   userData: null,
   status: null,
 };

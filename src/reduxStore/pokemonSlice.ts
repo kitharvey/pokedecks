@@ -10,7 +10,7 @@ export const fetchPokemonList = createAsyncThunk(
   }
 );
 
-interface initialStateProps {
+interface InitialStateProps {
   pokemonList: NameURLInterface[] | null;
   status: "loading" | "success" | "failed";
   pokemonIndex: number;
@@ -18,7 +18,7 @@ interface initialStateProps {
   pokemonListLength: number;
 }
 
-const initialState: initialStateProps = {
+const initialState: InitialStateProps = {
   pokemonList: null,
   status: "loading",
   pokemonIndex: 0,

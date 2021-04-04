@@ -10,12 +10,12 @@ export const fetchusersList = createAsyncThunk(
   }
 );
 
-interface initialStateProps {
+interface InitialStateProps {
   usersList: UserProps[] | null;
   status: "loading" | "success" | "failed" | null;
 }
 
-const initialState: initialStateProps = {
+const initialState: InitialStateProps = {
   usersList: null,
   status: null,
 };
