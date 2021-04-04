@@ -1,9 +1,9 @@
 import React, { useRef, useState } from "react";
-import { auth } from "../../firebase";
-import { useHistory, NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { FaChevronDown, FaChevronUp, FaGithub } from "react-icons/fa";
-import { useAppSelector } from "../../reduxStore/hooks";
 import { PulseLoader } from "react-spinners";
+import { useAppSelector } from "../../reduxStore/hooks";
+import { auth } from "../../firebase";
 import useOnClickOutside from "../../functions/customHooks";
 
 const navStyle =
@@ -14,8 +14,7 @@ const activenavStyle =
 const Nav: React.FC = () => {
   const { userData, status } = useAppSelector((state) => state.user);
   const [show, setShow] = useState(false);
-  const navRef = useRef<HTMLDivElement>(null);
-  let history = useHistory();
+  const navRef = useRef<HTMLButtonElement>(null);
 
   const handleClickOutside = () => {
     setShow(false);
@@ -23,21 +22,16 @@ const Nav: React.FC = () => {
 
   useOnClickOutside(navRef, handleClickOutside);
 
-  const handleLogOut = () => {
-    auth.signOut();
-    history.push("/");
-  };
-
   return (
     <nav className="w-full bg-white shadow-lg h-14">
       <div className="container py-3 px-5 flex items-center justify-between w-full m-auto">
         <div className="flex text-xl">
-          <h1
+          <NavLink
             className="font-bold text-black cursor-pointer hover:text-blue-700"
-            onClick={() => history.push("/")}
+            to="/"
           >
             Pokédecks
-          </h1>
+          </NavLink>
           <a
             className="flex items-center ml-2 hover:text-blue-700"
             href="https://github.com/kitharvey/pokedecks"
@@ -73,7 +67,8 @@ const Nav: React.FC = () => {
             >
               <span>Leaderboard</span>
             </NavLink>
-            <div
+            <button
+              type='button'
               ref={navRef}
               className={`relative cursor-pointer select-none flex items-center px-3 py-1 rounded-full border hover:shadow-md hover:bg-gray-100 ${
                 show && "bg-gray-100 shadow-md"
@@ -86,21 +81,22 @@ const Nav: React.FC = () => {
               </p>
               {show && (
                 <div className="bg-white text-xs font-light shadow-lg rounded z-10 absolute -bottom-4 right-0 transform translate-y-full overflow-hidden">
-                  <div
+                  <Link
                     className="hover:bg-gray-100 cursor-pointer px-2 py-1"
-                    onClick={() => history.push(`/user/${userData.uid}`)}
+                    to={`/user/${userData.uid}`}
                   >
                     <span>account</span>
-                  </div>
-                  <div
+                  </Link>
+                  <Link
                     className="hover:bg-gray-100 cursor-pointer px-2 py-1"
-                    onClick={handleLogOut}
+                    onClick={() => auth.signOut()}
+                    to="/signin"
                   >
                     <span>log out</span>
-                  </div>
+                  </Link>
                 </div>
               )}
-            </div>
+            </button>
           </div>
         ) : (
           <NavLink

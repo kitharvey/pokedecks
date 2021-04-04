@@ -1,11 +1,11 @@
 import React from "react";
 import { StyledFirebaseAuth } from "react-firebaseui";
-import { auth } from "../../firebase";
 import firebase from "firebase";
-import { useAppSelector } from "../../reduxStore/hooks";
 import { Redirect } from "react-router-dom";
-import logo from "../../assets/colored-logo.png";
 import { motion } from "framer-motion";
+import { auth } from "../../firebase";
+import { useAppSelector } from "../../reduxStore/hooks";
+import logo from "../../assets/colored-logo.png";
 
 const FirebaseAuth: React.FC = () => {
   const { userData } = useAppSelector((state) => state.user);

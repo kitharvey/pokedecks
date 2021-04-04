@@ -40,7 +40,7 @@ const ActualCard: React.FC<ActualCardProps> = ({ id, name, types }) => {
         }}
       >
         <div className="absolute left-2 top-2">
-          <div onClick={handleFavToggle}>
+          <button type='button' onClick={() => handleFavToggle}>
             {userData &&
             userData.favorites.filter((fav) => fav.id === id).length > 0 ? (
               <ClickableIcons
@@ -57,23 +57,23 @@ const ActualCard: React.FC<ActualCardProps> = ({ id, name, types }) => {
                 colorHover="red-500"
               />
             )}
-          </div>
+          </button>
         </div>
         <p className="absolute top-5 right-1/2 transform translate-x-1/2 text-black text-opacity-25 font-bold text-5xl tracking-widest leading-none">
           #{getIDStringfromID(id)}
         </p>
-        <div className="absolute right-2 top-2 ">
+        <button type='button' className="absolute right-2 top-2 ">
           {!modalShow && (
-            <div onClick={handleModal}>
+            <button type='button' onClick={() => handleModal}>
               <ClickableIcons
                 icon={<FaInfoCircle />}
                 text="View more info"
                 color="white"
                 colorHover="gray-200"
               />
-            </div>
+            </button>
           )}
-        </div>
+        </button>
         <div className="w-52 h-52 absolute left-1/2 bottom-1/2 transform -translate-x-1/2 translate-y-1/2">
           <LazyImage
             src={getImageSourcefromID(id)}
@@ -115,7 +115,7 @@ const ActualCard: React.FC<ActualCardProps> = ({ id, name, types }) => {
         </div>
       </div>
       <div className="flex absolute bottom-12 right-1/2 transform translate-x-1/2 translate-y-1/4 ">
-        {types.map((type, index) => (
+        {types.map(type => (
           <img
             src={getTypeIcon(type)[1]}
             className="-m-0.5 rounded-full"
@@ -124,7 +124,7 @@ const ActualCard: React.FC<ActualCardProps> = ({ id, name, types }) => {
               height: "40px",
               margin: types.length > 1 ? "-0.125rem" : "0",
             }}
-            key={index}
+            key={type}
             draggable="false"
             onDragStart={(e) => e.preventDefault()}
             alt={getTypeIcon(type)[0]}

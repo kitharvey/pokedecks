@@ -82,7 +82,7 @@ const LargeButton: React.FC<LargeButtonProps> = ({ link, title, cards }) => {
             }}
             animate={{
               x: translateX,
-              rotate: rotate,
+              rotate,
             }}
           >
             {cards[2]}

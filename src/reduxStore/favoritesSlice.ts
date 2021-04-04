@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { UpdateFavoritesProps } from "../InterfacesProps/Interfaces";
 
-interface initialStateProps {
+interface InitialStateProps {
   FavoritesList: UpdateFavoritesProps[] | null;
   typeList: string[] | null;
 }
 
-const initialState: initialStateProps = {
+const initialState: InitialStateProps = {
   FavoritesList: null,
   typeList: null,
 };
@@ -19,13 +19,13 @@ const favoritesSlice = createSlice({
       state,
       action: PayloadAction<UpdateFavoritesProps[]>
     ) => {
-      let tempList = action.payload.slice();
+      const tempList = action.payload.slice();
       state.FavoritesList = tempList;
     },
     getTypeList: (state, action: PayloadAction<UpdateFavoritesProps[]>) => {
-      let tempList = action.payload.slice();
-      let flat = tempList.map((item) => item.types).flat();
-      let arrUnique = Array.from(new Set(flat));
+      const tempList = action.payload.slice();
+      const flat = tempList.map((item) => item.types).flat();
+      const arrUnique = Array.from(new Set(flat));
       state.typeList = arrUnique;
     },
   },

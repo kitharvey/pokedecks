@@ -70,8 +70,8 @@ const FramerCard: React.FC<FramerCardProps> = (props) => {
         position: "absolute",
         top: 0,
         borderRadius: "10px",
-        x: x,
-        rotate: rotate,
+        x,
+        rotate,
         cursor: "grab",
       }}
       whileHover={whileHover}

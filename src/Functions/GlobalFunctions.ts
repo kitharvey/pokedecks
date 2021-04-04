@@ -7,7 +7,7 @@ import {
 export const extractEvolutionChain = (
   response: GetPokemonEvolutionChainInterface
 ) => {
-  let evoChain = [];
+  const evoChain = [];
   let evoData = response.chain;
 
   do {
@@ -15,40 +15,36 @@ export const extractEvolutionChain = (
       name: evoData.species.name,
       url: evoData.species.url,
     });
-    evoData = evoData["evolves_to"][0];
-  } while (evoData && evoData.hasOwnProperty("evolves_to"));
+    [evoData] = evoData.evolves_to;
+  } while (evoData && Object.prototype.hasOwnProperty.call(evoData, "evolves_to"));
 
   return evoChain;
 };
 
-export const getImageSourceFromURL = (id: string) => {
-  return (
-    "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/" +
-    getIDStringfromURL(id) +
-    ".png"
+export const getImageSourceFromURL = (id: string) => (
+    `https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/${ 
+    getIDStringfromURL(id) 
+    }.png`
   );
-};
 
 export const getIDStringfromURL = (url: string) => {
   const tempURL = url.split("/");
   const id = +tempURL[tempURL.length - 2];
-  if (id >= 10 && id < 100) return "0" + id;
-  if (id >= 100) return "" + id;
-  else return "00" + id;
+  if (id >= 10 && id < 100) return `0${  id}`;
+  if (id >= 100) return `${  id}`;
+  return `00${  id}`;
 };
 
-export const getImageSourcefromID = (id: number) => {
-  return (
-    "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/" +
-    getIDStringfromID(id) +
-    ".png"
+export const getImageSourcefromID = (id: number) => (
+    `https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/${ 
+    getIDStringfromID(id) 
+    }.png`
   );
-};
 
 export const getIDStringfromID = (id: number) => {
-  if (id >= 10 && id < 100) return "0" + id;
-  if (id >= 100) return "" + id;
-  else return "00" + id;
+  if (id >= 10 && id < 100) return `0${  id}`;
+  if (id >= 100) return `${  id}`;
+  return `00${  id}`;
 };
 
 export const getFlavorSpeech = (
@@ -62,23 +58,23 @@ export const getFlavorSpeech = (
   const legend = pokemonSpeciesData.is_legendary ? " legendary, " : "";
   const mythic = pokemonSpeciesData.is_mythical ? " mythical, " : "";
   const text =
-    pokemonData.name +
-    ", " +
-    legend +
-    mythic +
-    types +
-    " type pokemon. " +
-    enLang.flavor_text.replace(/\r?\n|\r/g, " ");
+    `${pokemonData.name 
+    }, ${ 
+    legend 
+    }${mythic 
+    }${types 
+    } type pokemon. ${ 
+    enLang.flavor_text.replace(/\r?\n|\r/g, " ")}`;
   return text;
 };
 
 export const shuffle = (array: any[]) => {
-  let m = array.length,
-    t,
-    i;
+  const m = array.length;
+    let t;
+    let i;
 
   while (m) {
-    i = Math.floor(Math.random() * m--);
+    i = Math.floor(Math.random() * m-1);
     t = array[m];
     array[m] = array[i];
     array[i] = t;
@@ -87,6 +83,4 @@ export const shuffle = (array: any[]) => {
   return array;
 };
 
-export const getrandomIndex = (max: number, min: number) => {
-  return Math.floor(Math.random() * (max - min) + min);
-};
+export const getrandomIndex = (max: number, min: number) => Math.floor(Math.random() * (max - min) + min) 

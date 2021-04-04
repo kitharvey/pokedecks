@@ -1,7 +1,6 @@
 import React from "react";
 
-export const LeftCardLoader: React.FC = () => {
-  return (
+export const LeftCardLoader: React.FC = () => (
     <div className="h-100 w-full p-4 flex flex-col bg-white">
       <div className="w-7 h-7 rounded bg-gray-500 animate-pulse mr-auto" />
       <div className="w-full flex flex-col mt-4">
@@ -33,7 +32,7 @@ export const LeftCardLoader: React.FC = () => {
       </div>
 
       <div className="w-full h-max mt-4">
-        <div className="w-20 h-7 rounded bg-gray-500 animate-pulse mr-auto"></div>
+        <div className="w-20 h-7 rounded bg-gray-500 animate-pulse mr-auto" />
         <div className="flex flex-col w-full mt-4">
           <div className="w-full grid grid-cols-2 gap-x-1">
             <div className="h-5 w-12 my-0.5 rounded bg-gray-400 animate-pulse" />
@@ -55,13 +54,11 @@ export const LeftCardLoader: React.FC = () => {
       </div>
     </div>
   );
-};
 
-export const RightCardLoader: React.FC = () => {
-  return (
+export const RightCardLoader: React.FC = () => (
     <div className="h-100 w-full p-4 flex flex-col items-center justify-between bg-white">
       <div className="w-full">
-        <div className="w-20 h-7 rounded bg-gray-500 animate-pulse mr-auto"></div>
+        <div className="w-20 h-7 rounded bg-gray-500 animate-pulse mr-auto" />
         <div className="flex justify-evenly w-full mt-4">
           <div className="flex flex-col items-center">
             <div className="w-10 h-3.5 rounded bg-gray-200 animate-pulses" />
@@ -82,7 +79,7 @@ export const RightCardLoader: React.FC = () => {
       </div>
 
       <div className="w-full">
-        <div className="w-12 h-7 rounded bg-gray-500 animate-pulse mr-auto"></div>
+        <div className="w-12 h-7 rounded bg-gray-500 animate-pulse mr-auto" />
         <div className="grid grid-cols-3 gap-y-5 w-full mt-4">
           <div className="flex flex-col items-center">
             <div className="w-10 h-4 rounded bg-gray-400 animate-pulse" />
@@ -112,4 +109,3 @@ export const RightCardLoader: React.FC = () => {
       </div>
     </div>
   );
-};

@@ -10,12 +10,10 @@ const queryClient = new QueryClient({
   },
 });
 
-const App: React.FC = () => {
-  return (
+const App: React.FC = () => (
     <QueryClientProvider client={queryClient}>
       <Page />
     </QueryClientProvider>
   );
-};
 
 export default App;

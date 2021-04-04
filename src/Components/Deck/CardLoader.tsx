@@ -1,8 +1,7 @@
 import React from "react";
 import egg from "../../assets/pokemon-egg.png";
 
-const CardLoader: React.FC = () => {
-  return (
+const CardLoader: React.FC = () => (
     <div className="h-full w-full p-4 flex flex-col bg-white justify-between relative addFilter">
       <div
         className="w-full h-full relative"
@@ -35,6 +34,5 @@ const CardLoader: React.FC = () => {
       <div className="absolute w-32 h-6 rounded bottom-2.5 right-1/2 transform translate-x-1/2 bg-gray-400 animate-pulse" />
     </div>
   );
-};
 
 export default CardLoader;

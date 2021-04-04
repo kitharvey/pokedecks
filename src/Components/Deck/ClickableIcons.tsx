@@ -12,8 +12,7 @@ const ClickableIcons: React.FC<ClickableIconsProps> = ({
   icon,
   color,
   colorHover,
-}) => {
-  return (
+}) => (
     <div
       className={`relative group text-2xl font-black text-${color} leading-none cursor-pointer hover:text-${colorHover}`}
     >
@@ -23,6 +22,5 @@ const ClickableIcons: React.FC<ClickableIconsProps> = ({
       </p>
     </div>
   );
-};
 
 export default ClickableIcons;

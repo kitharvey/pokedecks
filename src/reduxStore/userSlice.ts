@@ -29,9 +29,9 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     updateFavorites: (state, action: PayloadAction<UpdateFavoritesProps>) => {
-      const payload = action.payload;
+      const { payload } = action;
       if (state.userData) {
-        let tempFav = state.userData.favorites.map((fav) => ({
+        const tempFav = state.userData.favorites.map((fav) => ({
           id: fav.id,
           name: fav.name,
           types: fav.types,

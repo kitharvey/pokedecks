@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { FaHeart } from "react-icons/fa";
+import { AnimatePresence } from "framer-motion";
 import { NameURLInterface } from "../../InterfacesProps/Interfaces";
 import {
   getIDStringfromURL,
@@ -6,9 +8,7 @@ import {
   shuffle,
 } from "../../functions/GlobalFunctions";
 import HiddenPokemon from "./HiddenPokemon";
-import { FaHeart } from "react-icons/fa";
 import GameOver from "./GameOver";
-import { AnimatePresence } from "framer-motion";
 import GameFramerCard from "./GameFramerCard";
 
 interface GameProps {
@@ -73,8 +73,8 @@ const Game: React.FC<GameProps> = ({ pokemonList }) => {
               score <span className="font-bold">{score}</span>
             </span>
             <span className="flex text-red-500 text-lg">
-              {arrlives(lives).map((_, index) => (
-                <span key={index} className="ml-1">
+              {arrlives(lives).map( life => (
+                <span key={life} className="ml-1">
                   <FaHeart />
                 </span>
               ))}
@@ -149,8 +149,9 @@ const Game: React.FC<GameProps> = ({ pokemonList }) => {
           <div className="flex">
             {options &&
               options.map((option) => (
-                <div key={option} className={"m-2"}>
+                <div key={option} className="m-2">
                   <button
+                    type="button"
                     className={`p-2 cursor-pointer shadow-md transition-colors rounded-md hover:shadow-lg ${
                       reveal
                         ? option === selected
@@ -163,7 +164,6 @@ const Game: React.FC<GameProps> = ({ pokemonList }) => {
                         : "bg-white"
                     }`}
                     onClick={() => handleSelect(option)}
-                    disabled={reveal}
                     style={{
                       pointerEvents: reveal ? "none" : "all",
                       opacity: reveal ? 0.5 : 1,

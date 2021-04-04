@@ -1,15 +1,15 @@
 import React from "react";
+import { useQuery } from "react-query";
 import { fetchPokemonData } from "../../fromAPI/axiosFunctions";
 import { CardInterface } from "../../InterfacesProps/Interfaces";
-import "react-lazy-load-image-component/src/effects/black-and-white.css";
 import CardLoader from "./CardLoader";
-import { useQuery } from "react-query";
 import Card from "./Card";
+import "react-lazy-load-image-component/src/effects/black-and-white.css";
 
 const CardWrapper: React.FC<CardInterface> = ({ id }) => {
   const { data, isFetching } = useQuery(
     ["fetchPokemonData", id],
-    async () => await fetchPokemonData(id)
+    async () => fetchPokemonData(id)
   );
 
   return (

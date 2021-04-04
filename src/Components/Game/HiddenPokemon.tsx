@@ -8,8 +8,7 @@ interface HiddenPokemonProps {
   reveal: boolean;
 }
 
-const HiddenPokemon: React.FC<HiddenPokemonProps> = ({ id, reveal }) => {
-  return (
+const HiddenPokemon: React.FC<HiddenPokemonProps> = ({ id, reveal }) => (
     <div className="w-full h-full rounded-md bg-white p-4">
       <div
         className="w-full h-full flex items-center justify-center"
@@ -63,6 +62,5 @@ const HiddenPokemon: React.FC<HiddenPokemonProps> = ({ id, reveal }) => {
       </div>
     </div>
   );
-};
 
 export default HiddenPokemon;

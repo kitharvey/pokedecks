@@ -1,8 +1,7 @@
-import logo from "../../assets/colored-logo.png";
 import React from "react";
+import logo from "../../assets/colored-logo.png";
 
-const EndCard: React.FC = () => {
-  return (
+const EndCard: React.FC = () => (
     <div className="h-full w-full bg-white p-4 flex flex-col items-center justify-around rounded-md">
       <div className="text-2xl font-bold text-gray-500">End of the Deck</div>
       <img
@@ -15,6 +14,5 @@ const EndCard: React.FC = () => {
       <div className="text-2xl font-bold text-gray-500">Swipe to Reload</div>
     </div>
   );
-};
 
 export default EndCard;

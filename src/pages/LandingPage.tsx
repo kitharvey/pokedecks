@@ -8,10 +8,10 @@ import { shuffle } from "../functions/GlobalFunctions";
 const LandingPage: React.FC = () => {
   const cards = shuffle(landingPokemons);
   const playCards = cards.map((pokemon) => (
-    <HiddenPokemon id={pokemon.id} reveal={false} />
+    <HiddenPokemon key={pokemon.id} id={pokemon.id} reveal={false} />
   ));
   const browseCards = cards.map((pokemon) => (
-    <ActualCard id={pokemon.id} name={pokemon.name} types={pokemon.types} />
+    <ActualCard key={pokemon.id} id={pokemon.id} name={pokemon.name} types={pokemon.types} />
   ));
 
   return (

@@ -2,8 +2,7 @@ import React from "react";
 import { ModalCardProps } from "../../InterfacesProps/Interfaces";
 import Evolution from "./Evolution";
 
-const RightCard: React.FC<ModalCardProps> = ({ speciesdata, pokemondata }) => {
-  return (
+const RightCard: React.FC<ModalCardProps> = ({ speciesdata, pokemondata }) => (
     <div className="h-max w-full p-4 bg-white">
       {speciesdata && pokemondata && (
         <div className="min-h-0 h-max w-full flex flex-col items-center justify-between lg:min-h-100">
@@ -47,6 +46,5 @@ const RightCard: React.FC<ModalCardProps> = ({ speciesdata, pokemondata }) => {
       )}
     </div>
   );
-};
 
 export default RightCard;

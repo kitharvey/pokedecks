@@ -1,11 +1,10 @@
 import React from "react";
+import Case from "case";
 import { getFlavorSpeech } from "../../functions/GlobalFunctions";
 import { ModalCardProps } from "../../InterfacesProps/Interfaces";
 import FlexBetween from "./FlexBetween";
-import Case from "case";
 
-const LeftCard: React.FC<ModalCardProps> = ({ speciesdata, pokemondata }) => {
-  return (
+const LeftCard: React.FC<ModalCardProps> = ({ speciesdata, pokemondata }) => (
     <div className="h-max  w-full p-4 bg-white">
       {speciesdata && pokemondata && (
         <div className="min-h-0 h-max w-full flex flex-col items-center justify-between lg:min-h-100">
@@ -55,8 +54,8 @@ const LeftCard: React.FC<ModalCardProps> = ({ speciesdata, pokemondata }) => {
                 category="Abilities:"
                 details={
                   <div className="flex flex-col items-start">
-                    {pokemondata.abilities.map((ability, index) => (
-                      <p key={index}>
+                    {pokemondata.abilities.map((ability) => (
+                      <p key={ability.ability.name}>
                         {ability.ability.name
                           .split("-")
                           .map(
@@ -108,6 +107,5 @@ const LeftCard: React.FC<ModalCardProps> = ({ speciesdata, pokemondata }) => {
       )}
     </div>
   );
-};
 
 export default LeftCard;

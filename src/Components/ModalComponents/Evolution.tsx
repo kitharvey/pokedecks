@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { LazyImage } from "react-lazy-images";
+import { useQuery } from "react-query";
+import axios from "axios";
+import { motion } from "framer-motion";
 import {
   extractEvolutionChain,
   getIDStringfromURL,
@@ -11,9 +14,6 @@ import {
   NameURLInterface,
 } from "../../InterfacesProps/Interfaces";
 import egg from "../../assets/pokemon-egg.png";
-import { useQuery } from "react-query";
-import axios from "axios";
-import { motion } from "framer-motion";
 import { findColor } from "../../functions/getTypeIconAndColor";
 import { useAppDispatch } from "../../reduxStore/hooks";
 import { setModalIndex, setModalShow } from "../../reduxStore/modalSlice";
@@ -29,7 +29,7 @@ const Evolution: React.FC<EvolutionProps> = ({
 }) => {
   const { data, isFetching } = useQuery(
     "fetchEvolutionData",
-    async () => await axios.get(`${pokemonSpeciesData.evolution_chain.url}`)
+    async () => axios.get(`${pokemonSpeciesData.evolution_chain.url}`)
   );
   const [evolutionChain, setEvolutionChain] = useState<
     NameURLInterface[] | null
@@ -66,15 +66,15 @@ const Evolution: React.FC<EvolutionProps> = ({
       }}
     >
       {evolutionChain && !isFetching ? (
-        evolutionChain.map(({ name, url }, index) => (
-          <div key={index} className="flex flex-col items-center">
+        evolutionChain.map(({ name, url }) => (
+          <div key={url} className="flex flex-col items-center">
             <p className="text-xs">#{getIDStringfromURL(url)}</p>
-            <div onClick={() => handleModal(+getIDStringfromURL(url))}>
+            <button type="button" onClick={() => handleModal(+getIDStringfromURL(url))}>
               <motion.div
                 className="w-28 h-28 rounded-full p-4 m-2 cursor-pointer"
                 style={{
                   background: `linear-gradient(0deg, ${
-                    findColor(pokemonData.types[0].type.name)[1] + "10"
+                    `${findColor(pokemonData.types[0].type.name)[1]  }10`
                   } 0%, ${findColor(pokemonData.types[0].type.name)[1]} 80%)`,
                 }}
                 initial={{
@@ -134,7 +134,7 @@ const Evolution: React.FC<EvolutionProps> = ({
                   )}
                 />
               </motion.div>
-            </div>
+            </button>
             <p className="text-xs capitalize">{name}</p>
           </div>
         ))

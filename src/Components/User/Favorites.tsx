@@ -15,9 +15,9 @@ const Favorites: React.FC = () => {
   const dispatch = useAppDispatch();
   useEffect(() => {
     if (userData) {
-      let tempList = userData.favorites.slice();
+      const tempList = userData.favorites.slice();
       dispatch(getTypeList(tempList));
-      let filteredList = tempList.filter(
+      const filteredList = tempList.filter(
         (pokemon) =>
           pokemon.name.includes(search) &&
           pokemon.types.join("").includes(filterType)

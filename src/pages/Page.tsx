@@ -1,18 +1,18 @@
 import React, { useEffect } from "react";
-import Modal from "../components/ModalComponents/Modal";
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Redirect,
 } from "react-router-dom";
+import Modal from "../components/ModalComponents/Modal";
 import LandingPage from "./LandingPage";
 import User from "../components/User/User";
 import { useAppDispatch, useAppSelector } from "../reduxStore/hooks";
 import { auth } from "../firebase";
-import { signin } from "../reduxStore/userSlice";
+import { signin , signout } from "../reduxStore/userSlice";
 import { fetchPokemonList } from "../reduxStore/pokemonSlice";
-import { signout } from "../reduxStore/userSlice";
+
 import DeckOfCards from "../components/Deck/DeckOfCards";
 import Nav from "../components/Nav/Nav";
 import FirebaseAuth from "../components/Login/FirebaseAuth";

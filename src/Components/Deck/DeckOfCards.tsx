@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import FramerCard from "./FramerCard";
-import { NameURLInterface } from "../../InterfacesProps/Interfaces";
 import { FaUndoAlt, FaSearch } from "react-icons/fa";
 import { wrap } from "popmotion";
+import FramerCard from "./FramerCard";
+import { NameURLInterface } from "../../InterfacesProps/Interfaces";
 import { useAppDispatch, useAppSelector } from "../../reduxStore/hooks";
 import {
   setPokemonIndex,
@@ -95,7 +95,8 @@ const DeckOfCards: React.FC = () => {
           }}
         >
           <AnimatePresence>
-            {pokemonListLength >= 3 && cardIndex + 2 < pokemonListLength + 1 && (
+            {(pokemonListLength >= 3 && cardIndex + 2 < pokemonListLength + 1) 
+            && (
               <FramerCard
                 key={cardIndex + 2}
                 index={cardIndex + 2}

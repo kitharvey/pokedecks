@@ -1,9 +1,9 @@
+import axios from "axios";
 import {
   SignInProps,
   UpdateFavoritesProps,
   UserProps,
 } from "../InterfacesProps/Interfaces";
-import axios from "axios";
 import { shuffle } from "../functions/GlobalFunctions";
 
 const BACKEND_SERVER_URL = process.env.REACT_APP_BACKEND_SERVER_URL;
