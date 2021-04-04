@@ -1,30 +1,30 @@
-import { useEffect, RefObject } from 'react'
+import { useEffect, RefObject } from "react";
 
-type AnyEvent = MouseEvent | TouchEvent
+type AnyEvent = MouseEvent | TouchEvent;
 
 function useOnClickOutside<T extends HTMLElement = HTMLElement>(
   ref: RefObject<T>,
-  handler: (event: AnyEvent) => void,
+  handler: (event: AnyEvent) => void
 ) {
   useEffect(() => {
     const listener = (event: AnyEvent) => {
-      const el = ref?.current
+      const el = ref?.current;
 
       if (!el || el.contains(event.target as Node)) {
-        return
+        return;
       }
 
-      handler(event)
-    }
+      handler(event);
+    };
 
-    document.addEventListener(`mousedown`, listener)
-    document.addEventListener(`touchstart`, listener)
+    document.addEventListener(`mousedown`, listener);
+    document.addEventListener(`touchstart`, listener);
 
     return () => {
-      document.removeEventListener(`mousedown`, listener)
-      document.removeEventListener(`touchstart`, listener)
-    }
-  }, [ref, handler])
+      document.removeEventListener(`mousedown`, listener);
+      document.removeEventListener(`touchstart`, listener);
+    };
+  }, [ref, handler]);
 }
 
-export default useOnClickOutside
+export default useOnClickOutside;
