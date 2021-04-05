@@ -1,39 +1,35 @@
-import React from "react";
-import { motion, useMotionValue, PanInfo, useTransform } from "framer-motion";
-import { useAppDispatch } from "../../reduxStore/hooks";
-import { setPokemonIndex } from "../../reduxStore/pokemonSlice";
-import {
-  AnimateProps,
-  InitialProps,
-  TransitionProps,
-} from "../../InterfacesProps/Interfaces";
+import React from 'react'
+import { motion, useMotionValue, PanInfo, useTransform } from 'framer-motion'
+import { useAppDispatch } from '../../reduxStore/hooks'
+import { setPokemonIndex } from '../../reduxStore/pokemonSlice'
+import { AnimateProps, InitialProps, TransitionProps } from '../../InterfacesProps/Interfaces'
 
 interface FramerCardProps {
-  initial?: InitialProps;
-  animate?: AnimateProps;
-  transition?: TransitionProps;
-  exitX?: number;
-  index: number;
-  drag?: boolean | "x" | "y";
-  setExitX?: (x: number) => void;
+  initial?: InitialProps
+  animate?: AnimateProps
+  transition?: TransitionProps
+  exitX?: number
+  index: number
+  drag?: boolean | 'x' | 'y'
+  setExitX?: (x: number) => void
   whileHover?: {
-    scale: number;
-    boxShadow: string;
-  };
+    scale: number
+    boxShadow: string
+  }
   whileTap?: {
-    cursor?: string;
-    scale?: number;
-    boxShadow?: string;
-  };
+    cursor?: string
+    scale?: number
+    boxShadow?: string
+  }
 }
 
 const FramerCard: React.FC<FramerCardProps> = (props) => {
-  const dispatch = useAppDispatch();
-  const maximumX = 100;
-  const x = useMotionValue(0);
+  const dispatch = useAppDispatch()
+  const maximumX = 100
+  const x = useMotionValue(0)
   const rotate = useTransform(x, [-maximumX, 0, maximumX], [-5, 0, 5], {
     clamp: false,
-  });
+  })
 
   const {
     initial,
@@ -46,33 +42,30 @@ const FramerCard: React.FC<FramerCardProps> = (props) => {
     whileHover,
     whileTap,
     children,
-  } = props;
+  } = props
 
-  function handleDragEnd(
-    event: MouseEvent | TouchEvent | PointerEvent,
-    info: PanInfo
-  ) {
+  function handleDragEnd(event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) {
     if (info.offset.x < -maximumX) {
-      if (setExitX) setExitX(-maximumX * 5);
-      dispatch(setPokemonIndex(index + 1));
+      if (setExitX) setExitX(-maximumX * 5)
+      dispatch(setPokemonIndex(index + 1))
     }
     if (info.offset.x > maximumX) {
-      if (setExitX) setExitX(maximumX * 5);
-      dispatch(setPokemonIndex(index + 1));
+      if (setExitX) setExitX(maximumX * 5)
+      dispatch(setPokemonIndex(index + 1))
     }
   }
 
   return (
     <motion.div
       style={{
-        width: "100%",
-        height: "100%",
-        position: "absolute",
+        width: '100%',
+        height: '100%',
+        position: 'absolute',
         top: 0,
-        borderRadius: "10px",
+        borderRadius: '10px',
         x,
         rotate,
-        cursor: "grab",
+        cursor: 'grab',
       }}
       whileHover={whileHover}
       whileTap={whileTap}
@@ -95,7 +88,7 @@ const FramerCard: React.FC<FramerCardProps> = (props) => {
     >
       {children}
     </motion.div>
-  );
-};
+  )
+}
 
-export default FramerCard;
+export default FramerCard

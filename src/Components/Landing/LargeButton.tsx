@@ -1,26 +1,26 @@
-import { motion } from "framer-motion";
-import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { motion } from 'framer-motion'
+import React, { useState } from 'react'
+import { useHistory } from 'react-router-dom'
 
 interface LargeButtonProps {
-  link: string;
-  title: string;
-  cards: React.ReactNode[];
+  link: string
+  title: string
+  cards: React.ReactNode[]
 }
 
 const LargeButton: React.FC<LargeButtonProps> = ({ link, title, cards }) => {
-  const history = useHistory();
-  const [translateX, setTransLateX] = useState<number>(10);
-  const [rotate, setRotate] = useState<number>(5);
+  const history = useHistory()
+  const [translateX, setTransLateX] = useState<number>(10)
+  const [rotate, setRotate] = useState<number>(5)
 
   const handleMouseOver = () => {
-    setTransLateX(100);
-    setRotate(15);
-  };
+    setTransLateX(100)
+    setRotate(15)
+  }
   const handleMouseOut = () => {
-    setTransLateX(10);
-    setRotate(5);
-  };
+    setTransLateX(10)
+    setRotate(5)
+  }
   return (
     <motion.div
       onClick={() => history.push(link)}
@@ -31,21 +31,21 @@ const LargeButton: React.FC<LargeButtonProps> = ({ link, title, cards }) => {
       <div className="h-96 w-80 select-none rounded-md pointer-events-none">
         <motion.div
           style={{
-            width: "100%",
-            height: "100%",
-            position: "relative",
+            width: '100%',
+            height: '100%',
+            position: 'relative',
             scale: 0.8,
           }}
         >
           <motion.div
             className="bg-white"
             style={{
-              width: "100%",
-              height: "100%",
-              position: "absolute",
+              width: '100%',
+              height: '100%',
+              position: 'absolute',
               top: 0,
-              borderRadius: "10px",
-              boxShadow: "0 5px 25px 1px rgba(0,0,0,.25)",
+              borderRadius: '10px',
+              boxShadow: '0 5px 25px 1px rgba(0,0,0,.25)',
             }}
             animate={{
               x: -translateX,
@@ -57,12 +57,12 @@ const LargeButton: React.FC<LargeButtonProps> = ({ link, title, cards }) => {
           <motion.div
             className="bg-white"
             style={{
-              width: "100%",
-              height: "100%",
-              position: "absolute",
+              width: '100%',
+              height: '100%',
+              position: 'absolute',
               top: 0,
-              borderRadius: "10px",
-              boxShadow: "0 5px 25px 1px rgba(0,0,0,.25)",
+              borderRadius: '10px',
+              boxShadow: '0 5px 25px 1px rgba(0,0,0,.25)',
             }}
             animate={{
               y: -translateX / 5,
@@ -73,12 +73,12 @@ const LargeButton: React.FC<LargeButtonProps> = ({ link, title, cards }) => {
           <motion.div
             className="bg-white"
             style={{
-              width: "100%",
-              height: "100%",
-              position: "absolute",
+              width: '100%',
+              height: '100%',
+              position: 'absolute',
               top: 0,
-              borderRadius: "10px",
-              boxShadow: "0 5px 25px 1px rgba(0,0,0,.25)",
+              borderRadius: '10px',
+              boxShadow: '0 5px 25px 1px rgba(0,0,0,.25)',
             }}
             animate={{
               x: translateX,
@@ -98,7 +98,7 @@ const LargeButton: React.FC<LargeButtonProps> = ({ link, title, cards }) => {
         {title}
       </motion.div>
     </motion.div>
-  );
-};
+  )
+}
 
-export default LargeButton;
+export default LargeButton

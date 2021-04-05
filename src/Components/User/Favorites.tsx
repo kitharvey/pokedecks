@@ -1,55 +1,51 @@
-import React, { useEffect, useState } from "react";
-import { FaSearch } from "react-icons/fa";
-import { useAppDispatch, useAppSelector } from "../../reduxStore/hooks";
-import ActualCard from "../Deck/ActualCard";
-import { getFavoritesList, getTypeList } from "../../reduxStore/favoritesSlice";
+import React, { useEffect, useState } from 'react'
+import { FaSearch } from 'react-icons/fa'
+import { useAppDispatch, useAppSelector } from '../../reduxStore/hooks'
+import ActualCard from '../Deck/ActualCard'
+import { getFavoritesList, getTypeList } from '../../reduxStore/favoritesSlice'
 
 const Favorites: React.FC = () => {
-  const { userData } = useAppSelector((state) => state.user);
-  const { typeList, FavoritesList } = useAppSelector(
-    (state) => state.favorites
-  );
-  const [filterType, setFilterType] = useState("");
-  const [sortType, setSortType] = useState<"name" | "id">("name");
-  const [search, setSearch] = useState("");
-  const dispatch = useAppDispatch();
+  const { userData } = useAppSelector((state) => state.user)
+  const { typeList, FavoritesList } = useAppSelector((state) => state.favorites)
+  const [filterType, setFilterType] = useState('')
+  const [sortType, setSortType] = useState<'name' | 'id'>('name')
+  const [search, setSearch] = useState('')
+  const dispatch = useAppDispatch()
   useEffect(() => {
     if (userData) {
-      const tempList = userData.favorites.slice();
-      dispatch(getTypeList(tempList));
+      const tempList = userData.favorites.slice()
+      dispatch(getTypeList(tempList))
       const filteredList = tempList.filter(
-        (pokemon) =>
-          pokemon.name.includes(search) &&
-          pokemon.types.join("").includes(filterType)
-      );
+        (pokemon) => pokemon.name.includes(search) && pokemon.types.join('').includes(filterType)
+      )
       filteredList.sort((a, b) => {
         if (a[sortType] < b[sortType]) {
-          return -1;
+          return -1
         }
         if (a[sortType] > b[sortType]) {
-          return 1;
+          return 1
         }
-        return 0;
-      });
-      dispatch(getFavoritesList(filteredList));
+        return 0
+      })
+      dispatch(getFavoritesList(filteredList))
     }
-  }, [userData, dispatch, filterType, sortType, search]);
+  }, [userData, dispatch, filterType, sortType, search])
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const key = e.target.value.toLowerCase();
-    setSearch(key);
-  };
+    const key = e.target.value.toLowerCase()
+    setSearch(key)
+  }
 
   const handleSort = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const key = e.target.value;
-    if (key === "name") setSortType("name");
-    else setSortType("id");
-  };
+    const key = e.target.value
+    if (key === 'name') setSortType('name')
+    else setSortType('id')
+  }
 
   const handleFilter = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const key = e.target.value;
-    setFilterType(key);
-  };
+    const key = e.target.value
+    setFilterType(key)
+  }
 
   return (
     <div className="w-full mt-4">
@@ -93,7 +89,7 @@ const Favorites: React.FC = () => {
         {FavoritesList ? (
           FavoritesList.map((fav) => (
             <div key={fav.id} className="h-96 w-80 m-2 rounded-md shadow">
-              {" "}
+              {' '}
               <ActualCard id={fav.id} name={fav.name} types={fav.types} />
             </div>
           ))
@@ -102,7 +98,7 @@ const Favorites: React.FC = () => {
         )}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Favorites;
+export default Favorites

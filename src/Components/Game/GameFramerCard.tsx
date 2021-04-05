@@ -1,30 +1,26 @@
-import { motion } from "framer-motion";
-import React from "react";
-import {
-  AnimateProps,
-  InitialProps,
-  TransitionProps,
-} from "../../InterfacesProps/Interfaces";
+import { motion } from 'framer-motion'
+import React from 'react'
+import { AnimateProps, InitialProps, TransitionProps } from '../../InterfacesProps/Interfaces'
 
 interface GameFramerCardProps {
-  initial?: InitialProps;
-  animate?: AnimateProps;
-  transition?: TransitionProps;
-  exitX?: number;
-  rotateX?: number;
+  initial?: InitialProps
+  animate?: AnimateProps
+  transition?: TransitionProps
+  exitX?: number
+  rotateX?: number
 }
 
 const GameFramerCard: React.FC<GameFramerCardProps> = (props) => {
-  const { initial, animate, transition, exitX, rotateX, children } = props;
+  const { initial, animate, transition, exitX, rotateX, children } = props
 
   return (
     <motion.div
       style={{
-        width: "100%",
-        height: "100%",
-        position: "absolute",
+        width: '100%',
+        height: '100%',
+        position: 'absolute',
         top: 0,
-        borderRadius: "10px",
+        borderRadius: '10px',
       }}
       initial={initial}
       animate={animate}
@@ -38,7 +34,7 @@ const GameFramerCard: React.FC<GameFramerCardProps> = (props) => {
     >
       {children}
     </motion.div>
-  );
-};
+  )
+}
 
-export default GameFramerCard;
+export default GameFramerCard

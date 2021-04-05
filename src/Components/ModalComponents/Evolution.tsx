@@ -1,55 +1,49 @@
-import React, { useState, useEffect } from "react";
-import { LazyImage } from "react-lazy-images";
-import { useQuery } from "react-query";
-import axios from "axios";
-import { motion } from "framer-motion";
+import React, { useState, useEffect } from 'react'
+import { LazyImage } from 'react-lazy-images'
+import { useQuery } from 'react-query'
+import axios from 'axios'
+import { motion } from 'framer-motion'
 import {
   extractEvolutionChain,
   getIDStringfromURL,
   getImageSourceFromURL,
-} from "../../functions/GlobalFunctions";
+} from '../../functions/GlobalFunctions'
 import {
   GetPokemonDataInterface,
   GetPokemonSpeciesDataInterface,
   NameURLInterface,
-} from "../../InterfacesProps/Interfaces";
-import egg from "../../assets/pokemon-egg.png";
-import { findColor } from "../../functions/getTypeIconAndColor";
-import { useAppDispatch } from "../../reduxStore/hooks";
-import { setModalIndex, setModalShow } from "../../reduxStore/modalSlice";
+} from '../../InterfacesProps/Interfaces'
+import egg from '../../assets/pokemon-egg.png'
+import { findColor } from '../../functions/getTypeIconAndColor'
+import { useAppDispatch } from '../../reduxStore/hooks'
+import { setModalIndex, setModalShow } from '../../reduxStore/modalSlice'
 
 interface EvolutionProps {
-  pokemonSpeciesData: GetPokemonSpeciesDataInterface;
-  pokemonData: GetPokemonDataInterface;
+  pokemonSpeciesData: GetPokemonSpeciesDataInterface
+  pokemonData: GetPokemonDataInterface
 }
 
-const Evolution: React.FC<EvolutionProps> = ({
-  pokemonSpeciesData,
-  pokemonData,
-}) => {
-  const { data, isFetching } = useQuery(
-    "fetchEvolutionData",
-    async () => axios.get(`${pokemonSpeciesData.evolution_chain.url}`)
-  );
-  const [evolutionChain, setEvolutionChain] = useState<
-    NameURLInterface[] | null
-  >(null);
-  const dispatch = useAppDispatch();
+const Evolution: React.FC<EvolutionProps> = ({ pokemonSpeciesData, pokemonData }) => {
+  const { data, isFetching } = useQuery('fetchEvolutionData', async () =>
+    axios.get(`${pokemonSpeciesData.evolution_chain.url}`)
+  )
+  const [evolutionChain, setEvolutionChain] = useState<NameURLInterface[] | null>(null)
+  const dispatch = useAppDispatch()
   useEffect(() => {
     if (data) {
-      const evolutionData = extractEvolutionChain(data.data);
-      setEvolutionChain(evolutionData);
+      const evolutionData = extractEvolutionChain(data.data)
+      setEvolutionChain(evolutionData)
     }
 
     return () => {
-      setEvolutionChain(null);
-    };
-  }, [data]);
+      setEvolutionChain(null)
+    }
+  }, [data])
 
   const handleModal = (id: number) => {
-    dispatch(setModalIndex(id));
-    dispatch(setModalShow(true));
-  };
+    dispatch(setModalIndex(id))
+    dispatch(setModalShow(true))
+  }
 
   return (
     <motion.div
@@ -73,9 +67,9 @@ const Evolution: React.FC<EvolutionProps> = ({
               <motion.div
                 className="w-28 h-28 rounded-full p-4 m-2 cursor-pointer"
                 style={{
-                  background: `linear-gradient(0deg, ${
-                    `${findColor(pokemonData.types[0].type.name)[1]  }10`
-                  } 0%, ${findColor(pokemonData.types[0].type.name)[1]} 80%)`,
+                  background: `linear-gradient(0deg, ${`${
+                    findColor(pokemonData.types[0].type.name)[1]
+                  }10`} 0%, ${findColor(pokemonData.types[0].type.name)[1]} 80%)`,
                 }}
                 initial={{
                   scale: 0,
@@ -89,11 +83,11 @@ const Evolution: React.FC<EvolutionProps> = ({
                 }}
                 whileHover={{
                   scale: 1.1,
-                  boxShadow: "0 5px 15px 1px rgba(0,0,0,.25)",
+                  boxShadow: '0 5px 15px 1px rgba(0,0,0,.25)',
                 }}
                 whileTap={{
                   scale: 1,
-                  boxShadow: "0 0px 0px 0px rgba(0,0,0,.25)",
+                  boxShadow: '0 0px 0px 0px rgba(0,0,0,.25)',
                 }}
               >
                 <LazyImage
@@ -105,10 +99,8 @@ const Evolution: React.FC<EvolutionProps> = ({
                       src={egg}
                       alt={imageProps.alt}
                       draggable="false"
-                      onDragStart={(e: React.DragEvent<HTMLDivElement>) =>
-                        e.preventDefault()
-                      }
-                      style={{ filter: "blur(10px)" }}
+                      onDragStart={(e: React.DragEvent<HTMLDivElement>) => e.preventDefault()}
+                      style={{ filter: 'blur(10px)' }}
                     />
                   )}
                   actual={({ imageProps }) => (
@@ -116,9 +108,7 @@ const Evolution: React.FC<EvolutionProps> = ({
                       {...imageProps}
                       alt={name}
                       draggable="false"
-                      onDragStart={(e: React.DragEvent<HTMLDivElement>) =>
-                        e.preventDefault()
-                      }
+                      onDragStart={(e: React.DragEvent<HTMLDivElement>) => e.preventDefault()}
                     />
                   )}
                   error={() => (
@@ -126,10 +116,8 @@ const Evolution: React.FC<EvolutionProps> = ({
                       src={egg}
                       alt="egg error"
                       draggable="false"
-                      onDragStart={(e: React.DragEvent<HTMLDivElement>) =>
-                        e.preventDefault()
-                      }
-                      style={{ filter: "blur(10px)" }}
+                      onDragStart={(e: React.DragEvent<HTMLDivElement>) => e.preventDefault()}
+                      style={{ filter: 'blur(10px)' }}
                     />
                   )}
                 />
@@ -158,7 +146,7 @@ const Evolution: React.FC<EvolutionProps> = ({
         </div>
       )}
     </motion.div>
-  );
-};
+  )
+}
 
-export default Evolution;
+export default Evolution

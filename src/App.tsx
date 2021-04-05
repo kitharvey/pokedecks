@@ -1,6 +1,6 @@
-import React from "react";
-import { QueryClient, QueryClientProvider } from "react-query";
-import Page from "./pages/Page";
+import React from 'react'
+import { QueryClient, QueryClientProvider } from 'react-query'
+import Page from './pages/Page'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -8,12 +8,12 @@ const queryClient = new QueryClient({
       refetchOnWindowFocus: false,
     },
   },
-});
+})
 
 const App: React.FC = () => (
-    <QueryClientProvider client={queryClient}>
-      <Page />
-    </QueryClientProvider>
-  );
+  <QueryClientProvider client={queryClient}>
+    <Page />
+  </QueryClientProvider>
+)
 
-export default App;
+export default App

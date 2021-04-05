@@ -1,10 +1,10 @@
-import React from "react";
-import CardWrapper from "../Deck/CardWrapper";
+import React from 'react'
+import CardWrapper from '../Deck/CardWrapper'
 
 const CenterCard: React.FC<{ pokemon: number }> = ({ pokemon }) => (
-    <div className="h-100 w-full">
-      <CardWrapper id={pokemon} />
-    </div>
-  );
+  <div className="h-100 w-full">
+    <CardWrapper id={pokemon} />
+  </div>
+)
 
-export default CenterCard;
+export default CenterCard

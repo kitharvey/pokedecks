@@ -1,13 +1,13 @@
-import React, { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../../reduxStore/hooks";
-import { fetchusersList } from "../../reduxStore/leaderboardSlice";
+import React, { useEffect } from 'react'
+import { useAppDispatch, useAppSelector } from '../../reduxStore/hooks'
+import { fetchusersList } from '../../reduxStore/leaderboardSlice'
 
 const LeaderBoard: React.FC = () => {
-  const { usersList } = useAppSelector((state) => state.leaderboard);
-  const dispatch = useAppDispatch();
+  const { usersList } = useAppSelector((state) => state.leaderboard)
+  const dispatch = useAppDispatch()
   useEffect(() => {
-    dispatch(fetchusersList());
-  }, [dispatch]);
+    dispatch(fetchusersList())
+  }, [dispatch])
 
   return (
     <div className="w-full min-h-92.5-screen ">
@@ -33,7 +33,7 @@ const LeaderBoard: React.FC = () => {
         )}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default LeaderBoard;
+export default LeaderBoard

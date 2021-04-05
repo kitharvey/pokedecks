@@ -188,7 +188,7 @@ This is an example of how to list things you need to use the software and how to
 
 **How to explore?**
 
-![](public/readmeImages/explore.PNG)
+![](public/readmeImages/explore.png)
 
 1. Swipe/Drag the cards to see the next card.
 2. Click the undo button to go back to the previous card.
@@ -214,7 +214,7 @@ This is an example of how to list things you need to use the software and how to
 
 **How to check account?**
 
-![](public/readmeImages/account.PNG)
+![](public/readmeImages/account.png)
 
 1. Click your name on the top right of the dashboard, then click account.
 2. Check your details and favorite.
