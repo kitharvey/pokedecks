@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { UpdateFavoritesProps } from '../InterfacesProps/Interfaces'
+import { UpdateFavoritesProps } from '../interfacesProps/Interfaces'
 
 interface InitialStateProps {
-  FavoritesList: UpdateFavoritesProps[] | null
+  FavoritesList: UpdateFavoritesProps[] | null,
   typeList: string[] | null
 }
 

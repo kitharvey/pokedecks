@@ -3,7 +3,7 @@ import {
   GetPokemonEvolutionChainInterface,
   GetPokemonSpeciesDataInterface,
   NameURLInterface,
-} from '../InterfacesProps/Interfaces'
+} from '../interfacesProps/Interfaces'
 
 export const extractEvolutionChain = (response: GetPokemonEvolutionChainInterface) => {
   const evoChain = []

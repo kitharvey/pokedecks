@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import React from 'react'
-import { AnimateProps, InitialProps, TransitionProps } from '../../InterfacesProps/Interfaces'
+import { AnimateProps, InitialProps, TransitionProps } from '../../interfacesProps/Interfaces'
 
 interface GameFramerCardProps {
   initial?: InitialProps

@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 import { signIn, patchFavorites, patchScore } from '../fromAPI/axiosFunctions'
-import { SignInProps, UpdateFavoritesProps, UserProps } from '../InterfacesProps/Interfaces'
+import { SignInProps, UpdateFavoritesProps, UserProps } from '../interfacesProps/Interfaces'
 
 export const signin = createAsyncThunk('user/signin', async (body: SignInProps) => {
   const userData = await signIn(body)
@@ -8,7 +8,7 @@ export const signin = createAsyncThunk('user/signin', async (body: SignInProps) 
 })
 
 interface InitialStateProps {
-  userData: UserProps | null
+  userData: UserProps | null,
   status: 'loading' | 'success' | 'failed' | null
 }
 

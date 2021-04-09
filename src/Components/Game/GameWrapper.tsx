@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { shuffleDeck } from '../../functions/GlobalFunctions'
-import { NameURLInterface } from '../../InterfacesProps/Interfaces'
+import { NameURLInterface } from '../../interfacesProps/Interfaces'
 import { useAppSelector } from '../../reduxStore/hooks'
 import Game from './Game'
 

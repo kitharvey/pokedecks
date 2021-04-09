@@ -12,7 +12,7 @@ import {
   GetPokemonDataInterface,
   GetPokemonSpeciesDataInterface,
   NameURLInterface,
-} from '../../InterfacesProps/Interfaces'
+} from '../../interfacesProps/Interfaces'
 import egg from '../../assets/pokemon-egg.png'
 import { findColor } from '../../functions/getTypeIconAndColor'
 import { useAppDispatch } from '../../reduxStore/hooks'

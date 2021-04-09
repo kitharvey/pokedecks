@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { FaHeart } from 'react-icons/fa'
 import { AnimatePresence } from 'framer-motion'
-import { NameURLInterface } from '../../InterfacesProps/Interfaces'
+import { NameURLInterface } from '../../interfacesProps/Interfaces'
 import { getIDStringfromURL, getrandomIndex, shuffleOptions } from '../../functions/GlobalFunctions'
 import HiddenPokemon from './HiddenPokemon'
 import GameOver from './GameOver'

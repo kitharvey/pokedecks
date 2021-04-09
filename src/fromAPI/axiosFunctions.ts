@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { SignInProps, UpdateFavoritesProps, UserProps } from '../InterfacesProps/Interfaces'
+import { SignInProps, UpdateFavoritesProps, UserProps } from '../interfacesProps/Interfaces'
 import { shuffleDeck } from '../functions/GlobalFunctions'
 
 const BACKEND_SERVER_URL = process.env.REACT_APP_BACKEND_SERVER_URL

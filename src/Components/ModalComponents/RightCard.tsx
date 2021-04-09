@@ -1,5 +1,5 @@
 import React from 'react'
-import { ModalCardProps } from '../../InterfacesProps/Interfaces'
+import { ModalCardProps } from '../../interfacesProps/Interfaces'
 import Evolution from './Evolution'
 
 const RightCard: React.FC<ModalCardProps> = ({ speciesdata, pokemondata }) => (

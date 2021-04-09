@@ -1,5 +1,5 @@
 import React from 'react'
-import { ActualCardInterface } from '../../InterfacesProps/Interfaces'
+import { ActualCardInterface } from '../../interfacesProps/Interfaces'
 import ActualCard from './ActualCard'
 
 const Card: React.FC<ActualCardInterface> = ({ pokemondata }) => {

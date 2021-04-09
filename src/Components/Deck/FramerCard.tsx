@@ -2,7 +2,7 @@ import React from 'react'
 import { motion, useMotionValue, PanInfo, useTransform } from 'framer-motion'
 import { useAppDispatch } from '../../reduxStore/hooks'
 import { setPokemonIndex } from '../../reduxStore/pokemonSlice'
-import { AnimateProps, InitialProps, TransitionProps } from '../../InterfacesProps/Interfaces'
+import { AnimateProps, InitialProps, TransitionProps } from '../../interfacesProps/Interfaces'
 
 interface FramerCardProps {
   initial?: InitialProps

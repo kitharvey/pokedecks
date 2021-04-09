@@ -1,7 +1,7 @@
 import React from 'react'
 import { useQuery } from 'react-query'
 import { fetchPokemonData } from '../../fromAPI/axiosFunctions'
-import { CardInterface } from '../../InterfacesProps/Interfaces'
+import { CardInterface } from '../../interfacesProps/Interfaces'
 import CardLoader from './CardLoader'
 import Card from './Card'
 import 'react-lazy-load-image-component/src/effects/black-and-white.css'

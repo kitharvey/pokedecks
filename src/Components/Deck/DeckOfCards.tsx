@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { FaUndoAlt, FaSearch } from 'react-icons/fa'
 import { wrap } from 'popmotion'
 import FramerCard from './FramerCard'
-import { NameURLInterface } from '../../InterfacesProps/Interfaces'
+import { NameURLInterface } from '../../interfacesProps/Interfaces'
 import { useAppDispatch, useAppSelector } from '../../reduxStore/hooks'
 import {
   setPokemonIndex,

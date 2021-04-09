@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 interface InitialStateProps {
-  modalIndex: number
+  modalIndex: number,
   modalShow: boolean
 }
 

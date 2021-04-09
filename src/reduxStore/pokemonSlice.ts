@@ -1,17 +1,17 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { fetchList } from '../fromAPI/axiosFunctions'
-import { NameURLInterface } from '../InterfacesProps/Interfaces'
+import { NameURLInterface } from '../interfacesProps/Interfaces'
 
 export const fetchPokemonList = createAsyncThunk('pokemon/fetchPokemonList', async () => {
   const data = await fetchList()
-  return data as NameURLInterface[]
+  return data
 })
 
 interface InitialStateProps {
-  pokemonList: NameURLInterface[] | null
-  status: 'loading' | 'success' | 'failed'
-  pokemonIndex: number
-  pokemonSearch: string
+  pokemonList: NameURLInterface[] | null,
+  status: 'loading' | 'success' | 'failed',
+  pokemonIndex: number,
+  pokemonSearch: string,
   pokemonListLength: number
 }
 

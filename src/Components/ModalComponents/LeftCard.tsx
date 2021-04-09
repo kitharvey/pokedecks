@@ -1,7 +1,7 @@
 import React from 'react'
 import Case from 'case'
 import { getFlavorSpeech } from '../../functions/GlobalFunctions'
-import { ModalCardProps } from '../../InterfacesProps/Interfaces'
+import { ModalCardProps } from '../../interfacesProps/Interfaces'
 import FlexBetween from './FlexBetween'
 
 const LeftCard: React.FC<ModalCardProps> = ({ speciesdata, pokemondata }) => (

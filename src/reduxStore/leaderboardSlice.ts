@@ -1,14 +1,14 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { fetchUsersList } from '../fromAPI/axiosFunctions'
-import { UserProps } from '../InterfacesProps/Interfaces'
+import { UserProps } from '../interfacesProps/Interfaces'
 
 export const fetchusersList = createAsyncThunk('leaderboard/fetchusersList', async () => {
   const data = await fetchUsersList()
-  return data as UserProps[]
+  return data
 })
 
 interface InitialStateProps {
-  usersList: UserProps[] | null
+  usersList: UserProps[] | null,
   status: 'loading' | 'success' | 'failed' | null
 }
 
